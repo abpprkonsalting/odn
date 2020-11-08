@@ -20,7 +20,7 @@ class CreateMunicipalitiesTable extends Migration
             $table->string('name', 250);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('province_id')->references('id')->on('province');
+            $table->foreign('province_id')->references('id')->on('provinces');
         });
     }
 
