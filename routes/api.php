@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+/*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 
 Route::resource('provinces', 'ProvinceAPIController');
 
@@ -54,3 +56,21 @@ Route::resource('affiliates', 'AffiliateAPIController');
 Route::resource('languages', 'LanguagesAPIController');
 
 Route::resource('levels', 'LevelAPIController');
+
+Route::resource('personal_informations', 'PersonalInformationAPIController');*/
+
+Route::resource('operational_informations', 'OperationalInformationAPIController');
+
+Route::resource('memos', 'MemoAPIController');
+
+Route::resource('courses', 'CourseAPIController');
+
+Route::resource('personal_medical_informations', 'PersonalMedicalInformationAPIController');
+
+Route::resource('passports', 'PassportAPIController');
+
+Route::resource('family_informations', 'FamilyInformationAPIController');
+
+Route::resource('other_skills', 'OtherSkillAPIController');
+
+Route::resource('companies', 'CompanyAPIController');

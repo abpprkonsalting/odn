@@ -29,7 +29,7 @@ class MunicipalityDataTable extends DataTable
      */
     public function query(Municipality $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('province');
     }
 
     /**
@@ -65,7 +65,7 @@ class MunicipalityDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'province_id',
+            'province.name',
             'name'
         ];
     }

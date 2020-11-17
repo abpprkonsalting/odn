@@ -35,7 +35,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{ url('/home') }}"><b>InfyOm </b>Generator</a>
+        <a href="{{ route('home') }}"><b>ODN </b></a>
     </div>
 
     <!-- /.login-logo -->
@@ -82,8 +82,6 @@
         </form>
 
         <a href="{{ url('/password/reset') }}">@lang('auth.login.forgot_password')</a><br>
-        <a href="{{ url('/register') }}" class="text-center">@lang('auth.login.register_membership')</a>
-
     </div>
     <!-- /.login-box-body -->
 </div>

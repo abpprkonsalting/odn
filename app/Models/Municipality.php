@@ -50,5 +50,10 @@ class Municipality extends Model
         'name' => 'required|max:250'
     ];
 
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id');
+    }
+
     
 }
