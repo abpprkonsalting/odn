@@ -55,7 +55,7 @@ class PersonalInformationController extends AppBaseController
 
         Flash::success('Personal Information saved successfully.');
 
-        return redirect(route('personalInformations.edit', ['id' => $personalInformation->id]));
+        return redirect(route('personalInformations.edit', $personalInformation->id));
     }
 
     /**
@@ -110,11 +110,6 @@ class PersonalInformationController extends AppBaseController
     {
         $personalInformation = $this->personalInformationRepository->find($id);
 
-        /*echo "<pre>";
-            print_r($personalInformation);
-        echo "</pre>";
-        die;*/
-        
         if (empty($personalInformation)) {
             Flash::error('Personal Information not found');
 
@@ -125,7 +120,7 @@ class PersonalInformationController extends AppBaseController
 
         Flash::success('Personal Information updated successfully.');
 
-        return redirect(route('personalInformations.index'));
+        return redirect(route('personalInformations.edit', $personalInformation->id));
     }
 
     /**

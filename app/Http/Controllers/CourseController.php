@@ -11,6 +11,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Response;
+use Yajra\DataTables\DataTables;
 
 class CourseController extends AppBaseController
 {
@@ -71,7 +72,7 @@ class CourseController extends AppBaseController
 
         Flash::success('Course saved successfully.');
 
-        return redirect(route('courses.create', [ 'id' => $course->id ]));
+        return redirect(route('courses.create', [ 'id' => $course->personal_informations_id ]));
     }
 
     /**
@@ -111,7 +112,7 @@ class CourseController extends AppBaseController
             return redirect(route('courses.index'));
         }
 
-        return view('courses.edit')->with('course', $course);
+        return view('courses.edit')->with(['course' => $course, 'personalInformation' => $course->personalInformation]);
     }
 
     /**
@@ -129,14 +130,14 @@ class CourseController extends AppBaseController
         if (empty($course)) {
             Flash::error('Course not found');
 
-            return redirect(route('courses.index'));
+            return redirect(route('personalInformation.index'));
         }
 
         $course = $this->courseRepository->update($request->all(), $id);
 
         Flash::success('Course updated successfully.');
 
-        return redirect(route('courses.index'));
+        return redirect(route('courses.create', [ 'id' => $course->personal_informations_id ]));
     }
 
     /**
@@ -153,13 +154,29 @@ class CourseController extends AppBaseController
         if (empty($course)) {
             Flash::error('Course not found');
 
-            return redirect(route('courses.index'));
+            return redirect(route('personalInformation.index'));
         }
 
         $this->courseRepository->delete($id);
 
         Flash::success('Course deleted successfully.');
 
-        return redirect(route('courses.index'));
+        return redirect(route('courses.create', [ 'id' => $course->personal_informations_id ]));
+    }
+
+     /**
+     * Return JSON with listing of the Courses belong to PersonalInformation.
+     *
+     * @param integer $personal_informations_id
+     * @return JSON
+     */
+    public function getPersonalInformationCourse($id)
+    {
+        $courseModel = $this->courseRepository->model();
+        return Datatables::of($courseModel::with(['province', 'courseNumber'])->where(['personal_informations_id' => $id])->get())
+            ->addColumn('action', 'courses.datatables_actions')
+            ->rawColumns(['action'])
+            ->make(true);
+    
     }
 }

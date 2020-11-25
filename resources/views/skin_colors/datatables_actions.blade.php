@@ -1,9 +1,9 @@
-{!! Form::open(['route' => ['memos.destroy', $id], 'method' => 'delete']) !!}
+{!! Form::open(['route' => ['skinColors.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    {{--<a href="{{ route('memos.show', $id) }}" class='btn btn-default btn-xs'>
+    <a href="{{ route('skinColors.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-eye-open"></i>
-    </a>--}}
-    <a href="{{ route('memos.edit', $id) }}" class='btn btn-default btn-xs'>
+    </a>
+    <a href="{{ route('skinColors.edit', $id) }}" class='btn btn-default btn-xs'>
         <i class="glyphicon glyphicon-edit"></i>
     </a>
     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', [

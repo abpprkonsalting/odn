@@ -1,23 +1,28 @@
-@extends('layouts.app')
+@extends('partials.person_tabs', [
+    'activeMenuTemplate' => 'memosInformation',
+    'personalInformationId' => $memo->personalInformation->id  
+])
 
-@section('content')
+@section('tabs-section-header')
     <section class="content-header">
         <h1>
             Memo
         </h1>
-   </section>
-   <div class="content">
-       @include('adminlte-templates::common.errors')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($memo, ['route' => ['memos.update', $memo->id], 'method' => 'patch']) !!}
+        @include('partials.person_breadcrumbs')
+    </section>
+@endsection
 
-                        @include('memos.fields')
+@section('person-content')
+                
+    {!! Form::model($memo, ['route' => ['memos.update', $memo->id], 'method' => 'patch']) !!}
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+        @include('memos.fields')
+
+    {!! Form::close() !!}
+
+    <div class="col-sm-12">
+        <h3 class="box-title">Memos List</h3>
+        @include('memos.table')
+    </div>
+    
 @endsection

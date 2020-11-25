@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API;
 
-use Illuminate\Foundation\Http\FormRequest;
-use App\Models\PersonalInformation;
+use App\Models\SkinColor;
+use InfyOm\Generator\Request\APIRequest;
 
-class UpdatePersonalInformationRequest extends FormRequest
+class UpdateSkinColorAPIRequest extends APIRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,8 +24,8 @@ class UpdatePersonalInformationRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = PersonalInformation::$rules;
-        $rules['id_number'] = $rules['id_number'].",".$this->route("personalInformation");
+        $rules = SkinColor::$rules;
+        
         return $rules;
     }
 }

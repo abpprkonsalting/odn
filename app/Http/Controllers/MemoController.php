@@ -11,6 +11,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\PersonalInformation;
 use App\Repositories\PersonalInformationRepository;
+use Yajra\DataTables\DataTables;
 use Response;
 
 class MemoController extends AppBaseController
@@ -73,7 +74,7 @@ class MemoController extends AppBaseController
 
         Flash::success('Memo saved successfully.');
 
-        return redirect(route('memos.create', [ 'id' => $memo->id ]));
+        return redirect(route('memos.create', [ 'id' => $memo->personal_informations_id ]));
     }
 
     /**
@@ -113,7 +114,7 @@ class MemoController extends AppBaseController
             return redirect(route('memos.index'));
         }
 
-        return view('memos.edit')->with('memo', $memo);
+        return view('memos.edit')->with(['memo' => $memo, 'personalInformation' => $memo->personalInformation]);
     }
 
     /**
@@ -131,14 +132,14 @@ class MemoController extends AppBaseController
         if (empty($memo)) {
             Flash::error('Memo not found');
 
-            return redirect(route('memos.index'));
+            return redirect(route('personalInformation.index'));
         }
 
         $memo = $this->memoRepository->update($request->all(), $id);
 
         Flash::success('Memo updated successfully.');
 
-        return redirect(route('memos.index'));
+        return redirect(route('memos.create', [ 'id' => $memo->personal_informations_id ]));
     }
 
     /**
@@ -155,13 +156,29 @@ class MemoController extends AppBaseController
         if (empty($memo)) {
             Flash::error('Memo not found');
 
-            return redirect(route('memos.index'));
+            return redirect(route('personalInformation.index'));
         }
 
         $this->memoRepository->delete($id);
 
         Flash::success('Memo deleted successfully.');
 
-        return redirect(route('memos.index'));
+        return redirect(route('memos.create', [ 'id' => $memo->personal_informations_id ]));
+    }
+
+    /**
+     * Return JSON with listing of the Courses belong to PersonalInformation.
+     *
+     * @param integer $personal_informations_id
+     * @return JSON
+     */
+    public function getPersonalInformationMemo($id)
+    {
+        $memoModel = $this->memoRepository->model();
+        return Datatables::of($memoModel::where(['personal_informations_id' => $id])->get())
+            ->addColumn('action', 'memos.datatables_actions')
+            ->rawColumns(['action'])
+            ->make(true);
+    
     }
 }

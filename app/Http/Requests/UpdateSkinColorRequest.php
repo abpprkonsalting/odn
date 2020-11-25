@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\PersonalInformation;
+use App\Models\SkinColor;
 
-class UpdatePersonalInformationRequest extends FormRequest
+class UpdateSkinColorRequest extends FormRequest
 {
 
     /**
@@ -25,8 +25,8 @@ class UpdatePersonalInformationRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = PersonalInformation::$rules;
-        $rules['id_number'] = $rules['id_number'].",".$this->route("personalInformation");
+        $rules = SkinColor::$rules;
+        
         return $rules;
     }
 }

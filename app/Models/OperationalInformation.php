@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 /**
  * Class OperationalInformation
@@ -43,7 +44,7 @@ class OperationalInformation extends Model
     protected $casts = [
         'id' => 'integer',
         'personal_informations_id' => 'integer',
-        'disponibility_date' => 'date',
+        'disponibility_date' => 'datetime:Y-m-d',
         'ranks_id' => 'integer',
         'statuses_id' => 'integer',
         'description' => 'string'
@@ -56,7 +57,7 @@ class OperationalInformation extends Model
      */
     public static $rules = [
         'personal_informations_id' => 'required',
-        'disponibility_date' => 'required',
+        'disponibility_date' => 'required|date|date_format:Y-m-d',
         'ranks_id' => 'required',
         'statuses_id' => 'required',
         'description' => 'nullable'
@@ -64,7 +65,11 @@ class OperationalInformation extends Model
 
     public function personalInformation()
     {
-        return $this->belongsTo('App\Models\PersonalInformation', 'personal_informations_id');
+        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+    }
+
+    public function getDisponibilityDateAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
     }
 
 }

@@ -16,6 +16,7 @@ use App\Models\MaritalStatus;
 use App\Models\MedicalInformation;
 use App\Models\Rank;
 use App\Models\SchoolGrade;
+use App\Models\SkinColor;
 use App\Models\Status;
 use Spatie\Permission\Models\Role;
 use View;
@@ -93,8 +94,9 @@ class ViewServiceProvider extends ServiceProvider
             $eyesColorIdItems = EyesColor::pluck('name','id')->toArray();
             $schoolGradeIdItems = SchoolGrade::pluck('name','id')->toArray();
             $maritalStatusIdItems = MaritalStatus::pluck('name','id')->toArray();
+            $skinColorIdItems = SkinColor::pluck('name','id')->toArray();
 
-            $view->with(compact('politicalIntegrationItems', 'eyesColorIdItems', 'hairColorIdItems', 'maritalStatusIdItems', 'schoolGradeIdItems'));
+            $view->with(compact('politicalIntegrationItems', 'eyesColorIdItems', 'hairColorIdItems', 'maritalStatusIdItems', 'schoolGradeIdItems', 'skinColorIdItems'));
         });
         //
 

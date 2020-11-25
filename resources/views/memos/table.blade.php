@@ -2,9 +2,39 @@
     @include('layouts.datatables_css')
 @endsection
 
-{!! $dataTable->table(['width' => '100%', 'class' => 'table table-striped table-bordered']) !!}
+<table class="table table-bordered memo-datatable">
+    <thead>
+        <tr>
+            <th>Note</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 
 @push('scripts')
     @include('layouts.datatables_js')
-    {!! $dataTable->scripts() !!}
+    <script type="text/javascript">
+        $(function () {
+          
+          var table = $('.memo-datatable').DataTable({
+              processing: true,
+              serverSide: true,
+              ajax: "{{ route('memo.getPersonalInformationMemo', ['id' => $personalInformation->id]) }}",
+              columns: [
+                  {data: 'note', name: 'note'},
+                  {data: 'memo_date', name: 'memo_date'}, 
+                  {
+                      data: 'action', 
+                      name: 'action', 
+                      orderable: true, 
+                      searchable: true
+                  },
+              ]
+          });
+          
+        });
+      </script>
 @endpush

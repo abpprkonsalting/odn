@@ -31,6 +31,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('hairColors', 'HairColorController')->middleware('role_or_permission:Admin|hair');
 
+    Route::resource('skinColors', 'SkinColorController')->middleware('role_or_permission:Admin|skinColors'); 
+
     Route::resource('maritalStatuses', 'MaritalStatusController')->middleware('role_or_permission:Admin|marital');
 
     Route::resource('schoolGrades', 'SchoolGradeController')->middleware('role_or_permission:Admin|schoolGrade');
@@ -67,23 +69,28 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('personalInformations', 'PersonalInformationController')->middleware('role_or_permission:Admin|personalInformation');
 
+    Route::get('province/getAjaxProvinceById/{id}', 'ProvinceController@getAjaxProvinceById');
+
+    Route::resource('operationalInformations', 'OperationalInformationController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::resource('memos', 'MemoController')->middleware('role_or_permission:Admin|personalInformation');
+
+    Route::get('memos/getPersonalInformationMemo/{id}', 'MemoController@getPersonalInformationMemo')->name("memo.getPersonalInformationMemo");
+    
+    
+    Route::resource('courses', 'CourseController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::get('courses/getPersonalInformationCourse/{id}', 'CourseController@getPersonalInformationCourse')->name("course.getPersonalInformationCourse");
+    
+    Route::resource('personalMedicalInformations', 'PersonalMedicalInformationController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::resource('passports', 'PassportController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::resource('familyInformations', 'FamilyInformationController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::resource('otherSkills', 'OtherSkillController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::resource('companies', 'CompanyController')->middleware('role_or_permission:Admin|personalInformation');
+    
     
 });
-
-Route::get('province/getAjaxProvinceById/{id}', 'ProvinceController@getAjaxProvinceById');
-
-Route::resource('operationalInformations', 'OperationalInformationController');
-
-Route::resource('memos', 'MemoController');
-
-Route::resource('courses', 'CourseController');
-
-Route::resource('personalMedicalInformations', 'PersonalMedicalInformationController');
-
-Route::resource('passports', 'PassportController');
-
-Route::resource('familyInformations', 'FamilyInformationController');
-
-Route::resource('otherSkills', 'OtherSkillController');
-
-Route::resource('companies', 'CompanyController');

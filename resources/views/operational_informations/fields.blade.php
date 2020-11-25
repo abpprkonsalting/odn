@@ -6,13 +6,23 @@
         <!-- Disponibility Date Field -->
         <div class="form-group col-sm-4">
             {!! Form::label('disponibility_date', 'Disponibility Date:') !!}
-            <div class="input-group">
-                {!! Form::text('disponibility_date', null, ['class' => 'form-control datepicker', 'autocomplete' => 'off']) !!}
+            <div class="input-group date">
+                {!! Form::text('disponibility_date', null, ['class' => 'form-control datepicker', 'id' => 'disponibility_date','autocomplete' => 'off']) !!}
                 <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                 </div>
             </div>
         </div>
+
+        @push('scripts')
+            <script type="text/javascript">
+                //Date picker
+                $('#disponibility_date').datepicker({
+                    autoclose: true,
+                    format: 'yyyy-mm-dd'
+                })
+            </script>
+        @endpush
 
         <!-- Rank Id Field -->
         <div class="form-group col-sm-4">

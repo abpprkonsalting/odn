@@ -41,6 +41,10 @@
                 <li class="{{ Request::is('hairColors*') ? 'active' : '' }}">
                     <a href="{{ route('hairColors.index') }}"><i class="fa fa-edit"></i><span>Hair Colors</span></a>
                 </li>
+
+                <li class="{{ Request::is('skinColors*') ? 'active' : '' }}">
+                    <a href="{{ route('skinColors.index') }}"><i class="fa fa-edit"></i><span>Skin Colors</span></a>
+                </li>
                 
                 <li class="{{ Request::is('maritalStatuses*') ? 'active' : '' }}">
                     <a href="{{ route('maritalStatuses.index') }}"><i class="fa fa-edit"></i><span>Marital Statuses</span></a>
@@ -139,3 +143,4 @@
     <a href="{{ route('companies.index') }}"><i class="fa fa-edit"></i><span>Companies</span></a>
 </li>
 */ ?>
+

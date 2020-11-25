@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 /**
  * Class Memo
@@ -40,7 +41,7 @@ class Memo extends Model
         'id' => 'integer',
         'personal_informations_id' => 'integer',
         'note' => 'string',
-        'memo_date' => 'date'
+        'memo_date' => 'datetime:Y-m-d'
     ];
 
     /**
@@ -51,8 +52,16 @@ class Memo extends Model
     public static $rules = [
         'personal_informations_id' => 'required',
         'note' => 'nullable',
-        'memo_date' => 'required'
+        'memo_date' => 'required|date|date_format:Y-m-d'
     ];
 
-    
+    public function getMemoDateAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+    } 
+
+    public function personalInformation()
+    {
+        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+    }
+
 }

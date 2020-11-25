@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Eloquent as Model;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -25,7 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $secondary_phone
  * @property string $cell_phone
  * @property string $relevant_action
- * @property string $skin_color
+ * @property integer $skin_color_id
  * @property string $sex
  * @property integer $eyes_color_id
  * @property integer $hair_color_id
@@ -46,7 +47,12 @@ class PersonalInformation extends Model
 
     protected $dates = ['deleted_at'];
 
-
+    /**
+     * The storage format of the model's date columns.
+     *
+     * @var string
+     */
+    protected $dateFormat = 'Y-m-d';
 
     public $fillable = [
         'internal_file_number',
@@ -64,7 +70,7 @@ class PersonalInformation extends Model
         'secondary_phone',
         'cell_phone',
         'relevant_action',
-        'skin_color',
+        'skin_color_id',
         'sex',
         'eyes_color_id',
         'hair_color_id',
@@ -89,7 +95,7 @@ class PersonalInformation extends Model
         'full_name' => 'string',
         'id_number' => 'string',
         'serial_number' => 'string',
-        'birthday' => 'date',
+        'birthday' => 'datetime:Y-m-d',
         'birthplace' => 'string',
         'province_id' => 'integer',
         'municipality_id' => 'integer',
@@ -98,7 +104,7 @@ class PersonalInformation extends Model
         'secondary_phone' => 'string',
         'cell_phone' => 'string',
         'relevant_action' => 'string',
-        'skin_color' => 'string',
+        'skin_color_id' => 'integer',
         'sex' => 'string',
         'eyes_color_id' => 'integer',
         'hair_color_id' => 'integer',
@@ -120,6 +126,7 @@ class PersonalInformation extends Model
         'external_file_number' => 'max:250',
         'full_name' => 'max:250',
         'id_number' => 'required|max:250|unique:personal_informations,id_number',
+        'birthday' => 'date|date_format:Y-m-d',
         'serial_number' => 'max:250',
         'birthplace' => 'max:250',
         'address' => 'nullable|max:500',
@@ -127,7 +134,7 @@ class PersonalInformation extends Model
         'secondary_phone' => 'nullable:max:250',
         'cell_phone' => 'nullable|max:250',
         'relevant_action' => 'nullable',
-        'skin_color' => 'nullable|max:25',
+        'skin_color_id' => 'nullable',
         'sex' => 'max:25',
         'hair_color_id' => 'nullable',
         'height' => 'nullable',
@@ -139,9 +146,30 @@ class PersonalInformation extends Model
         'avatar' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
     ];
 
+    public function getBirthdayAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+    } 
+    
+    /**
+     * Get the operational information for Person.
+     */
     public function operationalInformation()
     {
-        return $this->hasOne('App\Models\OperationalInformation', 'personal_informations_id');
+        return $this->hasOne(OperationalInformation::class, 'personal_informations_id');
+    }
+
+    /**
+     * Get the Memos information for Person.
+     */
+    public function memos() {
+        return $this->hasMany(Memo::class, 'personal_informations_id');
+    }
+
+    /**
+     * Get the Memos information for Person.
+     */
+    public function courses() {
+        return $this->hasMany(Course::class, 'personal_informations_id');
     }
     
 }

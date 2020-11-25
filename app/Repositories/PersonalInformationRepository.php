@@ -97,8 +97,8 @@ class PersonalInformationRepository extends BaseRepository
 
             $input['avatar'] = $path;
 
-            if ($personalInformation->avatar != env('DEFAULT_USER_IMAGE') && file_exists($personalInformation->avatar)) {
-                unlink($personalInformation->avatar);
+            if ($personalInformation->avatar != env('DEFAULT_USER_IMAGE') && file_exists(public_path() . $personalInformation->avatar)) {
+                unlink(public_path() . $personalInformation->avatar);
             }
 
         } else {

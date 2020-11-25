@@ -44,6 +44,16 @@
     </div>
 </div>
 
+@push('scripts')
+    <script type="text/javascript">
+        //Date picker
+        $('#birthday').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        })
+    </script>
+@endpush
+
 <!-- Birthplace Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('birthplace', 'Birthplace:') !!}
@@ -96,10 +106,10 @@
 
 <div class="col-sm-12">
     <div class="row">
-        <!-- Cell Phone Field -->
+        <!-- Skin Color Id Field -->
         <div class="form-group col-sm-4">
-            {!! Form::label('skin_color', 'Skin Color:') !!}
-            {!! Form::text('skin_color', null, ['class' => 'form-control']) !!}
+            {!! Form::label('skin_color_id', 'Skin Color:') !!}
+            {!! Form::select('skin_color_id', $skinColorIdItems, null, ['class' => 'form-control']) !!}
         </div>
 
         <!-- Eyes Color Id Field -->
@@ -123,7 +133,6 @@
         {!! Form::number('height', null, ['class' => 'form-control text-right']) !!}
         <span class="input-group-addon">cm</span>
     </div>
-    
 </div>
 
 <!-- Weight Field -->
@@ -186,7 +195,6 @@
     </div>
 </div>
 
-
 <!-- Relevant Action Field -->
 <div class="form-group col-sm-12">
     {!! Form::label('relevant_action', 'Relevant Action:') !!}
@@ -198,3 +206,7 @@
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('personalInformations.index') }}" class="btn btn-default">Cancel</a>
 </div>
+
+@push('scripts')
+    <script src="{{ asset('/js/personalInformation.js') }}" type="text/javascript"></script>
+@endpush

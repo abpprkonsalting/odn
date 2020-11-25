@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 /**
  * Class Course
@@ -45,7 +46,7 @@ class Course extends Model
         'personal_informations_id' => 'integer',
         'course_numbers_id' => 'integer',
         'provinces_id' => 'integer',
-        'issue_date' => 'date',
+        'issue_date' => 'datetime:Y-m-d',
         'certificate_number' => 'string'
     ];
 
@@ -58,9 +59,28 @@ class Course extends Model
         'personal_informations_id' => 'required',
         'course_numbers_id' => 'required',
         'provinces_id' => 'required',
-        'issue_date' => 'required',
+        'issue_date' => 'required|date|date_format:Y-m-d',
         'certificate_number' => 'required'
     ];
+
+    public function getIssueDateAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+    } 
+
+    public function personalInformation()
+    {
+        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'provinces_id');
+    }
+
+    public function courseNumber()
+    {
+        return $this->belongsTo(CourseNumber::class, 'course_numbers_id');
+    }
 
     
 }

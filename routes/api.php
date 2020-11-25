@@ -74,3 +74,5 @@ Route::resource('family_informations', 'FamilyInformationAPIController');
 Route::resource('other_skills', 'OtherSkillAPIController');
 
 Route::resource('companies', 'CompanyAPIController');
+
+Route::resource('skin_colors', 'SkinColorAPIController');

@@ -37276,8 +37276,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./personalInformation */ "./resources/js/personalInformation.js");
 
-__webpack_require__(/*! ./datetime */ "./resources/js/datetime.js");
-
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -37322,23 +37320,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
-
-/***/ }),
-
-/***/ "./resources/js/datetime.js":
-/*!**********************************!*\
-  !*** ./resources/js/datetime.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-//jQuery(document).ready(function($) {
-if ($('#birthday').length > 0) {
-  $('#birthday').datepicker({
-    format: 'yyyy-mm-dd',
-    autoclose: true
-  });
-} //});
 
 /***/ }),
 

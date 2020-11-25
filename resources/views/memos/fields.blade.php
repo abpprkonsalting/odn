@@ -12,6 +12,16 @@
     </div>
 </div>
 
+@push('scripts')
+    <script type="text/javascript">
+        //Date picker
+        $('#memo_date').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        })
+    </script>
+@endpush
+
 <!-- Note Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('note', 'Note:') !!}

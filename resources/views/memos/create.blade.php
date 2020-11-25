@@ -6,12 +6,9 @@
 @section('tabs-section-header')
     <section class="content-header">
         <h1>
-            Memo <img class="" src="{{ $personalInformation->avatar }}" width="50px" height="auto" />
+            Memo
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">Internal Number: {{ $personalInformation->internal_file_number }}</li>
-            <li class="active">External Number: {{ $personalInformation->external_file_number}}</li>
-        </ol>
+        @include('partials.person_breadcrumbs')
     </section>
 @endsection
 
@@ -22,5 +19,10 @@
         @include('memos.fields')
 
     {!! Form::close() !!}
+
+    <div class="col-sm-12">
+        <h3 class="box-title">Memos List</h3>
+        @include('memos.table')
+    </div>
     
 @endsection

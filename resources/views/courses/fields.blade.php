@@ -18,6 +18,16 @@
     </div>
 </div>
 
+@push('scripts')
+    <script type="text/javascript">
+        //Date picker
+        $('#issue_date').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        })
+    </script>
+@endpush
+
 <!-- Course Numbers Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('course_numbers_id', 'Course Number:') !!}
