@@ -81,6 +81,22 @@ class ProvinceController extends AppBaseController
     }
 
     /**
+     * Display the specified  in Ajax Call.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function getAjaxProvinceById($id)
+    {
+        $province = $this->provinceRepository->model();
+        $provinces = $province::with('municipalities')
+            ->find($id);
+
+        return response()->json($provinces);
+    }
+
+    /**
      * Show the form for editing the specified Province.
      *
      * @param  int $id

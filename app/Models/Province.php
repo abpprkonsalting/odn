@@ -46,5 +46,13 @@ class Province extends Model
         'name' => 'required|max:250|unique:provinces'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function municipalities()
+    {
+        return $this->hasMany(Municipality::class, 'province_id');
+    }
+
     
 }

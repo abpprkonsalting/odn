@@ -1,8 +1,14 @@
 <li class="{{ Request::is('home*') ? 'active' : '' }}">
-    <a href="/home">
+    <a href="{{ route('home') }}">
         <i class="fa fa-dashboard"></i> 
         <span>Dashboard</span>
     </a>
+</li>
+<li class="">
+    <a href="#"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
+</li>
+<li class="{{ Request::is('personalInformations*') ? 'active' : '' }}">
+    <a href="{{ route('personalInformations.index') }}"><i class="fa fa-users"></i><span>Manage Persons</span></a>
 </li>
 <li class="{{ Request::is('configuration*') ? 'active' : '' }} treeview">
     <a href="{{ route('levels.index') }}">
@@ -14,7 +20,7 @@
     </a>
     <ul class="treeview-menu">
         <li class="treeview">
-            <a href="#"><i class="fa fa-circle-o"></i> Enum
+            <a href="#"><i class="fa fa-list"></i> Enum
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -34,6 +40,10 @@
                 
                 <li class="{{ Request::is('hairColors*') ? 'active' : '' }}">
                     <a href="{{ route('hairColors.index') }}"><i class="fa fa-edit"></i><span>Hair Colors</span></a>
+                </li>
+
+                <li class="{{ Request::is('skinColors*') ? 'active' : '' }}">
+                    <a href="{{ route('skinColors.index') }}"><i class="fa fa-edit"></i><span>Skin Colors</span></a>
                 </li>
                 
                 <li class="{{ Request::is('maritalStatuses*') ? 'active' : '' }}">
@@ -93,5 +103,44 @@
                 </li>
             </ul>
         </li>
+        <li class="treeview">
+            <a href="#"><i class="fa fa-key"></i> Security
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="{{ Request::is('users*') ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}"><i class="fa fa-edit"></i><span>Users</span></a>
+                </li>
+                
+                </li><li class="{{ Request::is('roles*') ? 'active' : '' }}">
+                    <a href="{{ route('roles.index') }}"><i class="fa fa-edit"></i><span>Roles</span></a>
+                </li>
+                
+                <li class="{{ Request::is('permissions*') ? 'active' : '' }}">
+                    <a href="{{ route('permissions.index') }}"><i class="fa fa-edit"></i><span>Permissions</span></a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </li>
+<?php /* ?>
+<li class="{{ Request::is('operationalInformations*') ? 'active' : '' }}">
+    <a href="{{ route('operationalInformations.index') }}"><i class="fa fa-edit"></i><span>Operational Informations</span></a>
+</li> <?php <li class="{{ Request::is('memos*') ? 'active' : '' }}">
+    <a href="{{ route('memos.index') }}"><i class="fa fa-edit"></i><span>Memos</span></a>
+</li>
+<li class="{{ Request::is('courses*') ? 'active' : '' }}">
+    <a href="{{ route('courses.index') }}"><i class="fa fa-edit"></i><span>Courses</span></a>
+</li><li class="{{ Request::is('passports*') ? 'active' : '' }}">
+    <a href="{{ route('passports.index') }}"><i class="fa fa-edit"></i><span>Passports</span></a>
+</li><li class="{{ Request::is('familyInformations*') ? 'active' : '' }}">
+    <a href="{{ route('familyInformations.index') }}"><i class="fa fa-edit"></i><span>Family Informations</span></a>
+</li><li class="{{ Request::is('otherSkills*') ? 'active' : '' }}">
+    <a href="{{ route('otherSkills.index') }}"><i class="fa fa-edit"></i><span>Other Skills</span></a>
+</li><li class="{{ Request::is('companies*') ? 'active' : '' }}">
+    <a href="{{ route('companies.index') }}"><i class="fa fa-edit"></i><span>Companies</span></a>
+</li>
+*/ ?>
+
