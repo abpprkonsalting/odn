@@ -1,23 +1,28 @@
-@extends('layouts.app')
+@extends('partials.person_tabs', [
+    'activeMenuTemplate' => 'personalMedicalInformation',
+    'personalInformationId' => $personalMedicalInformation->personalInformation->id  
+])
 
-@section('content')
+@section('tabs-section-header')
     <section class="content-header">
         <h1>
-            Course
+            Personal Medical Information
         </h1>
-   </section>
-   <div class="content">
-       @include('adminlte-templates::common.errors')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($course, ['route' => ['courses.update', $course->id], 'method' => 'patch']) !!}
+        @include('partials.person_breadcrumbs')
+    </section>
+@endsection
 
-                        @include('courses.fields')
+@section('person-content')
+                
+    {!! Form::model($personalMedicalInformation, ['route' => ['personalMedicalInformations.update', $personalMedicalInformation->id], 'method' => 'patch']) !!}
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+        @include('personal_medical_informations.fields')
+
+    {!! Form::close() !!}
+
+    <div class="col-sm-12">
+        <h3 class="box-title">Personal Medical Information List</h3>
+        @include('personal_medical_informations.table')
+    </div>
+    
 @endsection

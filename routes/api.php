@@ -76,3 +76,19 @@ Route::resource('other_skills', 'OtherSkillAPIController');
 Route::resource('companies', 'CompanyAPIController');
 
 Route::resource('skin_colors', 'SkinColorAPIController');
+
+Route::resource('license_endorsement_types', 'LicenseEndorsementTypeAPIController');
+
+Route::resource('countries', 'CountryAPIController');
+
+Route::resource('license_endorsement_names', 'LicenseEndorsementNameAPIController');
+
+Route::resource('license_endorsements', 'LicenseEndorsementAPIController');
+
+Route::resource('visa_types', 'VisaTypeAPIController');
+
+Route::resource('visas', 'VisaAPIController');
+
+Route::resource('shore_experiencies', 'shoreExperiencieAPIController');
+
+Route::resource('seaman_books', 'SeamanBookAPIController');

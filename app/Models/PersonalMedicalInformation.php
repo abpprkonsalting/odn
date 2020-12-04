@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 /**
  * Class PersonalMedicalInformation
@@ -42,8 +43,8 @@ class PersonalMedicalInformation extends Model
         'id' => 'integer',
         'personal_informations_id' => 'integer',
         'medical_informations_id' => 'integer',
-        'issue_date' => 'date',
-        'expiry_date' => 'date'
+        'issue_date' => 'datetime:Y-m-d',
+        'expiry_date' => 'datetime:Y-m-d'
     ];
 
     /**
@@ -54,9 +55,26 @@ class PersonalMedicalInformation extends Model
     public static $rules = [
         'personal_informations_id' => 'required',
         'medical_informations_id' => 'required',
-        'issue_date' => 'required',
-        'expiry_date' => 'required'
+        'issue_date' => 'required|date|date_format:Y-m-d',
+        'expiry_date' => 'required|date|date_format:Y-m-d'
     ];
 
-    
+    public function getIssueDateAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+    } 
+
+    public function getExpiryDateAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+    } 
+
+    public function medicalInformation()
+    {
+        return $this->belongsTo(MedicalInformation::class, 'medical_informations_id');
+    }
+
+    public function personalInformation()
+    {
+        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+    }
+
 }

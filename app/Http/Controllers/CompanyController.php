@@ -11,6 +11,7 @@ use App\Repositories\PersonalInformationRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Response;
 
 class CompanyController extends AppBaseController
@@ -112,7 +113,10 @@ class CompanyController extends AppBaseController
             return redirect(route('companies.index'));
         }
 
-        return view('companies.edit')->with('company', $company);
+       
+        return view('companies.edit')->with(['company' => $company, 'personalInformation' => $company->personalInformation]);
+        
+        
     }
 
     /**
@@ -137,7 +141,8 @@ class CompanyController extends AppBaseController
 
         Flash::success('Company updated successfully.');
 
-        return redirect(route('companies.index'));
+        
+        return redirect(route('companies.create', [ 'id' => $company->personal_informations_id ]));
     }
 
     /**
@@ -161,6 +166,15 @@ class CompanyController extends AppBaseController
 
         Flash::success('Company deleted successfully.');
 
-        return redirect(route('companies.index'));
+        return redirect(route('companies.create', [ 'id' => $company->personal_informations_id ]));
+    }
+    public function getPersonalInformationCompany($id)
+    {
+        $companyModel = $this->companyRepository->model();
+        return Datatables::of($companyModel::with(['engineType', 'rank','flag'])->where(['personal_informations_id' => $id])->get())
+            ->addColumn('action', 'companies.datatables_actions')
+            ->rawColumns(['action'])
+            ->make(true);
+    
     }
 }

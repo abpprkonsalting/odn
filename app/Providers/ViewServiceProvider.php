@@ -1,6 +1,10 @@
 <?php
 
-namespace App\Providers;
+namespace App\Providers;
+use App\Models\VisaType;
+use App\Models\LicenseEndorsementName;
+use App\Models\Country;
+use App\Models\LicenseEndorsementType;
 use App\Models\EngineType;
 use App\Models\Municipality;
 use App\Models\NextOfKin;
@@ -40,6 +44,26 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::composer(['visas.fields'], function ($view) {
+            $visa_typeItems = VisaType::pluck('name','id')->toArray();
+            $view->with('visa_typeItems', $visa_typeItems);
+        });
+        View::composer(['license_endorsements.fields'], function ($view) {
+            $license_endorsement_nameItems = LicenseEndorsementName::pluck('name','id')->toArray();
+            $view->with('license_endorsement_nameItems', $license_endorsement_nameItems);
+        });
+        View::composer(['license_endorsements.fields'], function ($view) {
+            $license_endorsement_typeItems = LicenseEndorsementType::pluck('name','id')->toArray();
+            $view->with('license_endorsement_typeItems', $license_endorsement_typeItems);
+        });
+        View::composer(['license_endorsements.fields'], function ($view) {
+            $countryItems = Country::pluck('name','id')->toArray();
+            $view->with('countryItems', $countryItems);
+        });
+        View::composer(['license_endorsement_names.fields'], function ($view) {
+            $license_endorsement_typeItems = LicenseEndorsementType::pluck('name','id')->toArray();
+            $view->with('license_endorsement_typeItems', $license_endorsement_typeItems);
+        });
         View::composer(['companies.fields'], function ($view) {
             $rankItems = Rank::pluck('name','id')->toArray();
             $view->with('rankItems', $rankItems);

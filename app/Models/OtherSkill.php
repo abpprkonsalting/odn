@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 /**
  * Class OtherSkill
@@ -45,7 +46,7 @@ class OtherSkill extends Model
         'personal_informations_id' => 'integer',
         'skill_or_knowledge' => 'string',
         'place_or_school' => 'string',
-        'knowledge_date' => 'date',
+        'knowledge_date' => 'datetime:Y-m-d',
         'empirical' => 'integer'
     ];
 
@@ -56,11 +57,22 @@ class OtherSkill extends Model
      */
     public static $rules = [
         'personal_informations_id' => 'required',
-        'skill_or_knowledge' => 'required',
-        'place_or_school' => 'nullable|max:50',
-        'knowledge_date' => 'nullable',
+        'skill_or_knowledge' => 'max:50|required',
+        'place_or_school' => 'max:50|nullable',
+        'knowledge_date' => 'date|date_format:Y-m-d',
         'empirical' => 'boolean'
     ];
+
+    public function getKnowledgeDateAttribute($value) {
+        if (!empty($value)) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+    } 
+    return $value;
+}
+public function personalInformation()
+    {
+        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+    }
 
     
 }

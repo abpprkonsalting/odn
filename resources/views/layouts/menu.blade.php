@@ -101,6 +101,19 @@
                 <li class="{{ Request::is('levels*') ? 'active' : '' }}">
                     <a href="{{ route('levels.index') }}"><i class="fa fa-edit"></i><span>Levels</span></a>
                 </li>
+
+                <li class="{{ Request::is('licenseEndorsementTypes*') ? 'active' : '' }}">
+                    <a href="{{ route('licenseEndorsementTypes.index') }}"><i class="fa fa-edit"></i><span>License Endorsement Types</span></a>
+                </li>
+                <li class="{{ Request::is('countries*') ? 'active' : '' }}">
+                    <a href="{{ route('countries.index') }}"><i class="fa fa-edit"></i><span>Countries</span></a>
+                </li>
+                <li class="{{ Request::is('licenseEndorsementNames*') ? 'active' : '' }}">
+                    <a href="{{ route('licenseEndorsementNames.index') }}"><i class="fa fa-edit"></i><span>License Endorsement Names</span></a>
+                </li>
+                <li class="{{ Request::is('visaTypes*') ? 'active' : '' }}">
+                    <a href="{{ route('visaTypes.index') }}"><i class="fa fa-edit"></i><span>Visa Types</span></a>
+                </li>
             </ul>
         </li>
         <li class="treeview">
@@ -121,6 +134,7 @@
                 <li class="{{ Request::is('permissions*') ? 'active' : '' }}">
                     <a href="{{ route('permissions.index') }}"><i class="fa fa-edit"></i><span>Permissions</span></a>
                 </li>
+                
             </ul>
         </li>
     </ul>
@@ -143,4 +157,19 @@
     <a href="{{ route('companies.index') }}"><i class="fa fa-edit"></i><span>Companies</span></a>
 </li>
 */ ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

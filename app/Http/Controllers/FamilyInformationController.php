@@ -11,6 +11,7 @@ use App\Repositories\PersonalInformationRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Response;
 
 class FamilyInformationController extends AppBaseController
@@ -110,10 +111,11 @@ class FamilyInformationController extends AppBaseController
         if (empty($familyInformation)) {
             Flash::error('Family Information not found');
 
-            return redirect(route('familyInformations.index'));
+            return redirect(route('family_informations.index'));
         }
 
-        return view('family_informations.edit')->with('familyInformation', $familyInformation);
+        return view('family_informations.edit')->with(['familyInformation' => $familyInformation, 'personalInformation' => $familyInformation->personalInformation]);
+        
     }
 
     /**
@@ -131,14 +133,15 @@ class FamilyInformationController extends AppBaseController
         if (empty($familyInformation)) {
             Flash::error('Family Information not found');
 
-            return redirect(route('familyInformations.index'));
+            return redirect(route('personalInformations.index'));
         }
 
         $familyInformation = $this->familyInformationRepository->update($request->all(), $id);
 
         Flash::success('Family Information updated successfully.');
 
-        return redirect(route('familyInformations.index'));
+       
+        return redirect(route('familyInformations.create', ['id' => $familyInformation->personal_informations_id]));
     }
 
     /**
@@ -155,13 +158,29 @@ class FamilyInformationController extends AppBaseController
         if (empty($familyInformation)) {
             Flash::error('Family Information not found');
 
-            return redirect(route('familyInformations.index'));
+            return redirect(route('personalInformation.index'));
         }
 
         $this->familyInformationRepository->delete($id);
 
         Flash::success('Family Information deleted successfully.');
 
-        return redirect(route('familyInformations.index'));
+        
+        return redirect(route('familyInformations.create', ['id' => $familyInformation->personal_informations_id]));
+    }
+      /**
+     * Return JSON with listing of the Family Information belong to PersonalInformation.
+     *
+     * @param integer $personal_informations_id
+     * @return JSON
+     */
+    public function getPersonalInformationFamily($id)
+    {
+        $familyInformationModel = $this->familyInformationRepository->model();
+        return Datatables::of($familyInformationModel::with(['province', 'municipality','nextOfKind'])->where(['personal_informations_id' => $id])->get())
+            ->addColumn('action', 'family_informations.datatables_actions')
+            ->rawColumns(['action'])
+            ->make(true);
+    
     }
 }

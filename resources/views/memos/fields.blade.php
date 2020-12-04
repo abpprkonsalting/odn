@@ -5,7 +5,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('memo_date', 'Memo Date:') !!}
     <div class="input-group">
-        {!! Form::text('memo_date', null, ['class' => 'form-control datepicker','id'=>'memo_date', 'autocomplete' => 'off']) !!}
+        {!! Form::text('memo_date', null, ['class' => 'form-control datepicker', 'id'=>'memo_date', 'autocomplete' => 'off']) !!}
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
         </div>

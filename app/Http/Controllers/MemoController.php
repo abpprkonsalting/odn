@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\MemoDataTable;
 use Illuminate\Http\Request;
+
 use App\Http\Requests\CreateMemoRequest;
 use App\Http\Requests\UpdateMemoRequest;
 use App\Repositories\MemoRepository;
@@ -132,7 +133,7 @@ class MemoController extends AppBaseController
         if (empty($memo)) {
             Flash::error('Memo not found');
 
-            return redirect(route('personalInformation.index'));
+            return redirect(route('memos.index'));
         }
 
         $memo = $this->memoRepository->update($request->all(), $id);
@@ -167,7 +168,7 @@ class MemoController extends AppBaseController
     }
 
     /**
-     * Return JSON with listing of the Courses belong to PersonalInformation.
+     * Return JSON with listing of the Memos belong to PersonalInformation.
      *
      * @param integer $personal_informations_id
      * @return JSON

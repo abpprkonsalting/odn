@@ -28,7 +28,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('sign_on_date', 'Sign On Date:') !!}
     <div class="input-group">
-        {!! Form::text('sign_on_date', null, ['class' => 'form-control','id'=>'sign_on_date']) !!}
+        {!! Form::text('sign_on_date', null, ['class' => 'form-control datepicker','id'=>'sign_on_date', 'autocomplete' => 'off']) !!}
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
         </div>
@@ -39,7 +39,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('sign_off_date', 'Sign Off Date:') !!}
     <div class="input-group">
-        {!! Form::text('sign_off_date', null, ['class' => 'form-control','id'=>'sign_off_date']) !!}
+        {!! Form::text('sign_off_date', null, ['class' => 'form-control datepicker','id'=>'sign_off_date' ,'autocomplete' => 'off']) !!}
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
         </div>
@@ -118,6 +118,15 @@
     {!! Form::label('contract_period', 'Contract Period:') !!}
     {!! Form::number('contract_period', null, ['class' => 'form-control']) !!}
 </div>
+@push('scripts')
+    <script type="text/javascript">
+        //Date picker
+        $('#sign_on_date, #sign_off_date').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        })
+    </script>
+@endpush
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

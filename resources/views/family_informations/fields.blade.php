@@ -66,6 +66,15 @@
     {!! Form::label('address', 'Address:') !!}
     {!! Form::text('address', null, ['class' => 'form-control']) !!}
 </div>
+@push('scripts')
+    <script type="text/javascript">
+        //Date picker
+        $('#birth_date').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        })
+    </script>
+@endpush
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

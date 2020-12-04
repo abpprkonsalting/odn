@@ -24,14 +24,24 @@
 
 <!-- Issue Date Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('issue_date', 'Expiry Date:') !!}
+    {!! Form::label('expiry_date', 'Expiry Date:') !!}
     <div class="input-group">
-        {!! Form::text('expiry_date', null, ['class' => 'form-control datepicker', 'id'=>'expitydate', 'autocomplete' => 'off']) !!}
+        {!! Form::text('expiry_date', null, ['class' => 'form-control datepicker', 'id'=>'expiry_date', 'autocomplete' => 'off']) !!}
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script type="text/javascript">
+        //Date picker
+        $('#issue_date, #expiry_date').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        })
+    </script>
+@endpush
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
