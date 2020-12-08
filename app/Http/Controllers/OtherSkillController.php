@@ -11,6 +11,7 @@ use App\Repositories\PersonalInformationRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Response;
 
 class OtherSkillController extends AppBaseController
@@ -49,6 +50,7 @@ class OtherSkillController extends AppBaseController
             $personalInformation = $personalInformationModel::find($request->id);
 
             if(!empty($personalInformation)) {
+               
                 return view('other_skills.create')->with('personalInformation', $personalInformation);
             }
         }
@@ -72,7 +74,8 @@ class OtherSkillController extends AppBaseController
 
         Flash::success('Other Skill saved successfully.');
 
-        return redirect(route('otherSkills.create', [ 'id' => $otherSkill->personal_informations_id]));
+        
+        return redirect(route('otherSkills.create', ['id' => $otherSkill->personal_informations_id]));
     }
 
     /**
@@ -112,7 +115,8 @@ class OtherSkillController extends AppBaseController
             return redirect(route('otherSkills.index'));
         }
 
-        return view('other_skills.edit')->with('otherSkill', $otherSkill);
+        
+        return view('other_skills.edit')->with(['otherSkill' => $otherSkill, 'personalInformation' => $otherSkill->personalInformation]);
     }
 
     /**
@@ -137,7 +141,8 @@ class OtherSkillController extends AppBaseController
 
         Flash::success('Other Skill updated successfully.');
 
-        return redirect(route('otherSkills.index'));
+        
+        return redirect(route('otherSkills.create', ['id' => $otherSkill->personal_informations_id]));
     }
 
     /**
@@ -161,6 +166,16 @@ class OtherSkillController extends AppBaseController
 
         Flash::success('Other Skill deleted successfully.');
 
-        return redirect(route('otherSkills.index'));
+       
+        return redirect(route('otherSkills.create', ['id' => $otherSkill->personal_informations_id]));
+    }
+    public function getPersonalInformationSkill($id)
+    {
+        $otherSkillModel = $this->otherSkillRepository->model();
+        return Datatables::of($otherSkillModel::where(['personal_informations_id' => $id])->get())
+            ->addColumn('action', 'other_skills.datatables_actions')
+            ->rawColumns(['action'])
+            ->make(true);
+    
     }
 }

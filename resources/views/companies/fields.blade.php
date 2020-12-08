@@ -2,33 +2,34 @@
     {!! Form::hidden('personal_informations_id', $personalInformation->id, []) !!}
 
 <!-- Company Name Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('company_name', 'Company Name:') !!}
-    {!! Form::text('company_name', null, ['class' => 'form-control','maxlength' => 50]) !!}
+<div class="col-sm-12">
+    <div class="row">
+        <div class="form-group col-sm-4">
+            {!! Form::label('company_name', 'Company Name:') !!}
+            {!! Form::text('company_name', null, ['class' => 'form-control','maxlength' => 50]) !!}
+        </div>
+        
+        <!-- Current Field -->
+        <div class="form-group col-sm-4">
+            <br/>
+            <label>
+                {!! Form::hidden('current', 0) !!}
+                {!! Form::checkbox('current', '1', null) !!}
+                Current
+            </label>
+        </div>
+        <!-- Vessel Field -->
+        <div class="form-group col-sm-4">
+            {!! Form::label('vessel', 'Vessel:') !!}
+            {!! Form::text('vessel', null, ['class' => 'form-control']) !!}
+        </div>
+    </div>
 </div>
-
-<!-- Current Field -->
-<div class="form-group col-sm-6">
-    <br/>
-    <label>
-        {!! Form::hidden('current', 0) !!}
-        {!! Form::checkbox('current', '1', null) !!}
-        Current
-    </label>
-</div>
-
-
-<!-- Vessel Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('vessel', 'Vessel:') !!}
-    {!! Form::text('vessel', null, ['class' => 'form-control']) !!}
-</div>
-
 <!-- Sign On Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('sign_on_date', 'Sign On Date:') !!}
     <div class="input-group">
-        {!! Form::text('sign_on_date', null, ['class' => 'form-control','id'=>'sign_on_date']) !!}
+        {!! Form::text('sign_on_date', null, ['class' => 'form-control datepicker','id'=>'sign_on_date', 'autocomplete' => 'off']) !!}
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
         </div>
@@ -39,7 +40,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('sign_off_date', 'Sign Off Date:') !!}
     <div class="input-group">
-        {!! Form::text('sign_off_date', null, ['class' => 'form-control','id'=>'sign_off_date']) !!}
+        {!! Form::text('sign_off_date', null, ['class' => 'form-control datepicker','id'=>'sign_off_date' ,'autocomplete' => 'off']) !!}
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
         </div>
@@ -86,7 +87,7 @@
 <!-- Flags Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('flags_id', 'Flag:') !!}
-    {!! Form::select('flags_id', $rankItems, null, ['class' => 'form-control']) !!}
+    {!! Form::select('flags_id', $flagItems, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Total Salary Field -->
@@ -118,6 +119,15 @@
     {!! Form::label('contract_period', 'Contract Period:') !!}
     {!! Form::number('contract_period', null, ['class' => 'form-control']) !!}
 </div>
+@push('scripts')
+    <script type="text/javascript">
+        //Date picker
+        $('#sign_on_date, #sign_off_date').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        })
+    </script>
+@endpush
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

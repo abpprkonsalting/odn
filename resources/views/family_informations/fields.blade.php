@@ -27,20 +27,7 @@
 <!-- Family Status Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('family_status', 'Family Status:') !!}
-    {!! Form::text('family_status', null, ['class' => 'form-control']) !!}
-</div>
-
-
-<!-- Provinces Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('provinces_id', 'Province:') !!}
-    {!! Form::select('provinces_id', $provinceItems, null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Municipalities Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('municipalities_id', 'Municipality:') !!}
-    {!! Form::select('municipalities_id', $municipalityItems, null, ['class' => 'form-control']) !!}
+    {!! Form::select('family_status_id', $familyStatusItems, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Phone Number Field -->
@@ -56,16 +43,43 @@
         <label>
             {!! Form::hidden('same_address_as_marine', 0) !!}
             {!! Form::checkbox('same_address_as_marine', '1', null) !!}
-            Same as marine:
+            Same address as marine:
         </label>
     </div>
 </div>
 
-<!-- Address Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('address', 'Address:') !!}
-    {!! Form::text('address', null, ['class' => 'form-control']) !!}
+<div id="containerAddressFields" class="col-sm-12">
+    <div class="row">
+        <!-- Provinces Id Field -->
+        <div class="form-group col-sm-4">
+            {!! Form::label('provinces_id', 'Province:') !!}
+            {!! Form::select('provinces_id', $provinceItems, null, ['class' => 'form-control', 'id' => 'province_id']) !!}
+        </div>
+    
+        <!-- Municipalities Id Field -->
+        <div class="form-group col-sm-4">
+            {!! Form::label('municipalities_id', 'Municipality:') !!}
+            {!! Form::select('municipalities_id', [], null, ['class' => 'form-control', 'id' => 'municipality_id']) !!}
+        </div>
+        
+        <!-- Address Field -->
+        <div class="form-group col-sm-4">
+            {!! Form::label('address', 'Address:') !!}
+            {!! Form::text('address', null, ['class' => 'form-control']) !!}
+        </div>
+    </div>
 </div>
+
+@push('scripts')
+    <script type="text/javascript">
+        //Date picker
+        $('#birth_date').datepicker({
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        })
+    </script>
+    <script src="{{ asset('/js/personalInformation.js') }}" type="text/javascript"></script>
+@endpush
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

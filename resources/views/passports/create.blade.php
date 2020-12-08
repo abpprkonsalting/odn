@@ -8,10 +8,7 @@
         <h1>
             Passport
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">Internal Number: {{ $personalInformation->internal_file_number }}</li>
-            <li class="active">External Number: {{ $personalInformation->external_file_number}}</li>
-        </ol>
+        @include('partials.person_breadcrumbs')
     </section>
 @endsection
 
@@ -22,5 +19,9 @@
         @include('passports.fields')
 
     {!! Form::close() !!}
+    <div class="col-sm-12">
+        <h3 class="box-title">Passports List</h3>
+        @include('passports.table')
+    </div>
     
 @endsection

@@ -146,4 +146,10 @@ class PersonalInformationController extends AppBaseController
 
         return redirect(route('personalInformations.index'));
     }
+
+    public function getAjaxPersonalInformationById($id) {
+        $personalInformation = $this->personalInformationRepository->find($id);
+        
+        return response()->json($personalInformation);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 /**
  * Class Passport
@@ -32,6 +33,7 @@ class Passport extends Model
         'expedition_date',
         'expiry_date',
         'extension_date',
+        'expiry_extension_date',
         'no_passport'
     ];
 
@@ -43,9 +45,10 @@ class Passport extends Model
     protected $casts = [
         'id' => 'integer',
         'personal_informations_id' => 'integer',
-        'expedition_date' => 'date',
-        'expiry_date' => 'date',
-        'extension_date' => 'date',
+        'expedition_date' => 'datetime:Y-m-d',
+        'expiry_date' => 'datetime:Y-m-d',
+        'extension_date' => 'datetime:Y-m-d',
+        'expiry_extension_date'=>'datetime:Y-m-d',
         'no_passport' => 'string'
     ];
 
@@ -56,11 +59,38 @@ class Passport extends Model
      */
     public static $rules = [
         'personal_informations_id' => 'required',
-        'expedition_date' => 'required',
-        'expiry_date' => 'required',
-        'extension_date' => 'nullable',
-        'expiry_extension_date' => 'nullable',
+        'expedition_date' => 'required|date|date_format:Y-m-d',
+        'expiry_date' => 'required|date|date_format:Y-m-d',
+        'extension_date' => 'date|date_format:Y-m-d',
+        'expiry_extension_date' => 'date|date_format:Y-m-d',
         'no_passport' => 'required|max:50'
     ];
+
+    public function getExpeditionDateAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+    } 
+
+    public function getExpiryDateAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+    } 
+
+    public function getExtensionDateAttribute($value) {
+        if (!empty($value)) {
+            return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        }
+        return $value;
+    } 
+
+    public function getExpiryExtensionDateAttribute($value) {
+        if (!empty($value)) {
+            return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        }
+        return $value;
+    } 
+
+    public function personalInformation()
+    {
+        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+    }
 
 }

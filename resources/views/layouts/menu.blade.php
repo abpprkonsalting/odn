@@ -101,6 +101,22 @@
                 <li class="{{ Request::is('levels*') ? 'active' : '' }}">
                     <a href="{{ route('levels.index') }}"><i class="fa fa-edit"></i><span>Levels</span></a>
                 </li>
+
+                <li class="{{ Request::is('licenseEndorsementTypes*') ? 'active' : '' }}">
+                    <a href="{{ route('licenseEndorsementTypes.index') }}"><i class="fa fa-edit"></i><span>License Endorsement Types</span></a>
+                </li>
+                <li class="{{ Request::is('countries*') ? 'active' : '' }}">
+                    <a href="{{ route('countries.index') }}"><i class="fa fa-edit"></i><span>Countries</span></a>
+                </li>
+                <li class="{{ Request::is('licenseEndorsementNames*') ? 'active' : '' }}">
+                    <a href="{{ route('licenseEndorsementNames.index') }}"><i class="fa fa-edit"></i><span>License Endorsement Names</span></a>
+                </li>
+                <li class="{{ Request::is('visaTypes*') ? 'active' : '' }}">
+                    <a href="{{ route('visaTypes.index') }}"><i class="fa fa-edit"></i><span>Visa Types</span></a>
+                </li>
+                <li class="{{ Request::is('familyStatuses*') ? 'active' : '' }}">
+                    <a href="{{ route('familyStatuses.index') }}"><i class="fa fa-edit"></i><span>Family Statuses</span></a>
+                </li>
             </ul>
         </li>
         <li class="treeview">
@@ -121,26 +137,24 @@
                 <li class="{{ Request::is('permissions*') ? 'active' : '' }}">
                     <a href="{{ route('permissions.index') }}"><i class="fa fa-edit"></i><span>Permissions</span></a>
                 </li>
+                
             </ul>
         </li>
     </ul>
 </li>
-<?php /* ?>
-<li class="{{ Request::is('operationalInformations*') ? 'active' : '' }}">
-    <a href="{{ route('operationalInformations.index') }}"><i class="fa fa-edit"></i><span>Operational Informations</span></a>
-</li> <?php <li class="{{ Request::is('memos*') ? 'active' : '' }}">
-    <a href="{{ route('memos.index') }}"><i class="fa fa-edit"></i><span>Memos</span></a>
-</li>
-<li class="{{ Request::is('courses*') ? 'active' : '' }}">
-    <a href="{{ route('courses.index') }}"><i class="fa fa-edit"></i><span>Courses</span></a>
-</li><li class="{{ Request::is('passports*') ? 'active' : '' }}">
-    <a href="{{ route('passports.index') }}"><i class="fa fa-edit"></i><span>Passports</span></a>
-</li><li class="{{ Request::is('familyInformations*') ? 'active' : '' }}">
-    <a href="{{ route('familyInformations.index') }}"><i class="fa fa-edit"></i><span>Family Informations</span></a>
-</li><li class="{{ Request::is('otherSkills*') ? 'active' : '' }}">
-    <a href="{{ route('otherSkills.index') }}"><i class="fa fa-edit"></i><span>Other Skills</span></a>
-</li><li class="{{ Request::is('companies*') ? 'active' : '' }}">
-    <a href="{{ route('companies.index') }}"><i class="fa fa-edit"></i><span>Companies</span></a>
-</li>
-*/ ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

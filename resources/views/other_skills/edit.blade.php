@@ -1,23 +1,27 @@
-@extends('layouts.app')
+@extends('partials.person_tabs', [
+    'activeMenuTemplate' => 'memosInformation',
+    'personalInformationId' => $otherSkill->personalInformation->id  
+])
+@section('tabs-section-header')
+<section class="content-header">
+    <h1>
+       Other Skill
+    </h1>
+    @include('partials.person_breadcrumbs')
+</section>
+@endsection
 
-@section('content')
-    <section class="content-header">
-        <h1>
-            Other Skill
-        </h1>
-   </section>
-   <div class="content">
-       @include('adminlte-templates::common.errors')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($otherSkill, ['route' => ['otherSkills.update', $otherSkill->id], 'method' => 'patch']) !!}
+@section('person-content')
+            
+{!! Form::model($otherSkill, ['route' => ['otherSkills.update', $otherSkill->id], 'method' => 'patch']) !!}
 
-                        @include('other_skills.fields')
+    @include('other_skills.fields')
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+{!! Form::close() !!}
+
+<div class="col-sm-12">
+    <h3 class="box-title">Other Kill List</h3>
+    @include('other_skills.table')
+</div>
+
 @endsection

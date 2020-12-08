@@ -8,10 +8,7 @@
         <h1>
             Other Skills
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">Internal Number: {{ $personalInformation->internal_file_number }}</li>
-            <li class="active">External Number: {{ $personalInformation->external_file_number}}</li>
-        </ol>
+        @include('partials.person_breadcrumbs')
     </section>
 @endsection
 
@@ -22,5 +19,10 @@
         @include('other_skills.fields')
 
     {!! Form::close() !!}
+    
+    <div class="col-sm-12">
+        <h3 class="box-title">Other Skill List</h3>
+        @include('other_skills.table')
+    </div>
     
 @endsection

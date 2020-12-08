@@ -14,12 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 /*
+Route::middleware(['auth:api'])->group(function () {
+    Route::resource('personal_informations', 'PersonalInformationAPIController');
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 
 Route::resource('provinces', 'ProvinceAPIController');
 
@@ -57,8 +60,6 @@ Route::resource('languages', 'LanguagesAPIController');
 
 Route::resource('levels', 'LevelAPIController');
 
-Route::resource('personal_informations', 'PersonalInformationAPIController');*/
-
 Route::resource('operational_informations', 'OperationalInformationAPIController');
 
 Route::resource('memos', 'MemoAPIController');
@@ -76,3 +77,21 @@ Route::resource('other_skills', 'OtherSkillAPIController');
 Route::resource('companies', 'CompanyAPIController');
 
 Route::resource('skin_colors', 'SkinColorAPIController');
+
+Route::resource('license_endorsement_types', 'LicenseEndorsementTypeAPIController');
+
+Route::resource('countries', 'CountryAPIController');
+
+Route::resource('license_endorsement_names', 'LicenseEndorsementNameAPIController');
+
+Route::resource('license_endorsements', 'LicenseEndorsementAPIController');
+
+Route::resource('visa_types', 'VisaTypeAPIController');
+
+Route::resource('visas', 'VisaAPIController');
+
+Route::resource('shore_experiencies', 'shoreExperiencieAPIController');
+
+Route::resource('seaman_books', 'SeamanBookAPIController');
+
+Route::resource('family_statuses', 'FamilyStatusAPIController');*/

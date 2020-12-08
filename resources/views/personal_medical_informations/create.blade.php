@@ -6,12 +6,9 @@
 @section('tabs-section-header')
     <section class="content-header">
         <h1>
-            Course
+            Personal Medical Information
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">Internal Number: {{ $personalInformation->internal_file_number }}</li>
-            <li class="active">External Number: {{ $personalInformation->external_file_number}}</li>
-        </ol>
+        @include('partials.person_breadcrumbs')
     </section>
 @endsection
 
@@ -22,5 +19,11 @@
         @include('personal_medical_informations.fields')
 
     {!! Form::close() !!}
+
+    <div class="col-sm-12">
+        <h3 class="box-title">Personal Medical Information List</h3>
+        @include('personal_medical_informations.table')
+    </div>
     
 @endsection
+

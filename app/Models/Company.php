@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 /**
  * Class Company
@@ -70,10 +71,10 @@ class Company extends Model
         'id' => 'integer',
         'personal_informations_id' => 'integer',
         'company_name' => 'string',
-        'current' => 'integer',
+        'current' => 'bool',
         'vessel' => 'string',
-        'sign_on_date' => 'date',
-        'sign_off_date' => 'date',
+        'sign_on_date' => 'datetime:Y-m-d',
+        'sign_off_date' => 'datetime:Y-m-d',
         'dtw' => 'integer',
         'gross_tonnage' => 'integer',
         'engine_types_id' => 'integer',
@@ -98,8 +99,8 @@ class Company extends Model
         'company_name' => 'required|max:50',
         'current' => 'boolean',
         'vessel' => 'nullable',
-        'sign_on_date' => 'nullable',
-        'sign_off_date' => 'nullable',
+        'sign_on_date' => 'date|date_format:Y-m-d',
+        'sign_off_date' => 'date|date_format:Y-m-d',
         'dtw' => 'nullable',
         'gross_tonnage' => 'nullable',
         'engine_types_id' => 'nullable',
@@ -113,6 +114,32 @@ class Company extends Model
         'fix_over_time' => 'nullable|numeric',
         'contract_period' => 'nullable|integer'
     ];
+
+
+    public function getSignOnDateAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+    } 
+    public function getSignOffDateAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+    } 
+
+    public function personalInformation()
+    {
+        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+    }
+    public function engineType()
+    {
+        return $this->belongsTo(EngineType::class, 'engine_types_id');
+    }
+
+    public function rank()
+    {
+        return $this->belongsTo(Rank::class, 'ranks_id');
+    }
+    public function flag()
+    {
+        return $this->belongsTo(Flag::class, 'flags_id');
+    }
 
     
 }

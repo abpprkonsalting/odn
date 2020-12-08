@@ -43,7 +43,7 @@ class License extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|unique:licenses|max:250'
+        'name' => 'required|uniqueLicense:licenses|max:250'
     ];
 
     

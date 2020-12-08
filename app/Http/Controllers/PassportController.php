@@ -11,6 +11,7 @@ use App\Repositories\PersonalInformationRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Response;
 
 class PassportController extends AppBaseController
@@ -112,7 +113,8 @@ class PassportController extends AppBaseController
             return redirect(route('passports.index'));
         }
 
-        return view('passports.edit')->with('passport', $passport);
+       
+        return view('passports.edit')->with(['passport' => $passport, 'personalInformation' => $passport->personalInformation]);
     }
 
     /**
@@ -137,7 +139,7 @@ class PassportController extends AppBaseController
 
         Flash::success('Passport updated successfully.');
 
-        return redirect(route('passports.index'));
+        return redirect(route('passports.create', [ 'id' => $passport->personal_informations_id ]));
     }
 
     /**
@@ -161,6 +163,23 @@ class PassportController extends AppBaseController
 
         Flash::success('Passport deleted successfully.');
 
-        return redirect(route('passports.index'));
+       
+        return redirect(route('passports.create', [ 'id' => $passport->personal_informations_id ]));
+    }
+
+    /**
+     * Return JSON with listing of the Passport belong to PersonalInformation.
+     *
+     * @param integer $personal_informations_id
+     * @return JSON
+     */
+    public function getPersonalInformationPassport($id)
+    {
+        $passportModel = $this->passportRepository->model();
+        return Datatables::of($passportModel::where(['personal_informations_id' => $id])->get())
+            ->addColumn('action', 'passports.datatables_actions')
+            ->rawColumns(['action'])
+            ->make(true);
+    
     }
 }

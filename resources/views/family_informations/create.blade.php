@@ -8,10 +8,7 @@
         <h1>
             Family Information
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">Internal Number: {{ $personalInformation->internal_file_number }}</li>
-            <li class="active">External Number: {{ $personalInformation->external_file_number}}</li>
-        </ol>
+        @include('partials.person_breadcrumbs')
     </section>
 @endsection
 
@@ -22,5 +19,10 @@
         @include('family_informations.fields')
 
     {!! Form::close() !!}
+    
+    <div class="col-sm-12">
+        <h3 class="box-title">Family Information List</h3>
+        @include('family_informations.table')
+    </div>
     
 @endsection

@@ -12,6 +12,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Response;
+use Yajra\DataTables\DataTables;
 
 class PersonalMedicalInformationController extends AppBaseController
 {
@@ -105,14 +106,14 @@ class PersonalMedicalInformationController extends AppBaseController
     public function edit($id)
     {
         $personalMedicalInformation = $this->personalMedicalInformationRepository->find($id);
-
         if (empty($personalMedicalInformation)) {
             Flash::error('Personal Medical Information not found');
 
-            return redirect(route('personalMedicalInformations.index'));
+            return redirect(route('personal_medical_informations.index'));
         }
+        return view('personal_medical_informations.edit')->with(['personalMedicalInformation' => $personalMedicalInformation, 'personalInformation' => $personalMedicalInformation->personalInformation]);
 
-        return view('personal_medical_informations.edit')->with('personalMedicalInformation', $personalMedicalInformation);
+        //return view('personal_medical_informations.edit')->with('personalMedicalInformation', $personalMedicalInformation);
     }
 
     /**
@@ -130,14 +131,14 @@ class PersonalMedicalInformationController extends AppBaseController
         if (empty($personalMedicalInformation)) {
             Flash::error('Personal Medical Information not found');
 
-            return redirect(route('personalMedicalInformations.index'));
+            return redirect(route('personalInformations.index'));
         }
 
         $personalMedicalInformation = $this->personalMedicalInformationRepository->update($request->all(), $id);
 
         Flash::success('Personal Medical Information updated successfully.');
 
-        return redirect(route('personalMedicalInformations.index'));
+        return redirect(route('personalMedicalInformations.create', ['id' => $personalMedicalInformation->personal_informations_id]));
     }
 
     /**
@@ -150,17 +151,35 @@ class PersonalMedicalInformationController extends AppBaseController
     public function destroy($id)
     {
         $personalMedicalInformation = $this->personalMedicalInformationRepository->find($id);
+        
 
         if (empty($personalMedicalInformation)) {
             Flash::error('Personal Medical Information not found');
 
-            return redirect(route('personalMedicalInformations.index'));
+            return redirect(route('personalInformation.index'));
         }
 
         $this->personalMedicalInformationRepository->delete($id);
 
         Flash::success('Personal Medical Information deleted successfully.');
 
-        return redirect(route('personalMedicalInformations.index'));
+        return redirect(route('personalMedicalInformations.create', ['id' => $personalMedicalInformation->personal_informations_id]));
+    }
+
+    
+     /**
+     * Return JSON with listing of the Medical Personal Information belong to PersonalInformation.
+     *
+     * @param integer $personal_informations_id
+     * @return JSON
+     */
+    public function getPersonalInformationMedical($id)
+    {
+        $personalMedicalInformationModel = $this->personalMedicalInformationRepository->model();
+        return Datatables::of($personalMedicalInformationModel::with(['medicalInformation'])->where(['personal_informations_id' => $id])->get())
+            ->addColumn('action', 'personal_medical_informations.datatables_actions')
+            ->rawColumns(['action'])
+            ->make(true);
+    
     }
 }
