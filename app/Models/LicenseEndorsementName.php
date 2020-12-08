@@ -50,5 +50,10 @@ class LicenseEndorsementName extends Model
         'license_endorsement_types_id' => 'required'
     ];
 
+    public function type()
+    {
+        return $this->belongsTo(LicenseEndorsementType::class, 'license_endorsement_types_id');
+    }
+
     
 }

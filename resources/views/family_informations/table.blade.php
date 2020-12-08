@@ -25,27 +25,27 @@
     <script type="text/javascript">
         $(function () {
           
-          var table = $('.family_informations-datatable').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: "{{ route('familyInformations.getPersonalInformationFamily', ['id' => $personalInformation->id]) }}",
-              columns: [
+        var table = $('.family_informations-datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('familyInformations.getPersonalInformationFamily', ['id' => $personalInformation->id]) }}",
+            columns: [
                 {data: 'full_name', name: 'full_name'},
                 {data: 'birth_date', name: 'birth_date'},
                 {data: 'next_of_kind.name', name: 'next_of_kins_id'},
-                  {data: 'family_status', name: 'family_status'},
-                  {data: 'province.name', name: 'provinces_id'},
-                  {data: 'municipality.name', name: 'municipalities_id'},
-                  {data: 'phone_number', name: 'phone_number'}, 
-                  {data: 'address', name: 'address'}, 
-                  {
-                      data: 'action', 
-                      name: 'action', 
-                      orderable: true, 
-                      searchable: true
-                  },
-              ]
-          });
+                {data: 'family_status.name', name: 'family_status_id'},
+                {data: 'province.name', name: 'provinces_id'},
+                {data: 'municipality.name', name: 'municipalities_id'},
+                {data: 'phone_number', name: 'phone_number'}, 
+                {data: 'address', name: 'address'}, 
+                {
+                    data: 'action', 
+                    name: 'action', 
+                    orderable: true, 
+                    searchable: true
+                },
+            ]
+            });
           
         });
       </script>

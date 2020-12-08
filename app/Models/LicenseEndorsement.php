@@ -62,7 +62,7 @@ class LicenseEndorsement extends Model
      * @var array
      */
     public static $rules = [
-        'number' => 'required',
+        'number' => 'required|integer',
         'issue_date' => 'required|date|date_format:Y-m-d',
         'expiry_date' => 'required|date|date_format:Y-m-d',
         'personal_informations_id' => 'required',
@@ -70,18 +70,20 @@ class LicenseEndorsement extends Model
         'license_endorsement_types_id' => 'required',
         'license_endorsement_names_id' => 'required'
     ];
+
     public function getIssueDateAttribute($value) {
         if (!empty($value)) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
-    } 
-    return $value;
-}
-public function getExpiryDateAttribute($value) {
-    if (!empty($value)) {
-    return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
-} 
-return $value;
-}
+            return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        } 
+        return $value;
+    }
+    
+    public function getExpiryDateAttribute($value) {
+        if (!empty($value)) {
+            return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        } 
+        return $value;
+    }
 
     public function personalInformation()
     {

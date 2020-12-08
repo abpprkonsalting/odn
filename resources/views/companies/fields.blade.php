@@ -2,28 +2,29 @@
     {!! Form::hidden('personal_informations_id', $personalInformation->id, []) !!}
 
 <!-- Company Name Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('company_name', 'Company Name:') !!}
-    {!! Form::text('company_name', null, ['class' => 'form-control','maxlength' => 50]) !!}
+<div class="col-sm-12">
+    <div class="row">
+        <div class="form-group col-sm-4">
+            {!! Form::label('company_name', 'Company Name:') !!}
+            {!! Form::text('company_name', null, ['class' => 'form-control','maxlength' => 50]) !!}
+        </div>
+        
+        <!-- Current Field -->
+        <div class="form-group col-sm-4">
+            <br/>
+            <label>
+                {!! Form::hidden('current', 0) !!}
+                {!! Form::checkbox('current', '1', null) !!}
+                Current
+            </label>
+        </div>
+        <!-- Vessel Field -->
+        <div class="form-group col-sm-4">
+            {!! Form::label('vessel', 'Vessel:') !!}
+            {!! Form::text('vessel', null, ['class' => 'form-control']) !!}
+        </div>
+    </div>
 </div>
-
-<!-- Current Field -->
-<div class="form-group col-sm-6">
-    <br/>
-    <label>
-        {!! Form::hidden('current', 0) !!}
-        {!! Form::checkbox('current', '1', null) !!}
-        Current
-    </label>
-</div>
-
-
-<!-- Vessel Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('vessel', 'Vessel:') !!}
-    {!! Form::text('vessel', null, ['class' => 'form-control']) !!}
-</div>
-
 <!-- Sign On Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('sign_on_date', 'Sign On Date:') !!}
@@ -86,7 +87,7 @@
 <!-- Flags Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('flags_id', 'Flag:') !!}
-    {!! Form::select('flags_id', $rankItems, null, ['class' => 'form-control']) !!}
+    {!! Form::select('flags_id', $flagItems, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Total Salary Field -->

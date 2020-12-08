@@ -47,7 +47,7 @@ class OtherSkill extends Model
         'skill_or_knowledge' => 'string',
         'place_or_school' => 'string',
         'knowledge_date' => 'datetime:Y-m-d',
-        'empirical' => 'integer'
+        'empirical' => 'boolean'
     ];
 
     /**
@@ -62,6 +62,10 @@ class OtherSkill extends Model
         'knowledge_date' => 'date|date_format:Y-m-d',
         'empirical' => 'boolean'
     ];
+
+    public function getEmpiricalAttribute($value) {
+        return $value == 1 ? "Yes" : "No";
+    }
 
     public function getKnowledgeDateAttribute($value) {
         if (!empty($value)) {

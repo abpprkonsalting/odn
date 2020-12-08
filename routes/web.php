@@ -67,7 +67,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('users', 'UserController')->middleware('role_or_permission:Admin|user');
 
+    Route::resource('licenseEndorsementTypes', 'LicenseEndorsementTypeController')->middleware('role_or_permission:Admin|licenseEndorsementTypes');
+
+    Route::resource('countries', 'CountryController')->middleware('role_or_permission:Admin|countries');
+
+    Route::resource('visaTypes', 'VisaTypeController')->middleware('role_or_permission:Admin|visaTypes');
+
     Route::resource('personalInformations', 'PersonalInformationController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::get('personalInformations/getAjaxPersonalInformationById/{id}', 'PersonalInformationController@getAjaxPersonalInformationById')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::get('province/getAjaxProvinceById/{id}', 'ProvinceController@getAjaxProvinceById');
 
@@ -84,38 +92,46 @@ Route::middleware(['auth'])->group(function () {
     Route::get('personalMedicalInformations/getPersonalInformationMedical/{id}', 'PersonalMedicalInformationController@getPersonalInformationMedical')->name("personalMedicalInformation.getPersonalInformationMedical");
     
     Route::resource('personalMedicalInformations', 'PersonalMedicalInformationController')->middleware('role_or_permission:Admin|personalInformation');
+    
     Route::get('passports/getPersonalInformationPassport/{id}', 'PassportController@getPersonalInformationPassport')->name("passport.getPersonalInformationPassport");
+    
     Route::resource('passports', 'PassportController')->middleware('role_or_permission:Admin|personalInformation');
+    
     Route::get('familyInformations/getPersonalInformationFamily/{id}', 'FamilyInformationController@getPersonalInformationFamily')->name("familyInformations.getPersonalInformationFamily");
+    
     Route::resource('familyInformations', 'FamilyInformationController')->middleware('role_or_permission:Admin|personalInformation');
+    
     Route::get('otherSkills/getPersonalInformationSkill/{id}', 'OtherSkillController@getPersonalInformationSkill')->name("otherSkills.getPersonalInformationSkill");
+    
     Route::resource('otherSkills', 'OtherSkillController')->middleware('role_or_permission:Admin|personalInformation');
+    
     Route::get('companies/getPersonalInformationCompany/{id}', 'CompanyController@getPersonalInformationCompany')->name("company.getPersonalInformationCompany");
+    
     Route::resource('companies', 'CompanyController')->middleware('role_or_permission:Admin|personalInformation');
+    
     Route::get('licenseEndorsements/getPersonalInformationLicense/{id}', 'LicenseEndorsementController@getPersonalInformationLicense')->name("licenseEndorsement.getPersonalInformationLicense");
-    Route::resource('licenseEndorsements', 'LicenseEndorsementController');
+    
+    Route::resource('licenseEndorsements', 'LicenseEndorsementController')->middleware('role_or_permission:Admin|personalInformation');
+    
     Route::get('visas/getPersonalInformationVisa/{id}', 'VisaController@getPersonalInformationVisa')->name("visa.getPersonalInformationVisa");
-    Route::resource('visas', 'VisaController');
+    
+    Route::resource('visas', 'VisaController')->middleware('role_or_permission:Admin|personalInformation');
+    
     Route::get('shoreExperiencies/getPersonalInformationExperiencie/{id}', 'ShoreExperiencieController@getPersonalInformationExperiencie')->name("shoreExperiencie.getPersonalInformationExperiencie");
-    Route::resource('shoreExperiencies', 'ShoreExperiencieController');
+    
+    Route::resource('shoreExperiencies', 'ShoreExperiencieController')->middleware('role_or_permission:Admin|personalInformation');
+    
     Route::get('seamanBooks/getPersonalInformationSeamanBook/{id}', 'SeamanBookController@getPersonalInformationSeamanBook')->name("seamanBook.getPersonalInformationSeamanBook");
-    Route::resource('seamanBooks', 'SeamanBookController');
+    
+    Route::resource('seamanBooks', 'SeamanBookController')->middleware('role_or_permission:Admin|personalInformation');
+
+    Route::resource('visas', 'VisaController')->middleware('role_or_permission:Admin|personalInformation');
+
+    Route::resource('shoreExperiencies', 'shoreExperiencieController')->middleware('role_or_permission:Admin|personalInformation');
+
+    Route::resource('licenseEndorsementNames', 'LicenseEndorsementNameController')->middleware('role_or_permission:Admin|personalInformation');
+
+    Route::get('licenseEndorsementNames/getAjaxByLicenseEndorsementTypeId/{id}', 'LicenseEndorsementNameController@getAjaxByLicenseEndorsementTypeId');
 });
 
-Route::resource('licenseEndorsementTypes', 'LicenseEndorsementTypeController');
-
-Route::resource('countries', 'CountryController');
-
-Route::resource('licenseEndorsementNames', 'LicenseEndorsementNameController');
-
-
-
-Route::resource('visaTypes', 'VisaTypeController');
-
-Route::resource('visas', 'VisaController');
-
-Route::resource('shoreExperiencies', 'shoreExperiencieController');
-
-
-
-
+Route::resource('familyStatuses', 'FamilyStatusController');

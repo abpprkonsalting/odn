@@ -3,11 +3,16 @@
 <!-- Number Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('number', 'Number:') !!}
-    {!! Form::text('number', null, ['class' => 'form-control']) !!}
+    {!! Form::number('number', null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- Countries Id Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('countries_id', 'Countries:') !!}
+    {!! Form::select('countries_id', $countryItems, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Issue Date Field -->
-
 <div class="form-group col-sm-6">
     {!! Form::label('issue_date', 'Issue Date:') !!}
     <div class="input-group">
@@ -41,12 +46,6 @@
     </script>
 @endpush
 
-<!-- Countries Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('countries_id', 'Countries:') !!}
-    {!! Form::select('countries_id', $countryItems, null, ['class' => 'form-control']) !!}
-</div>
-
 <!-- License Endorsement Types Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('license_endorsement_types_id', 'License Endorsement Types:') !!}
@@ -56,7 +55,7 @@
 <!-- License Endorsement Names Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('license_endorsement_names_id', 'License Endorsement Names:') !!}
-    {!! Form::select('license_endorsement_names_id', $license_endorsement_nameItems, null, ['class' => 'form-control']) !!}
+    {!! Form::select('license_endorsement_names_id', [], null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->
@@ -64,3 +63,7 @@
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('licenseEndorsements.index') }}" class="btn btn-default">Cancel</a>
 </div>
+
+@push('scripts')
+    <script src="{{ asset('/js/personalInformation.js') }}" type="text/javascript"></script>
+@endpush

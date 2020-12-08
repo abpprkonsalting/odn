@@ -38,7 +38,7 @@ class FamilyInformation extends Model
         'full_name',
         'next_of_kins_id',
         'birth_date',
-        'family_status',
+        'family_status_id',
         'same_address_as_marine',
         'provinces_id',
         'municipalities_id',
@@ -57,7 +57,7 @@ class FamilyInformation extends Model
         'full_name' => 'string',
         'next_of_kins_id' => 'integer',
         'birth_date' => 'datetime:Y-m-d',
-        'family_status' => 'string',
+        'family_status_id' => 'integer',
         'same_address_as_marine' => 'bool',
         'provinces_id' => 'integer',
         'municipalities_id' => 'integer',
@@ -75,12 +75,21 @@ class FamilyInformation extends Model
         'full_name' => 'max:100|required',
         'next_of_kins_id' => 'required',
         'birth_date' => 'date|date_format:Y-m-d',
-        'family_status' => 'max:191|nullable',
+        'family_status_id' => 'required',
         'same_address_as_marine' => 'boolean',
-        'provinces_id' => 'required',
+        'provinces_id' => 'nullable',
         'municipalities_id' => 'nullable',
         'phone_number' => 'max:50|nullable',
         'address' => 'max:500|nullable'
+    ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'same_address_as_marine' => 1,
     ];
 
     public function getBirthDateAttribute($value) {
@@ -108,5 +117,10 @@ class FamilyInformation extends Model
     public function nextOfKind()
     {
         return $this->belongsTo(NextOfKin::class, 'next_of_kins_id');
+    }
+
+    public function familyStatus()
+    {
+        return $this->belongsTo(FamilyStatus::class, 'family_status_id');
     }
 }

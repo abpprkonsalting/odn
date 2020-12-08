@@ -177,7 +177,7 @@ class FamilyInformationController extends AppBaseController
     public function getPersonalInformationFamily($id)
     {
         $familyInformationModel = $this->familyInformationRepository->model();
-        return Datatables::of($familyInformationModel::with(['province', 'municipality','nextOfKind'])->where(['personal_informations_id' => $id])->get())
+        return Datatables::of($familyInformationModel::with(['province', 'municipality', 'nextOfKind', 'familyStatus'])->where(['personal_informations_id' => $id])->get())
             ->addColumn('action', 'family_informations.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);

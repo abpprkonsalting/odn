@@ -148,4 +148,19 @@ class LicenseEndorsementNameController extends AppBaseController
 
         return redirect(route('licenseEndorsementNames.index'));
     }
+
+    /**
+     * Display the specified  in Ajax Call.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function getAjaxByLicenseEndorsementTypeId($id)
+    {
+        $licenseEndorsementName = $this->licenseEndorsementNameRepository->model();
+        $licenseEndorsementNames = $licenseEndorsementName::where(['license_endorsement_types_id' => $id])->get();
+
+        return response()->json($licenseEndorsementNames);
+    }
 }

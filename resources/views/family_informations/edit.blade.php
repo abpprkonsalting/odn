@@ -1,5 +1,5 @@
 @extends('partials.person_tabs', [
-    'activeMenuTemplate' => 'memosInformation',
+    'activeMenuTemplate' => 'familyInformation',
     'personalInformationId' => $familyInformation->personalInformation->id  
 ])
 @section('tabs-section-header')

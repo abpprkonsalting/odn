@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\LicenseEndorsementName;
+use App\Models\FamilyStatus;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class LicenseEndorsementNameDataTable extends DataTable
+class FamilyStatusDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,16 +18,16 @@ class LicenseEndorsementNameDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'license_endorsement_names.datatables_actions');
+        return $dataTable->addColumn('action', 'family_statuses.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\LicenseEndorsementName $model
+     * @param \App\Models\FamilyStatus $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(LicenseEndorsementName $model)
+    public function query(FamilyStatus $model)
     {
         return $model->newQuery();
     }
@@ -65,7 +65,6 @@ class LicenseEndorsementNameDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id',
             'name'
         ];
     }
@@ -77,6 +76,6 @@ class LicenseEndorsementNameDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'license_endorsement_names_datatable_' . time();
+        return 'family_statuses_datatable_' . time();
     }
 }

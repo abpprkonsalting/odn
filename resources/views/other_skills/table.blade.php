@@ -8,6 +8,7 @@
             <th>Skill Or Knowledge</th>
             <th>Place Or School</th>
             <th>Knowledge Date</th>
+            <th>Empirical</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -28,6 +29,7 @@
                   {data: 'skill_or_knowledge', name: 'skill_or_knowledge'},
                   {data: 'place_or_school', name: 'place_or_school'}, 
                   {data: 'knowledge_date', name: 'knowledge_date'}, 
+                  {data: 'empirical', name: 'empirical'}, 
                   {
                       data: 'action', 
                       name: 'action', 

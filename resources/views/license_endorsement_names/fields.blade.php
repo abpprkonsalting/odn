@@ -1,14 +1,13 @@
+<!-- License Endorsement Types Id Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('license_endorsement_types_id', 'License Endorsement Types:') !!}
+    {!! Form::select('license_endorsement_types_id', $license_endorsement_typeItems, null, ['class' => 'form-control']) !!}
+</div>
 
 <!-- Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('name', 'Name:') !!}
     {!! Form::text('name', null, ['class' => 'form-control','maxlength' => 250]) !!}
-</div>
-
-<!-- License Endorsement Types Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('license_endorsement_types_id', 'License Endorsement Types Id:') !!}
-    {!! Form::select('license_endorsement_types_id', $license_endorsement_typeItems, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->
