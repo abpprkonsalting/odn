@@ -123,7 +123,7 @@ class PersonalInformation extends Model
      */
     public static $rules = [
         'internal_file_number' => 'required|max:250',
-        'external_file_number' => 'max:250',
+        'external_file_number' => 'nullable|max:250',
         'full_name' => 'max:250',
         'id_number' => 'required|max:250|unique:personal_informations,id_number',
         'birthday' => 'date|date_format:Y-m-d',

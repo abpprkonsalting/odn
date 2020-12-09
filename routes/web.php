@@ -76,6 +76,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('personalInformations', 'PersonalInformationController')->middleware('role_or_permission:Admin|personalInformation');
     
     Route::get('personalInformations/getAjaxPersonalInformationById/{id}', 'PersonalInformationController@getAjaxPersonalInformationById')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::get('personalInformations/pdf/{id}', 'PersonalInformationController@getPersonalInformationPdfById')->name('personalInformations.pdf')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::get('province/getAjaxProvinceById/{id}', 'ProvinceController@getAjaxProvinceById');
 

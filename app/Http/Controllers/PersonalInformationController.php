@@ -10,6 +10,7 @@ use App\Repositories\PersonalInformationRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use PDF;
 
 class PersonalInformationController extends AppBaseController
 {
@@ -151,5 +152,13 @@ class PersonalInformationController extends AppBaseController
         $personalInformation = $this->personalInformationRepository->find($id);
         
         return response()->json($personalInformation);
+    }
+
+    public function getPersonalInformationPdfById($id) {
+        $personalInformation = $this->personalInformationRepository->find($id);
+        
+        $pdf = PDF::loadView('personal_informations.pdf', []);
+  
+        return $pdf->download("{$personalInformation->id_number}.pdf");
     }
 }
