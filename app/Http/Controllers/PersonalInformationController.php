@@ -89,6 +89,7 @@ class PersonalInformationController extends AppBaseController
     public function edit($id)
     {
         $personalInformation = $this->personalInformationRepository->find($id);
+        
 
         if (empty($personalInformation)) {
             Flash::error('Personal Information not found');
@@ -155,10 +156,15 @@ class PersonalInformationController extends AppBaseController
     }
 
     public function getPersonalInformationPdfById($id) {
-        $personalInformation = $this->personalInformationRepository->find($id);
+        $personalInformationModel = $this->personalInformationRepository->model();
+        $personalInformation = $personalInformationModel::with(['maritalStatus','province','municipality', 'familyInformations', 'familyInformations.nextOfKind', 'familyInformations.familyStatus','familyInformations.province','familyInformations.municipality','passports','visas','visas.visaType','seamanBooks','personalMedicalInformations','personalMedicalInformations.medicalInformation','courses','courses.province','courses.courseNumber','otherSkills','shoreExperiencies','licenseEndorsements','licenseEndorsements.country','licenseEndorsements.licenseEndorsementType','licenseEndorsements.licenseEndorsementName','memos','companies','companies.engineType', 'companies.rank','companies.flag' ])->find($id);
+        /*echo "<pre>";
+            print_r($personalInformation->familyInformations[0]->nextOfKind->name);
+        echo "</pre>";
+        die;*/
+        $pdf = PDF::loadView('personal_informations.pdf', ['personalInformation' => $personalInformation]);
+      
         
-        $pdf = PDF::loadView('personal_informations.pdf', []);
-  
         return $pdf->download("{$personalInformation->id_number}.pdf");
     }
 }

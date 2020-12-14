@@ -171,5 +171,47 @@ class PersonalInformation extends Model
     public function courses() {
         return $this->hasMany(Course::class, 'personal_informations_id');
     }
+
+    public function maritalStatus()
+    {
+        return $this->belongsTo(MaritalStatus::class, 'marital_status_id');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id');
+    }
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class, 'municipality_id');
+    }
+
+    public function familyInformations() {
+        return $this->hasMany(FamilyInformation::class, 'personal_informations_id');
+    }
+    public function passports() {
+        return $this->hasMany(Passport::class, 'personal_informations_id');
+    }
+    public function visas() {
+        return $this->hasMany(Visa::class, 'personal_informations_id');
+    }
+    public function seamanBooks() {
+        return $this->hasMany(SeamanBook::class, 'personal_informations_id');
+    }
+    public function personalMedicalInformations() {
+        return $this->hasMany(PersonalMedicalInformation::class, 'personal_informations_id');
+    }
+    public function otherSkills() {
+        return $this->hasMany(OtherSkill::class, 'personal_informations_id');
+    }
+    public function shoreExperiencies() {
+        return $this->hasMany(ShoreExperiencie::class, 'personal_informations_id');
+    }
+    public function licenseEndorsements() {
+        return $this->hasMany(LicenseEndorsement::class, 'personal_informations_id');
+    }
+    public function companies() {
+        return $this->hasMany(Company::class, 'personal_informations_id');
+    }
     
 }

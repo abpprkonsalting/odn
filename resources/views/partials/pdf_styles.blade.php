@@ -45,12 +45,37 @@
         margin: 0 0 20px 0;
         background: url(dimension.png);
     }
+    h3 {
+        
+        color: #5D6975;
+        font-size: 2.4em;
+        line-height: 1.4em;
+        font-weight: normal;
+        text-align: center;
+        margin: 0 0 20px 0;
+        background:  #C1CED9;
+       
+    }
     
     #project {
         float: left;
     }
-    
+    #avatar {
+        width: 200px;
+        float: right;
+    }
+    #avatar img {
+        width: 200px;
+    }
     #project span {
+        color: #5D6975;
+        text-align: right;
+        width: 52px;
+        margin-right: 10px;
+        display: inline-block;
+        font-size: 0.8em;
+    }
+    #address span {
         color: #5D6975;
         text-align: right;
         width: 52px;
@@ -82,11 +107,11 @@
     
     table th,
     table td {
-        text-align: center;
+        padding: 5px 15px;
     }
     
     table th {
-        padding: 5px 20px;
+        
         color: #5D6975;
         border-bottom: 1px solid #C1CED9;
         white-space: nowrap;        
@@ -98,30 +123,29 @@
         text-align: left;
     }
     
-    table td {
-        padding: 20px;
-        text-align: right;
+    table td, .th-align-left {
+       
+        text-align: left;
+        
+        
     }
     
-    table td.service,
-    table td.desc {
-        vertical-align: top;
-    }
-    
-    table td.unit,
-    table td.qty,
-    table td.total {
-        font-size: 1.2em;
-    }
-    
-    table td.grand {
-        border-top: 1px solid #5D6975;;
-    }
+   
     
     #notices .notice {
         color: #5D6975;
         font-size: 1.2em;
     }
+    .text-left{
+        text-align: left;
+
+    }
+    .width50{
+        width: 50% ;
+        vertical-align: top;
+    }
+    
+
     
     footer {
         color: #5D6975;
@@ -133,4 +157,5 @@
         padding: 8px 0;
         text-align: center;
     }
+
 </style>
