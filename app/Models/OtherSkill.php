@@ -59,7 +59,7 @@ class OtherSkill extends Model
         'personal_informations_id' => 'required',
         'skill_or_knowledge' => 'max:50|required',
         'place_or_school' => 'max:50|nullable',
-        'knowledge_date' => 'date|date_format:Y-m-d',
+        'knowledge_date' => 'date|date_format:d-m-Y',
         'empirical' => 'boolean'
     ];
 
@@ -69,10 +69,21 @@ class OtherSkill extends Model
 
     public function getKnowledgeDateAttribute($value) {
         if (!empty($value)) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     } 
     return $value;
 }
+
+/**
+     * Set the memo date
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setKnowledgeDateAttribute($value)
+    {
+        $this->attributes['knowledge_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
 public function personalInformation()
     {
         return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');

@@ -26,7 +26,7 @@ class OperationalInformation extends Model
 
     protected $dates = ['deleted_at'];
 
-
+    protected $dateFormat = 'Y-m-d';
 
     public $fillable = [
         'personal_informations_id',
@@ -57,7 +57,7 @@ class OperationalInformation extends Model
      */
     public static $rules = [
         'personal_informations_id' => 'required',
-        'disponibility_date' => 'required|date|date_format:Y-m-d',
+        'disponibility_date' => 'nullable|date|date_format:d-m-Y',
         'ranks_id' => 'required',
         'statuses_id' => 'required',
         'description' => 'nullable'
@@ -69,7 +69,26 @@ class OperationalInformation extends Model
     }
 
     public function getDisponibilityDateAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+       
+       
+            return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
+
+        
+        
+    }
+    /**
+     * Set the disponibility date
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setDisponibilityDateAttribute($value)
+    {
+        if(!empty($value))
+        {
+            $this->attributes['disponibility_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+
+        }
     }
 
 }

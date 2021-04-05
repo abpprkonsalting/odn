@@ -23,13 +23,13 @@
         //Date picker
         $('#issue_date').datepicker({
             autoclose: true,
-            format: 'yyyy-mm-dd'
+            format: 'dd-mm-yyyy'
         })
     </script>
 @endpush
 
 <!-- Course Numbers Id Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12">
     {!! Form::label('course_numbers_id', 'Course Number:') !!}
     {!! Form::select('course_numbers_id', $course_numberItems, null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
 </div>

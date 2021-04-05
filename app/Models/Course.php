@@ -59,13 +59,27 @@ class Course extends Model
         'personal_informations_id' => 'required',
         'course_numbers_id' => 'required',
         'provinces_id' => 'required',
-        'issue_date' => 'required|date|date_format:Y-m-d',
+        'issue_date' => 'required|date|date_format:d-m-Y',
         'certificate_number' => 'required'
     ];
 
     public function getIssueDateAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     } 
+    /**
+     * Set the issue date
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setIssueDateAttribute($value)
+    {
+        if(!empty($value))
+        {
+            $this->attributes['issue_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+
+        }
+    }
 
     public function personalInformation()
     {

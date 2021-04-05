@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\PersonalInformation;
+use Illuminate\Validation\Rule;
 
 class CreatePersonalInformationRequest extends FormRequest
 {
@@ -25,6 +26,14 @@ class CreatePersonalInformationRequest extends FormRequest
      */
     public function rules()
     {
-        return PersonalInformation::$rules;
+        $rules = PersonalInformation::$rules;
+        $rules['id_number'] = [
+            'required',
+            'max:250',
+            Rule::unique('personal_informations')->whereNull('deleted_at')
+        ];
+
+        return $rules;
+
     }
 }

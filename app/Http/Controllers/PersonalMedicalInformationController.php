@@ -176,7 +176,9 @@ class PersonalMedicalInformationController extends AppBaseController
     public function getPersonalInformationMedical($id)
     {
         $personalMedicalInformationModel = $this->personalMedicalInformationRepository->model();
-        return Datatables::of($personalMedicalInformationModel::with(['medicalInformation'])->where(['personal_informations_id' => $id])->get())
+        return Datatables::of($personalMedicalInformationModel::with(['medicalInformation'])->whereHas('medicalInformation', function($q) {
+            $q->whereNull('deleted_at');
+        })->where(['personal_informations_id' => $id])->get())
             ->addColumn('action', 'personal_medical_informations.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);

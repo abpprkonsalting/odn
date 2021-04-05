@@ -37,7 +37,7 @@
         //Date picker
         $('#issue_date, #expiry_date').datepicker({
             autoclose: true,
-            format: 'yyyy-mm-dd'
+            format: 'dd-mm-yyyy'
         })
     </script>
 @endpush

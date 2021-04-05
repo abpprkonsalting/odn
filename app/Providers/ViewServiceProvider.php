@@ -88,7 +88,7 @@ class ViewServiceProvider extends ServiceProvider
         });
 
         View::composer(['courses.fields'], function ($view) {
-            $course_numberItems = CourseNumber::pluck('name','id')->toArray();
+            $course_numberItems = CourseNumber::orderBy('sort', 'ASC')->pluck('name','id')->toArray();
 
             $view->with('course_numberItems', $course_numberItems);
         });

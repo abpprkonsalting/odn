@@ -177,14 +177,15 @@
                             
                     </tr>   
                     @foreach ($personalInformation->courses as $course) 
-                    <tr>
-                        <td>{{ $course->province->name}}</td>
-                        <td>{{ $course->courseNumber->name }}</td>
-                        <td>{{ $course->certificate_number }}</td>
-                        <td>{{ $course->issue_date }}</td>
-                      
-                    </tr>
-                @endforeach
+                   
+                        <tr>
+                            <td>{{ $course->province->name}}</td>
+                            <td>{{ $course->courseNumber->name }}</td>
+                            <td>{{ $course->certificate_number }}</td>
+                            <td>{{ $course->issue_date }}</td>
+                        </tr>
+                    
+                    @endforeach
             </tbody>
         </table>
         <h3>OTHER SKILLS</h3>

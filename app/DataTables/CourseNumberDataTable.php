@@ -65,7 +65,7 @@ class CourseNumberDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name'
+            'name', 'sort'
         ];
     }
 

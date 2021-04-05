@@ -167,7 +167,8 @@
                         <th class="th-align-left">Issue Date</th> 
                             
                     </tr>   
-                    @foreach ($personalInformation->courses as $course) 
+                    @foreach ($personalInformation->courses as $course)
+                   
                     <tr>
                         <td>{{ $course->province->name}}</td>
                         <td>{{ $course->courseNumber->name }}</td>
@@ -175,6 +176,7 @@
                         <td>{{ $course->issue_date }}</td>
                       
                     </tr>
+                   
                 @endforeach
             </tbody>
         </table>

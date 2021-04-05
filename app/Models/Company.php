@@ -99,8 +99,8 @@ class Company extends Model
         'company_name' => 'required|max:50',
         'current' => 'boolean',
         'vessel' => 'nullable',
-        'sign_on_date' => 'date|date_format:Y-m-d',
-        'sign_off_date' => 'date|date_format:Y-m-d',
+        'sign_on_date' => 'date|date_format:d-m-Y',
+        'sign_off_date' => 'date|date_format:d-m-Y',
         'dtw' => 'nullable',
         'gross_tonnage' => 'nullable',
         'engine_types_id' => 'nullable',
@@ -117,11 +117,33 @@ class Company extends Model
 
 
     public function getSignOnDateAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     } 
+
+    /**
+     * Set the memo date
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setSignOnDateAttribute($value)
+    {
+        $this->attributes['sign_on_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
     public function getSignOffDateAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     } 
+
+    /**
+     * Set the memo date
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setSignOffDateAttribute($value)
+    {
+        $this->attributes['sign_off_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
 
     public function personalInformation()
     {

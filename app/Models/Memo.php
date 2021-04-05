@@ -52,13 +52,23 @@ class Memo extends Model
     public static $rules = [
         'personal_informations_id' => 'required',
         'note' => 'nullable',
-        'memo_date' => 'required|date|date_format:Y-m-d'
+        'memo_date' => 'required|date|date_format:d-m-Y'
     ];
 
     public function getMemoDateAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     } 
-
+    
+     /**
+     * Set the memo date
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setMemoDateAttribute($value)
+    {
+        $this->attributes['memo_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
     public function personalInformation()
     {
         return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');

@@ -75,7 +75,7 @@
         //Date picker
         $('#birth_date').datepicker({
             autoclose: true,
-            format: 'yyyy-mm-dd'
+            format: 'dd-mm-yyyy'
         })
     </script>
     <script src="{{ asset('/js/personalInformation.js') }}" type="text/javascript"></script>

@@ -74,7 +74,7 @@ class FamilyInformation extends Model
         'personal_informations_id' => 'required',
         'full_name' => 'max:100|required',
         'next_of_kins_id' => 'required',
-        'birth_date' => 'date|date_format:Y-m-d',
+        'birth_date' => 'date|date_format:d-m-Y',
         'family_status_id' => 'required',
         'same_address_as_marine' => 'boolean',
         'provinces_id' => 'nullable',
@@ -94,10 +94,21 @@ class FamilyInformation extends Model
 
     public function getBirthDateAttribute($value) {
         if (!empty($value)) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     } 
     return $value;
 }
+
+ /**
+     * Set the memo date
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setBirthDateAttribute($value)
+    {
+        $this->attributes['birth_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
 
     public function personalInformation()
     {
