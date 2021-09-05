@@ -140,6 +140,33 @@
                 
             </ul>
         </li>
+        <li class="treeview">
+            <a href="#"><i class="fa fa-upload"></i> Import
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.statuses') }}"><i class="fa fa-edit"></i><span>Status</span></a>
+                </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.rank') }}"><i class="fa fa-edit"></i><span>Rank</span></a>
+                </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.province') }}"><i class="fa fa-edit"></i><span>Province</span></a>
+                </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.municipality') }}"><i class="fa fa-edit"></i><span>Municipality</span></a>
+                </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.school.grade') }}"><i class="fa fa-edit"></i><span>School Grade</span></a>
+                </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.person') }}"><i class="fa fa-edit"></i><span>Persons</span></a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </li>
 

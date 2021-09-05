@@ -26,7 +26,8 @@ class Municipality extends Model
 
     public $fillable = [
         'province_id',
-        'name'
+        'name',
+        'code',
     ];
 
     /**
@@ -37,7 +38,8 @@ class Municipality extends Model
     protected $casts = [
         'id' => 'integer',
         'province_id' => 'integer',
-        'name' => 'string'
+        'name' => 'string',
+        'code' => 'string',
     ];
 
     /**

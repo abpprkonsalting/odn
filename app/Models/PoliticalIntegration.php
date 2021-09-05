@@ -24,7 +24,8 @@ class PoliticalIntegration extends Model
 
 
     public $fillable = [
-        'name'
+        'name',
+        'code'
     ];
 
     /**
@@ -34,7 +35,8 @@ class PoliticalIntegration extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => 'string'
+        'name' => 'string',
+        'code' => 'string'
     ];
 
     /**

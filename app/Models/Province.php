@@ -24,7 +24,8 @@ class Province extends Model
 
 
     public $fillable = [
-        'name'
+        'name',
+        'code',
     ];
 
     /**
@@ -34,7 +35,8 @@ class Province extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => 'string'
+        'name' => 'string',
+        'code' => 'string'
     ];
 
     /**

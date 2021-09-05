@@ -134,6 +134,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('licenseEndorsementNames', 'LicenseEndorsementNameController')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::get('licenseEndorsementNames/getAjaxByLicenseEndorsementTypeId/{id}', 'LicenseEndorsementNameController@getAjaxByLicenseEndorsementTypeId');
+
+    Route::resource('familyStatuses', 'FamilyStatusController');
 });
 
-Route::resource('familyStatuses', 'FamilyStatusController');
+require __DIR__.'/import.php';

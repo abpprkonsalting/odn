@@ -17,7 +17,8 @@ class ProvinceRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'name'
+        'name',
+        'code',
     ];
 
     /**
@@ -36,5 +37,10 @@ class ProvinceRepository extends BaseRepository
     public function model()
     {
         return Province::class;
+    }
+
+    public function getProvinceByCode($code) 
+    {
+        return $this->allQuery(['code' => $code])->first();
     }
 }

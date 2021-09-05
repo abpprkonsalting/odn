@@ -21,10 +21,11 @@ class Status extends Model
 
     protected $dates = ['deleted_at'];
 
-
+    protected $guarded = array();
 
     public $fillable = [
-        'name'
+        'name',
+        'code'
     ];
 
     /**
@@ -34,7 +35,8 @@ class Status extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => 'string'
+        'name' => 'string',
+        'code' => 'string'
     ];
 
     /**
