@@ -173,7 +173,9 @@ class CourseController extends AppBaseController
     public function getPersonalInformationCourse($id)
     {
         $courseModel = $this->courseRepository->model();
-        return Datatables::of($courseModel::with(['province', 'courseNumber'])->where(['personal_informations_id' => $id])->get())
+        return Datatables::of($courseModel::with(['province', 'courseNumber'])->whereHas('courseNumber', function($q) {
+            $q->whereNull('deleted_at');
+        })->where(['personal_informations_id' => $id])->get())
             ->addColumn('action', 'courses.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);

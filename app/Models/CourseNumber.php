@@ -24,7 +24,12 @@ class CourseNumber extends Model
 
 
     public $fillable = [
-        'name'
+        'name',
+        'sort'
+    ];
+
+    protected $attributes = [
+        'sort' => 0, 
     ];
 
     /**
@@ -34,7 +39,8 @@ class CourseNumber extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => 'string'
+        'name' => 'string',
+        'sort'=>'integer'
     ];
 
     /**
@@ -43,7 +49,8 @@ class CourseNumber extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|max:250|unique:course_numbers'
+        'name' => 'required|max:500|unique:course_numbers',
+        'sort' => 'nullable'
     ];
 
     

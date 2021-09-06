@@ -125,8 +125,8 @@ class PersonalInformation extends Model
         'internal_file_number' => 'required|max:250',
         'external_file_number' => 'nullable|max:250',
         'full_name' => 'max:250',
-        'id_number' => 'required|max:250|unique:personal_informations,id_number',
-        'birthday' => 'date|date_format:Y-m-d',
+        'id_number' => 'required|max:250|unique:personal_informations,id_number,deleted_at,NULL',
+        'birthday' => 'date|date_format:d-m-Y',
         'serial_number' => 'max:250',
         'birthplace' => 'max:250',
         'address' => 'nullable|max:500',
@@ -147,8 +147,19 @@ class PersonalInformation extends Model
     ];
 
     public function getBirthdayAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     } 
+
+    /**
+     * Set the birthday
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setBirthdayAttribute($value)
+    {
+        $this->attributes['birthday'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
     
     /**
      * Get the operational information for Person.
@@ -169,7 +180,55 @@ class PersonalInformation extends Model
      * Get the Memos information for Person.
      */
     public function courses() {
-        return $this->hasMany(Course::class, 'personal_informations_id');
+        return $this->hasMany(Course::class, 'personal_informations_id')->whereHas('courseNumber', function($query) {
+            $query->whereNull('deleted_at');
+        });
+    }
+
+    public function maritalStatus()
+    {
+        return $this->belongsTo(MaritalStatus::class, 'marital_status_id');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id');
+    }
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class, 'municipality_id');
+    }
+
+    public function familyInformations() {
+        return $this->hasMany(FamilyInformation::class, 'personal_informations_id');
+    }
+    public function passports() {
+        return $this->hasMany(Passport::class, 'personal_informations_id');
+    }
+    public function visas() {
+        return $this->hasMany(Visa::class, 'personal_informations_id');
+    }
+    public function seamanBooks() {
+        return $this->hasMany(SeamanBook::class, 'personal_informations_id');
+    }
+    public function personalMedicalInformations() {
+        return $this->hasMany(PersonalMedicalInformation::class, 'personal_informations_id')->whereHas('medicalInformation', function($query) {
+            $query->whereNull('deleted_at');
+        });
+    }
+
+    
+    public function otherSkills() {
+        return $this->hasMany(OtherSkill::class, 'personal_informations_id');
+    }
+    public function shoreExperiencies() {
+        return $this->hasMany(ShoreExperiencie::class, 'personal_informations_id');
+    }
+    public function licenseEndorsements() {
+        return $this->hasMany(LicenseEndorsement::class, 'personal_informations_id');
+    }
+    public function companies() {
+        return $this->hasMany(Company::class, 'personal_informations_id');
     }
     
 }

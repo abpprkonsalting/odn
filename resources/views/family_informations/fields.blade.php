@@ -9,7 +9,7 @@
 
 <!-- Next Of Kins Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('next_of_kins_id', 'Next Of Kins Id:') !!}
+    {!! Form::label('next_of_kins_id', 'Next Of Kins:') !!}
     {!! Form::select('next_of_kins_id', $next_of_kinItems, null, ['class' => 'form-control']) !!}
 </div>
 
@@ -75,7 +75,7 @@
         //Date picker
         $('#birth_date').datepicker({
             autoclose: true,
-            format: 'yyyy-mm-dd'
+            format: 'dd-mm-yyyy'
         })
     </script>
     <script src="{{ asset('/js/personalInformation.js') }}" type="text/javascript"></script>

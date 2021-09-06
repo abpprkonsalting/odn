@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,6 +137,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('licenseEndorsementNames/getAjaxByLicenseEndorsementTypeId/{id}', 'LicenseEndorsementNameController@getAjaxByLicenseEndorsementTypeId');
 
     Route::resource('familyStatuses', 'FamilyStatusController');
-});
+
+    Route::get('/migrate', function() {
+        $exitCode = Artisan::call('migrate');
+        return "<h1>Migration successfully execute</h1>";
+    })->middleware(['role_or_permission:Admin']);
+}
+
+);
 
 require __DIR__.'/import.php';
+
+

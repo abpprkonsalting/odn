@@ -1,7 +1,11 @@
 <!-- Name Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12">
     {!! Form::label('name', 'Name:') !!}
     {!! Form::text('name', null, ['class' => 'form-control','maxlength' => 250]) !!}
+</div>
+<div class="form-group col-sm-12">
+    {!! Form::label('sort', 'Sort:') !!}
+    {!! Form::number('sort', null, ['class' => 'form-control','max' => 1000]) !!}
 </div>
 
 <!-- Submit Field -->

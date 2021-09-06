@@ -59,7 +59,7 @@
         //Date picker
         $('#expedition_date, #expiry_date, #extension_date, #expiry_extension_date').datepicker({
             autoclose: true,
-            format: 'yyyy-mm-dd'
+            format: 'dd-mm-yyyy'
         })
     </script>
 @endpush

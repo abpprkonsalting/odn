@@ -17,7 +17,7 @@
         //Date picker
         $('#memo_date').datepicker({
             autoclose: true,
-            format: 'yyyy-mm-dd'
+            format: 'dd-mm-yyyy'
         })
     </script>
 @endpush

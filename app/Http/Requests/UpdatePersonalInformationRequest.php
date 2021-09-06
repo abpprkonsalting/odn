@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\PersonalInformation;
+use Illuminate\Validation\Rule;
 
 class UpdatePersonalInformationRequest extends FormRequest
 {
@@ -26,7 +27,12 @@ class UpdatePersonalInformationRequest extends FormRequest
     public function rules()
     {
         $rules = PersonalInformation::$rules;
-        $rules['id_number'] = $rules['id_number'].",".$this->route("personalInformation");
+        $rules['id_number'] = [
+            'required',
+            'max:250',
+            Rule::unique('personal_informations')->ignore($this->route("personalInformation"))->whereNull('deleted_at')
+        ];
+        //$rules['id_number'] = $rules['id_number'].",".$this->route("personalInformation");
         return $rules;
     }
 }

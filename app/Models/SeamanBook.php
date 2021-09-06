@@ -54,16 +54,38 @@ class SeamanBook extends Model
     public static $rules = [
         'number' => 'required',
         'personal_informations_id' => 'required',
-        'issue_date' => 'required|date|date_format:Y-m-d',
-        'expiry_date' => 'required|date|date_format:Y-m-d'
+        'issue_date' => 'required|date|date_format:d-m-Y',
+        'expiry_date' => 'required|date|date_format:d-m-Y'
     ];
 
     public function getIssueDateAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     } 
+
+     /**
+     * Set the memo date
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setIssueDateAttribute($value)
+    {
+        $this->attributes['issue_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
     public function getExpiryDateAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     } 
+
+      /**
+     * Set the memo date
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setExpiryDateAttribute($value)
+    {
+        $this->attributes['expiry_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
 
     public function personalInformation()
     {
