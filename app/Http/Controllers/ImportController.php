@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportExcelFileRequest;
+use App\Imports\CountryImport;
+use App\Imports\CourseImport;
+use App\Imports\CourseNumberImport;
+use App\Imports\MemoImport;
 use App\Imports\MunicipalityImport;
 use App\Imports\PersonImport;
 use App\Imports\ProvinceImport;
 use App\Imports\RankImport;
 use App\Imports\SchoolGradeImport;
 use App\Imports\StatusImport;
+use App\Models\CourseNumber;
 use App\Repositories\PersonalInformationRepository;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
@@ -100,6 +105,58 @@ class ImportController extends Controller
         Flash::success('Persons imported successfully.');
 
         return redirect(route('import.person'));
+    }
+
+    public function importCourseNumber() {
+        return view('import.import-course-number');
+    }
+
+    public function storeCourseNumber(ImportExcelFileRequest $request) {
+
+        Excel::import(new CourseNumberImport, $request->file('file'));
+
+        Flash::success('Courses imported successfully.');
+
+        return redirect(route('import.course-number'));
+    }
+
+    public function importCountry() {
+        return view('import.import-country');
+    }
+
+    public function storeCountry(ImportExcelFileRequest $request) {
+
+        Excel::import(new CountryImport, $request->file('file'));
+
+        Flash::success('Country imported successfully.');
+
+        return redirect(route('import.country'));
+    }
+
+    public function importCourse() {
+        return view('import.import-course');
+    }
+
+    public function storeCourse(ImportExcelFileRequest $request) {
+
+        Excel::import(new CourseImport, $request->file('file'));
+
+        Flash::success('Courses imported successfully.');
+
+        return redirect(route('import.course'));
+    }
+
+    public function importMemo() {
+        return view('import.import-memo');
+    }
+
+    public function storeMemo(ImportExcelFileRequest $request) {
+
+        Excel::import(new MemoImport, $request->file('file'));
+
+        Flash::success('Memo imported successfully.');
+
+        return redirect(route('import.memo'));
     }
 
     

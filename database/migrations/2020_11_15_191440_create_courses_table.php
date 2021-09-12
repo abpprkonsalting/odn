@@ -20,7 +20,7 @@ class CreateCoursesTable extends Migration
             $table->integer('course_numbers_id')->unsigned();
             $table->integer('provinces_id')->unsigned();
             $table->date('issue_date');
-            $table->string('certificate_number', 50);
+            $table->string('certificate_number', 50)->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('personal_informations_id')->references('id')->on('personal_informations');

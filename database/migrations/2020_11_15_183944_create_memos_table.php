@@ -17,7 +17,7 @@ class CreateMemosTable extends Migration
         Schema::create('memos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('personal_informations_id')->unsigned();
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->date('memo_date');
             $table->timestamps();
             $table->softDeletes();

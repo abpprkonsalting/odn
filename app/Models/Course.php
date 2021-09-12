@@ -23,16 +23,16 @@ class Course extends Model
 
     public $table = 'courses';
     
-
     protected $dates = ['deleted_at'];
 
-
+    protected $dateFormat = 'Y-m-d';
 
     public $fillable = [
         'personal_informations_id',
         'course_numbers_id',
-        'provinces_id',
-        'issue_date',
+        'country_id',
+        'start_date',
+        'end_date',
         'certificate_number'
     ];
 
@@ -45,8 +45,9 @@ class Course extends Model
         'id' => 'integer',
         'personal_informations_id' => 'integer',
         'course_numbers_id' => 'integer',
-        'provinces_id' => 'integer',
-        'issue_date' => 'datetime:Y-m-d',
+        'country_id' => 'integer',
+        'start_date' => 'datetime:Y-m-d',
+        'end_date' => 'datetime:Y-m-d',
         'certificate_number' => 'string'
     ];
 
@@ -58,25 +59,45 @@ class Course extends Model
     public static $rules = [
         'personal_informations_id' => 'required',
         'course_numbers_id' => 'required',
-        'provinces_id' => 'required',
-        'issue_date' => 'required|date|date_format:d-m-Y',
+        'country_id' => 'required',
+        'start_date' => 'required|date|date_format:d-m-Y',
+        'end_date' => 'required|date|date_format:d-m-Y',
         'certificate_number' => 'required'
     ];
 
-    public function getIssueDateAttribute($value) {
+    public function getStartDateAttribute($value) {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
+    }
+
+    public function getEndDateAttribute($value) {
         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     } 
+    /**
+     * Set the start date
+     *
+     * @param  string  $value
+     * @return void
+     */
+    
+    public function setStartDateAttribute($value)
+    {
+        if(!empty($value))
+        {
+            $this->attributes['start_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+
+        }
+    }
     /**
      * Set the issue date
      *
      * @param  string  $value
      * @return void
      */
-    public function setIssueDateAttribute($value)
+    public function setEndDateAttribute($value)
     {
         if(!empty($value))
         {
-            $this->attributes['issue_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+            $this->attributes['end_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
 
         }
     }
@@ -86,9 +107,9 @@ class Course extends Model
         return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
     }
 
-    public function province()
+    public function country()
     {
-        return $this->belongsTo(Province::class, 'provinces_id');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 
     public function courseNumber()

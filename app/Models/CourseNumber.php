@@ -25,7 +25,8 @@ class CourseNumber extends Model
 
     public $fillable = [
         'name',
-        'sort'
+        'sort',
+        'code',
     ];
 
     protected $attributes = [
@@ -40,6 +41,7 @@ class CourseNumber extends Model
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
+        'code' => 'string',
         'sort'=>'integer'
     ];
 

@@ -8,13 +8,11 @@ use App\Models\Municipality;
 use App\Models\OperationalInformation;
 use App\Models\PersonalInformation;
 use App\Models\PoliticalIntegration;
-use App\Models\Province;
 use App\Models\Rank;
 use App\Models\SchoolGrade;
 use App\Models\SkinColor;
 use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\OnEachRow;
-use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -82,36 +80,6 @@ class PersonImport implements OnEachRow, WithHeadingRow, WithChunkReading
                 ]
             );
         }
-        /*echo "<pre>";
-            print_r($operationalInformation);
-            print_r([
-                'internal_file_number' => $row['exp'],
-                'external_file_number' => $row['exp'],
-                'full_name' => $row['nombre'],
-                'id_number' => $row['cip'],
-                'serial_number' => $row['cis'],
-                'birthday' => $this->transformDate($row['fec_nac']), //Convertir a fecha
-                'birthplace' => $row['lugar_nac'],
-                'address' => $row['dir1'],
-                'principal_phone' => $row['telefono_fijo'],
-                'cell_phone' => $row['telefono_movil'],
-                'secondary_phone' => $row['telefono'],
-                'relevant_action' => $row['hechosrelev'],
-                'sex' => $row['sexo'],
-                'height' => !empty($row['talla']) ? floatval($row['talla']) * 100  : 0,
-                'weight' => !empty($row['peso']) ? intval($row['peso']) : 0, //Convertir a entero
-                'particular_sings' => $row['senas'], 
-                'province_id' => $municipality->province_id, 
-                'municipality_id' => $municipality->id, 
-                'political_integration_id' => $political_integration_id,
-                'eyes_color_id' => $eyes_color_id,
-                'hair_color_id' => $hair_color_id,
-                'marital_status_id' => 1, //Default no selected
-                'school_grade_id' => $school_grade_id, 
-                'skin_color_id' => $skin_color_id
-            ]);
-        echo "</pre>";
-        die;*/
     }
    
     public function chunkSize(): int

@@ -24,7 +24,8 @@ class Country extends Model
 
 
     public $fillable = [
-        'name'
+        'name',
+        'code'
     ];
 
     /**
@@ -34,7 +35,8 @@ class Country extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => 'string'
+        'name' => 'string',
+        'code' => 'string',
     ];
 
     /**
@@ -43,7 +45,8 @@ class Country extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|max:250'
+        'name' => 'required|max:250',
+        'code' => 'nullable|max:255',
     ];
 
     

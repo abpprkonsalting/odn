@@ -20,4 +20,16 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('import/import-person', 'ImportController@importPerson')->middleware('role_or_permission:Admin')->name('import.person');
     Route::post('import/store-person', 'ImportController@storePerson')->middleware('role_or_permission:Admin')->name('store.person');
+    
+    Route::get('import/import-course-number', 'ImportController@importCourseNumber')->middleware('role_or_permission:Admin')->name('import.course-number');
+    Route::post('import/store-course-number', 'ImportController@storeCourseNumber')->middleware('role_or_permission:Admin')->name('store.course-number');
+    
+    Route::get('import/import-country', 'ImportController@importCountry')->middleware('role_or_permission:Admin')->name('import.country');
+    Route::post('import/store-country', 'ImportController@storeCountry')->middleware('role_or_permission:Admin')->name('store.country');
+    
+    Route::get('import/import-course', 'ImportController@importCourse')->middleware('role_or_permission:Admin')->name('import.course');
+    Route::post('import/store-course', 'ImportController@storeCourse')->middleware('role_or_permission:Admin')->name('store.course');
+    
+    Route::get('import/import-memo', 'ImportController@importMemo')->middleware('role_or_permission:Admin')->name('import.memo');
+    Route::post('import/store-memo', 'ImportController@storeMemo')->middleware('role_or_permission:Admin')->name('store.memo');
 });

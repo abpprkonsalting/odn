@@ -216,7 +216,6 @@ class PersonalInformation extends Model
             $query->whereNull('deleted_at');
         });
     }
-
     
     public function otherSkills() {
         return $this->hasMany(OtherSkill::class, 'personal_informations_id');

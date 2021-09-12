@@ -89,8 +89,12 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer(['courses.fields'], function ($view) {
             $course_numberItems = CourseNumber::orderBy('sort', 'ASC')->pluck('name','id')->toArray();
+            $countryItems = Country::pluck('name','id')->toArray();
 
-            $view->with('course_numberItems', $course_numberItems);
+            $view->with([
+                'course_numberItems' => $course_numberItems,
+                'countryItems' => $countryItems,
+            ]);
         });
 
         View::composer(['roles.fields', 'users.fields'], function ($view) {

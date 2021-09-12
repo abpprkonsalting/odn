@@ -24,8 +24,6 @@ class Memo extends Model
 
     protected $dates = ['deleted_at'];
 
-
-
     public $fillable = [
         'personal_informations_id',
         'note',
@@ -69,6 +67,7 @@ class Memo extends Model
     {
         $this->attributes['memo_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
+
     public function personalInformation()
     {
         return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');

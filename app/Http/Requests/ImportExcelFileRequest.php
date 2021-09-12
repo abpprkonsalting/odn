@@ -24,7 +24,7 @@ class ImportExcelFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|mimes:xlx,xls|max:6144'
+            'file' => 'required|mimes:xlx,xls|max:15360'
         ];
     }
 }
