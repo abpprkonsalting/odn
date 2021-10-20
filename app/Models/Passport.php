@@ -34,6 +34,7 @@ class Passport extends Model
         'expiry_date',
         'extension_date',
         'expiry_extension_date',
+        'passport_group',
         'no_passport'
     ];
 
@@ -49,7 +50,8 @@ class Passport extends Model
         'expiry_date' => 'datetime:Y-m-d',
         'extension_date' => 'datetime:Y-m-d',
         'expiry_extension_date'=>'datetime:Y-m-d',
-        'no_passport' => 'string'
+        'no_passport' => 'string',
+        'passport_group' => 'string'
     ];
 
     /**

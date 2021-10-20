@@ -170,7 +170,7 @@
             <tbody>
                
                     <tr>
-                        <th class="th-align-left">Province</th>
+                        <th class="th-align-left">Country</th>
                         <th class="th-align-left">Course Number</th>
                         <th class="th-align-left">Certificate Number</th>
                         <th class="th-align-left">Issue Date</th> 
@@ -179,8 +179,8 @@
                     @foreach ($personalInformation->courses as $course) 
                    
                         <tr>
-                            <td>{{ $course->province->name}}</td>
-                            <td>{{ $course->courseNumber->name }}</td>
+                            <td>{{ $course->country->name }} </td>
+                            <td>{{ $course->courseNumber->name }} </td>
                             <td>{{ $course->certificate_number }}</td>
                             <td>{{ $course->issue_date }}</td>
                         </tr>

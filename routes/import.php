@@ -32,4 +32,13 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('import/import-memo', 'ImportController@importMemo')->middleware('role_or_permission:Admin')->name('import.memo');
     Route::post('import/store-memo', 'ImportController@storeMemo')->middleware('role_or_permission:Admin')->name('store.memo');
+    
+    Route::get('import/import-passport', 'ImportController@importPassport')->middleware('role_or_permission:Admin')->name('import.passport');
+    Route::post('import/store-passport', 'ImportController@storePassport')->middleware('role_or_permission:Admin')->name('store.passport');
+    
+    Route::get('import/import-seaman-book', 'ImportController@importSeamanBook')->middleware('role_or_permission:Admin')->name('import.seamanBook');
+    Route::post('import/store-seaman-book', 'ImportController@storeSeamanBook')->middleware('role_or_permission:Admin')->name('store.seamanBook');
+    
+    Route::get('import/import-family', 'ImportController@importFamily')->middleware('role_or_permission:Admin')->name('import.family');
+    Route::post('import/store-family', 'ImportController@storeFamily')->middleware('role_or_permission:Admin')->name('store.family');
 });

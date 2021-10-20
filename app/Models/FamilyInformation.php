@@ -31,7 +31,7 @@ class FamilyInformation extends Model
 
     protected $dates = ['deleted_at'];
 
-
+    protected $dateFormat = 'Y-m-d';
 
     public $fillable = [
         'personal_informations_id',

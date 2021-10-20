@@ -6,12 +6,16 @@ use App\Http\Requests\ImportExcelFileRequest;
 use App\Imports\CountryImport;
 use App\Imports\CourseImport;
 use App\Imports\CourseNumberImport;
+use App\Imports\FamilyImport;
 use App\Imports\MemoImport;
 use App\Imports\MunicipalityImport;
+use App\Imports\PassportImport;
 use App\Imports\PersonImport;
 use App\Imports\ProvinceImport;
 use App\Imports\RankImport;
 use App\Imports\SchoolGradeImport;
+use App\Imports\SeamanBook;
+use App\Imports\SeamanBookImport;
 use App\Imports\StatusImport;
 use App\Models\CourseNumber;
 use App\Repositories\PersonalInformationRepository;
@@ -157,6 +161,45 @@ class ImportController extends Controller
         Flash::success('Memo imported successfully.');
 
         return redirect(route('import.memo'));
+    }
+
+    public function importPassport() {
+        return view('import.import-passport');
+    }
+
+    public function storePassport(ImportExcelFileRequest $request) {
+
+        Excel::import(new PassportImport, $request->file('file'));
+
+        Flash::success('Passport imported successfully.');
+
+        return redirect(route('import.passport'));
+    }
+
+    public function importSeamanBook() {
+        return view('import.import-seaman-book');
+    }
+
+    public function storeSeamanBook(ImportExcelFileRequest $request) {
+
+        Excel::import(new SeamanBookImport, $request->file('file'));
+
+        Flash::success('Seaman Book imported successfully.');
+
+        return redirect(route('import.seamanBook'));
+    }
+
+    public function importFamily() {
+        return view('import.import-family');
+    }
+
+    public function storeFamily(ImportExcelFileRequest $request) {
+
+        Excel::import(new FamilyImport, $request->file('file'));
+
+        Flash::success('Family imported successfully.');
+
+        return redirect(route('import.family'));
     }
 
     

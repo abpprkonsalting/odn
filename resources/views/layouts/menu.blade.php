@@ -177,6 +177,15 @@
                 <li class="{{ Request::is('import*') ? 'active' : '' }}">
                     <a href="{{ route('import.memo') }}"><i class="fa fa-edit"></i><span>Memo</span></a>
                 </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.passport') }}"><i class="fa fa-edit"></i><span>Passport</span></a>
+                </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.seamanBook') }}"><i class="fa fa-edit"></i><span>Seaman Book</span></a>
+                </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.family') }}"><i class="fa fa-edit"></i><span>Family</span></a>
+                </li>
             </ul>
         </li>
     </ul>
