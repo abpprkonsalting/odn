@@ -95,3 +95,5 @@ Route::resource('shore_experiencies', 'shoreExperiencieAPIController');
 Route::resource('seaman_books', 'SeamanBookAPIController');
 
 Route::resource('family_statuses', 'FamilyStatusAPIController');*/
+
+Route::resource('skill_or_knowledges', 'SkillOrKnowledgeAPIController');

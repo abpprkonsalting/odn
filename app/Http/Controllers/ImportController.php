@@ -7,6 +7,7 @@ use App\Imports\CountryImport;
 use App\Imports\CourseImport;
 use App\Imports\CourseNumberImport;
 use App\Imports\FamilyImport;
+use App\Imports\MedicalInformationImport;
 use App\Imports\MemoImport;
 use App\Imports\MunicipalityImport;
 use App\Imports\PassportImport;
@@ -200,6 +201,19 @@ class ImportController extends Controller
         Flash::success('Family imported successfully.');
 
         return redirect(route('import.family'));
+    }
+
+    public function importMedicalInformation() {
+        return view('import.import-medical-information');
+    }
+
+    public function storeMedicalInformation(ImportExcelFileRequest $request) {
+
+        Excel::import(new MedicalInformationImport, $request->file('file'));
+
+        Flash::success('Medical Information imported successfully.');
+
+        return redirect(route('import.medical-information'));
     }
 
     

@@ -25,8 +25,6 @@ class PersonalMedicalInformation extends Model
 
     protected $dates = ['deleted_at'];
 
-
-
     public $fillable = [
         'personal_informations_id',
         'medical_informations_id',

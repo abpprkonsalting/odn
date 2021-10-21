@@ -186,6 +186,9 @@
                 <li class="{{ Request::is('import*') ? 'active' : '' }}">
                     <a href="{{ route('import.family') }}"><i class="fa fa-edit"></i><span>Family</span></a>
                 </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.medical-information') }}"><i class="fa fa-edit"></i><span>Medical Information</span></a>
+                </li>
             </ul>
         </li>
     </ul>
@@ -205,4 +208,8 @@
 
 
 
+
+<li class="{{ Request::is('skillOrKnowledges*') ? 'active' : '' }}">
+    <a href="{{ route('skillOrKnowledges.index') }}"><i class="fa fa-edit"></i><span>Skill Or Knowledges</span></a>
+</li>
 

@@ -2,12 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\PersonalInformation;
-use Illuminate\Support\Facades\Storage;
+use App\Models\SkillOrKnowledge;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class PersonalInformationDataTable extends DataTable
+class SkillOrKnowledgeDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -19,24 +18,16 @@ class PersonalInformationDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('avatar', function($data) {
-            $image = "/img/default-image.png";
-            if($data->avatar == "" && Storage::disk('public')->exists("{$data->internal_file_number}/FOTO.jpg")) {
-                $image = asset("storage/{$data->internal_file_number}/FOTO.jpg");
-            }
-            return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
-        })
-        ->addColumn('action', 'personal_informations.datatables_actions')
-        ->rawColumns(['avatar', 'action']);
+        return $dataTable->addColumn('action', 'skill_or_knowledges.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\PersonalInformation $model
+     * @param \App\Models\SkillOrKnowledge $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(PersonalInformation $model)
+    public function query(SkillOrKnowledge $model)
     {
         return $model->newQuery();
     }
@@ -74,33 +65,7 @@ class PersonalInformationDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'avatar',
-            'internal_file_number',
-            'external_file_number',
-            'full_name',
-            'id_number',
-            'serial_number',
-            /*'birthday',
-            'birthplace',
-            'province_id',
-            'municipality_id',
-            'address',
-            'political_integration_id',
-            'principal_phone',
-            'secondary_phone',
-            'cell_phone',
-            'relevant_action',
-            'skin_color',
-            'sex',
-            'eyes_color_id',
-            'hair_color_id',
-            'height',
-            'weight',
-            'particular_sings',
-            'email',
-            'marital_status_id',
-            'school_grade_id',
-            'avatar'*/
+            'name'
         ];
     }
 
@@ -111,6 +76,6 @@ class PersonalInformationDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'personal_informations_datatable_' . time();
+        return 'skill_or_knowledges_datatable_' . time();
     }
 }

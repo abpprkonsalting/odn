@@ -6,20 +6,22 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class MedicalInformation
+ * Class SkillOrKnowledge
  * @package App\Models
- * @version November 6, 2020, 9:13 pm UTC
+ * @version October 21, 2021, 1:18 pm UTC
  *
  * @property string $name
  */
-class MedicalInformation extends Model
+class SkillOrKnowledge extends Model
 {
     use SoftDeletes;
 
-    public $table = 'medical_informations';
+    public $table = 'skill_or_knowledges';
     
 
     protected $dates = ['deleted_at'];
+
+
 
     public $fillable = [
         'name'
@@ -31,7 +33,6 @@ class MedicalInformation extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
         'name' => 'string'
     ];
 
@@ -41,7 +42,7 @@ class MedicalInformation extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required|max:250|unique:medical_informations'
+        'name' => 'required'
     ];
 
     

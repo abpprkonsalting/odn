@@ -79,6 +79,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('personalInformations/getAjaxPersonalInformationById/{id}', 'PersonalInformationController@getAjaxPersonalInformationById')->middleware('role_or_permission:Admin|personalInformation');
     
     Route::get('personalInformations/pdf/{id}', 'PersonalInformationController@getPersonalInformationPdfById')->name('personalInformations.pdf')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::get('personalInformations/files/{id}', 'PersonalInformationController@getPersonalInformationFilesById')->name('personalInformations.files')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::get('personalInformations/iframe/{id}', 'PersonalInformationController@getPersonalInformationIframeById')->name('personalInformations.iframe')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::get('province/getAjaxProvinceById/{id}', 'ProvinceController@getAjaxProvinceById');
 
@@ -149,3 +153,6 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__.'/import.php';
 
 
+
+
+Route::resource('skillOrKnowledges', 'SkillOrKnowledgeController');

@@ -41,4 +41,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('import/import-family', 'ImportController@importFamily')->middleware('role_or_permission:Admin')->name('import.family');
     Route::post('import/store-family', 'ImportController@storeFamily')->middleware('role_or_permission:Admin')->name('store.family');
+    
+    Route::get('import/import-medical-information', 'ImportController@importMedicalInformation')->middleware('role_or_permission:Admin')->name('import.medical-information');
+    Route::post('import/store-medical-information', 'ImportController@storeMedicalInformation')->middleware('role_or_permission:Admin')->name('store.medical-information');
 });
