@@ -18,6 +18,16 @@ class CompanyDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
+        /* $dataTable->filter(function ($query) {
+            if (request()->has('company_name')) {
+                $query->where('company_name', 'like', "%" . request('company_name') . "%");
+            }
+
+            if (request()->has('email')) {
+                $query->where('email', 'like', "%" . request('email') . "%");
+            }
+        }); */
+
         return $dataTable->addColumn('action', 'companies.datatables_actions');
     }
 
@@ -29,7 +39,7 @@ class CompanyDataTable extends DataTable
      */
     public function query(Company $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('flag', 'companyType', 'companyMission');
     }
 
     /**
@@ -65,24 +75,14 @@ class CompanyDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'personal_informations_id',
             'company_name',
-            'current',
-            'vessel',
-            'sign_on_date',
-            'sign_off_date',
-            'dtw',
-            'gross_tonnage',
-            'engine_types_id',
-            'bph',
-            'power_kw',
-            'ranks_id',
-            'flags_id',
-            'total_salary',
-            'leave_pay',
-            'basic_salary',
-            'fix_over_time',
-            'contract_period'
+            'email',
+            'phone',
+            'fax',
+            'contact',
+            'flag.name'  => ['searchable' => false],
+            'company_type.title' => ['searchable' => false],
+            'company_mission.title'  => ['searchable' => false]
         ];
     }
 

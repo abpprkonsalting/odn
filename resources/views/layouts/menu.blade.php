@@ -117,6 +117,18 @@
                 <li class="{{ Request::is('familyStatuses*') ? 'active' : '' }}">
                     <a href="{{ route('familyStatuses.index') }}"><i class="fa fa-edit"></i><span>Family Statuses</span></a>
                 </li>
+                <li class="{{ Request::is('skillOrKnowledges*') ? 'active' : '' }}">
+                    <a href="{{ route('skillOrKnowledges.index') }}"><i class="fa fa-edit"></i><span>Skill Or Knowledges</span></a>
+                </li>
+                <li class="{{ Request::is('companies*') ? 'active' : '' }}">
+                    <a href="{{ route('companies.index') }}"><i class="fa fa-edit"></i><span>Companies</span></a>
+                </li>
+                <li class="{{ Request::is('vessels*') ? 'active' : '' }}">
+                    <a href="{{ route('vessels.index') }}"><i class="fa fa-edit"></i><span>Vessels</span></a>
+                </li>
+                <li class="{{ Request::is('vesselTypes*') ? 'active' : '' }}">
+                    <a href="{{ route('vesselTypes.index') }}"><i class="fa fa-edit"></i><span>Vessel Types</span></a>
+                </li>
             </ul>
         </li>
         <li class="treeview">
@@ -189,27 +201,16 @@
                 <li class="{{ Request::is('import*') ? 'active' : '' }}">
                     <a href="{{ route('import.medical-information') }}"><i class="fa fa-edit"></i><span>Medical Information</span></a>
                 </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.skill-or-knowledge') }}"><i class="fa fa-edit"></i><span>Skill Or Knowledge</span></a>
+                </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.other-skills') }}"><i class="fa fa-edit"></i><span>Other Skills</span></a>
+                </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.company') }}"><i class="fa fa-edit"></i><span>Company</span></a>
+                </li>
             </ul>
         </li>
     </ul>
 </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li class="{{ Request::is('skillOrKnowledges*') ? 'active' : '' }}">
-    <a href="{{ route('skillOrKnowledges.index') }}"><i class="fa fa-edit"></i><span>Skill Or Knowledges</span></a>
-</li>
-

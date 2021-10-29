@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportExcelFileRequest;
+use App\Imports\CompanyImport;
 use App\Imports\CountryImport;
 use App\Imports\CourseImport;
 use App\Imports\CourseNumberImport;
@@ -10,6 +11,7 @@ use App\Imports\FamilyImport;
 use App\Imports\MedicalInformationImport;
 use App\Imports\MemoImport;
 use App\Imports\MunicipalityImport;
+use App\Imports\OtherSkillsImport;
 use App\Imports\PassportImport;
 use App\Imports\PersonImport;
 use App\Imports\ProvinceImport;
@@ -17,6 +19,7 @@ use App\Imports\RankImport;
 use App\Imports\SchoolGradeImport;
 use App\Imports\SeamanBook;
 use App\Imports\SeamanBookImport;
+use App\Imports\SkillOrKnowledgesImport;
 use App\Imports\StatusImport;
 use App\Models\CourseNumber;
 use App\Repositories\PersonalInformationRepository;
@@ -214,6 +217,45 @@ class ImportController extends Controller
         Flash::success('Medical Information imported successfully.');
 
         return redirect(route('import.medical-information'));
+    }
+
+    public function importSkillOrKnowledge() {
+        return view('import.import-skill-or-knowledge');
+    }
+
+    public function storeSkillOrKnowledge(ImportExcelFileRequest $request) {
+
+        Excel::import(new SkillOrKnowledgesImport, $request->file('file'));
+
+        Flash::success('Skill or Knowledges Information imported successfully.');
+
+        return redirect(route('import.skill-or-knowledge'));
+    }
+
+    public function importOtherSkills() {
+        return view('import.import-other-skills');
+    }
+
+    public function storeOtherSkills(ImportExcelFileRequest $request) {
+
+        Excel::import(new OtherSkillsImport, $request->file('file'));
+
+        Flash::success('Other Skills Information imported successfully.');
+
+        return redirect(route('import.other-skills'));
+    }
+
+    public function importCompany() {
+        return view('import.import-company');
+    }
+
+    public function storeCompany(ImportExcelFileRequest $request) {
+
+        Excel::import(new CompanyImport, $request->file('file'));
+
+        Flash::success('Company Information imported successfully.');
+
+        return redirect(route('import.company'));
     }
 
     

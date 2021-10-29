@@ -3,34 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CompanyDataTable;
-use App\Http\Requests;
 use App\Http\Requests\CreateCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
-use App\Repositories\CompanyRepository;
-use App\Repositories\PersonalInformationRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+use App\Repositories\CompanyRepository;
 use Response;
 
 class CompanyController extends AppBaseController
 {
     /** @var  CompanyRepository */
     private $companyRepository;
-    /** @var  PersonalInformationRepository */
-    private $personalInformationRepo;
-
-    public function __construct(CompanyRepository $companyRepo, PersonalInformationRepository $personalInformationRepo)
+    public function __construct(CompanyRepository $companyRepo)
     {
         $this->companyRepository = $companyRepo;
-        $this->personalInformationRepo = $personalInformationRepo;
     }
 
     /**
-     * Display a listing of the Company.
+     * Display a listing of the company.
      *
-     * @param CompanyDataTable $companyDataTable
+     * @param companyDataTable $companyDataTable
      * @return Response
      */
     public function index(CompanyDataTable $companyDataTable)
@@ -39,27 +31,17 @@ class CompanyController extends AppBaseController
     }
 
     /**
-     * Show the form for creating a new Company.
+     * Show the form for creating a new company.
      *
      * @return Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        if(isset($request->id) && !empty($request->id)) {
-            $personalInformationModel = $this->personalInformationRepo->model();
-            $personalInformation = $personalInformationModel::find($request->id);
-
-            if(!empty($personalInformation)) {
-                return view('companies.create')->with('personalInformation', $personalInformation);
-            }
-        }
-
-        Flash::error('Personal Information not found');
-        return redirect(route('personalInformations.index'));
+        return view('companies.create');
     }
 
     /**
-     * Store a newly created Company in storage.
+     * Store a newly created company in storage.
      *
      * @param CreateCompanyRequest $request
      *
@@ -73,11 +55,11 @@ class CompanyController extends AppBaseController
 
         Flash::success('Company saved successfully.');
 
-        return redirect(route('companies.create', ['id' => $company->personal_informations_id]));
+        return redirect(route('companies.index'));
     }
 
     /**
-     * Display the specified Company.
+     * Display the specified company.
      *
      * @param  int $id
      *
@@ -88,7 +70,7 @@ class CompanyController extends AppBaseController
         $company = $this->companyRepository->find($id);
 
         if (empty($company)) {
-            Flash::error('Company not found');
+            Flash::error('company not found');
 
             return redirect(route('companies.index'));
         }
@@ -97,7 +79,23 @@ class CompanyController extends AppBaseController
     }
 
     /**
-     * Show the form for editing the specified Company.
+     * Display the specified  in Ajax Call.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function getAjaxcompanyById($id)
+    {
+        $company = $this->companyRepository->model();
+        $companys = $company::with('companyMission', 'companyType', 'flag')
+            ->find($id);
+
+        return response()->json($companys);
+    }
+
+    /**
+     * Show the form for editing the specified company.
      *
      * @param  int $id
      *
@@ -108,22 +106,19 @@ class CompanyController extends AppBaseController
         $company = $this->companyRepository->find($id);
 
         if (empty($company)) {
-            Flash::error('Company not found');
+            Flash::error('company not found');
 
             return redirect(route('companies.index'));
         }
 
-       
-        return view('companies.edit')->with(['company' => $company, 'personalInformation' => $company->personalInformation]);
-        
-        
+        return view('companies.edit')->with('company', $company);
     }
 
     /**
-     * Update the specified Company in storage.
+     * Update the specified company in storage.
      *
      * @param  int              $id
-     * @param UpdateCompanyRequest $request
+     * @param UpdatecompanyRequest $request
      *
      * @return Response
      */
@@ -141,12 +136,11 @@ class CompanyController extends AppBaseController
 
         Flash::success('Company updated successfully.');
 
-        
-        return redirect(route('companies.create', [ 'id' => $company->personal_informations_id ]));
+        return redirect(route('companies.index'));
     }
 
     /**
-     * Remove the specified Company from storage.
+     * Remove the specified company from storage.
      *
      * @param  int $id
      *
@@ -166,15 +160,6 @@ class CompanyController extends AppBaseController
 
         Flash::success('Company deleted successfully.');
 
-        return redirect(route('companies.create', [ 'id' => $company->personal_informations_id ]));
-    }
-    public function getPersonalInformationCompany($id)
-    {
-        $companyModel = $this->companyRepository->model();
-        return Datatables::of($companyModel::with(['engineType', 'rank','flag'])->where(['personal_informations_id' => $id])->get())
-            ->addColumn('action', 'companies.datatables_actions')
-            ->rawColumns(['action'])
-            ->make(true);
-    
+        return redirect(route('companies.index'));
     }
 }

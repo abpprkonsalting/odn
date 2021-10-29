@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Providers;
+use App\Models\Company;
 
-
-
-
+use App\Models\CompanyMission;
+use App\Models\CompanyType;
 use App\Models\VisaType;
 use App\Models\LicenseEndorsementName;
 use App\Models\Country;
@@ -28,6 +28,7 @@ use App\Models\SkinColor;
 use App\Models\Status;
 use App\Models\FamilyStatus;
 use App\Models\Flag;
+use App\Models\SkillOrKnowledge;
 use Spatie\Permission\Models\Role;
 use View;
 
@@ -50,6 +51,10 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::composer(['vessels.fields'], function ($view) {
+            $companyItems = Company::pluck('company_name','id')->toArray();
+            $view->with('companyItems', $companyItems);
+        });
         View::composer(['visas.fields'], function ($view) {
             $visa_typeItems = VisaType::pluck('name','id')->toArray();
             $view->with('visa_typeItems', $visa_typeItems);
@@ -68,10 +73,11 @@ class ViewServiceProvider extends ServiceProvider
         });
 
         View::composer(['companies.fields'], function ($view) {
-            $rankItems = Rank::pluck('name','id')->toArray();
+            $companyTypeItems = CompanyType::pluck('title','id')->toArray();
+            $companyMissionItems = CompanyMission::pluck('title','id')->toArray();
             $flagItems = Flag::pluck('name','id')->toArray();
-            $engine_typeItems = EngineType::pluck('name','id')->toArray();
-            $view->with(compact('flagItems', 'rankItems', 'engine_typeItems'));
+            //$engine_typeItems = EngineType::pluck('name','id')->toArray();
+            $view->with(compact('flagItems', 'companyTypeItems', 'companyMissionItems'));
         });
 
         View::composer(['family_informations.fields'], function ($view) {
@@ -131,6 +137,11 @@ class ViewServiceProvider extends ServiceProvider
             $medicalInformationItems = MedicalInformation::pluck('name','id')->toArray();
             
             $view->with(compact('medicalInformationItems'));
+        });
+
+        View::composer(['other_skills.fields'], function ($view) {
+            $skills_or_knowledgesItems = SkillOrKnowledge::pluck('name','id')->toArray();
+            $view->with('skills_or_knowledgesItems', $skills_or_knowledgesItems);
         });
     }
 }

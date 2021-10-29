@@ -1,28 +1,23 @@
-@extends('partials.person_tabs', [
-    'activeMenuTemplate' => 'companiesInformation',
-    'personalInformationId' => $personalInformation->id  
-])
+@extends('layouts.app')
 
-@section('tabs-section-header')
+@section('content')
     <section class="content-header">
         <h1>
-           Company
+            Company
         </h1>
-        @include('partials.person_breadcrumbs')
     </section>
-@endsection
+    <div class="content">
+        @include('adminlte-templates::common.errors')
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="row">
+                    {!! Form::open(['route' => 'companies.store']) !!}
 
-@section('person-content')
-                
-    {!! Form::open(['route' => 'companies.store']) !!}
+                        @include('companies.fields')
 
-        @include('companies.fields')
-
-    {!! Form::close() !!}
-
-    <div class="col-sm-12">
-        <h3 class="box-title">Companies List</h3>
-        @include('companies.table')
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
     </div>
-    
 @endsection

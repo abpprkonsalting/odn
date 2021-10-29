@@ -26,7 +26,7 @@
               serverSide: true,
               ajax: "{{ route('otherSkills.getPersonalInformationSkill', ['id' => $personalInformation->id]) }}",
               columns: [
-                  {data: 'skill_or_knowledge', name: 'skill_or_knowledge'},
+                  {data: 'skill_or_knowledge.name', name: 'skill_or_knowledge_id'},
                   {data: 'place_or_school', name: 'place_or_school'}, 
                   {data: 'knowledge_date', name: 'knowledge_date'}, 
                   {data: 'empirical', name: 'empirical'}, 

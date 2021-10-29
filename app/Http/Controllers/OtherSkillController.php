@@ -172,7 +172,7 @@ class OtherSkillController extends AppBaseController
     public function getPersonalInformationSkill($id)
     {
         $otherSkillModel = $this->otherSkillRepository->model();
-        return Datatables::of($otherSkillModel::where(['personal_informations_id' => $id])->get())
+        return Datatables::of($otherSkillModel::with('skillOrKnowledge')->where(['personal_informations_id' => $id])->get())
             ->addColumn('action', 'other_skills.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);

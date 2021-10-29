@@ -66,7 +66,7 @@ class OtherSkillDataTable extends DataTable
     {
         return [
             'personal_informations_id',
-            'skill_or_knowledge',
+            'skill_or_knowledge_id',
             'place_or_school',
             'knowledge_date',
             'empirical'

@@ -26,14 +26,14 @@
               ajax: "{{ route('personalMedicalInformation.getPersonalInformationMedical', ['id' => $personalInformation->id]) }}",
               columns: [
                 {data: 'medical_information.name', name: 'medical_informations_id'},
-                  {data: 'issue_date', name: 'issue_date'},
-                  {data: 'expiry_date', name: 'expiry_date'}, 
-                  {
-                      data: 'action', 
-                      name: 'action', 
-                      orderable: true, 
-                      searchable: true
-                  },
+                {data: 'issue_date', name: 'issue_date'},
+                {data: 'expiry_date', name: 'expiry_date'}, 
+                {
+                    data: 'action', 
+                    name: 'action', 
+                    orderable: true, 
+                    searchable: true
+                },
               ]
           });
           

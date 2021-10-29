@@ -22,9 +22,9 @@ class SkillOrKnowledge extends Model
     protected $dates = ['deleted_at'];
 
 
-
     public $fillable = [
-        'name'
+        'name',
+        'code'
     ];
 
     /**
@@ -44,6 +44,11 @@ class SkillOrKnowledge extends Model
     public static $rules = [
         'name' => 'required'
     ];
+
+    
+    public function otherSkills() {
+        return $this->hasMany(OtherSkill::class, 'skill_or_knowledge_id');
+    }
 
     
 }

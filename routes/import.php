@@ -44,4 +44,13 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('import/import-medical-information', 'ImportController@importMedicalInformation')->middleware('role_or_permission:Admin')->name('import.medical-information');
     Route::post('import/store-medical-information', 'ImportController@storeMedicalInformation')->middleware('role_or_permission:Admin')->name('store.medical-information');
+    
+    Route::get('import/import-skill-or-knowledge', 'ImportController@importSkillOrKnowledge')->middleware('role_or_permission:Admin')->name('import.skill-or-knowledge');
+    Route::post('import/store-skill-or-knowledge', 'ImportController@storeSkillOrKnowledge')->middleware('role_or_permission:Admin')->name('store.skill-or-knowledge');
+    
+    Route::get('import/import-other-skills', 'ImportController@importOtherSkills')->middleware('role_or_permission:Admin')->name('import.other-skills');
+    Route::post('import/store-other-skills', 'ImportController@storeOtherSkills')->middleware('role_or_permission:Admin')->name('store.other-skills');
+    
+    Route::get('import/import-company', 'ImportController@importCompany')->middleware('role_or_permission:Admin')->name('import.company');
+    Route::post('import/store-company', 'ImportController@storeCompany')->middleware('role_or_permission:Admin')->name('store.company');
 });

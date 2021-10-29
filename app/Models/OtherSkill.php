@@ -30,7 +30,8 @@ class OtherSkill extends Model
 
     public $fillable = [
         'personal_informations_id',
-        'skill_or_knowledge',
+        'skill_or_knowledge_id',
+        'certificate',
         'place_or_school',
         'knowledge_date',
         'empirical'
@@ -44,8 +45,9 @@ class OtherSkill extends Model
     protected $casts = [
         'id' => 'integer',
         'personal_informations_id' => 'integer',
-        'skill_or_knowledge' => 'string',
+        'skill_or_knowledge_id' => 'integer',
         'place_or_school' => 'string',
+        'certificate' => 'string',
         'knowledge_date' => 'datetime:Y-m-d',
         'empirical' => 'boolean'
     ];
@@ -57,8 +59,9 @@ class OtherSkill extends Model
      */
     public static $rules = [
         'personal_informations_id' => 'required',
-        'skill_or_knowledge' => 'max:50|required',
+        'skill_or_knowledge_id' => 'required',
         'place_or_school' => 'max:50|nullable',
+        'certificate' => 'max:250|nullable',
         'knowledge_date' => 'date|date_format:d-m-Y',
         'empirical' => 'boolean'
     ];
@@ -74,7 +77,7 @@ class OtherSkill extends Model
     return $value;
 }
 
-/**
+    /**
      * Set the memo date
      *
      * @param  string  $value
@@ -84,9 +87,15 @@ class OtherSkill extends Model
     {
         $this->attributes['knowledge_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
-public function personalInformation()
+    
+    public function personalInformation()
     {
         return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+    }
+
+    public function skillOrKnowledge()
+    {
+        return $this->belongsTo(SkillOrKnowledge::class, 'skill_or_knowledge_id');
     }
 
     

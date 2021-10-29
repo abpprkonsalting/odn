@@ -36,30 +36,19 @@ class Company extends Model
 
     public $table = 'companies';
     
-
     protected $dates = ['deleted_at'];
 
-
-
     public $fillable = [
-        'personal_informations_id',
         'company_name',
-        'current',
-        'vessel',
-        'sign_on_date',
-        'sign_off_date',
-        'dtw',
-        'gross_tonnage',
-        'engine_types_id',
-        'bph',
-        'power_kw',
-        'ranks_id',
         'flags_id',
-        'total_salary',
-        'leave_pay',
-        'basic_salary',
-        'fix_over_time',
-        'contract_period'
+        'code',
+        'description',
+        'phone',
+        'fax',
+        'email', 
+        'contact',
+        'company_type_id',
+        'company_mission_id'
     ];
 
     /**
@@ -69,24 +58,16 @@ class Company extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'personal_informations_id' => 'integer',
+        'company_type_id' => 'integer',
+        'company_mission_id' => 'integer',
         'company_name' => 'string',
-        'current' => 'bool',
-        'vessel' => 'string',
-        'sign_on_date' => 'datetime:Y-m-d',
-        'sign_off_date' => 'datetime:Y-m-d',
-        'dtw' => 'integer',
-        'gross_tonnage' => 'integer',
-        'engine_types_id' => 'integer',
-        'bph' => 'integer',
-        'power_kw' => 'integer',
-        'ranks_id' => 'integer',
-        'flags_id' => 'integer',
-        'total_salary' => 'decimal:2',
-        'leave_pay' => 'decimal:2',
-        'basic_salary' => 'decimal:2',
-        'fix_over_time' => 'decimal:2',
-        'contract_period' => 'integer'
+        'contact' => 'string',
+        'email' => 'string',
+        'fax' => 'string',
+        'phone' => 'string',
+        'description' => 'string',
+        'code' => 'string',
+        'flags_id' => 'integer'
     ];
 
     /**
@@ -95,73 +76,30 @@ class Company extends Model
      * @var array
      */
     public static $rules = [
-        'personal_informations_id' => 'required',
-        'company_name' => 'required|max:50',
-        'current' => 'boolean',
-        'vessel' => 'nullable',
-        'sign_on_date' => 'date|date_format:d-m-Y',
-        'sign_off_date' => 'date|date_format:d-m-Y',
-        'dtw' => 'nullable',
-        'gross_tonnage' => 'nullable',
-        'engine_types_id' => 'nullable',
-        'bph' => 'nullable',
-        'power_kw' => 'nullable|integer',
-        'ranks_id' => 'nullable',
+        'company_name' => 'required|max:500',
+        'code' => 'nullable|max:255',
+        'description' => 'nullable|max:1000',
+        'phone' => 'nullable|max:255',
+        'fax' => 'nullable|max:255',
+        'email' => 'nullable|email|max:255',
+        'contact' => 'nullable|max:255',
         'flags_id' => 'nullable|integer',
-        'total_salary' => 'nullable|numeric',
-        'leave_pay' => 'nullable|numeric',
-        'basic_salary' => 'nullable|numeric',
-        'fix_over_time' => 'nullable|numeric',
-        'contract_period' => 'nullable|integer'
+        'company_mission_id' => 'nullable|integer',
+        'company_type_id' => 'nullable|integer',
     ];
 
-
-    public function getSignOnDateAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
-    } 
-
-    /**
-     * Set the memo date
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setSignOnDateAttribute($value)
+    public function companyMission()
     {
-        $this->attributes['sign_on_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
-    }
-    public function getSignOffDateAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
-    } 
-
-    /**
-     * Set the memo date
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setSignOffDateAttribute($value)
-    {
-        $this->attributes['sign_off_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        return $this->belongsTo(CompanyMission::class, 'company_mission_id');
     }
 
-    public function personalInformation()
+    public function companyType()
     {
-        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
-    }
-    public function engineType()
-    {
-        return $this->belongsTo(EngineType::class, 'engine_types_id');
+        return $this->belongsTo(CompanyType::class, 'company_type_id');
     }
 
-    public function rank()
-    {
-        return $this->belongsTo(Rank::class, 'ranks_id');
-    }
     public function flag()
     {
         return $this->belongsTo(Flag::class, 'flags_id');
     }
-
-    
 }

@@ -4,8 +4,8 @@
 
 <!-- Skill Or Knowledge Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('skill_or_knowledge', 'Skill Or Knowledge:') !!}
-    {!! Form::text('skill_or_knowledge', null, ['class' => 'form-control']) !!}
+    {!! Form::label('skill_or_knowledge_id', 'Skill Or Knowledge:') !!}
+    {!! Form::select('skill_or_knowledge_id', $skills_or_knowledgesItems, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Place Or School Field -->
@@ -23,6 +23,11 @@
             <i class="fa fa-calendar"></i>
         </div>
     </div>
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('certificate', 'Certificate:') !!}
+    {!! Form::text('certificate', null, ['class' => 'form-control','maxlength' => 50]) !!}
 </div>
 
 <!-- Empirical Field -->

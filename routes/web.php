@@ -142,6 +142,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('familyStatuses', 'FamilyStatusController');
 
+    Route::resource('skillOrKnowledges', 'SkillOrKnowledgeController');
+
     Route::get('/migrate', function() {
         $exitCode = Artisan::call('migrate');
         return "<h1>Migration successfully execute</h1>";
@@ -152,7 +154,7 @@ Route::middleware(['auth'])->group(function () {
 
 require __DIR__.'/import.php';
 
+Route::resource('vessels', 'VesselController');
 
 
-
-Route::resource('skillOrKnowledges', 'SkillOrKnowledgeController');
+Route::resource('vesselTypes', 'VesselTypeController');
