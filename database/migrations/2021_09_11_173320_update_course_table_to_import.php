@@ -14,7 +14,7 @@ class UpdateCourseTableToImport extends Migration
     public function up()
     {
         Schema::table('courses', function (Blueprint $table) {
-            //$table->dropForeign('courses_provinces_id_foreign');
+            $table->dropForeign('courses_provinces_id_foreign');
             $table->dropColumn('provinces_id');
             $table->dropColumn('issue_date');
             $table->integer('country_id')->after('course_numbers_id')->unsigned();

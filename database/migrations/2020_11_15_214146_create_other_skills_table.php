@@ -17,7 +17,7 @@ class CreateOtherSkillsTable extends Migration
         Schema::create('other_skills', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('personal_informations_id')->unsigned();
-            $table->string('skill_or_knowledge', 50);
+            //$table->string('skill_or_knowledge', 50);
             $table->string('place_or_school', 50);
             $table->date('knowledge_date');
             $table->integer('empirical', false, true);
