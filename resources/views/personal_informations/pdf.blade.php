@@ -276,6 +276,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{--
         <h3>COMPANY</h3>
         <table>
             <tbody>
@@ -331,6 +332,6 @@
                     </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table>--}}
     </main>
 @endsection

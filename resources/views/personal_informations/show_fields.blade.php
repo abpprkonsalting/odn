@@ -128,7 +128,6 @@
         <h3>SEAMAN BOOKS</h3>
         <table class="table table-bordered">
             <tbody>
-               
                     <tr>
                         <th class="th-align-left">Number</th>
                         <th class="th-align-left">Issue Date</th>
@@ -282,6 +281,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{--
         <h3>COMPANY</h3>
         <table class="table table-bordered">
             <tbody>
@@ -337,4 +337,4 @@
                     </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table> --}}

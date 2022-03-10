@@ -21,6 +21,7 @@ use App\Imports\SeamanBook;
 use App\Imports\SeamanBookImport;
 use App\Imports\SkillOrKnowledgesImport;
 use App\Imports\StatusImport;
+use App\Imports\VesselImport;
 use App\Models\CourseNumber;
 use App\Repositories\PersonalInformationRepository;
 use Illuminate\Http\Request;
@@ -256,6 +257,19 @@ class ImportController extends Controller
         Flash::success('Company Information imported successfully.');
 
         return redirect(route('import.company'));
+    }
+
+    public function importVessel() {
+        return view('import.import-vessel');
+    }
+
+    public function storeVessel(ImportExcelFileRequest $request) {
+
+        Excel::import(new VesselImport, $request->file('file'));
+
+        Flash::success('Vessels Information imported successfully.');
+
+        return redirect(route('import.vessel'));
     }
 
     

@@ -210,6 +210,9 @@
                 <li class="{{ Request::is('import*') ? 'active' : '' }}">
                     <a href="{{ route('import.company') }}"><i class="fa fa-edit"></i><span>Company</span></a>
                 </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.vessel') }}"><i class="fa fa-edit"></i><span>Vessel</span></a>
+                </li>
             </ul>
         </li>
     </ul>

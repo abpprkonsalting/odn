@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $gross_tank
  * @property integer $omi_number
  * @property integer $active
- * @property integer $dtw
+ * @property integer $dwt
  * @property integer $engine
  * @property integer $vessel_type_id
  * @property integer $flags_id
@@ -28,10 +28,7 @@ class Vessel extends Model
 
     public $table = 'vessels';
     
-
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'name',
@@ -40,7 +37,7 @@ class Vessel extends Model
         'gross_tank',
         'omi_number',
         'active',
-        'dtw',
+        'dwt',
         'engine',
         'vessel_type_id',
         'flags_id',
@@ -58,8 +55,8 @@ class Vessel extends Model
         'company_id' => 'integer',
         'gross_tank' => 'integer',
         'omi_number' => 'integer',
-        'active' => 'integer',
-        'dtw' => 'integer',
+        'active' => 'boolean',
+        'dwt' => 'integer',
         'engine' => 'integer',
         'vessel_type_id' => 'integer',
         'flags_id' => 'integer',
@@ -78,12 +75,27 @@ class Vessel extends Model
         'gross_tank' => 'nullable',
         'omi_number' => 'nullable',
         'active' => 'nullable',
-        'dtw' => 'nullable',
+        'dwt' => 'nullable',
         'engine' => 'nullable',
         'vessel_type_id' => 'nullable',
         'flags_id' => 'nullable',
         'machine_type' => 'nullable,max:255'
     ];
 
-    
+    public function flag()
+    {
+        return $this->belongsTo(Flag::class, 'flags_id')->withDefault([
+            'name' => ''
+        ]);
+    }
+
+    public function vesselType()
+    {
+        return $this->belongsTo(VesselType::class, 'vessel_type_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
 }
