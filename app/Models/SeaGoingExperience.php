@@ -50,4 +50,50 @@ class SeaGoingExperience extends Model
         
     ];
 
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        'personal_informations_id' => 'required',
+        'ranks_id' => 'required',
+        'ranks_id' => 'required',
+        'vessels_id' => 'required',
+        'start_date' => 'require|date|date_format:d-m-Y',
+        'end_date' => 'require|date|date_format:d-m-Y',
+        'contract_time' => 'required'
+       
+    ];
+
+    public function personaInformation()
+    {
+        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+    }
+    /*
+     get personal informations for seaGoingExeprience
+    */
+
+    public function rank()
+    {
+        return $this->belongsTo(Rank::class, 'ranks_id');
+    }
+
+    /*
+     get rank for seaGoingExeprience
+    */
+
+
+    public function vessel()
+    {
+        return $this->belongsTo(Vessel::class, 'vessels_id');
+    }
+
+    /*
+     get vessel for seaGoingExeprience
+    */
+
+
+
+
 }
