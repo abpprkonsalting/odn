@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
@@ -32,21 +33,23 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     @yield('css')
 </head>
 
 <body class="skin-blue sidebar-mini">
-@if (!Auth::guest())
+    @if (!Auth::guest())
     <div class="wrapper">
         <!-- Main Header -->
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="#" class="logo">
-                <b> {{ env('APP_NAME') }}</b>
+            <a href="{!! route('home') !!}" class="logo">
+                <b> {{ config('app.name') }}</b>
+                <!-- <a href="{!! route('home') !!}" class="logo">
+                    <img src="{!! asset('/img/your_logo.png') !!}" alt="{{ config('app.name') }}" />
+                </a> -->
             </a>
 
             <!-- Header Navbar -->
@@ -63,16 +66,14 @@
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
-                                <img src="{{ asset('img/user-icon.webp') }}"
-                                     class="user-image" alt="User Image"/>
+                                <img src="{{ asset('img/user-icon.webp') }}" class="user-image" alt="User Image" />
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                 <span class="hidden-xs">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
-                                    <img src="{{ asset('img/user-icon.webp') }}"
-                                         class="img-circle" alt="User Image"/>
+                                    <img src="{{ asset('img/user-icon.webp') }}" class="img-circle" alt="User Image" />
                                     <p>
                                         {{ Auth::user()->name }}
                                         <small>@lang('auth.app.member_since') {{ Auth::user()->created_at->format('M. Y') }}</small>
@@ -84,12 +85,10 @@
                                         <a href="#" class="btn btn-default btn-flat">@lang('auth.app.profile')</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="{{ url('/logout') }}" class="btn btn-default btn-flat"
-                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <a href="{{ url('/logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             @lang('auth.sign_out')
                                         </a>
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST"
-                                              style="display: none;">
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             @csrf
                                         </form>
                                     </div>
@@ -102,26 +101,25 @@
         </header>
 
         <!-- Left side column. contains the logo and sidebar -->
-    @include('layouts.sidebar')
-    <!-- Content Wrapper. Contains page content -->
+        @include('layouts.sidebar')
+        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('content')
         </div>
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-        <strong>Copyright © 2016 <a href="#">{{ env("APP_NAME") }}</a>.</strong> All rights reserved.
+            <strong>Copyright © 2016 <a href="#">{{ config('app.name') }}</a>.</strong> All rights reserved.
         </footer>
 
     </div>
-@else
+    @else
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#app-navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                     <span class="sr-only">Toggle Navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -159,21 +157,22 @@
             </div>
         </div>
     </div>
-@endif
+    @endif
 
-<!-- jQuery 3 -->
-<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="/bower_components/select2/dist/js/select2.full.min.js"></script>
-<!-- date-range-picker -->
-<script src="/bower_components/moment/min/moment.min.js"></script>
-<script src="/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap datepicker -->
-<script src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/dist/js/adminlte.min.js"></script>
-@stack('scripts')
+    <!-- jQuery 3 -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="/bower_components/moment/min/moment.min.js"></script>
+    <script src="/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/dist/js/adminlte.min.js"></script>
+    @stack('scripts')
 </body>
+
 </html>
