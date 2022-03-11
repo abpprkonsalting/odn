@@ -50,6 +50,7 @@ class Vessel extends Model
      * @var array
      */
     protected $casts = [
+        'id' => 'integer',
         'name' => 'string',
         'code' => 'string',
         'company_id' => 'integer',
