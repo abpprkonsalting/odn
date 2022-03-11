@@ -15,7 +15,7 @@ class CreateSkillOrKnowledgesTable extends Migration
     public function up()
     {
         Schema::create('skill_or_knowledges', function (Blueprint $table) {
-            $table->id('id');
+            $table->increments('id');
             $table->string('name', 250);
             $table->timestamps();
             $table->softDeletes();
