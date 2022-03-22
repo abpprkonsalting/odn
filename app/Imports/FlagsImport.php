@@ -10,15 +10,14 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class FlagsImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param array $collection
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
+    * @param Collection  $collection     
     */
     public function model(array $row)
     {
         return new Flag([
-            'name' => $row['PAIS'],
+            'name' => $row['pais']
             
         ]);
     
+    }
 }

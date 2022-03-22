@@ -184,6 +184,9 @@
                     <a href="{{ route('import.country') }}"><i class="fa fa-edit"></i><span>Country</span></a>
                 </li>
                 <li class="{{ Request::is('import*') ? 'active' : '' }}">
+                    <a href="{{ route('import.flag') }}"><i class="fa fa-edit"></i><span>Flag</span></a>
+                </li>
+                <li class="{{ Request::is('import*') ? 'active' : '' }}">
                     <a href="{{ route('import.course') }}"><i class="fa fa-edit"></i><span>Course</span></a>
                 </li>
                 <li class="{{ Request::is('import*') ? 'active' : '' }}">

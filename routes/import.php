@@ -56,4 +56,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('import/import-vessel', 'ImportController@importVessel')->middleware('role_or_permission:Admin')->name('import.vessel');
     Route::post('import/store-vessel', 'ImportController@storeVessel')->middleware('role_or_permission:Admin')->name('store.vessel');
+    
+    Route::get('import/import-flag', 'ImportController@importFlag')->middleware('role_or_permission:Admin')->name('import.flag');
+    Route::post('import/store-flag', 'ImportController@storeFlag')->middleware('role_or_permission:Admin')->name('store.flag');
 });

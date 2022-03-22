@@ -22,6 +22,7 @@ use App\Imports\SeamanBookImport;
 use App\Imports\SkillOrKnowledgesImport;
 use App\Imports\StatusImport;
 use App\Imports\VesselImport;
+use App\Imports\FlagsImport;
 use App\Models\CourseNumber;
 use App\Repositories\PersonalInformationRepository;
 use Illuminate\Http\Request;
@@ -270,6 +271,19 @@ class ImportController extends Controller
         Flash::success('Vessels Information imported successfully.');
 
         return redirect(route('import.vessel'));
+    }
+
+    public function importFlag() {
+        return view('import.import-flag');
+    }
+
+    public function storeFlag(ImportExcelFileRequest $request) {
+
+        Excel::import(new FlagsImport, $request->file('file'));
+
+        Flash::success('Flags imported successfully.');
+
+        return redirect(route('import.flag'));
     }
 
     
