@@ -22,6 +22,7 @@ use App\Imports\SeamanBookImport;
 use App\Imports\SkillOrKnowledgesImport;
 use App\Imports\StatusImport;
 use App\Imports\VesselImport;
+use App\Imports\VesselTypeImport;
 use App\Imports\FlagsImport;
 use App\Models\CourseNumber;
 use App\Repositories\PersonalInformationRepository;
@@ -284,6 +285,19 @@ class ImportController extends Controller
         Flash::success('Flags imported successfully.');
 
         return redirect(route('import.flag'));
+    }
+
+    public function importVesselType() {
+        return view('import.import-vessel-type');
+    }
+
+    public function storeVesselType(ImportExcelFileRequest $request) {
+
+        Excel::import(new VesselTypeImport, $request->file('file'));
+
+        Flash::success('VesselType imported successfully.');
+
+        return redirect(route('import.vessel-type'));
     }
 
     
