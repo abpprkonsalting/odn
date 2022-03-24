@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Company;
 use App\Models\Flag;
+
 use App\Models\Vessel;
 use App\Models\VesselType;
 use Illuminate\Support\Collection;
@@ -28,9 +29,8 @@ class VesselImport implements OnEachRow, WithHeadingRow, WithChunkReading
 
             if($company != null) {
                 $flag = Flag::where('name', $row['flag'])->first();
-                $vesselType = VesselType::firstOrCreate([
-                    'title' => $row['type']
-                ]);
+                $vesselType = VesselType::where('title' , $row['type'])->first();
+                
 
                 Vessel::create([
                     'gross_tank' => $row['arqbruto'],

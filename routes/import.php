@@ -59,4 +59,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('import/import-flag', 'ImportController@importFlag')->middleware('role_or_permission:Admin')->name('import.flag');
     Route::post('import/store-flag', 'ImportController@storeFlag')->middleware('role_or_permission:Admin')->name('store.flag');
+
+    Route::get('import/import-vessel-type', 'ImportController@importVesselType')->middleware('role_or_permission:Admin')->name('import.vessel-type');
+    Route::post('import/store-vessel-type', 'ImportController@storeVesselType')->middleware('role_or_permission:Admin')->name('store.vessel-type');
 });
