@@ -3,6 +3,11 @@
     {!! Form::label('name', 'Name:') !!}
     <p>{{ $skillOrKnowledge->name }}</p>
 </div>
+<!-- Code Field -->
+<div class="form-group">
+    {!! Form::label('code', 'Code:') !!}
+    <p>{{ $skillOrKnowledge->code }}</p>
+</div>
 
 <!-- Created At Field -->
 <div class="form-group">

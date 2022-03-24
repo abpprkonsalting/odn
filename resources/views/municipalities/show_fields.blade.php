@@ -9,6 +9,11 @@
     {!! Form::label('name', 'Name:') !!}
     <p>{{ $municipality->name }}</p>
 </div>
+<!-- Code Field -->
+<div class="form-group">
+    {!! Form::label('code', 'Code:') !!}
+    <p>{{ $municipality->code }}</p>
+</div>
 
 <!-- Created At Field -->
 <div class="form-group">

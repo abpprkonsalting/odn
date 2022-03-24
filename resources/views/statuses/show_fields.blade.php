@@ -3,6 +3,11 @@
     {!! Form::label('name', 'Name:') !!}
     <p>{{ $status->name }}</p>
 </div>
+<!-- Code Field -->
+<div class="form-group">
+    {!! Form::label('code', 'Code:') !!}
+    <p>{{ $status->code }}</p>
+</div>
 
 <!-- Created At Field -->
 <div class="form-group">

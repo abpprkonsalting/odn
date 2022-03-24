@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\VesselDataTable;
-use App\Http\Requests;
+//use App\Http\Requests;
 use App\Http\Requests\CreateVesselRequest;
 use App\Http\Requests\UpdateVesselRequest;
 use App\Repositories\VesselRepository;
