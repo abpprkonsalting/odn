@@ -143,7 +143,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('familyStatuses', 'FamilyStatusController');
 
     Route::resource('skillOrKnowledges', 'SkillOrKnowledgeController');
-
+    
+    
     Route::get('/migrate', function() {
         $exitCode = Artisan::call('migrate');
         return "<h1>Migration successfully execute</h1>";
