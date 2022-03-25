@@ -26,7 +26,7 @@ class UpdateRankRequest extends FormRequest
     public function rules()
     {
         $rules = Rank::$rules;
-        $rules['name'] = $rules['name'].",".$this->route("rank");
+        //$rules['name'] = $rules['name'].",".$this->route("rank");
         return $rules;
     }
 }

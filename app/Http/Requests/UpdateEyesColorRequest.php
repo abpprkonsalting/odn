@@ -26,7 +26,7 @@ class UpdateEyesColorRequest extends FormRequest
     public function rules()
     {
         $rules = EyesColor::$rules;
-        $rules['name'] = $rules['name'].",".$this->route("eyes_color");
+       // $rules['name'] = $rules['name'].",".$this->route("eyes_color");
         return $rules;
     }
 }

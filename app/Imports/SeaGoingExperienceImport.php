@@ -30,10 +30,10 @@ class SeaGoingExperienceImport implements OnEachRow, WithHeadingRow, WithChunkRe
 
         if($person != null) {
             SeaGoingExperience::create([
-                'personal_informations_id' => $person->id,
-                'ranks_id' => $rank->id,
-                'vessels_id' => $vessel->id,
-                'statuses_id' => $status->id,
+                'personal_information_id' => $person->id,
+                'rank_id' => $rank->id,
+                'vessel_id' => $vessel->id,
+                'statuse_id' => $status->id,
                 'start_date' => $this->transformDate($row['fecini']),
                 'end_date' => $this->transformDate($row['fecter'])         
                 

@@ -26,7 +26,7 @@ class UpdatePoliticalIntegrationRequest extends FormRequest
     public function rules()
     {
         $rules = PoliticalIntegration::$rules;
-        $rules['name'] = $rules['name'].",".$this->route("political_integration");
+        //$rules['name'] = $rules['name'].",".$this->route("political_integration");
         return $rules;
     }
 }
