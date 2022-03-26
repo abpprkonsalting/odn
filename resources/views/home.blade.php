@@ -30,7 +30,7 @@
               <div class="small-box bg-aqua">
                 <div class="inner">
                   <h3>{{ $personalInformationCount }}</h3>
-                  <p>Total Mariners</p>
+                  <p>Total</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
@@ -44,8 +44,7 @@
               <div class="small-box bg-green">
                 <div class="inner">
                   <h3>{{$value}}</h3>
-
-                  <p>Mariners with status: {{$key}}</p>
+                  <p>{{$key}}</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
