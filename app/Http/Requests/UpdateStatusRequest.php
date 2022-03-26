@@ -25,8 +25,8 @@ class UpdateStatusRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Status::$rules;
-        $rules['name'] = $rules['name'].",".$this->route("status");
-        return $rules;
+        return [
+            'name' => 'required|max:250'
+        ];
     }
 }
