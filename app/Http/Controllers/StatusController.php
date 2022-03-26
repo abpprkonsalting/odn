@@ -117,8 +117,9 @@ class StatusController extends AppBaseController
 
             return redirect(route('statuses.index'));
         }
-
-        $status = $this->statusRepository->update($request->all(), $id);
+        $req = $request->all();
+        $req['is_on_board'] = $request->has('is_on_board');
+        $status = $this->statusRepository->update($req, $id);
 
         Flash::success('Status updated successfully.');
 
