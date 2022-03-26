@@ -24,7 +24,7 @@ class CreateSeaGoingExperiencesTable extends Migration
             $table->integer('status_id')->unsigned();
             $table->date('start_date');
             $table->date('end_date');
-            $table->integer('contract_time');
+            $table->integer('contract_time')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('personal_information_id')->references('id')->on('personal_informations');

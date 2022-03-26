@@ -24,16 +24,17 @@ class SeaGoingExperienceImport implements OnEachRow, WithHeadingRow, WithChunkRe
     {
         $row  = $row->toArray();
         $person = PersonalInformation::where(['external_file_number' => $row['exp']])->first();
-        $rank = Rank::where(['code' => $row['cargo']])->first();
-        $vessel = Vessel::where(['code' => $row['buque']])->first();
-        $status = Status::where(['code' => $row['ubica']])->first();
-
+        
         if($person != null) {
+            $rank = Rank::where(['code' => $row['cargo']])->first();
+            $vessel = Vessel::where(['code' => $row['buque']])->first();
+            $status = Status::where(['code' => $row['ubica']])->first();
+
             SeaGoingExperience::create([
-                'personal_information_id' => $person->id,
-                'rank_id' => $rank->id,
-                'vessel_id' => $vessel->id,
-                'statuse_id' => $status->id,
+                'personal_information_id' => $person != null ? $person->id : 1,
+                'rank_id' => $rank != null ? $rank->id : 1,
+                'vessel_id' =>$vessel != null ? $vessel->id : 1,
+                'status_id' =>$status != null ? $status->id : 1,
                 'start_date' => $this->transformDate($row['fecini']),
                 'end_date' => $this->transformDate($row['fecter'])         
                 
@@ -54,20 +55,13 @@ class SeaGoingExperienceImport implements OnEachRow, WithHeadingRow, WithChunkRe
      *
      * @return \Carbon\Carbon|null
      */
-    public function transformDate($value, $format = 'd-m-y')
+    public function transformDate($value, $format = 'Y-m-d')
     {
         try {
-            if(trim($value) != "**/**/**" && trim($value) != "") { 
-                $fecha = \DateTime::createFromFormat($format, trim($value));
-                if($fecha != false) {
-                    return $fecha->format('Y-m-d');
-                }
-            }
+            return \Carbon\Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value));
         } catch (\ErrorException $e) {
-            
+            return \Carbon\Carbon::createFromFormat($format, $value);
         }
-        
-        return "";
     }
         
       

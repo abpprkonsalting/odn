@@ -23,10 +23,10 @@ class SeaGoingExperience extends Model
     protected $dateFormat = 'Y-m-d';
 
     public $fillable = [
-        'personal_informations_id',
-        'ranks_id',
-        'vessels_id',
-        'statuses_id',
+        'personal_information_id',
+        'rank_id',
+        'vessel_id',
+        'status_id',
         'start_date',
         'end_date',
         'contract_time'
@@ -40,9 +40,9 @@ class SeaGoingExperience extends Model
 
     protected $casts = [
         'id' => 'integer',
-        'personal_informations_id' => 'integer',
-        'ranks_id' => 'integer',
-        'vessels_id' => 'integer',
+        'personal_information_id' => 'integer',
+        'rank_id' => 'integer',
+        'vessel_id' => 'integer',
         'start_date' => 'datetime:Y-m-d',
         'end_date' => 'datetime:Y-m-d',
         'contract_time' => 'integer'
@@ -56,19 +56,19 @@ class SeaGoingExperience extends Model
      * @var array
      */
     public static $rules = [
-        'personal_informations_id' => 'required',
-        'ranks_id' => 'required',
-        'ranks_id' => 'required',
-        'vessels_id' => 'required',
+        'personal_information_id' => 'required',
+        'rank_id' => 'required',
+        'status_id' => 'required',
+        'vessel_id' => 'required',
         'start_date' => 'require|date|date_format:d-m-Y',
         'end_date' => 'require|date|date_format:d-m-Y',
-        'contract_time' => 'required'
+        'contract_time' => 'nullable|max:10'
        
     ];
 
     public function personaInformation()
     {
-        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+        return $this->belongsTo(PersonalInformation::class, 'personal_information_id');
     }
     /*
      get personal informations for seaGoingExeprience
@@ -76,7 +76,7 @@ class SeaGoingExperience extends Model
 
     public function rank()
     {
-        return $this->belongsTo(Rank::class, 'ranks_id');
+        return $this->belongsTo(Rank::class, 'rank_id');
     }
 
     /*
@@ -86,7 +86,7 @@ class SeaGoingExperience extends Model
 
     public function vessel()
     {
-        return $this->belongsTo(Vessel::class, 'vessels_id');
+        return $this->belongsTo(Vessel::class, 'vessel_id');
     }
 
     /*
