@@ -36,7 +36,7 @@ class VesselImport implements OnEachRow, WithHeadingRow, WithChunkReading
                     'gross_tank' => $row['arqbruto'],
                     'omi_number' => is_numeric($row['numomi']) ? $row['numomi'] : null,
                     'company_id' => $company->id,
-                    'code' => $key[1],
+                    'code' => $row['key'],
                     'name' => $row['descrip'],
                     'sign_on_date' => $this->transformDate($row['fec_alt']),
                     'sign_off_date' => $this->transformDate($row['fec_baj']),

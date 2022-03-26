@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Province;
+use App\Models\SeaGoingExperience;
+use Illuminate\Validation\Rule;
 
-class UpdateProvinceRequest extends FormRequest
+class UpdateSeaGoingExperienceRequest extends FormRequest
 {
 
     /**
@@ -25,8 +26,6 @@ class UpdateProvinceRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Province::$rules;
-        //$rules['name'] = $rules['name'].",".$this->route("province");
-        return $rules;
+        return SeaGoingExperience::$rules;
     }
 }

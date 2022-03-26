@@ -26,7 +26,7 @@ class UpdateAffiliateRequest extends FormRequest
     public function rules()
     {
         $rules = Affiliate::$rules;
-        $rules['name'] = $rules['name'].",".$this->route("affiliate");
+       // $rules['name'] = $rules['name'].",".$this->route("affiliate");
         return $rules;
     }
 }

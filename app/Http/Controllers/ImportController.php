@@ -10,6 +10,7 @@ use App\Imports\CourseNumberImport;
 use App\Imports\FamilyImport;
 use App\Imports\MedicalInformationImport;
 use App\Imports\MemoImport;
+use App\Imports\SeaGoingExperienceImport;
 use App\Imports\MunicipalityImport;
 use App\Imports\OtherSkillsImport;
 use App\Imports\PassportImport;
@@ -300,5 +301,17 @@ class ImportController extends Controller
         return redirect(route('import.vessel-type'));
     }
 
+    public function importSeaGoingExperience() {
+        return view('import.import-sea-going-experience');
+    }
+
+    public function storeSeaGoingExperience(ImportExcelFileRequest $request) {
+
+        Excel::import(new SeaGoingExperienceImport, $request->file('file'));
+
+        Flash::success('SeaGoinExperience Information imported successfully.');
+
+        return redirect(route('import.sea-going-experience'));
+    }
     
 }

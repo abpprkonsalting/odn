@@ -26,7 +26,7 @@ class UpdateLanguagesRequest extends FormRequest
     public function rules()
     {
         $rules = Languages::$rules;
-        $rules['name'] = $rules['name'].",".$this->route("language");
+       // $rules['name'] = $rules['name'].",".$this->route("language");
         return $rules;
     }
 }

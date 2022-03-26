@@ -26,7 +26,7 @@ class UpdateLevelRequest extends FormRequest
     public function rules()
     {
         $rules = Level::$rules;
-        $rules['name'] = $rules['name'].",".$this->route("level");
+        //$rules['name'] = $rules['name'].",".$this->route("level");
         return $rules;
     }
 }

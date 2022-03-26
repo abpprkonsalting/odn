@@ -26,7 +26,7 @@ class UpdateMaritalStatusRequest extends FormRequest
     public function rules()
     {
         $rules = MaritalStatus::$rules;
-        $rules['name'] = $rules['name'].",".$this->route("marital_status");
+        //$rules['name'] = $rules['name'].",".$this->route("marital_status");
         return $rules;
     }
 }

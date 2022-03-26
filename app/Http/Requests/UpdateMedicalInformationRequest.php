@@ -26,7 +26,7 @@ class UpdateMedicalInformationRequest extends FormRequest
     public function rules()
     {
         $rules = MedicalInformation::$rules;
-        $rules['name'] = $rules['name'].",".$this->route("medical_information");
+        //$rules['name'] = $rules['name'].",".$this->route("medical_information");
         return $rules;
     }
 }

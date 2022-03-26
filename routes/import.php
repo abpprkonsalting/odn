@@ -62,4 +62,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('import/import-vessel-type', 'ImportController@importVesselType')->middleware('role_or_permission:Admin')->name('import.vessel-type');
     Route::post('import/store-vessel-type', 'ImportController@storeVesselType')->middleware('role_or_permission:Admin')->name('store.vessel-type');
+   
+    Route::get('import/import-sea-going-experience', 'ImportController@importSeaGoingExperience')->middleware('role_or_permission:Admin')->name('import.sea-going-experience');
+    Route::post('import/store-sea-going-experience', 'ImportController@storeSeaGoingExperience')->middleware('role_or_permission:Admin')->name('store.sea-going-experience');
 });
