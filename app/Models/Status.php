@@ -25,7 +25,8 @@ class Status extends Model
 
     public $fillable = [
         'name',
-        'code'
+        'code',
+        'is_on_board'
     ];
 
     /**
@@ -36,7 +37,8 @@ class Status extends Model
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
-        'code' => 'string'
+        'code' => 'string',
+        'is_on_board' => 'boolean'
     ];
 
     /**

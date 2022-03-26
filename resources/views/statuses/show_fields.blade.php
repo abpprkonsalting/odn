@@ -9,6 +9,16 @@
     <p>{{ $status->code }}</p>
 </div>
 
+<!-- Name Field -->
+<div class="form-group">
+    {!! Form::label('is_on_board', 'Is onboard:') !!}
+    @if($status->is_on_board)
+    <p> yes</p>
+    @else
+    <p> no</p>        
+    @endif
+</div>
+
 <!-- Created At Field -->
 <div class="form-group">
     {!! Form::label('created_at', 'Created At:') !!}

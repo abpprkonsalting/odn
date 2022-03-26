@@ -22,7 +22,7 @@ class OperationalInformation extends Model
     use SoftDeletes;
 
     public $table = 'operational_informations';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -68,14 +68,16 @@ class OperationalInformation extends Model
         return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
     }
 
-    public function getDisponibilityDateAttribute($value) {
-       
-       
-            return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
-
-        
-        
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'statuses_id');
     }
+
+    public function getDisponibilityDateAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
+    }
+
     /**
      * Set the disponibility date
      *
@@ -84,11 +86,8 @@ class OperationalInformation extends Model
      */
     public function setDisponibilityDateAttribute($value)
     {
-        if(!empty($value))
-        {
+        if (!empty($value)) {
             $this->attributes['disponibility_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
-
         }
     }
-
 }
