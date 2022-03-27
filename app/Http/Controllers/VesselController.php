@@ -51,9 +51,8 @@ class VesselController extends AppBaseController
      */
     public function store(CreateVesselRequest $request)
     {
-        $input = $request->all();
-
-        $vessel = $this->vesselRepository->create($input);
+        $req = $this->setActive($request);
+        $vessel = $this->vesselRepository->create($req);
 
         Flash::success('Vessel saved successfully.');
 
@@ -73,10 +72,8 @@ class VesselController extends AppBaseController
 
         if (empty($vessel)) {
             Flash::error('Vessel not found');
-
             return redirect(route('vessels.index'));
         }
-
         return view('vessels.show')->with('vessel', $vessel);
     }
 
@@ -93,10 +90,8 @@ class VesselController extends AppBaseController
 
         if (empty($vessel)) {
             Flash::error('Vessel not found');
-
             return redirect(route('vessels.index'));
         }
-
         return view('vessels.edit')->with('vessel', $vessel);
     }
 
@@ -114,11 +109,10 @@ class VesselController extends AppBaseController
 
         if (empty($vessel)) {
             Flash::error('Vessel not found');
-
             return redirect(route('vessels.index'));
         }
-
-        $vessel = $this->vesselRepository->update($request->all(), $id);
+        $req = $this->setActive($request);
+        $vessel = $this->vesselRepository->update($req->all(), $id);
 
         Flash::success('Vessel updated successfully.');
 
@@ -147,5 +141,11 @@ class VesselController extends AppBaseController
         Flash::success('Vessel deleted successfully.');
 
         return redirect(route('vessels.index'));
+    }
+
+    private function setActive($request) {
+        $req = $request->all();
+        $req['active'] = $request->has('active');
+        return $req;
     }
 }

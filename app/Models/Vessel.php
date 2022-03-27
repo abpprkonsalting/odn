@@ -80,7 +80,7 @@ class Vessel extends Model
         'engine' => 'nullable',
         'vessel_type_id' => 'nullable',
         'flags_id' => 'nullable',
-        'machine_type' => 'nullable,max:255'
+        'machine_type' => 'nullable|max:255'
     ];
 
     public function flag()

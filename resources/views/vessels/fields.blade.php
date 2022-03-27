@@ -49,7 +49,12 @@
 <!-- Machine Type Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('machine_type', 'Machine Type:') !!}
-    {!! Form::text('machine_type', null, ['class' => 'form-control','maxlength' => 255]) !!}
+    {!! Form::text('machine_type', null, ['class' => 'form-control','maxlength' => 'nullable,max:255']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('active', 'Is active:') !!}
+    {!! Form::checkbox('active', null) !!}
 </div>
 
 <!-- Submit Field -->
