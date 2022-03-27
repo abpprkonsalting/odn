@@ -33,7 +33,8 @@ class OperationalInformation extends Model
         'disponibility_date',
         'ranks_id',
         'statuses_id',
-        'description'
+        'description',
+        'vessel_id'
     ];
 
     /**
@@ -47,7 +48,8 @@ class OperationalInformation extends Model
         'disponibility_date' => 'datetime:Y-m-d',
         'ranks_id' => 'integer',
         'statuses_id' => 'integer',
-        'description' => 'string'
+        'description' => 'string',
+        'vessel_id' => 'integer'
     ];
 
     /**
@@ -60,7 +62,8 @@ class OperationalInformation extends Model
         'disponibility_date' => 'nullable|date|date_format:d-m-Y',
         'ranks_id' => 'required',
         'statuses_id' => 'required',
-        'description' => 'nullable'
+        'description' => 'nullable',
+        'vessel_id' => 'nullable'
     ];
 
     public function personalInformation()

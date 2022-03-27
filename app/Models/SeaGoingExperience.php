@@ -46,8 +46,6 @@ class SeaGoingExperience extends Model
         'start_date' => 'datetime:Y-m-d',
         'end_date' => 'datetime:Y-m-d',
         'contract_time' => 'integer'
-
-        
     ];
 
     /**
@@ -92,8 +90,5 @@ class SeaGoingExperience extends Model
     /*
      get vessel for seaGoingExeprience
     */
-
-
-
 
 }

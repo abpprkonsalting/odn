@@ -14,8 +14,6 @@ class CreateSeaGoingExperiencesTable extends Migration
     public function up()
     {
               
-      
-        
         Schema::create('sea_going_experiences', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('personal_information_id')->unsigned();
@@ -31,8 +29,6 @@ class CreateSeaGoingExperiencesTable extends Migration
             $table->foreign('rank_id')->references('id')->on('ranks');
             $table->foreign('vessel_id')->references('id')->on('vessels');
             $table->foreign('status_id')->references('id')->on('statuses');
-
-
         });
         
     }
