@@ -29,6 +29,7 @@ use App\Models\Status;
 use App\Models\FamilyStatus;
 use App\Models\Flag;
 use App\Models\SkillOrKnowledge;
+use App\Models\Vessel;
 use Spatie\Permission\Models\Role;
 use View;
 
@@ -128,9 +129,15 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer(['operational_informations.fields'], function ($view) {
             $rankItems = Rank::pluck('name','id')->toArray();
-            $statusesItems = Status::pluck('name','id')->toArray();
+            $statusesItems = array();
+            $statusesItemsAttributes = array();
+            $statuses = Status::all()->each(function ($item) use (&$statusesItems,&$statusesItemsAttributes ) {
+                $statusesItems[$item->id] = $item->name;
+                $statusesItemsAttributes[$item->id] = ['data-onboard' => $item->is_on_board];
+            });
+            $vesselItems = Vessel::pluck('name','id')->toArray();
             
-            $view->with(compact('rankItems', 'statusesItems'));
+            $view->with(compact('rankItems', 'statusesItems', 'vesselItems','statusesItemsAttributes'));
         });
         
         View::composer(['personal_medical_informations.fields'], function ($view) {
