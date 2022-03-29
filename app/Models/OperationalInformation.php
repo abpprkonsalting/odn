@@ -78,7 +78,10 @@ class OperationalInformation extends Model
 
     public function getDisponibilityDateAttribute($value)
     {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
+        if ($value != null) {
+            return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
+        }
+        return null;
     }
 
     /**
