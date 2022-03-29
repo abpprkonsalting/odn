@@ -76,6 +76,16 @@ class OperationalInformation extends Model
         return $this->belongsTo(Status::class, 'statuses_id');
     }
 
+    public function vessel()
+    {
+        return $this->belongsTo(Vessel::class, 'vessel_id');
+    }
+
+    public function rank()
+    {
+        return $this->belongsTo(Rank::class, 'ranks_id');
+    }
+
     public function getDisponibilityDateAttribute($value)
     {
         if ($value != null) {
