@@ -112,7 +112,7 @@ class VesselController extends AppBaseController
             return redirect(route('vessels.index'));
         }
         $req = $this->setActive($request);
-        $vessel = $this->vesselRepository->update($req->all(), $id);
+        $vessel = $this->vesselRepository->update($req, $id);
 
         Flash::success('Vessel updated successfully.');
 
