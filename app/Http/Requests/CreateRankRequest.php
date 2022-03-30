@@ -25,6 +25,9 @@ class CreateRankRequest extends FormRequest
      */
     public function rules()
     {
-        return Rank::$rules;
+        return [
+            'name' => 'required|max:250|unique:ranks,name',
+            'code' => 'required|max:10|unique:ranks,code'
+        ];
     }
 }

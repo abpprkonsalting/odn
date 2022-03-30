@@ -25,8 +25,10 @@ class UpdateFlagRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Flag::$rules;
-        //$rules['name'] = $rules['name'].",".$this->route("flag");
-        return $rules;
+        return [
+                      
+            'name' => 'required|max:250|unique:flags,name'
+         
+         ];
     }
 }

@@ -27,7 +27,7 @@ class UpdateVisaTypeRequest extends FormRequest
     {
                
         return [
-            'name' => 'required|max:250'
+            'name' => 'required|max:250|unique:visa_types,name'
         ];
     }
 }

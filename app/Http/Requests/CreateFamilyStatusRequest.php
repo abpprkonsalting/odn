@@ -25,6 +25,10 @@ class CreateFamilyStatusRequest extends FormRequest
      */
     public function rules()
     {
-        return FamilyStatus::$rules;
+        return [
+                      
+            'name' => 'required|max:250|unique:family_statuses,name'
+         
+         ];
     }
 }

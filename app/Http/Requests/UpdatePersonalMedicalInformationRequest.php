@@ -25,8 +25,11 @@ class UpdatePersonalMedicalInformationRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = PersonalMedicalInformation::$rules;
-        
-        return $rules;
+        return [
+            'personal_informations_id' => 'required|integer',
+            'medical_informations_id' => 'required|integer',
+            'issue_date' => 'required',
+            'expiry_date' => 'required'
+        ];
     }
 }

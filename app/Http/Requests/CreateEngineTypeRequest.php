@@ -25,6 +25,10 @@ class CreateEngineTypeRequest extends FormRequest
      */
     public function rules()
     {
-        return EngineType::$rules;
+        return [
+                      
+            'name' => 'required|max:50|unique:engine_types,name'
+         
+         ];
     }
 }

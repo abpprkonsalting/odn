@@ -25,8 +25,11 @@ class UpdateMunicipalityRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Municipality::$rules;
-        
-        return $rules;
+        return [
+            'name' => 'required|max:250',
+            'code' => 'required|max:10',
+            'province_id' => 'integer|required'
+            
+         ];
     }
 }

@@ -25,8 +25,11 @@ class UpdateCountryRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Country::$rules;
-        
-        return $rules;
+        return [
+                      
+            'name' => 'required|unique:countries,name|max:250',
+            'code' => 'required|unique:countries,code|max:10'
+              
+              ];
     }
 }

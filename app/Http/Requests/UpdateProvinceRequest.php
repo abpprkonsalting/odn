@@ -25,8 +25,9 @@ class UpdateProvinceRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Province::$rules;
-        //$rules['name'] = $rules['name'].",".$this->route("province");
-        return $rules;
+        return [
+            'name' => 'required|max:250|unique:provinces,name',
+            'code' => 'required|max:10|unique:provices,code'
+        ];
     }
 }

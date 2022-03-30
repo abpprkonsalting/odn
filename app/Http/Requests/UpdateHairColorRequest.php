@@ -25,8 +25,10 @@ class UpdateHairColorRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = HairColor::$rules;
-        
-        return $rules;
+        return [
+                      
+            'name' => 'required|max:250|unique:hair_colors,name'
+         
+         ];
     }
 }

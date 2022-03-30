@@ -25,6 +25,9 @@ class CreateMaritalStatusRequest extends FormRequest
      */
     public function rules()
     {
-        return MaritalStatus::$rules;
+        return [
+            'name' => 'required|unique:marital_statuses,name|max:25'            
+            
+         ];
     }
 }

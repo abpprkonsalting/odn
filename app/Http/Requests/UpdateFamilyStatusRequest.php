@@ -25,8 +25,10 @@ class UpdateFamilyStatusRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = FamilyStatus::$rules;
-        
-        return $rules;
+        return [
+                      
+            'name' => 'required|max:250|unique:family_statuses,name'
+         
+         ];
     }
 }

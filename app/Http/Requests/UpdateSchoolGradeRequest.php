@@ -27,6 +27,9 @@ class UpdateSchoolGradeRequest extends FormRequest
     {
         $rules = SchoolGrade::$rules;
         
-        return $rules;
+        return [
+            'name' => 'required|max:250|unique:school_grades,name',
+            'code' => 'required|max:250|unique:school_grades,code'
+        ];
     }
 }

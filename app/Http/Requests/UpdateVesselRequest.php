@@ -25,8 +25,16 @@ class UpdateVesselRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Vessel::$rules;
-        
-        return $rules;
+        return[
+            'name' => 'required|max:250',
+            'company_id' => 'required|integer',
+            'gross_tank' => 'numeric',
+            'omi_number' => 'numeric',
+            'dwt' => 'numeric',
+            'engine' => 'numeric',
+            'vessel_type_id' => 'integer|required',
+            'flags_id' => 'integer|required',
+            'machine_type' => 'nullable|max:255'
+        ];
     }
 }

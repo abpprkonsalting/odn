@@ -60,9 +60,8 @@ class OtherSkill extends Model
     public static $rules = [
         'personal_informations_id' => 'required',
         'skill_or_knowledge_id' => 'required',
-        'place_or_school' => 'max:50|nullable',
-        'certificate' => 'max:250|nullable',
-        'knowledge_date' => 'date|date_format:d-m-Y',
+        'place_or_school' => 'max:50',
+        'knowledge_date' => 'required',
         'empirical' => 'boolean'
     ];
 

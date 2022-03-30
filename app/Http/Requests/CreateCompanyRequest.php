@@ -25,6 +25,18 @@ class CreateCompanyRequest extends FormRequest
      */
     public function rules()
     {
-        return Company::$rules;
+        return [
+                      
+            'company_name' => 'required|max:500|unique:companies,company_name',
+            'code' => 'nullable|max:255',
+            'description' => 'nullable|max:1000',
+            'phone' => 'nullable|max:255',
+            'fax' => 'nullable|max:255',
+            'email' => 'nullable|email|max:255',
+            'contact' => 'nullable|max:255',
+            'flags_id' => 'nullable|integer',
+            'company_mission_id' => 'nullable|integer',
+            'company_type_id' => 'nullable|integer',
+              ];
     }
 }

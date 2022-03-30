@@ -25,8 +25,10 @@ class UpdateLevelRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Level::$rules;
-        //$rules['name'] = $rules['name'].",".$this->route("level");
-        return $rules;
+        return [
+                      
+            'name' => 'required|max:250|unique:levels,name'
+         
+         ];
     }
 }

@@ -25,8 +25,14 @@ class UpdateOtherSkillRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = OtherSkill::$rules;
-        
-        return $rules;
+        return [
+            'personal_informations_id' => 'required|integer',
+            'skill_or_knowledge_id' => 'required|integer',
+            'place_or_school' => 'max:50|nullable',
+            'certificate' => 'max:250|nullable',
+            'knowledge_date' => 'required',
+            'empirical' => 'boolean'
+           
+        ];
     }
 }

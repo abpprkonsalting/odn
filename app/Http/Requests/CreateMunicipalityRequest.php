@@ -25,6 +25,11 @@ class CreateMunicipalityRequest extends FormRequest
      */
     public function rules()
     {
-        return Municipality::$rules;
+        return [
+            'name' => 'required|max:250',
+            'code' => 'required|max:10',
+            'province_id' => 'integer|required'
+            
+         ];
     }
 }

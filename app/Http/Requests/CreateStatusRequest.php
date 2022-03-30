@@ -25,6 +25,9 @@ class CreateStatusRequest extends FormRequest
      */
     public function rules()
     {
-        return Status::$rules;
+        return [
+            'name' => 'required|max:250|unique:statuses,name',
+            'code' => 'required|max:10|unique:statuses,code'
+        ];
     }
 }

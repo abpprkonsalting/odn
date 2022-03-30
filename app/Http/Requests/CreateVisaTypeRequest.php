@@ -25,6 +25,8 @@ class CreateVisaTypeRequest extends FormRequest
      */
     public function rules()
     {
-        return VisaType::$rules;
+        return [
+            'name' => 'required|max:250|unique:visa_types,name'
+        ];
     }
 }

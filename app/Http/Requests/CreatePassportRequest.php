@@ -25,6 +25,12 @@ class CreatePassportRequest extends FormRequest
      */
     public function rules()
     {
-        return Passport::$rules;
+        return [
+            'personal_informations_id' => 'required|integer',
+            'expedition_date' => 'required',
+            'expiry_date' => 'required',
+            'no_passport' => 'required|unique:passport,no_passport'
+           
+        ];
     }
 }

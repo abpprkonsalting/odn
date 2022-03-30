@@ -25,6 +25,10 @@ class CreateLevelRequest extends FormRequest
      */
     public function rules()
     {
-        return Level::$rules;
+        return [
+                      
+            'name' => 'required|max:250|unique:levels,name'
+         
+         ];
     }
 }

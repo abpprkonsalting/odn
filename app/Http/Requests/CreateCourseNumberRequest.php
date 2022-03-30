@@ -25,6 +25,11 @@ class CreateCourseNumberRequest extends FormRequest
      */
     public function rules()
     {
-        return CourseNumber::$rules;
+        return [
+                      
+           'name' => 'required|unique:course_numbers,name|max:250',
+           'code' => 'required|unique:course_numbers,code|max:10'
+             
+             ];
     }
 }

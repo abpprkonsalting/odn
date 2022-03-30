@@ -25,8 +25,11 @@ class UpdateVisaRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Visa::$rules;
-        
-        return $rules;
+        return[
+            'personal_informations_id' => 'integer|required',
+            'visa_types_id' => 'integer|required',
+            'issue_date' => 'required',
+            'expiry_date' => 'required'
+            ];
     }
 }
