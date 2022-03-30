@@ -75,9 +75,9 @@ class PersonalInformationDataTable extends DataTable
     {
         return [
             'avatar',
+            'full_name',
             'internal_file_number',
             'external_file_number',
-            'full_name',
             'id_number',
             'serial_number',
             /*'birthday',
