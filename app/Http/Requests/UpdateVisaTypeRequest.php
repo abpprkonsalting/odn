@@ -25,8 +25,9 @@ class UpdateVisaTypeRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = VisaType::$rules;
-        
-        return $rules;
+               
+        return [
+            'name' => 'required|max:250'
+        ];
     }
 }
