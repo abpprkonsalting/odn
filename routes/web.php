@@ -149,6 +149,8 @@ Route::middleware(['auth'])->group(function () {
         $exitCode = Artisan::call('migrate');
         return "<h1>Migration successfully execute</h1>";
     })->middleware(['role_or_permission:Admin']);
+
+    Route::resource('onBoardByVessel', 'OnBoardByVesselController')->middleware('role_or_permission:Admin|personalInformation');
 }
 
 );

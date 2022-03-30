@@ -4,8 +4,19 @@
         <span>Dashboard</span>
     </a>
 </li>
-<li class="">
-    <a href="#"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
+<li class="{{ Request::is('report*') ? 'active' : '' }} treeview">
+    <a href="{{ route('levels.index') }}">
+        <i class="fa fa-pie-chart"></i>
+        <span>Reports</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+                <li class="{{ Request::is('onBoardByVessel*') ? 'active' : '' }}">
+                    <a href="{{ route('onBoardByVessel.index') }}"><i class="fa fa-edit"></i><span>On board by vessel</span></a>
+                </li>
+            </ul>
 </li>
 <li class="{{ Request::is('personalInformations*') ? 'active' : '' }}">
     <a href="{{ route('personalInformations.index') }}"><i class="fa fa-users"></i><span>Manage Persons</span></a>
