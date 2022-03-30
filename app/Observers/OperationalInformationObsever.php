@@ -54,10 +54,11 @@ class OperationalInformationObsever
      */
     public function updating(OperationalInformation $operationalInformation)
     {
+        $status = $operationalInformation->status()->first();
         $operationalInformationId = $operationalInformation->id;
         $previousOI = $this->operationalInformationRepository->find($operationalInformationId);
         $previousStatus = $previousOI->status()->first();
-        if ($previousStatus->is_on_board) {
+        if ($status != $previousStatus && $previousStatus->is_on_board) {
             $newSeaGoingExperience = [];
             $newSeaGoingExperience['personal_information_id'] = $previousOI->personal_informations_id;
             $newSeaGoingExperience['rank_id'] = $previousOI->ranks_id;
