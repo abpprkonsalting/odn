@@ -64,7 +64,7 @@ class SeaGoingExperience extends Model
        
     ];
 
-    public function personaInformation()
+    public function personalInformation()
     {
         return $this->belongsTo(PersonalInformation::class, 'personal_information_id');
     }
