@@ -27,7 +27,7 @@ class UpdateEngineTypeRequest extends FormRequest
     {
         return [
                       
-            'name' => 'required|max:50|unique:engine_types,name'
+            'name' => 'required|max:50'
          
          ];
     }

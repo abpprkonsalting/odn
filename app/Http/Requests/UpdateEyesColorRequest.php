@@ -27,7 +27,7 @@ class UpdateEyesColorRequest extends FormRequest
     {
         return [
                       
-            'name' => 'required|max:50|unique:eyes_colors,name'
+            'name' => 'required|max:50'
          
          ];
     }

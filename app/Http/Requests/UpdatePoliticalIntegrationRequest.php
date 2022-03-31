@@ -27,8 +27,8 @@ class UpdatePoliticalIntegrationRequest extends FormRequest
     {
               
         return [
-            'name' => 'required|max:250|unique:political_integraions,name',
-            'code' => 'required|max:10|unique:political_integraions,name'
+            'name' => 'required|max:250',
+            'code' => 'required|max:10'
         ];
     }
 }

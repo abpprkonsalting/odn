@@ -27,7 +27,7 @@ class UpdateHairColorRequest extends FormRequest
     {
         return [
                       
-            'name' => 'required|max:250|unique:hair_colors,name'
+            'name' => 'required|max:250'
          
          ];
     }

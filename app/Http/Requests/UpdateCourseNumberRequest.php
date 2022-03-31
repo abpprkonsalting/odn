@@ -28,8 +28,8 @@ class UpdateCourseNumberRequest extends FormRequest
     {
         return [
                       
-            'name' => 'required|unique:course_numbers,name|max:250',
-            'code' => 'required|unique:course_numbers,code|max:10'
+            'name' => 'required|max:250',
+            'code' => 'required|max:10'
               
               ];
     }

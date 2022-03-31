@@ -27,7 +27,7 @@ class UpdateFamilyStatusRequest extends FormRequest
     {
         return [
                       
-            'name' => 'required|max:250|unique:family_statuses,name'
+            'name' => 'required|max:250'
          
          ];
     }

@@ -27,8 +27,8 @@ class UpdateCountryRequest extends FormRequest
     {
         return [
                       
-            'name' => 'required|unique:countries,name|max:250',
-            'code' => 'required|unique:countries,code|max:10'
+            'name' => 'required|max:250',
+            'code' => 'required|max:10'
               
               ];
     }

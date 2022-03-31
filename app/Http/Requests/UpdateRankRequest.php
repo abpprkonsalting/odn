@@ -26,8 +26,8 @@ class UpdateRankRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:250|unique:ranks,name',
-            'code' => 'required|max:10|unique:ranks,code'
+            'name' => 'required|max:250',
+            'code' => 'required|max:10'
         ];
     }
 }

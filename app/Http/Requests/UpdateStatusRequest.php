@@ -26,8 +26,8 @@ class UpdateStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:250|unique:statuses,name',
-            'code' => 'required|max:10|unique:statuses,code'
+            'name' => 'required|max:250',
+            'code' => 'required|max:10'
         ];
     }
 }
