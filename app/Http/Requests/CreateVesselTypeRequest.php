@@ -26,7 +26,7 @@ class CreateVesselTypeRequest extends FormRequest
     public function rules()
     {
         return[
-            'title' => 'required|unique:vessel_tyoes,title|max:250'
+            'title' => 'required|unique:vessel_types,title|max:250'
              ];
     }
 }

@@ -33,7 +33,7 @@ class UpdateVesselRequest extends FormRequest
             'dwt' => 'numeric',
             'engine' => 'numeric',
             'vessel_type_id' => 'integer|required',
-            'flags_id' => 'integer|required',
+            'flags_id' => 'integer',
             'machine_type' => 'nullable|max:255'
         ];
     }

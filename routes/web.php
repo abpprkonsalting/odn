@@ -151,6 +151,7 @@ Route::middleware(['auth'])->group(function () {
     })->middleware(['role_or_permission:Admin']);
 
     Route::resource('onBoardByVessel', 'OnBoardByVesselController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('withForeignLicenseByType', 'WithForeignLicenseByTypeController')->middleware('role_or_permission:Admin|personalInformation');
 }
 
 );

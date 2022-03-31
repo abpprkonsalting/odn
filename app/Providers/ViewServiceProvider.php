@@ -30,6 +30,7 @@ use App\Models\FamilyStatus;
 use App\Models\Flag;
 use App\Models\SkillOrKnowledge;
 use App\Models\Vessel;
+use App\Models\VesselType;
 use Spatie\Permission\Models\Role;
 use View;
 
@@ -54,7 +55,10 @@ class ViewServiceProvider extends ServiceProvider
     {
         View::composer(['vessels.fields'], function ($view) {
             $companyItems = Company::pluck('company_name','id')->toArray();
-            $view->with('companyItems', $companyItems);
+            $vesselTypeItems = VesselType::pluck('title','id')->toArray();
+            $engineTypeItems = EngineType::pluck('name','id')->toArray();
+            $flagItems = Flag::pluck('name','id')->toArray();
+            $view->with(compact('companyItems', 'vesselTypeItems','engineTypeItems','flagItems'));
         });
         View::composer(['visas.fields'], function ($view) {
             $visa_typeItems = VisaType::pluck('name','id')->toArray();
