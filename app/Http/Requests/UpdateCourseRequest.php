@@ -25,8 +25,15 @@ class UpdateCourseRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Course::$rules;
-        
-        return $rules;
+        return [
+                      
+        'personal_informations_id' => 'required|integer',
+        'course_numbers_id' => 'required|integer',
+        'country_id' => 'required|integer',
+        'start_date' => 'required',
+        'end_date' => 'required',
+        'certificate_number' => 'required'
+         
+         ];
     }
 }

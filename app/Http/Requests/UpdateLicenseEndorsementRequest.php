@@ -25,8 +25,15 @@ class UpdateLicenseEndorsementRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = LicenseEndorsement::$rules;
-        
-        return $rules;
+        return [
+                      
+            'number' => 'required|integer',
+            'issue_date' => 'required',
+            'expiry_date' => 'required',
+            'personal_informations_id' => 'required|integer',
+            'countries_id' => 'required|integer',
+            'license_endorsement_types_id' => 'required|integer',
+            'license_endorsement_names_id' => 'required|integer'
+         ];
     }
 }

@@ -25,6 +25,9 @@ class CreateNextOfKinRequest extends FormRequest
      */
     public function rules()
     {
-        return NextOfKin::$rules;
+        return [
+            'name' => 'required|max:250'
+            
+         ];
     }
 }

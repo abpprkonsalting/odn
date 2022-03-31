@@ -25,8 +25,8 @@ class UpdateVesselTypeRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = VesselType::$rules;
-        
-        return $rules;
+        return[
+           'title' => 'required|unique:vessel_types,title|max:250'
+            ];
     }
 }

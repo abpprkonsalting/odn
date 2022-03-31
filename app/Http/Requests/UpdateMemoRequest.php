@@ -25,8 +25,11 @@ class UpdateMemoRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Memo::$rules;
-        
-        return $rules;
+        return [
+            'note' => 'required',
+            'meno_date' => 'required',
+            'personal_informations_id' => 'integer|required'
+            
+         ];
     }
 }

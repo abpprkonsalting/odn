@@ -25,6 +25,11 @@ class CreatePersonalMedicalInformationRequest extends FormRequest
      */
     public function rules()
     {
-        return PersonalMedicalInformation::$rules;
+        return [
+            'personal_informations_id' => 'required|integer',
+            'medical_informations_id' => 'required|integer',
+            'issue_date' => 'required',
+            'expiry_date' => 'required'
+        ];
     }
 }

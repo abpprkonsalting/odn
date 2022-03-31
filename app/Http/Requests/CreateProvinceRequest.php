@@ -25,6 +25,9 @@ class CreateProvinceRequest extends FormRequest
      */
     public function rules()
     {
-        return Province::$rules;
+        return [
+            'name' => 'required|max:250|unique:provinces,name',
+            'code' => 'required|max:10|unique:provices,code'
+        ];
     }
 }

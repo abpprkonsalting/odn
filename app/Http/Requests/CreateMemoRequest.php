@@ -25,6 +25,11 @@ class CreateMemoRequest extends FormRequest
      */
     public function rules()
     {
-        return Memo::$rules;
+        return [
+            'note' => 'required',
+            'meno_date' => 'required',
+            'personal_informations_id' => 'integer|required'
+            
+         ];
     }
 }

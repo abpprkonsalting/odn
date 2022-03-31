@@ -25,6 +25,9 @@ class CreateLicenseEndorsementNameRequest extends FormRequest
      */
     public function rules()
     {
-        return LicenseEndorsementName::$rules;
+        return [
+            'name' => 'required|unique:license_endorsement_names,name|max:250'            
+            
+         ];
     }
 }

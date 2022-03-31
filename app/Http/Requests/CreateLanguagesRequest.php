@@ -25,6 +25,10 @@ class CreateLanguagesRequest extends FormRequest
      */
     public function rules()
     {
-        return Languages::$rules;
+        return [
+                      
+            'name' => 'required|max:250|unique:languages,name'
+         
+         ];
     }
 }

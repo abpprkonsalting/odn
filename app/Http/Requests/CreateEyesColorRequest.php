@@ -25,6 +25,10 @@ class CreateEyesColorRequest extends FormRequest
      */
     public function rules()
     {
-        return EyesColor::$rules;
+        return [
+                      
+            'name' => 'required|max:50|unique:eyes_colors,name'
+         
+         ];
     }
 }

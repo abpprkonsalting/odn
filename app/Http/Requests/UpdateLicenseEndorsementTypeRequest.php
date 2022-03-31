@@ -25,8 +25,9 @@ class UpdateLicenseEndorsementTypeRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = LicenseEndorsementType::$rules;
-        
-        return $rules;
+        return [
+            'name' => 'required|unique:license_endorsement_types,name|max:250'            
+            
+         ];
     }
 }

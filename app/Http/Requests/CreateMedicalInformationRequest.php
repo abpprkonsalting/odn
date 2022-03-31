@@ -25,6 +25,10 @@ class CreateMedicalInformationRequest extends FormRequest
      */
     public function rules()
     {
-        return MedicalInformation::$rules;
+        return [
+            'name' => 'required|unique:medical_infomations,name|max:250'
+            
+            
+         ];
     }
 }

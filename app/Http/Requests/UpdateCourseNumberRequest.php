@@ -26,13 +26,11 @@ class UpdateCourseNumberRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = CourseNumber::$rules;
-        $rules['name'] = [
-            'required',
-            'max:500',
-            Rule::unique('course_numbers')->ignore($this->route("courseNumber"))->whereNull('deleted_at')
-        ];
-        //$rules['name'] = $rules['name'].",".$this->route("course_number");
-        return $rules;
+        return [
+                      
+            'name' => 'required|unique:course_numbers,name|max:250',
+            'code' => 'required|unique:course_numbers,code|max:10'
+              
+              ];
     }
 }

@@ -25,8 +25,9 @@ class UpdateNextOfKinRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = NextOfKin::$rules;
-        //$rules['name'] = $rules['name'].",".$this->route("next_of_kin");
-        return $rules;
+        return [
+           'name' => 'required|max:250'
+           
+        ];
     }
 }

@@ -25,6 +25,10 @@ class CreateHairColorRequest extends FormRequest
      */
     public function rules()
     {
-        return HairColor::$rules;
+        return [
+                      
+            'name' => 'required|max:250|unique:hair_colors,name'
+         
+         ];
     }
 }

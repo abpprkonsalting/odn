@@ -43,13 +43,18 @@
 <!-- Vessel Type Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('vessel_type_id', 'Vessel Type Id:') !!}
-    {!! Form::number('vessel_type_id', null, ['class' => 'form-control']) !!}
+    {!! Form::select('vessel_type_id', $vesselTypeItems, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Machine Type Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('machine_type', 'Machine Type:') !!}
-    {!! Form::text('machine_type', null, ['class' => 'form-control','maxlength' => 'nullable,max:255']) !!}
+    {!! Form::label('engine_type', 'Engine Type:') !!}
+    {!! Form::select('engine_type',$engineTypeItems, null, ['class' => 'form-control','maxlength' => 'nullable,max:255']) !!}
+</div>
+<!-- Flag Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('flags_id', 'flag:') !!}
+    {!! Form::select('flags_id',$flagItems, null, ['class' => 'form-control','maxlength' => 'nullable,max:255']) !!}
 </div>
 
 <div class="form-group col-sm-6">

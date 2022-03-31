@@ -25,6 +25,11 @@ class CreateCountryRequest extends FormRequest
      */
     public function rules()
     {
-        return Country::$rules;
+        return [
+                      
+            'name' => 'required|unique:countries,name|max:250',
+            'code' => 'required|unique:countries,code|max:10'
+              
+              ];
     }
 }

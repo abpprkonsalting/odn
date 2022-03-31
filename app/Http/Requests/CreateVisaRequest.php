@@ -25,6 +25,11 @@ class CreateVisaRequest extends FormRequest
      */
     public function rules()
     {
-        return Visa::$rules;
+        return[
+        'personal_informations_id' => 'integer|required',
+        'visa_types_id' => 'integer|required',
+        'issue_date' => 'required',
+        'expiry_date' => 'required'
+        ];
     }
 }

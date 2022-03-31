@@ -25,6 +25,10 @@ class CreateFlagRequest extends FormRequest
      */
     public function rules()
     {
-        return Flag::$rules;
+        return [
+                      
+            'name' => 'required|max:250|unique:flags,name'
+         
+         ];
     }
 }

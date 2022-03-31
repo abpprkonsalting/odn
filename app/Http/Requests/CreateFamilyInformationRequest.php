@@ -25,6 +25,18 @@ class CreateFamilyInformationRequest extends FormRequest
      */
     public function rules()
     {
-        return FamilyInformation::$rules;
+        return [
+                      
+        'personal_informations_id' => 'required|integer',
+        'full_name' => 'max:100|required',
+        'next_of_kins_id' => 'required|integer',
+        'birth_date' => 'required',
+        'family_status_id' => 'required|integer',
+        'same_address_as_marine' => 'boolean',
+        'provinces_id' => 'nullable',
+        'municipalities_id' => 'nullable',
+        'phone_number' => 'max:50|nullable',
+        'address' => 'max:500|nullable'
+         ];
     }
 }

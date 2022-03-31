@@ -25,6 +25,8 @@ class CreateSkillOrKnowledgeRequest extends FormRequest
      */
     public function rules()
     {
-        return SkillOrKnowledge::$rules;
+        return [
+            'name' => 'required|max:250|unique:skill_or_knowledges,name'
+        ];
     }
 }

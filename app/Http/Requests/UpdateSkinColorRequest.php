@@ -25,8 +25,8 @@ class UpdateSkinColorRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = SkinColor::$rules;
-        
-        return $rules;
+        return [
+            'name' => 'required|max:250|unique:skin_colors,name'
+        ];
     }
 }

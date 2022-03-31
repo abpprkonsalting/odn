@@ -25,6 +25,9 @@ class CreateSchoolGradeRequest extends FormRequest
      */
     public function rules()
     {
-        return SchoolGrade::$rules;
+        return [
+            'name' => 'required|max:250|unique:school_grades,name',
+            'code' => 'required|max:250|unique:school_grades,code'
+        ];
     }
 }

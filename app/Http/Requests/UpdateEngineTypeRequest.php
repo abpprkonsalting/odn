@@ -25,8 +25,10 @@ class UpdateEngineTypeRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = EngineType::$rules;
-        //$rules['name'] = $rules['name'].",".$this->route("engine_type");
-        return $rules;
+        return [
+                      
+            'name' => 'required|max:50|unique:engine_types,name'
+         
+         ];
     }
 }
