@@ -143,6 +143,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('familyStatuses', 'FamilyStatusController');
 
     Route::resource('skillOrKnowledges', 'SkillOrKnowledgeController');
+
+    Route::resource('languageSkills', 'LanguageSkillController')->middleware('role_or_permission:Admin|languageSkills');
+
+    Route::get('languageInformations/getLanguageInformation/{id}', 'LanguageInformationController@getLanguageInformation')->name("languageInformation.getPersonalInformationLanguage");
+
+    Route::resource('languageInformations', 'LanguageInformationController')->middleware('role_or_permission:Admin|personalInformation');
+
     
     
     Route::get('/migrate', function() {

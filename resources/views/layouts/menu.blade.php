@@ -106,6 +106,10 @@
                     <a href="{{ route('languages.index') }}"><i class="fa fa-edit"></i><span>Languages</span></a>
                 </li>
 
+                <li class="{{ Request::is('languageSkills*') ? 'active' : '' }}">
+                    <a href="{{ route('languageSkills.index') }}"><i class="fa fa-edit"></i><span>Language Skills</span></a>
+                </li>
+
                 <li class="{{ Request::is('levels*') ? 'active' : '' }}">
                     <a href="{{ route('levels.index') }}"><i class="fa fa-edit"></i><span>Levels</span></a>
                 </li>

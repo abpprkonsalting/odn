@@ -38,10 +38,10 @@ class Vessel extends Model
         'omi_number',
         'active',
         'dwt',
-        'engine',
+        'engine_power',
         'vessel_type_id',
         'flags_id',
-        'machine_type'
+        'engine_type_id'
     ];
 
     /**
@@ -58,10 +58,10 @@ class Vessel extends Model
         'omi_number' => 'integer',
         'active' => 'boolean',
         'dwt' => 'integer',
-        'engine' => 'integer',
+        'engine_power' => 'integer',
         'vessel_type_id' => 'integer',
         'flags_id' => 'integer',
-        'machine_type' => 'string'
+        'engine_type_id' => 'integer'
     ];
 
     /**
@@ -77,10 +77,10 @@ class Vessel extends Model
         'omi_number' => 'nullable',
         'active' => 'nullable',
         'dwt' => 'nullable',
-        'engine' => 'nullable',
+        'engine_power' => 'nullable',
         'vessel_type_id' => 'nullable',
         'flags_id' => 'nullable',
-        'machine_type' => 'nullable|max:255'
+        'engine_type_id' => 'nullable'
     ];
 
     public function flag()
@@ -98,5 +98,10 @@ class Vessel extends Model
     public function company()
     {
         return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function engineType()
+    {
+        return $this->belongsTo(EngineType::class, 'engine_type_id');
     }
 }

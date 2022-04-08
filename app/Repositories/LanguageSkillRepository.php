@@ -2,30 +2,22 @@
 
 namespace App\Repositories;
 
-use App\Models\Vessel;
+use App\Models\LanguageSkill;
 use App\Repositories\BaseRepository;
 
 /**
- * Class VesselRepository
+ * Class LanguageSkillRepository
  * @package App\Repositories
- * @version October 28, 2021, 4:57 pm UTC
+ * @version April 7, 2022, 9:10 am UTC
 */
 
-class VesselRepository extends BaseRepository
+class LanguageSkillRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
-        'name',
-        'code',
-        'company_id',
-        'active',
-        'dtw',
-        'engine_power',
-        'vessel_type_id',
-        'flags_id',
-        'engine_type_id'
+        'name'
     ];
 
     /**
@@ -43,6 +35,6 @@ class VesselRepository extends BaseRepository
      **/
     public function model()
     {
-        return Vessel::class;
+        return LanguageSkill::class;
     }
 }
