@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\DataTables\LanguageSkillDataTable;
 use App\Http\Requests;
-use App\Http\Requests\CreateLanguageSkillDRequest;
+use App\Http\Requests\CreateLanguageSkillRequest;
 use App\Http\Requests\UpdateLanguageSkillDRequest;
-use App\Repositories\LanguageSkillDRepository;
+use App\Repositories\LanguageSkillRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -29,7 +29,7 @@ class LanguageSkillController extends Controller
      */
 
 
-    public function index()
+    public function index(LanguageSkillDataTable  $languageSkillDataTable)
     {
         return $languageSkillDataTable->render('language_skills.index');
     }
