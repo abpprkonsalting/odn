@@ -27,7 +27,7 @@ class UpdateLanguagesRequest extends FormRequest
     {
         return [
                       
-            'name' => 'required|max:250|unique:languages,name'
+            'name' => 'required|max:250'
          
          ];
     }

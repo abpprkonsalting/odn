@@ -27,7 +27,7 @@ class UpdateMaritalStatusRequest extends FormRequest
     {
         
         return [
-            'name' => 'required|unique:marital_statuses,name|max:25'            
+            'name' => 'required|max:25'            
             
          ];
     }

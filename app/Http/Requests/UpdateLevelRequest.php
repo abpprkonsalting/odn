@@ -27,7 +27,7 @@ class UpdateLevelRequest extends FormRequest
     {
         return [
                       
-            'name' => 'required|max:250|unique:levels,name'
+            'name' => 'required|max:250'
          
          ];
     }

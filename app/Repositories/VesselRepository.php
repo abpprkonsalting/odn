@@ -22,10 +22,10 @@ class VesselRepository extends BaseRepository
         'company_id',
         'active',
         'dtw',
-        'engine',
+        'engine_power',
         'vessel_type_id',
         'flags_id',
-        'machine_type'
+        'engine_type_id'
     ];
 
     /**

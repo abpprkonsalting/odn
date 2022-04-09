@@ -12,7 +12,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                @include('with_foreign_license_by_type.index')
+                @include('with_foreign_license_by_type.table')
             </div>
         </div>
         <div class="text-center">

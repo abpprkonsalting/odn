@@ -143,6 +143,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('familyStatuses', 'FamilyStatusController');
 
     Route::resource('skillOrKnowledges', 'SkillOrKnowledgeController');
+
+    Route::resource('languageSkills', 'LanguageSkillController')->middleware('role_or_permission:Admin|languageSkills');
+
+    Route::get('languageInformations/getPersonalInformationLanguageInformation/{id}', 'LanguageInformationController@getPersonalInformationLanguageInformation')->name("languageInformation.getPersonalInformationLanguageInformation");
+
+    Route::resource('languageInformations', 'LanguageInformationController')->middleware('role_or_permission:Admin|personalInformation');
+
     
     
     Route::get('/migrate', function() {
@@ -153,7 +160,24 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('onBoardByVessel', 'OnBoardByVesselController')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::resource('readyByExperience', 'ReadyByExperienceController')->middleware('role_or_permission:Admin|personalInformation');
+    
     Route::resource('withForeignLicenseByType', 'WithForeignLicenseByTypeController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::resource('ranksByAges', 'RanksByAgesController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::resource('byCertifications', 'ByCertificationsController')->middleware('role_or_permission:Admin|personalInformation');
+
+    Route::resource('byRanks', 'ByRanksController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::resource('onVacationsByCompany', 'OnVacationsByCompanyController')->middleware('role_or_permission:Admin|personalInformation');
+
+    Route::resource('byStatusWithTimeInStatus', 'ByStatusWithTimeInStatusController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::resource('onBoardTime', 'OnBoardTimeController')->middleware('role_or_permission:Admin|personalInformation');
+    
+    Route::resource('withExpiredCertification', 'WithExpiredCertificationController')->middleware('role_or_permission:Admin|personalInformation');
+
+
 }
 
 );

@@ -27,7 +27,7 @@ class UpdateFlagRequest extends FormRequest
     {
         return [
                       
-            'name' => 'required|max:250|unique:flags,name'
+            'name' => 'required|max:250'
          
          ];
     }

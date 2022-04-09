@@ -27,7 +27,7 @@ class UpdateMedicalInformationRequest extends FormRequest
     {
         
         return [
-            'name' => 'required|unique:medical_infomations,name|max:250'
+            'name' => 'required|max:250'
             
             
          ];

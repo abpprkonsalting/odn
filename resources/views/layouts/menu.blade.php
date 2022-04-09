@@ -13,12 +13,42 @@
         </span>
     </a>
     <ul class="treeview-menu">
+
         <li class="{{ Request::is('onBoardByVessel*') ? 'active' : '' }}">
             <a href="{{ route('onBoardByVessel.index') }}"><i class="fa fa-edit"></i><span>On board by vessel</span></a>
         </li>
+
         <li class="{{ Request::is('readyByExperience*') ? 'active' : '' }}">
             <a href="{{ route('readyByExperience.index') }}"><i class="fa fa-edit"></i><span>Ready by experience</span></a>
         </li>
+
+        <li class="{{ Request::is('withForeignLicenseByType*') ? 'active' : '' }}">
+            <a href="{{ route('withForeignLicenseByType.index') }}"><i class="fa fa-edit"></i><span>With Foreign License By Type</span></a>
+        </li>
+        <li class="{{ Request::is('byCertifications*') ? 'active' : '' }}">
+            <a href="{{ route('byCertifications.index') }}"><i class="fa fa-edit"></i><span>By Certifications</span></a>
+        </li>
+        <li class="{{ Request::is('byRanks*') ? 'active' : '' }}">
+            <a href="{{ route('byRanks.index') }}"><i class="fa fa-edit"></i><span>By Ranks</span></a>
+        </li>
+        <li class="{{ Request::is('onVacationsByCompany*') ? 'active' : '' }}">
+            <a href="{{ route('onVacationsByCompany.index') }}"><i class="fa fa-edit"></i><span>On Vacations By Company</span></a>
+        </li>
+        <li class="{{ Request::is('byStatusWithTimeInStatus*') ? 'active' : '' }}">
+            <a href="{{ route('byStatusWithTimeInStatus.index') }}"><i class="fa fa-edit"></i><span>By Status With Time In Status</span></a>
+        </li>
+        <li class="{{ Request::is('onBoardTime*') ? 'active' : '' }}">
+            <a href="{{ route('onBoardTime.index') }}"><i class="fa fa-edit"></i><span>On Board Time</span></a>
+        </li>
+        <li class="{{ Request::is('withExpiredCertification*') ? 'active' : '' }}">
+            <a href="{{ route('withExpiredCertification.index') }}"><i class="fa fa-edit"></i><span>With Expired Certification</span></a>
+        </li>
+        <li class="{{ Request::is('ranksByAges*') ? 'active' : '' }}">
+            <a href="{{ route('ranksByAges.index') }}"><i class="fa fa-edit"></i><span>Ranks By Ages</span></a>
+        </li>
+
+
+
     </ul>
 </li>
 <li class="{{ Request::is('personalInformations*') ? 'active' : '' }}">
@@ -78,6 +108,10 @@
 
                 <li class="{{ Request::is('languages*') ? 'active' : '' }}">
                     <a href="{{ route('languages.index') }}"><i class="fa fa-edit"></i><span>Languages</span></a>
+                </li>
+
+                <li class="{{ Request::is('languageSkills*') ? 'active' : '' }}">
+                    <a href="{{ route('languageSkills.index') }}"><i class="fa fa-edit"></i><span>Language Skills</span></a>
                 </li>
 
                 <li class="{{ Request::is('levels*') ? 'active' : '' }}">
