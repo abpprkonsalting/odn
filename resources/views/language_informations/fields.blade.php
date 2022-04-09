@@ -3,8 +3,8 @@
 
 <!-- Provinces Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('language_id', 'Language:') !!}
-    {!! Form::select('language_id', $languageItems, null, ['class' => 'form-control']) !!}
+    {!! Form::label('languages_id', 'Language:') !!}
+    {!! Form::select('languages_id', $languageItems, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Certificate Number Field -->
@@ -19,15 +19,6 @@
     {!! Form::select('levels_id', $levelItems, null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
 </div>
  
-@push('scripts')
-    <script type="text/javascript">
-        //Date picker
-        $('#start_date, #end_date').datepicker({
-            autoclose: true,
-            format: 'dd-mm-yyyy'
-        })
-    </script>
-@endpush
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

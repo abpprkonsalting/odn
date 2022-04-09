@@ -259,6 +259,29 @@
                 @endforeach
             </tbody>
         </table>
+        <h3>LANGUAGES</h3>
+        <table class="table table-bordered">
+            <tbody>
+               
+                    <tr>
+                        <th class="th-align-left">Language</th>
+                        <th class="th-align-left">Language Skill</th>
+                        <th class="th-align-left">Level</th>
+                    
+                            
+                    </tr>   
+                    @foreach ($personalInformation->languageInformations as $languageInformation) 
+                   
+                        <tr>
+                            <td>{{ $languageInformation->language->name }} </td>
+                            <td>{{ $languageInformation->languageSkill->name }} </td>
+                            <td>{{ $languageInformation->level->name }}</td>
+                            
+                        </tr>
+                    
+                    @endforeach
+            </tbody>
+        </table>
         <h3>MEMOS</h3>
         <table class="table table-bordered">
             <tbody>
@@ -338,3 +361,4 @@
                 @endforeach
             </tbody>
         </table> --}}
+        

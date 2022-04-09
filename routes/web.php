@@ -146,7 +146,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('languageSkills', 'LanguageSkillController')->middleware('role_or_permission:Admin|languageSkills');
 
-    Route::get('languageInformations/getLanguageInformation/{id}', 'LanguageInformationController@getLanguageInformation')->name("languageInformation.getPersonalInformationLanguage");
+    Route::get('languageInformations/getPersonalInformationLanguageInformation/{id}', 'LanguageInformationController@getPersonalInformationLanguageInformation')->name("languageInformation.getPersonalInformationLanguageInformation");
 
     Route::resource('languageInformations', 'LanguageInformationController')->middleware('role_or_permission:Admin|personalInformation');
 

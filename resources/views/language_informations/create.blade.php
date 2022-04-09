@@ -1,12 +1,12 @@
 @extends('partials.person_tabs', [
     'activeMenuTemplate' => 'languageInformation',
-    'personalInformationId' => $personalInformation->id  
+    'personalInformationId' => $personalInformation->id
 ])
 
 @section('tabs-section-header')
     <section class="content-header">
         <h1>
-            Course
+            Language Information
         </h1>
         @include('partials.person_breadcrumbs')
     </section>
@@ -21,7 +21,7 @@
     {!! Form::close() !!}
 
     <div class="col-sm-12">
-        <h3 class="box-title">Courses List</h3>
+        <h3 class="box-title">Languages List</h3>
         @include('language_informations.table')
     </div>
     

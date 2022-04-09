@@ -17,6 +17,10 @@
     <li class="{{ isset($activeMenuTemplate) && $activeMenuTemplate == 'passportsInformation' ? 'active' : null  }}">
         <a href="{{ isset($personalInformationId) && !empty($personalInformationId) ? route('passports.create', ['id' => $personalInformationId]) : null }}">Passport</a>
     </li>
+
+    <li class="{{ isset($activeMenuTemplate) && $activeMenuTemplate == 'languageInformation' ? 'active' : null  }}">
+        <a href="{{ isset($personalInformationId) && !empty($personalInformationId) ? route('languageInformations.create', ['id' => $personalInformationId]) : null }}">Languages Information</a>
+    </li>
     
 <li class="{{ isset($activeMenuTemplate) && $activeMenuTemplate == 'licenseEndorsement' ? 'active' : null  }}">
     <a href="{{ isset($personalInformationId) && !empty($personalInformationId) ? route('licenseEndorsements.create', ['id' => $personalInformationId]) : null }}">License & Endorsement</a>

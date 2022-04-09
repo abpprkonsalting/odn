@@ -13,10 +13,10 @@ class LanguageInformation extends Model
     protected $dates = ['deleted_at'];
 
     public $fillable = [
-        'personal_infomation_id',
-        'language_id',
-        'language_skill_id',
-        'level_id'
+        'personal_infomations_id',
+        'languages_id',
+        'language_skills_id',
+        'levels_id'
        
     ];
 
@@ -27,10 +27,10 @@ class LanguageInformation extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'personal_infomation_id' => 'integer',
-        'language_id' => 'integer',
-        'language_skill_id' => 'integer',
-        'level_id' => 'integer'
+        'personal_infomations_id' => 'integer',
+        'languages_id' => 'integer',
+        'languages_skill_id' => 'integer',
+        'levels_id' => 'integer'
     ];
 
       /**
@@ -39,29 +39,29 @@ class LanguageInformation extends Model
      * @var array
      */
     public static $rules = [
-        'personal_infomation_id' => 'required',
-        'language_id' => 'required',
-        'language_skill_id' => 'required',
-        'level_id' => 'required'
+        'personal_infomations_id' => 'required',
+        'languages_id' => 'required',
+        'languages_skill_id' => 'required',
+        'levels_id' => 'required'
     ];
 
     public function personalInformation()
     {
-        return $this->belongsTo(PersonalInformation::class, 'personal_infomation_id');
+        return $this->belongsTo(PersonalInformation::class, 'personal_infomations_id');
     }
 
     public function language()
     {
-        return $this->belongsTo(Language::class, 'language_id');
+        return $this->belongsTo(Language::class, 'languages_id');
     }
 
     public function languageSkill()
     {
-        return $this->belongsTo(LanguageSkill::class, 'language_skill_id');
+        return $this->belongsTo(LanguageSkill::class, 'languages_skill_id');
     }
 
     public function level()
     {
-        return $this->belongsTo(Level::class, 'level_id');
+        return $this->belongsTo(Level::class, 'levels_id');
     }
 }

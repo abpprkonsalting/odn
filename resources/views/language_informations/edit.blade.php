@@ -1,6 +1,6 @@
 @extends('partials.person_tabs', [
-    'activeMenuTemplate' => 'languageInformations',
-    'personalInformationId' => $course->personalInformation->id  
+    'activeMenuTemplate' => 'languageInformation',
+    'personalInformationId' => $languageInformation->personalInformation->id  
 ])
 
 @section('tabs-section-header')

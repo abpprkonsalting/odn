@@ -12,6 +12,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Response;
 use Yajra\DataTables\DataTables;
+
 class LanguageInformationController extends Controller
 {
     /** @var  LanguageInformationRepository */
@@ -20,7 +21,7 @@ class LanguageInformationController extends Controller
     private $personalInformationRepo;
 
 
-    public function __construct(LanguageInformationRepository $courseRepo, PersonalInformationRepository $personalInformationRepo)
+    public function __construct(LanguageInformationRepository $languageInformationRepo, PersonalInformationRepository $personalInformationRepo)
     {
         $this->languageInformationRepository = $languageInformationRepo;
         $this->personalInformationRepo = $personalInformationRepo;
@@ -33,7 +34,7 @@ class LanguageInformationController extends Controller
      * @return Response
      */
 
-    public function index()
+    public function index(LanguageInformationDataTable $languageInformationDataTable )
     {
         return $languageInformationDataTable->render('language_informations.index');
     }
@@ -43,9 +44,19 @@ class LanguageInformationController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('language_Informations.create');
+        if(isset($request->id) && !empty($request->id)) {
+            $personalInformationModel = $this->personalInformationRepo->model();
+            $personalInformation = $personalInformationModel::find($request->id);
+
+            if(!empty($personalInformation)) {
+                return view('language_informations.create')->with('personalInformation', $personalInformation);
+            }
+        }
+
+        Flash::error('Language Information not found');
+        return redirect(route('personalInformations.index'));
     }
 
      /**
@@ -54,11 +65,11 @@ class LanguageInformationController extends Controller
      * @param  @param CreateLanguegeInformationRequest $request
      * @return Response
      */
-    public function store(CreateLanguegeInformationRequest  $request)
+    public function store(CreateLanguageInformationRequest  $request)
     {
         $input = $request->all();
 
-        $LanguageInformation = $this->languageInformationRepository->create($input);
+        $languageInformation = $this->languageInformationRepository->create($input);
 
         Flash::success('Language Information saved successfully.');
 
@@ -75,7 +86,7 @@ class LanguageInformationController extends Controller
     {
         $languageInformation = $this->laguageInformationRepository->find($id);
 
-        if (empty($languagueInformation)) {
+        if (empty($languageInformation)) {
             Flash::error('Language Information not found');
 
             return redirect(route('languageInformations.index'));
@@ -94,7 +105,7 @@ class LanguageInformationController extends Controller
     {
         $languageInformation = $this->laguageInformationRepository->find($id);
 
-        if (empty($languagueInformation)) {
+        if (empty($languageInformation)) {
             Flash::error('Language Information not found');
 
             return redirect(route('languageInformations.index'));
@@ -114,7 +125,7 @@ class LanguageInformationController extends Controller
     {
         $languageInformation = $this->laguageInformationRepository->find($id);
 
-        if (empty($languagueInformation)) {
+        if (empty($languageInformation)) {
             Flash::error('Language Information not found');
 
             return redirect(route('languageInformations.index'));
@@ -137,7 +148,7 @@ class LanguageInformationController extends Controller
     {
         $languageInformation = $this->laguageInformationRepository->find($id);
 
-        if (empty($languagueInformation)) {
+        if (empty($languageInformation)) {
             Flash::error('Language Information not found');
 
             return redirect(route('languageInformations.index'));

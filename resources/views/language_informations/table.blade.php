@@ -19,7 +19,7 @@
     <script type="text/javascript">
         $(function () {
           
-          var table = $('.language_informations-datatable').DataTable({
+          var table = $('.language_information-datatable').DataTable({
               processing: true,
               serverSide: true,
               ajax: "{{ route('languageInformations.getPersonalInformationLanguage', ['id' => $personalInformation->id]) }}",

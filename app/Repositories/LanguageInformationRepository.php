@@ -38,6 +38,6 @@ class LanguageInformationRepository extends BaseRepository
      **/
     public function model()
     {
-        return LanguageInfomation::class;
+        return LanguageInformation::class;
     }
 }
