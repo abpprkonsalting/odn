@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Languages;
+use App\Models\Language;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -24,10 +24,10 @@ class LanguagesDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Languages $model
+     * @param \App\Models\Language $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Languages $model)
+    public function query(Language $model)
     {
         return $model->newQuery();
     }

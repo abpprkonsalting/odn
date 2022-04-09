@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Tests\ApiTestTrait;
-use App\Models\Languages;
+use App\Models\Language;
 
 class LanguagesApiTest extends TestCase
 {
@@ -15,7 +15,7 @@ class LanguagesApiTest extends TestCase
      */
     public function test_create_languages()
     {
-        $languages = factory(Languages::class)->make()->toArray();
+        $languages = factory(Language::class)->make()->toArray();
 
         $this->response = $this->json(
             'POST',
@@ -30,7 +30,7 @@ class LanguagesApiTest extends TestCase
      */
     public function test_read_languages()
     {
-        $languages = factory(Languages::class)->create();
+        $languages = factory(Language::class)->create();
 
         $this->response = $this->json(
             'GET',
@@ -45,8 +45,8 @@ class LanguagesApiTest extends TestCase
      */
     public function test_update_languages()
     {
-        $languages = factory(Languages::class)->create();
-        $editedLanguages = factory(Languages::class)->make()->toArray();
+        $languages = factory(Language::class)->create();
+        $editedLanguages = factory(Language::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
@@ -62,7 +62,7 @@ class LanguagesApiTest extends TestCase
      */
     public function test_delete_languages()
     {
-        $languages = factory(Languages::class)->create();
+        $languages = factory(Language::class)->create();
 
         $this->response = $this->json(
             'DELETE',

@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Languages
+            Language
         </h1>
    </section>
    <div class="content">

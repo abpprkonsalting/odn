@@ -4,9 +4,9 @@
     <p>{{ $course->personal_informations_id }}</p>
 </div>
 
-<!-- Languages Id Field -->
+<!-- Language Id Field -->
 <div class="form-group">
-    {!! Form::label('languages_id', 'Languages Id:') !!}
+    {!! Form::label('languages_id', 'Language Id:') !!}
     <p>{{ $languagueInformation->languages_id }}</p>
 </div>
 

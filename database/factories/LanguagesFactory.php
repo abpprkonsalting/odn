@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Languages;
+use App\Models\Language;
 use Faker\Generator as Faker;
 
-$factory->define(Languages::class, function (Faker $faker) {
+$factory->define(Language::class, function (Faker $faker) {
 
     return [
         'name' => $faker->word,
