@@ -27,7 +27,7 @@ class CreateProvinceRequest extends FormRequest
     {
         return [
             'name' => 'required|max:250|unique:provinces,name',
-            'code' => 'required|max:10|unique:provices,code'
+            'code' => 'required|max:10|unique:provinces,code'
         ];
     }
 }
