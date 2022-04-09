@@ -26,8 +26,8 @@ class CreatePoliticalIntegrationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:250|unique:political_integraions,name',
-            'code' => 'required|max:10|unique:political_integraions,name'
+            'name' => 'required|max:250|unique:political_integrations,name',
+            'code' => 'required|max:10|unique:political_integrations,name'
         ];
     }
 }
