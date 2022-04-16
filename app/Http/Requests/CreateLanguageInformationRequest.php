@@ -26,10 +26,10 @@ class CreateLanguageInformationRequest extends FormRequest
     public function rules()
     {
         return [
-            'personal_infomation_id' => 'require|integer',
-            'language_id' => 'required|integer',
-            'language_skill_id' => 'required|integer',
-            'level_id' => 'required|integer'
+            'personal_informations_id' => 'required|integer',
+            'languages_id' => 'required|integer',
+            'language_skills_id' => 'required|integer',
+            'levels_id' => 'required|integer'
         ];
     }
 }

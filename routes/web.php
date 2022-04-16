@@ -146,11 +146,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('languageSkills', 'LanguageSkillController')->middleware('role_or_permission:Admin|languageSkills');
 
-    Route::get('languageInformations/getPersonalInformationLanguageInformation/{id}', 'LanguageInformationController@getPersonalInformationLanguageInformation')->name("languageInformation.getPersonalInformationLanguageInformation");
+    Route::get('languageInformation/getPersonalInformationLanguage/{id}', 'LanguageInformationController@getPersonalInformationLanguage')->name("languageInformation.getPersonalInformationLanguage");
 
     Route::resource('languageInformations', 'LanguageInformationController')->middleware('role_or_permission:Admin|personalInformation');
-
-    
     
     Route::get('/migrate', function() {
         $exitCode = Artisan::call('migrate');

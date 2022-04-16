@@ -68,7 +68,7 @@ class LanguageInformationDataTable extends DataTable
             'personal_informations_id',
             'languages_id',
             'language_skills_id',
-            'levels_is'
+            'levels_id'
         ];
     }
 

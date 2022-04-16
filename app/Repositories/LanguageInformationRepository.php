@@ -17,10 +17,10 @@ class LanguageInformationRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'personal_infomation_id',
-        'language_id',
-        'language_skill_id',
-        'level_id'
+        'personal_informations_id',
+        'languages_id',
+        'language_skills_id',
+        'levels_id'
     ];
 
     /**

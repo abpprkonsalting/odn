@@ -58,8 +58,8 @@ class SeaGoingExperience extends Model
         'rank_id' => 'required',
         'status_id' => 'required',
         'vessel_id' => 'required',
-        'start_date' => 'require|date|date_format:d-m-Y',
-        'end_date' => 'require|date|date_format:d-m-Y',
+        'start_date' => 'required|date|date_format:d-m-Y',
+        'end_date' => 'required|date|date_format:d-m-Y',
         'contract_time' => 'nullable|max:10'
        
     ];

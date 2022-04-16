@@ -31,6 +31,9 @@ use App\Models\Flag;
 use App\Models\SkillOrKnowledge;
 use App\Models\Vessel;
 use App\Models\VesselType;
+use App\Models\Language;
+use App\Models\LanguageSkill;
+use App\Models\Level;
 use Spatie\Permission\Models\Role;
 use View;
 
@@ -153,6 +156,13 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(['other_skills.fields'], function ($view) {
             $skills_or_knowledgesItems = SkillOrKnowledge::pluck('name','id')->toArray();
             $view->with('skills_or_knowledgesItems', $skills_or_knowledgesItems);
+        });
+
+        View::composer(['language_informations.fields'], function ($view) {
+            $languageItems = Language::pluck('name','id')->toArray();
+            $languageSkillItems = LanguageSkill::pluck('name','id')->toArray();
+            $levelItems = Level::pluck('name','id')->toArray();
+            $view->with(compact('languageItems','languageSkillItems','levelItems'));
         });
     }
 }
