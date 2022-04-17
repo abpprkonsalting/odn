@@ -102,4 +102,8 @@ class Company extends Model
     {
         return $this->belongsTo(Flag::class, 'flags_id');
     }
+
+    public function personal_informations() {
+        return $this->hasMany(PersonalInformation::class);
+    }
 }

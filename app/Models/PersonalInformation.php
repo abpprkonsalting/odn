@@ -80,7 +80,8 @@ class PersonalInformation extends Model
         'email',
         'marital_status_id',
         'school_grade_id',
-        'avatar'
+        'avatar',
+        'company_id'
     ];
 
     /**
@@ -113,7 +114,8 @@ class PersonalInformation extends Model
         'email' => 'string',
         'marital_status_id' => 'integer',
         'school_grade_id' => 'integer',
-        'avatar' => 'string'
+        'avatar' => 'string',
+        'company_id' => 'integer'
     ];
 
     /**
@@ -143,7 +145,8 @@ class PersonalInformation extends Model
         'email' => 'nullable|max:250',
         'marital_status_id' => 'nullable',
         'school_grade_id' => 'nullable',
-        'avatar' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+        'avatar' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        'company_id' => 'nullable'
     ];
 
     public function getBirthdayAttribute($value) {
@@ -226,8 +229,8 @@ class PersonalInformation extends Model
     public function licenseEndorsements() {
         return $this->hasMany(LicenseEndorsement::class, 'personal_informations_id');
     }
-    public function companies() {
-        return $this->hasMany(Company::class, 'personal_informations_id');
+    public function company() {
+        return $this->belongsTo(Company::class, 'personal_informations_id');
     }
     
 }
