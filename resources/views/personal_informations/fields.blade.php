@@ -181,6 +181,12 @@
     {!! Form::select('sex', ['Male' => 'Male', 'Female' => 'Female'], null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Company Id Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('companies_id', 'Company:') !!}
+    {!! Form::select('companies_id', ['0' => ''] + $companyIdItems, null, ['class' => 'form-control']) !!}
+</div>
+
 <div class="col-sm-12">
     <div class="row">
         <div class="form-group col-sm-10">

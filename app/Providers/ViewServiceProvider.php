@@ -124,14 +124,14 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer(['personal_informations.fields'], function ($view) {
             $politicalIntegrationItems = PoliticalIntegration::pluck('name','id')->toArray();
-            $politicalIntegrationItems = PoliticalIntegration::pluck('name','id')->toArray();
             $hairColorIdItems = HairColor::pluck('name','id')->toArray();
             $eyesColorIdItems = EyesColor::pluck('name','id')->toArray();
             $schoolGradeIdItems = SchoolGrade::pluck('name','id')->toArray();
             $maritalStatusIdItems = MaritalStatus::pluck('name','id')->toArray();
             $skinColorIdItems = SkinColor::pluck('name','id')->toArray();
+            $companyIdItems = Company::pluck('company_name','id')->toArray();
 
-            $view->with(compact('politicalIntegrationItems', 'eyesColorIdItems', 'hairColorIdItems', 'maritalStatusIdItems', 'schoolGradeIdItems', 'skinColorIdItems'));
+            $view->with(compact('politicalIntegrationItems', 'eyesColorIdItems', 'hairColorIdItems', 'maritalStatusIdItems', 'schoolGradeIdItems', 'skinColorIdItems', 'companyIdItems'));
         });
 
         View::composer(['operational_informations.fields'], function ($view) {

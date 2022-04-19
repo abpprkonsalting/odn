@@ -14,8 +14,8 @@ class AddCompanyToPersonalInformation extends Migration
     public function up()
     {
         Schema::table('personal_informations', function (Blueprint $table) {
-            $table->integer('company_id')->unsigned();
-            $table->foreign('company_id')->references('id')->on('companies');
+            //$table->integer('companies_id');
+            $table->foreignId('companies_id')->nullable();
 ;        });
     }
 

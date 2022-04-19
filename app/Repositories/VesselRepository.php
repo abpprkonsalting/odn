@@ -19,7 +19,7 @@ class VesselRepository extends BaseRepository
     protected $fieldSearchable = [
         'name',
         'code',
-        'company_id',
+        'companies_id',
         'active',
         'dtw',
         'engine_power',

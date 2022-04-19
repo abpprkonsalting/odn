@@ -81,7 +81,7 @@ class PersonalInformation extends Model
         'marital_status_id',
         'school_grade_id',
         'avatar',
-        'company_id'
+        'companies_id'
     ];
 
     /**
@@ -115,7 +115,7 @@ class PersonalInformation extends Model
         'marital_status_id' => 'integer',
         'school_grade_id' => 'integer',
         'avatar' => 'string',
-        'company_id' => 'integer'
+        'companies_id' => 'integer'
     ];
 
     /**
@@ -146,7 +146,7 @@ class PersonalInformation extends Model
         'marital_status_id' => 'nullable',
         'school_grade_id' => 'nullable',
         'avatar' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-        'company_id' => 'nullable'
+        'companies_id' => 'nullable'
     ];
 
     public function getBirthdayAttribute($value) {
