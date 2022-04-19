@@ -134,7 +134,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('visas', 'VisaController')->middleware('role_or_permission:Admin|personalInformation');
 
-    Route::resource('shoreExperiencies', 'shoreExperiencieController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('shoreExperiencies', 'ShoreExperiencieController')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::resource('licenseEndorsementNames', 'LicenseEndorsementNameController')->middleware('role_or_permission:Admin|personalInformation');
 
