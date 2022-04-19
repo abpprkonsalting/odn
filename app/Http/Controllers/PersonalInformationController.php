@@ -12,6 +12,7 @@ use App\Http\Controllers\AppBaseController;
 use Response;
 use PDF;
 
+
 class PersonalInformationController extends AppBaseController
 {
     /** @var  PersonalInformationRepository */
@@ -89,7 +90,7 @@ class PersonalInformationController extends AppBaseController
     public function edit($id)
     {
         $personalInformation = $this->personalInformationRepository->find($id);
-        
+
 
         if (empty($personalInformation)) {
             Flash::error('Personal Information not found');
@@ -149,28 +150,59 @@ class PersonalInformationController extends AppBaseController
         return redirect(route('personalInformations.index'));
     }
 
-    public function getAjaxPersonalInformationById($id) {
+    public function getAjaxPersonalInformationById($id)
+    {
         $personalInformation = $this->personalInformationRepository->find($id);
-        
+
         return response()->json($personalInformation);
     }
 
-    public function getPersonalInformationPdfById($id) {
+    public function getPersonalInformationPdfById($id)
+    {
         $personalInformationModel = $this->personalInformationRepository->model();
-        $personalInformation = $personalInformationModel::with(['maritalStatus','province','municipality', 'familyInformations', 'familyInformations.nextOfKind', 'familyInformations.familyStatus','familyInformations.province','familyInformations.municipality','passports','visas','visas.visaType','seamanBooks','personalMedicalInformations','personalMedicalInformations.medicalInformation','courses','courses.country','courses.courseNumber','otherSkills','shoreExperiencies','licenseEndorsements','licenseEndorsements.country','licenseEndorsements.licenseEndorsementType','licenseEndorsements.licenseEndorsementName','memos'])->find($id);
+        $personalInformation = $personalInformationModel::with(
+                        [
+                            'maritalStatus',
+                            'province', 
+                            'municipality', 
+                            'familyInformations', 
+                            'familyInformations.nextOfKind', 
+                            'familyInformations.familyStatus', 
+                            'familyInformations.province', 
+                            'familyInformations.municipality', 
+                            'passports', 
+                            'visas', 
+                            'visas.visaType', 
+                            'seamanBooks', 
+                            'personalMedicalInformations', 
+                            'personalMedicalInformations.medicalInformation', 
+                            'courses', 
+                            'courses.country', 
+                            'courses.courseNumber', 
+                            'otherSkills', 
+                            'shoreExperiencies', 
+                            'licenseEndorsements', 
+                            'licenseEndorsements.country', 
+                            'licenseEndorsements.licenseEndorsementType', 
+                            'licenseEndorsements.licenseEndorsementName', 
+                            'memos',
+                            'company'
+                        ])->find($id);
         $pdf = PDF::loadView('personal_informations.pdf', ['personalInformation' => $personalInformation]);
         return $pdf->download("{$personalInformation->id_number}.pdf");
     }
 
-    public function getPersonalInformationFilesById($id) {
+    public function getPersonalInformationFilesById($id)
+    {
         $personalInformationModel = $this->personalInformationRepository->model();
         $personalInformation = $personalInformationModel::find($id);
-        
+
         session(["personalInformationFolder" => $personalInformation->internal_file_number]);
         return view('personal_informations.files')->with('personalInformation', $personalInformation);
     }
 
-    public function getPersonalInformationIframeById() {
+    public function getPersonalInformationIframeById()
+    {
         return view('personal_informations.iframe');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Languages;
+use App\Models\Language;
 use App\Repositories\BaseRepository;
 
 /**
@@ -35,6 +35,6 @@ class LanguagesRepository extends BaseRepository
      **/
     public function model()
     {
-        return Languages::class;
+        return Language::class;
     }
 }

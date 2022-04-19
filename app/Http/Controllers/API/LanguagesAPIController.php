@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreateLanguagesAPIRequest;
 use App\Http\Requests\API\UpdateLanguagesAPIRequest;
-use App\Models\Languages;
+use App\Models\Language;
 use App\Repositories\LanguagesRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -44,7 +44,7 @@ class LanguagesAPIController extends AppBaseController
     }
 
     /**
-     * Store a newly created Languages in storage.
+     * Store a newly created Language in storage.
      * POST /languages
      *
      * @param CreateLanguagesAPIRequest $request
@@ -57,11 +57,11 @@ class LanguagesAPIController extends AppBaseController
 
         $languages = $this->languagesRepository->create($input);
 
-        return $this->sendResponse($languages->toArray(), 'Languages saved successfully');
+        return $this->sendResponse($languages->toArray(), 'Language saved successfully');
     }
 
     /**
-     * Display the specified Languages.
+     * Display the specified Language.
      * GET|HEAD /languages/{id}
      *
      * @param int $id
@@ -70,18 +70,18 @@ class LanguagesAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var Languages $languages */
-        $languages = $this->languagesRepository->find($id);
+        /** @var Language $language */
+        $language = $this->languagesRepository->find($id);
 
-        if (empty($languages)) {
-            return $this->sendError('Languages not found');
+        if (empty($language)) {
+            return $this->sendError('Language not found');
         }
 
-        return $this->sendResponse($languages->toArray(), 'Languages retrieved successfully');
+        return $this->sendResponse($language->toArray(), 'Language retrieved successfully');
     }
 
     /**
-     * Update the specified Languages in storage.
+     * Update the specified Language in storage.
      * PUT/PATCH /languages/{id}
      *
      * @param int $id
@@ -93,20 +93,20 @@ class LanguagesAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        /** @var Languages $languages */
-        $languages = $this->languagesRepository->find($id);
+        /** @var Language $language */
+        $language = $this->languagesRepository->find($id);
 
-        if (empty($languages)) {
-            return $this->sendError('Languages not found');
+        if (empty($language)) {
+            return $this->sendError('Language not found');
         }
 
-        $languages = $this->languagesRepository->update($input, $id);
+        $language = $this->languagesRepository->update($input, $id);
 
-        return $this->sendResponse($languages->toArray(), 'Languages updated successfully');
+        return $this->sendResponse($language->toArray(), 'Language updated successfully');
     }
 
     /**
-     * Remove the specified Languages from storage.
+     * Remove the specified Language from storage.
      * DELETE /languages/{id}
      *
      * @param int $id
@@ -117,15 +117,15 @@ class LanguagesAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var Languages $languages */
-        $languages = $this->languagesRepository->find($id);
+        /** @var Language $languages */
+        $language = $this->languagesRepository->find($id);
 
-        if (empty($languages)) {
-            return $this->sendError('Languages not found');
+        if (empty($language)) {
+            return $this->sendError('Language not found');
         }
 
-        $languages->delete();
+        $language->delete();
 
-        return $this->sendSuccess('Languages deleted successfully');
+        return $this->sendSuccess('Language deleted successfully');
     }
 }

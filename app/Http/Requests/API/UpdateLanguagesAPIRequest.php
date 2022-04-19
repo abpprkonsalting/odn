@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\Languages;
+use App\Models\Language;
 use InfyOm\Generator\Request\APIRequest;
 
 class UpdateLanguagesAPIRequest extends APIRequest
@@ -24,7 +24,7 @@ class UpdateLanguagesAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = Languages::$rules;
+        $rules = Language::$rules;
         $rules['name'] = $rules['name'].",".$this->route("language");
         return $rules;
     }

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property string $name
  * @property string $code
- * @property integer $company_id
+ * @property integer $companies_id
  * @property integer $gross_tank
  * @property integer $omi_number
  * @property integer $active
@@ -33,7 +33,7 @@ class Vessel extends Model
     public $fillable = [
         'name',
         'code',
-        'company_id',
+        'companies_id',
         'gross_tank',
         'omi_number',
         'active',
@@ -53,7 +53,7 @@ class Vessel extends Model
         'id' => 'integer',
         'name' => 'string',
         'code' => 'string',
-        'company_id' => 'integer',
+        'companies_id' => 'integer',
         'gross_tank' => 'integer',
         'omi_number' => 'integer',
         'active' => 'boolean',
@@ -72,7 +72,7 @@ class Vessel extends Model
     public static $rules = [
         'name' => 'required',
         'code' => 'nullable',
-        'company_id' => 'required',
+        'companies_id' => 'required',
         'gross_tank' => 'nullable',
         'omi_number' => 'nullable',
         'active' => 'nullable',
@@ -97,7 +97,7 @@ class Vessel extends Model
 
     public function company()
     {
-        return $this->belongsTo(Company::class, 'company_id');
+        return $this->belongsTo(Company::class, 'companies_id');
     }
 
     public function engineType()

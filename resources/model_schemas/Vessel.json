@@ -36,7 +36,7 @@
         "inView": true
     },
     {
-        "name": "company_id",
+        "name": "companies_id",
         "dbType": "integer:unsigned:foreign,companies,id",
         "htmlType": "selectTable:companies:company_name,id",
         "validations": "required",

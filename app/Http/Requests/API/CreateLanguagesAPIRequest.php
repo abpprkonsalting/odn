@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\Languages;
+use App\Models\Language;
 use InfyOm\Generator\Request\APIRequest;
 
 class CreateLanguagesAPIRequest extends APIRequest
@@ -24,6 +24,6 @@ class CreateLanguagesAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return Languages::$rules;
+        return Language::$rules;
     }
 }

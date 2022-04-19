@@ -55,7 +55,7 @@ class LanguagesController extends AppBaseController
 
         $languages = $this->languagesRepository->create($input);
 
-        Flash::success('Languages saved successfully.');
+        Flash::success('Language saved successfully.');
 
         return redirect(route('languages.index'));
     }
@@ -72,7 +72,7 @@ class LanguagesController extends AppBaseController
         $languages = $this->languagesRepository->find($id);
 
         if (empty($languages)) {
-            Flash::error('Languages not found');
+            Flash::error('Language not found');
 
             return redirect(route('languages.index'));
         }
@@ -81,7 +81,7 @@ class LanguagesController extends AppBaseController
     }
 
     /**
-     * Show the form for editing the specified Languages.
+     * Show the form for editing the specified Language.
      *
      * @param  int $id
      *
@@ -92,7 +92,7 @@ class LanguagesController extends AppBaseController
         $languages = $this->languagesRepository->find($id);
 
         if (empty($languages)) {
-            Flash::error('Languages not found');
+            Flash::error('Language not found');
 
             return redirect(route('languages.index'));
         }
@@ -101,7 +101,7 @@ class LanguagesController extends AppBaseController
     }
 
     /**
-     * Update the specified Languages in storage.
+     * Update the specified Language in storage.
      *
      * @param  int              $id
      * @param UpdateLanguagesRequest $request
@@ -113,20 +113,20 @@ class LanguagesController extends AppBaseController
         $languages = $this->languagesRepository->find($id);
 
         if (empty($languages)) {
-            Flash::error('Languages not found');
+            Flash::error('Language not found');
 
             return redirect(route('languages.index'));
         }
 
         $languages = $this->languagesRepository->update($request->all(), $id);
 
-        Flash::success('Languages updated successfully.');
+        Flash::success('Language updated successfully.');
 
         return redirect(route('languages.index'));
     }
 
     /**
-     * Remove the specified Languages from storage.
+     * Remove the specified Language from storage.
      *
      * @param  int $id
      *
@@ -137,14 +137,14 @@ class LanguagesController extends AppBaseController
         $languages = $this->languagesRepository->find($id);
 
         if (empty($languages)) {
-            Flash::error('Languages not found');
+            Flash::error('Language not found');
 
             return redirect(route('languages.index'));
         }
 
         $this->languagesRepository->delete($id);
 
-        Flash::success('Languages deleted successfully.');
+        Flash::success('Language deleted successfully.');
 
         return redirect(route('languages.index'));
     }

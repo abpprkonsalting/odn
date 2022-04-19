@@ -12,8 +12,8 @@
 
 <!-- Company Id Field -->
 <div class="form-group">
-    {!! Form::label('company_id', 'Company Id:') !!}
-    <p>{{ $vessel->company_id }}</p>
+    {!! Form::label('companies_id', 'Company Id:') !!}
+    <p>{{ $vessel->companies_id }}</p>
 </div>
 
 <!-- Gross Tank Field -->

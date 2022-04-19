@@ -8,12 +8,12 @@ class LanguageInformation extends Model
 {
     use SoftDeletes;
 
-    public $table = 'language_infomations';
+    public $table = 'language_informations';
     
     protected $dates = ['deleted_at'];
 
     public $fillable = [
-        'personal_infomations_id',
+        'personal_informations_id',
         'languages_id',
         'language_skills_id',
         'levels_id'
@@ -27,9 +27,9 @@ class LanguageInformation extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'personal_infomations_id' => 'integer',
+        'personal_informations_id' => 'integer',
         'languages_id' => 'integer',
-        'languages_skill_id' => 'integer',
+        'language_skills_id' => 'integer',
         'levels_id' => 'integer'
     ];
 
@@ -39,25 +39,27 @@ class LanguageInformation extends Model
      * @var array
      */
     public static $rules = [
-        'personal_infomations_id' => 'required',
+        'personal_informations_id' => 'required',
         'languages_id' => 'required',
-        'languages_skill_id' => 'required',
+        'language_skills_id' => 'required',
         'levels_id' => 'required'
     ];
 
     public function personalInformation()
     {
-        return $this->belongsTo(PersonalInformation::class, 'personal_infomations_id');
+        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
     }
 
     public function language()
     {
-        return $this->belongsTo(Language::class, 'languages_id');
+        $bla = $this->belongsTo(Language::class, 'languages_id');
+        return $bla;
     }
 
     public function languageSkill()
     {
-        return $this->belongsTo(LanguageSkill::class, 'languages_skill_id');
+        $bla = $this->belongsTo(LanguageSkill::class, 'language_skills_id');
+        return $bla;
     }
 
     public function level()

@@ -12,8 +12,8 @@
 
 <!-- Company Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('company_id', 'Company Id:') !!}
-    {!! Form::select('company_id', $companyItems, null, ['class' => 'form-control']) !!}
+    {!! Form::label('companies_id', 'Company Id:') !!}
+    {!! Form::select('companies_id', $companyItems, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Gross Tank Field -->

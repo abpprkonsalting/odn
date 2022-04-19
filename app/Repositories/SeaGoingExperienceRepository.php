@@ -18,9 +18,9 @@ class SeaGoingExperienceRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'id',
-        'personal_informations_id',
-        'ranks_id',
-        'vessels_id',
+        'personal_information_id',
+        'rank_id',
+        'vessel_id',
         'start_date',
         'end_date' ,
         'contract_time'      

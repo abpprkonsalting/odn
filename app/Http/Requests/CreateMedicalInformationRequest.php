@@ -26,7 +26,7 @@ class CreateMedicalInformationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:medical_infomations,name|max:250'
+            'name' => 'required|unique:medical_informations,name|max:250'
             
             
          ];

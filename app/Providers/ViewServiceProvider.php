@@ -31,6 +31,9 @@ use App\Models\Flag;
 use App\Models\SkillOrKnowledge;
 use App\Models\Vessel;
 use App\Models\VesselType;
+use App\Models\Language;
+use App\Models\LanguageSkill;
+use App\Models\Level;
 use Spatie\Permission\Models\Role;
 use View;
 
@@ -121,14 +124,14 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer(['personal_informations.fields'], function ($view) {
             $politicalIntegrationItems = PoliticalIntegration::pluck('name','id')->toArray();
-            $politicalIntegrationItems = PoliticalIntegration::pluck('name','id')->toArray();
             $hairColorIdItems = HairColor::pluck('name','id')->toArray();
             $eyesColorIdItems = EyesColor::pluck('name','id')->toArray();
             $schoolGradeIdItems = SchoolGrade::pluck('name','id')->toArray();
             $maritalStatusIdItems = MaritalStatus::pluck('name','id')->toArray();
             $skinColorIdItems = SkinColor::pluck('name','id')->toArray();
+            $companyIdItems = Company::pluck('company_name','id')->toArray();
 
-            $view->with(compact('politicalIntegrationItems', 'eyesColorIdItems', 'hairColorIdItems', 'maritalStatusIdItems', 'schoolGradeIdItems', 'skinColorIdItems'));
+            $view->with(compact('politicalIntegrationItems', 'eyesColorIdItems', 'hairColorIdItems', 'maritalStatusIdItems', 'schoolGradeIdItems', 'skinColorIdItems', 'companyIdItems'));
         });
 
         View::composer(['operational_informations.fields'], function ($view) {
@@ -153,6 +156,13 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(['other_skills.fields'], function ($view) {
             $skills_or_knowledgesItems = SkillOrKnowledge::pluck('name','id')->toArray();
             $view->with('skills_or_knowledgesItems', $skills_or_knowledgesItems);
+        });
+
+        View::composer(['language_informations.fields'], function ($view) {
+            $languageItems = Language::pluck('name','id')->toArray();
+            $languageSkillItems = LanguageSkill::pluck('name','id')->toArray();
+            $levelItems = Level::pluck('name','id')->toArray();
+            $view->with(compact('languageItems','languageSkillItems','levelItems'));
         });
     }
 }

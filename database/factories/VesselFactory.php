@@ -10,7 +10,7 @@ $factory->define(Vessel::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
         'code' => $faker->word,
-        'company_id' => $faker->randomDigitNotNull,
+        'companies_id' => $faker->randomDigitNotNull,
         'gross_tank' => $faker->randomDigitNotNull,
         'omi_number' => $faker->randomDigitNotNull,
         'active' => $faker->randomDigitNotNull,

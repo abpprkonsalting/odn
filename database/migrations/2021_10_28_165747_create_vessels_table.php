@@ -18,7 +18,7 @@ class CreateVesselsTable extends Migration
             $table->increments('id');
             $table->string('name', 255);
             $table->string('code', 50);
-            $table->integer('company_id')->unsigned();
+            //$table->integer('companies_id')->unsigned();
             $table->integer('gross_tank')->nullable();
             $table->integer('omi_number')->nullable();
             $table->integer('active', false, true);
@@ -29,7 +29,7 @@ class CreateVesselsTable extends Migration
             $table->string('machine_type')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreignId('companies_id');
             $table->foreign('flags_id')->references('id')->on('flags');
         });
     }

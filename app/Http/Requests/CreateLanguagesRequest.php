@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Languages;
+use App\Models\Language;
 
 class CreateLanguagesRequest extends FormRequest
 {
