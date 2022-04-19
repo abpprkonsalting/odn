@@ -27,7 +27,7 @@ class CreateMemoRequest extends FormRequest
     {
         return [
             'note' => 'required',
-            'meno_date' => 'required',
+            'memo_date' => 'required',
             'personal_informations_id' => 'integer|required'
             
          ];

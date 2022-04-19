@@ -26,7 +26,7 @@ class UpdateSeamanBookRequest extends FormRequest
     public function rules()
     {
         return[
-            'number' => 'required|unique:seaman_books,number',
+            'number' => 'required',
             'personal_informations_id' => 'required|integer',
             'issue_date' => 'required',
             'expiry_date' => 'required'

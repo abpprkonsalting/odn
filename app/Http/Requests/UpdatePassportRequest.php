@@ -29,7 +29,9 @@ class UpdatePassportRequest extends FormRequest
             'personal_informations_id' => 'required|integer',
             'expedition_date' => 'required',
             'expiry_date' => 'required',
-            'no_passport' => 'required|unique:passport,no_passport'
+            'extension_date' => 'nullable',
+            'expiry_extension_date' => 'nullable',
+            'no_passport' => 'required'
            
         ];
     }

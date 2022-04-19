@@ -63,8 +63,8 @@ class Passport extends Model
         'personal_informations_id' => 'required',
         'expedition_date' => 'required|date|date_format:d-m-Y',
         'expiry_date' => 'required|date|date_format:d-m-Y',
-        'extension_date' => 'date|date_format:d-m-Y',
-        'expiry_extension_date' => 'date|date_format:d-m-Y',
+        'extension_date' => 'nullable|date|date_format:d-m-Y',
+        'expiry_extension_date' => 'nullable|date|date_format:d-m-Y',
         'no_passport' => 'required|max:50'
     ];
 
