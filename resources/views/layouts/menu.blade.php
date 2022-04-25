@@ -15,19 +15,19 @@
     <ul class="treeview-menu">
 
         <li class="{{ Request::is('nonReadyPersonal*') ? 'active' : '' }}">
-            <a href="{{ route('nonReadyPersonal.index') }}"><i class="fa fa-edit"></i><span>Non ready personal in process</span></a>
+            <a href="{{ route('nonReadyPersonal.index') }}"><i class="fa fa-edit"></i><span>Mariners non ready in process</span></a>
         </li>
 
         <li class="{{ Request::is('onBoardByVessel*') ? 'active' : '' }}">
-            <a href="{{ route('onBoardByVessel.index') }}"><i class="fa fa-edit"></i><span>On board by vessel</span></a>
+            <a href="{{ route('onBoardByVessel.index') }}"><i class="fa fa-edit"></i><span>Mariners on board by vessel</span></a>
         </li>
 
         <li class="{{ Request::is('readyByExperience*') ? 'active' : '' }}">
-            <a href="{{ route('readyByExperience.index') }}"><i class="fa fa-edit"></i><span>Ready by experience</span></a>
+            <a href="{{ route('readyByExperience.index') }}"><i class="fa fa-edit"></i><span>Mariners ready by experience</span></a>
         </li>
 
         <li class="{{ Request::is('withForeignLicenseByType*') ? 'active' : '' }}">
-            <a href="{{ route('withForeignLicenseByType.index') }}"><i class="fa fa-edit"></i><span>With Foreign License By Type</span></a>
+            <a href="{{ route('withForeignLicenseByType.index') }}"><i class="fa fa-edit"></i><span>Mariners with Foreign License<br> By Licence Type</span></a>
         </li>
         <li class="{{ Request::is('byCertifications*') ? 'active' : '' }}">
             <a href="{{ route('byCertifications.index') }}"><i class="fa fa-edit"></i><span>By Certifications</span></a>
