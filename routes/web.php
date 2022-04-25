@@ -155,6 +155,8 @@ Route::middleware(['auth'])->group(function () {
         return "<h1>Migration successfully execute</h1>";
     })->middleware(['role_or_permission:Admin']);
 
+    Route::resource('nonReadyPersonal', 'NonReadyPersonalController')->middleware('role_or_permission:Admin|personalInformation');
+
     Route::resource('onBoardByVessel', 'OnBoardByVesselController')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::resource('readyByExperience', 'ReadyByExperienceController')->middleware('role_or_permission:Admin|personalInformation');

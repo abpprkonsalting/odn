@@ -14,6 +14,10 @@
     </a>
     <ul class="treeview-menu">
 
+        <li class="{{ Request::is('nonReadyPersonal*') ? 'active' : '' }}">
+            <a href="{{ route('nonReadyPersonal.index') }}"><i class="fa fa-edit"></i><span>Non ready personal in process</span></a>
+        </li>
+
         <li class="{{ Request::is('onBoardByVessel*') ? 'active' : '' }}">
             <a href="{{ route('onBoardByVessel.index') }}"><i class="fa fa-edit"></i><span>On board by vessel</span></a>
         </li>
