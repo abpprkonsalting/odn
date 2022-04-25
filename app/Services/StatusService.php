@@ -22,6 +22,7 @@ class StatusService
     private $currentTime;
     private $nonReadyStatus;
     private $readyStatus;
+    private Array $statusesArray;
 
     /**
      * Constructs a new status service.
@@ -38,7 +39,7 @@ class StatusService
      * @param \App\Models\PersonalInformation $personalInformation
      * @return void
      */
-    public function checkPersonalInformationStatus(PersonalInformation $personalInformation = null): void
+    public function checkPersonalInformationStatus(PersonalInformation $personalInformation = null, bool $report = false): Array | null
     {
         $personalInformations = new Collection();
         if ($personalInformation != null) {
@@ -56,21 +57,60 @@ class StatusService
         $this->currentTime = Carbon::now();
         $this->nonReadyStatus = Status::where(['name' => "Non Ready"])->first();
         $this->readyStatus = Status::where(['name' => "Ready"])->first();
-        $personalInformations->each($this->checkStatus());
+        $this->statusesArray = [];
+        $personalInformations->each($this->checkStatus($report));
+        if ($report) {
+            return $this->statusesArray;
+        }
+        return null;
     }
 
-    private function checkStatus(): callable
+    private function checkStatus($report): callable
     {
-        return function ($item, $key) {
+        return function ($item, $key) use ($report){
+            $isReady = true;
+            $tempArray = [
+                'personalInformation' => $item,
+                'passport' => true,
+                'medical_informations' => true,
+                'courses' => true,
+                'licences' => true,
+                'seamanbook' => true,
+            ];
             $status = $item->operationalInformation->status;
             if ($status == $this->readyStatus || $status == $this->nonReadyStatus) {
-                if (!$this->checkValidPassports($item)) return;
-                if (!$this->checkValidMedicalInformation($item)) return;
-                if (!$this->checkValidCourses($item)) return;
-                if (!$this->checkLicenseEndorsements($item)) return;
-                if (!$this->checkSeamanBook($item)) return;
 
-                $this->setPersonalInformationStatus($item, $this->readyStatus);
+                if (!$this->checkValidPassports($item)) {
+                    if (!$report) { return; }
+                    $isReady = false;
+                    $tempArray['passport'] = false;
+                };
+                if (!$this->checkValidMedicalInformation($item)) {
+                    if (!$report) { return; }
+                    $isReady = false;
+                    $tempArray['medical_informations'] = false;
+                };
+                if (!$this->checkValidCourses($item)) {
+                    if (!$report) { return; }
+                    $isReady = false;
+                    $tempArray['courses'] = false;
+                };
+                if (!$this->checkLicenseEndorsements($item)) {
+                    if (!$report) { return; }
+                    $isReady = false;
+                    $tempArray['licences'] = false;
+                };
+                if (!$this->checkSeamanBook($item)) {
+                    if (!$report) { return; }
+                    $isReady = false;
+                    $tempArray['seamanbook'] = false;
+                    $this->statusesArray[$item->id] = $tempArray;
+                    return;
+                };
+
+                if ($isReady) $this->setPersonalInformationStatus($item, $this->readyStatus);
+                $this->statusesArray[$item->id] = $tempArray;
+                return;
             }
         };
     }
