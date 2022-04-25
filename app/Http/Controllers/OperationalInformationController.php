@@ -11,6 +11,7 @@ use App\Repositories\PersonalInformationRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use App\Services\StatusService;
 
 class OperationalInformationController extends AppBaseController
 {
@@ -19,10 +20,15 @@ class OperationalInformationController extends AppBaseController
     /** @var  PersonalInformationRepository */
     private $personalInformationRepository;
 
-    public function __construct(OperationalInformationRepository $operationalInformationRepo, PersonalInformationRepository $personalInformationRepo)
+    private $statusService;
+
+    public function __construct(OperationalInformationRepository $operationalInformationRepo, 
+                                PersonalInformationRepository $personalInformationRepo,
+                                StatusService $statusService)
     {
         $this->operationalInformationRepository = $operationalInformationRepo;
         $this->personalInformationRepository = $personalInformationRepo;
+        $this->statusService = $statusService;
     }
 
     /**
@@ -97,12 +103,11 @@ class OperationalInformationController extends AppBaseController
         $operationalInformationModel = $this->operationalInformationRepository->model();
         $operationalInformation = $operationalInformationModel::where(['personal_informations_id' => $id])->first();
 
-
+        $personalInformation = $this->personalInformationRepository->find($id);
         if (empty($operationalInformation)) {
-            $personalInformation = $this->personalInformationRepository->find($id);
             return view('operational_informations.create')->with('personalInformation', $personalInformation);
         }
-
+        $this->statusService->checkPersonalInformationStatus($personalInformation);
         return view('operational_informations.edit')->with('operationalInformation', $operationalInformation);
     }
 
