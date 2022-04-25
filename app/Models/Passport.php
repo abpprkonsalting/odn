@@ -80,22 +80,27 @@ class Passport extends Model
      */
     public function setExpeditionDateAttribute($value)
     {
-        $this->attributes['expedition_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        if (!empty($value)) {
+            $this->attributes['expedition_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+            return;
+        }
+        $this->attributes['expedition_date'] = null;
     }
 
     public function getExpiryDateAttribute($value) {
-        return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
+        if (!empty($value)) {
+            return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
+        }
+        return $value;
     } 
 
-     /**
-     * Set the memo date
-     *
-     * @param  string  $value
-     * @return void
-     */
     public function setExpiryDateAttribute($value)
     {
-        $this->attributes['expiry_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        if (!empty($value)) {
+            $this->attributes['expiry_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+            return;
+        }
+        $this->attributes['expiry_date'] = null;
     }
 
     public function getExtensionDateAttribute($value) {
@@ -105,17 +110,14 @@ class Passport extends Model
         return $value;
     } 
 
-     /**
-     * Set the memo date
-     *
-     * @param  string  $value
-     * @return void
-     */
     public function setExtensionDateAttribute($value)
 
     {
-       
-        $this->attributes['extension_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        if (!empty($value)) {
+            $this->attributes['extension_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+            return;
+        }
+        $this->attributes['extension_date'] = null;
      }
 
     public function getExpiryExtensionDateAttribute($value) {
@@ -125,15 +127,13 @@ class Passport extends Model
         return $value;
     } 
 
-    /**
-     * Set the memo date
-     *
-     * @param  string  $value
-     * @return void
-     */
     public function setExpiryExtensionDateAttribute($value)
     {
-        $this->attributes['expiry_extension_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        if (!empty($value)) {
+            $this->attributes['expiry_extension_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+            return;
+        }
+        $this->attributes['expiry_extension_date'] = null;
     }
 
     public function personalInformation()
