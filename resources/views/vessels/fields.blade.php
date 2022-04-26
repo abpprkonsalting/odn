@@ -36,7 +36,11 @@
 
 <!-- Engine Field -->
 <div class="form-group col-sm-6">
+<<<<<<< HEAD
     {!! Form::label('engine_power', 'Engine Power:') !!}
+=======
+    {!! Form::label('engine', 'Engine:') !!}
+>>>>>>> f8f85be8db8448d4044c4c4364a1553709ebccf5
     {!! Form::number('engine_power', null, ['class' => 'form-control']) !!}
 </div>
 

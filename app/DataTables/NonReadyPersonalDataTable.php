@@ -2,14 +2,24 @@
 
 namespace App\DataTables;
 
-use App\Models\LicenseEndorsement;
-use App\Models\PersonalInformation;
-
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 
-class WithForeignLicenseByTypeDataTable extends DataTable
+use App\Models\PersonalInformation;
+use App\Models\OperationalInformation;
+use App\Models\Status;
+use App\Services\StatusService;
+
+class NonReadyPersonalDataTable extends DataTable
 {
+    private $statusService;
+
+    public function __construct(StatusService $statusService)
+    {
+        $this->statusService = $statusService;
+    }
+
     /**
      * Build DataTable class.
      *
@@ -18,18 +28,22 @@ class WithForeignLicenseByTypeDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $collection = LicenseEndorsement::with(['personalInformation','country','licenseEndorsementType'])->get();
-        $filtered = $collection->filter(function ($value, $key) {
-            return $value->country->name != "Cuba";
+        $nonReadyStatus = Status::where(['name' => "Non Ready"])->first();
+        $collection = collect($this->statusService->checkPersonalInformationStatus(null,true));
+        $filtered = $collection->filter(function ($value, $key) use ($nonReadyStatus) {
+            return $value['personalInformation']->operationalInformation->status == $nonReadyStatus;
         });
 
         $collection = $filtered->map(function ($item, $key) {
             return [
-                'id' =>  $item->personalInformation->id,
-                'country' => $item->country->name,
-                'license_type' => $item->licenseEndorsementType->name,
-                'avatar' => $item->personalInformation->avatar,
-                'full_name' => $item->personalInformation->full_name
+                'id' =>  $item["personalInformation"]->id,
+                'passport_valid' => $item['passport'],
+                'medical_informations_valid' => $item['medical_informations'],
+                'courses_valid' => $item['courses'],
+                'licences_valid' => $item['licences'],
+                'seamanbook_valid' => $item['seamanbook'],
+                'avatar' => $item["personalInformation"]->avatar,
+                'full_name' => $item["personalInformation"]->full_name
             ];
         });
         $dataTable = new CollectionDataTable($collection);
@@ -65,6 +79,7 @@ class WithForeignLicenseByTypeDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
+            ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'       => 'Bfrtip',
                 'stateSave' => true,
@@ -83,8 +98,11 @@ class WithForeignLicenseByTypeDataTable extends DataTable
         return [
             'avatar',
             'full_name',
-            'country',
-            'license_type'
+            'passport_valid',
+            'medical_informations_valid',
+            'courses_valid',
+            'licences_valid',
+            'seamanbook_valid'
         ];
     }
 
