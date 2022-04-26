@@ -37,7 +37,7 @@
 <!-- Engine Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('engine', 'Engine:') !!}
-    {!! Form::number('engine', null, ['class' => 'form-control']) !!}
+    {!! Form::number('engine_power', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Vessel Type Id Field -->
@@ -48,8 +48,8 @@
 
 <!-- Machine Type Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('engine_type', 'Engine Type:') !!}
-    {!! Form::select('engine_type',$engineTypeItems, null, ['class' => 'form-control','maxlength' => 'nullable,max:255']) !!}
+    {!! Form::label('engine_type_id', 'Engine Type:') !!}
+    {!! Form::select('engine_type_id',$engineTypeItems, null, ['class' => 'form-control','maxlength' => 'nullable,max:255']) !!}
 </div>
 <!-- Flag Field -->
 <div class="form-group col-sm-6">

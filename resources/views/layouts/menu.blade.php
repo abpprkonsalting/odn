@@ -15,7 +15,7 @@
     <ul class="treeview-menu">
 
         <li class="{{ Request::is('nonReadyPersonal*') ? 'active' : '' }}">
-            <a href="{{ route('nonReadyPersonal.index') }}"><i class="fa fa-edit"></i><span>Mariners non ready in process</span></a>
+            <a href="{{ route('nonReadyPersonal.index') }}"><i class="fa fa-edit"></i><span>Mariners non ready <br>in process</span></a>
         </li>
 
         <li class="{{ Request::is('onBoardByVessel*') ? 'active' : '' }}">
@@ -27,7 +27,7 @@
         </li>
 
         <li class="{{ Request::is('withForeignLicenseByType*') ? 'active' : '' }}">
-            <a href="{{ route('withForeignLicenseByType.index') }}"><i class="fa fa-edit"></i><span>Mariners with Foreign License<br> By Licence Type</span></a>
+            <a href="{{ route('withForeignLicenseByType.index') }}"><i class="fa fa-edit"></i><span>Mariners with foreign license <br> by license type</span></a>
         </li>
         <li class="{{ Request::is('byCertifications*') ? 'active' : '' }}">
             <a href="{{ route('byCertifications.index') }}"><i class="fa fa-edit"></i><span>By Certifications</span></a>
