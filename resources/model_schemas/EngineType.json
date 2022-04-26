@@ -15,7 +15,7 @@
         "name": "name",
         "dbType": "string,250",
         "htmlType": "text",
-        "validations": "required|max:250|unique:engine_type",
+        "validations": "required|max:250|unique:engine_type_id",
         "searchable": true,
         "fillable": true,
         "primary": false,
