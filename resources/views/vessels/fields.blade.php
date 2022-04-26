@@ -12,8 +12,8 @@
 
 <!-- Company Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('companies_id', 'Company Id:') !!}
-    {!! Form::select('companies_id', $companyItems, null, ['class' => 'form-control']) !!}
+    {!! Form::label('company_id', 'Company:') !!}
+    {!! Form::select('company_id', $companyItems, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Gross Tank Field -->
@@ -30,14 +30,14 @@
 
 <!-- Dtw Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('dtw', 'Dtw:') !!}
-    {!! Form::number('dtw', null, ['class' => 'form-control']) !!}
+    {!! Form::label('dwt', 'Dwt:') !!}
+    {!! Form::number('dwt', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Engine Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('engine', 'Engine:') !!}
-    {!! Form::number('engine', null, ['class' => 'form-control']) !!}
+    {!! Form::label('engine_power', 'Engine Power:') !!}
+    {!! Form::number('engine_power', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Vessel Type Id Field -->
@@ -48,8 +48,8 @@
 
 <!-- Machine Type Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('engine_type', 'Engine Type:') !!}
-    {!! Form::select('engine_type',$engineTypeItems, null, ['class' => 'form-control','maxlength' => 'nullable,max:255']) !!}
+    {!! Form::label('engine_type_id', 'Engine Type:') !!}
+    {!! Form::select('engine_type_id',$engineTypeItems, null, ['class' => 'form-control','maxlength' => 'nullable,max:255']) !!}
 </div>
 <!-- Flag Field -->
 <div class="form-group col-sm-6">

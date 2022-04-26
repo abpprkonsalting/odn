@@ -27,14 +27,14 @@ class UpdateVesselRequest extends FormRequest
     {
         return[
             'name' => 'required|max:250',
-            'companies_id' => 'required|integer',
+            'company_id' => 'required|integer',
             'gross_tank' => 'numeric',
             'omi_number' => 'numeric',
             'dwt' => 'numeric',
-            'engine' => 'numeric',
+            'engine_power' => 'numeric',
             'vessel_type_id' => 'integer|required',
             'flags_id' => 'integer',
-            'machine_type' => 'nullable|max:255'
+            'engine_type' => 'nullable|max:255'
         ];
     }
     
