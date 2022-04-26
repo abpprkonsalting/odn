@@ -2,9 +2,9 @@
 
 namespace App\DataTables;
 
+use App\Models\LicenseEndorsement;
 use App\Models\PersonalInformation;
-use App\Models\OperationalInformation;
-use Illuminate\Support\Facades\Storage;
+
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 
@@ -18,20 +18,18 @@ class WithForeignLicenseByTypeDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $collection = OperationalInformation::with(['personalInformation','status','vessel.company','rank'])->get();
+        $collection = LicenseEndorsement::with(['personalInformation','country','licenseEndorsementType'])->get();
         $filtered = $collection->filter(function ($value, $key) {
-            $onboard = $value->status->is_on_board;
-            return $onboard;
+            return $value->country->name != "Cuba";
         });
 
         $collection = $filtered->map(function ($item, $key) {
             return [
                 'id' =>  $item->personalInformation->id,
-                'vessel' => $item->vessel->name,
-                'full_name' => $item->personalInformation->full_name,
+                'country' => $item->country->name,
+                'license_type' => $item->licenseEndorsementType->name,
                 'avatar' => $item->personalInformation->avatar,
-                'internal_file_number' => $item->personalInformation->internal_file_number,
-                'rank' => $item->rank->name
+                'full_name' => $item->personalInformation->full_name
             ];
         });
         $dataTable = new CollectionDataTable($collection);
@@ -42,7 +40,8 @@ class WithForeignLicenseByTypeDataTable extends DataTable
                 $image = $data['avatar'];
             }
             return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
-        })->rawColumns(['avatar']);
+        })->addColumn('action', 'personal_informations.datatables_edit_action')
+        ->rawColumns(['avatar', 'action']);
     }
 
     /**
@@ -82,10 +81,10 @@ class WithForeignLicenseByTypeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'vessel',
             'avatar',
             'full_name',
-            'rank'
+            'country',
+            'license_type'
         ];
     }
 
