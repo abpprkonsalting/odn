@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 use Carbon\Carbon;
+use App\Models\Status;
 
 class ReadyByExperienceDataTable extends DataTable
 {
@@ -20,11 +21,10 @@ class ReadyByExperienceDataTable extends DataTable
      */
     public function dataTable($query)
     {
+        $readyStatus = Status::where(['name' => "Ready"])->first();
         $collection = SeaGoingExperience::with(['personalInformation.operationalInformation.status', 'vessel.vesselType', 'rank'])->get();
-        $filtered = $collection->filter(function ($value, $key) {
-            $currentStatus = $value->personalInformation->operationalInformation->status;
-            //$onboard = $currentStatus->is_on_board;
-            return $currentStatus->id == 2;
+        $filtered = $collection->filter(function ($value, $key) use ($readyStatus){
+            return $value->personalInformation->operationalInformation->status == $readyStatus;
         });
 
         $collection = $filtered->map(function ($item, $key) {
