@@ -142,7 +142,7 @@
         {!! Form::number('weight', null, ['class' => 'form-control text-right']) !!}
         <span class="input-group-addon">lb</span>
     </div>
-    
+
 </div>
 
 <!-- Particular Sings Field -->
@@ -184,7 +184,7 @@
 <!-- Company Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('companies_id', 'Company:') !!}
-    {!! Form::select('companies_id', ['0' => ''] + $companyIdItems, null, ['class' => 'form-control']) !!}
+    {!! Form::select('companies_id', [null => ''] + $companyIdItems, null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="col-sm-12">
