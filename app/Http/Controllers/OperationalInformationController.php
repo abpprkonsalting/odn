@@ -22,7 +22,7 @@ class OperationalInformationController extends AppBaseController
 
     private $statusService;
 
-    public function __construct(OperationalInformationRepository $operationalInformationRepo, 
+    public function __construct(OperationalInformationRepository $operationalInformationRepo,
                                 PersonalInformationRepository $personalInformationRepo,
                                 StatusService $statusService)
     {
@@ -104,10 +104,10 @@ class OperationalInformationController extends AppBaseController
         $operationalInformation = $operationalInformationModel::where(['personal_informations_id' => $id])->first();
 
         $personalInformation = $this->personalInformationRepository->find($id);
+        $this->statusService->checkPersonalInformationStatus($personalInformation);
         if (empty($operationalInformation)) {
             return view('operational_informations.create')->with('personalInformation', $personalInformation);
         }
-        $this->statusService->checkPersonalInformationStatus($personalInformation);
         return view('operational_informations.edit')->with('operationalInformation', $operationalInformation);
     }
 

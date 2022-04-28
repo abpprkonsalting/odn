@@ -17,7 +17,7 @@ class Status extends Model
     use SoftDeletes;
 
     public $table = 'statuses';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -25,8 +25,7 @@ class Status extends Model
 
     public $fillable = [
         'name',
-        'code',
-        'is_on_board'
+        'code'
     ];
 
     /**
@@ -37,8 +36,7 @@ class Status extends Model
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
-        'code' => 'string',
-        'is_on_board' => 'boolean'
+        'code' => 'string'
     ];
 
     /**
@@ -50,5 +48,5 @@ class Status extends Model
         'name' => 'required|max:250|unique:statuses'
     ];
 
-    
+
 }

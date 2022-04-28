@@ -9,6 +9,8 @@ use App\Repositories\SeaGoingExperienceRepository;
 use Carbon\Carbon;
 use Flash;
 
+use App\Models\Status;
+
 class OperationalInformationObsever
 {
     /** @var  OperationalInformationRepository */
@@ -43,7 +45,7 @@ class OperationalInformationObsever
      */
     public function updated(OperationalInformation $operationalInformation)
     {
-        
+
     }
 
     /**
@@ -54,11 +56,12 @@ class OperationalInformationObsever
      */
     public function updating(OperationalInformation $operationalInformation)
     {
+        $onBoardStatus = Status::where(['name' => "On Board"])->first();
         $status = $operationalInformation->status()->first();
         $operationalInformationId = $operationalInformation->id;
         $previousOI = $this->operationalInformationRepository->find($operationalInformationId);
         $previousStatus = $previousOI->status()->first();
-        if ($status != $previousStatus && $previousStatus->is_on_board) {
+        if ($status != $previousStatus && $previousStatus == $onBoardStatus) {
             $newSeaGoingExperience = [];
             $newSeaGoingExperience['personal_information_id'] = $previousOI->personal_informations_id;
             $newSeaGoingExperience['rank_id'] = $previousOI->ranks_id;

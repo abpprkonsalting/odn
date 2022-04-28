@@ -174,10 +174,6 @@
                     <a href="{{ route('skinColors.index') }}"><i class="fa fa-edit"></i><span>Skin Colors</span></a>
                 </li>
 
-                <li class="{{ Request::is('statuses*') ? 'active' : '' }}">
-                    <a href="{{ route('statuses.index') }}"><i class="fa fa-edit"></i><span>Statuses</span></a>
-                </li>
-
                 <li class="{{ Request::is('vesselTypes*') ? 'active' : '' }}">
                     <a href="{{ route('vesselTypes.index') }}"><i class="fa fa-edit"></i><span>Vessel Types</span></a>
                 </li>
@@ -274,9 +270,6 @@
         </li>
         <li class="{{ Request::is('import*') ? 'active' : '' }}">
             <a href="{{ route('import.skill-or-knowledge') }}"><i class="fa fa-edit"></i><span>Skill Or Knowledge</span></a>
-        </li>
-        <li class="{{ Request::is('import*') ? 'active' : '' }}">
-            <a href="{{ route('import.statuses') }}"><i class="fa fa-edit"></i><span>Status</span></a>
         </li>
         <li class="{{ Request::is('import*') ? 'active' : '' }}">
             <a href="{{ route('import.vessel') }}"><i class="fa fa-edit"></i><span>Vessel</span></a>
