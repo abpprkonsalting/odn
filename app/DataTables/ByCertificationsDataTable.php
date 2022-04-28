@@ -32,7 +32,7 @@ class ByCertificationsDataTable extends DataTable
         });
         $collection = $collection->sortByDesc([
             ['course_number','asc'],
-            ['rank','desc']
+            ['rank','asc']
         ]);
         $dataTable = new CollectionDataTable($collection);
 
