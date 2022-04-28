@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Course;
 use App\Models\PersonalInformation;
 use App\Models\OperationalInformation;
 use Illuminate\Support\Facades\Storage;
@@ -18,22 +19,21 @@ class ByCertificationsDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $collection = OperationalInformation::with(['personalInformation','status','vessel.company','rank'])->get();
-        $filtered = $collection->filter(function ($value, $key) {
-            $onboard = $value->status->is_on_board;
-            return $onboard;
-        });
+        $collection = Course::with(['personalInformation.operationalInformation.rank'])->get();
 
-        $collection = $filtered->map(function ($item, $key) {
+        $collection = $collection->map(function ($item, $key) {
             return [
                 'id' =>  $item->personalInformation->id,
-                'vessel' => $item->vessel->name,
+                'course_number' => $item->courseNumber->name,
                 'full_name' => $item->personalInformation->full_name,
                 'avatar' => $item->personalInformation->avatar,
-                'internal_file_number' => $item->personalInformation->internal_file_number,
-                'rank' => $item->rank->name
+                'rank' => $item->personalInformation->operationalInformation->rank->name
             ];
         });
+        $collection = $collection->sortByDesc([
+            ['course_number','asc'],
+            ['rank','desc']
+        ]);
         $dataTable = new CollectionDataTable($collection);
 
         return $dataTable->addColumn('avatar', function($data) {
@@ -82,10 +82,10 @@ class ByCertificationsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'vessel',
+            'course_number',
+            'rank',
             'avatar',
-            'full_name',
-            'rank'
+            'full_name'
         ];
     }
 
