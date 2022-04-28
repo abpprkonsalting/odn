@@ -31,11 +31,11 @@ class CreateVesselRequest extends FormRequest
             'gross_tank' => 'numeric',
             'omi_number' => 'numeric',
             'dwt' => 'numeric',
-            'engine' => 'numeric',
+            'engine_power' => 'numeric',
             'vessel_type_id' => 'integer|required',
             'flags_id' => 'integer',
-            'machine_type' => 'nullable|max:255'
+            'engine_type_id' => 'nullable|max:255'
         ];
     }
-    
+
 }

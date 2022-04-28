@@ -12,7 +12,7 @@
 
 <!-- Company Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('companies_id', 'Company Id:') !!}
+    {!! Form::label('companies_id', 'Company:') !!}
     {!! Form::select('companies_id', $companyItems, null, ['class' => 'form-control']) !!}
 </div>
 
@@ -30,13 +30,13 @@
 
 <!-- Dtw Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('dtw', 'Dtw:') !!}
-    {!! Form::number('dtw', null, ['class' => 'form-control']) !!}
+    {!! Form::label('dwt', 'Dwt:') !!}
+    {!! Form::number('dwt', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Engine Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('engine', 'Engine:') !!}
+    {!! Form::label('engine_power', 'Engine Power:') !!}
     {!! Form::number('engine_power', null, ['class' => 'form-control']) !!}
 </div>
 

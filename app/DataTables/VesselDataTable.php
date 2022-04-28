@@ -29,7 +29,7 @@ class VesselDataTable extends DataTable
      */
     public function query(Vessel $model)
     {
-        return $model->newQuery()->with(['flag', 'vesselType', 'company']);
+        return $model->newQuery()->with(['flag', 'vesselType', 'company','engineType']);
     }
 
     /**
@@ -72,10 +72,10 @@ class VesselDataTable extends DataTable
             'omi_number' => ['searchable' => false],
             'active',
             'dwt',
-            'engine',
+            'engine_power',
             'vessel_type.title',
             'flag.name',
-            'machine_type'
+            'engine_type.name'
         ];
     }
 

@@ -36,14 +36,14 @@
 
 <!-- Dtw Field -->
 <div class="form-group">
-    {!! Form::label('dtw', 'Dtw:') !!}
-    <p>{{ $vessel->dtw }}</p>
+    {!! Form::label('dwt', 'Dtw:') !!}
+    <p>{{ $vessel->dwt }}</p>
 </div>
 
 <!-- Engine Field -->
 <div class="form-group">
     {!! Form::label('engine', 'Engine:') !!}
-    <p>{{ $vessel->engine }}</p>
+    <p>{{ $vessel->engine_power }}</p>
 </div>
 
 <!-- Vessel Type Id Field -->
@@ -60,8 +60,8 @@
 
 <!-- Machine Type Field -->
 <div class="form-group">
-    {!! Form::label('machine_type', 'Machine Type:') !!}
-    <p>{{ $vessel->machine_type }}</p>
+    {!! Form::label('engine_type_id', 'Machine Type:') !!}
+    <p>{{ $vessel->engine_type_id }}</p>
 </div>
 
 <!-- Created At Field -->
