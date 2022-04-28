@@ -29,7 +29,8 @@ class CreateVesselsTable extends Migration
             $table->string('machine_type')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreignId('companies_id');
+            $table->foreignId('companies_id')->references('id')
+            ->on('companies');
             $table->foreign('flags_id')->references('id')->on('flags');
         });
     }
