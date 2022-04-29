@@ -36,7 +36,7 @@ class OnBoardByVesselDataTable extends DataTable
                 'company' => $item->personalInformation->company?->company_name
             ];
         });
-        $collection = $collection->sortByDesc([
+        $collection = $collection->sortBy([
             ['vessel','asc'],
             ['rank','asc']
         ]);
