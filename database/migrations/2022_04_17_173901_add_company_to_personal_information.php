@@ -15,7 +15,9 @@ class AddCompanyToPersonalInformation extends Migration
     {
         Schema::table('personal_informations', function (Blueprint $table) {
             //$table->integer('companies_id');
-            $table->foreignId('companies_id')->nullable();
+            $table->foreignId('companies_id')->nullable()->references('id')
+            ->on('companies')
+            ->onDelete('SET NULL');
 ;        });
     }
 

@@ -22,7 +22,7 @@ class StatusService
     private $currentTime;
     private $nonReadyStatus;
     private $readyStatus;
-    private Array $statusesArray;
+    private Array $statusesArray = [];
 
     /**
      * Constructs a new status service.
@@ -57,7 +57,6 @@ class StatusService
         $this->currentTime = Carbon::now();
         $this->nonReadyStatus = Status::where(['name' => "Non Ready"])->first();
         $this->readyStatus = Status::where(['name' => "Ready"])->first();
-        $this->statusesArray = [];
         $personalInformations->each($this->checkStatus($report));
         if ($report) {
             return $this->statusesArray;

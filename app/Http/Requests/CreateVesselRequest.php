@@ -27,15 +27,15 @@ class CreateVesselRequest extends FormRequest
     {
         return[
             'name' => 'required|max:250',
-            'company_id' => 'required|integer',
+            'companies_id' => 'required|integer',
             'gross_tank' => 'numeric',
             'omi_number' => 'numeric',
             'dwt' => 'numeric',
             'engine_power' => 'numeric',
             'vessel_type_id' => 'integer|required',
             'flags_id' => 'integer',
-            'engine_type' => 'nullable|max:255'
+            'engine_type_id' => 'nullable|max:255'
         ];
     }
-    
+
 }
