@@ -76,6 +76,7 @@ class StatusService
                 'licences' => false,
                 'seamanbook' => false,
             ];
+            $item = $item->refresh();
             $status = $item->operationalInformation?->status;
             if ($status == null) {
                 $this->statusesArray[$item->id] = $tempArray;

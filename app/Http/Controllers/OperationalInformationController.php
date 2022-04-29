@@ -11,6 +11,7 @@ use App\Repositories\PersonalInformationRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use App\Models\Status;
 use App\Services\StatusService;
 
 class OperationalInformationController extends AppBaseController
@@ -128,11 +129,21 @@ class OperationalInformationController extends AppBaseController
 
             return redirect(route('operationalInformations.index'));
         }
+        $previousStatusId = $operationalInformation->statuses_id;
+        $personalInformation = $this->personalInformationRepository->find($id);
+        $realStatusReport = $this->statusService->checkPersonalInformationStatus($personalInformation,true);
 
-        $operationalInformation = $this->operationalInformationRepository->update($request->all(), $id);
+        $reqAttribs = $request->all();
+        $toSaveStatusesId = $reqAttribs['statuses_id'];
 
-        Flash::success('Operational Information updated successfully.');
-
+        if (!$this->checkStatusChangePossible($toSaveStatusesId, $realStatusReport,$personalInformation)) {
+            $operationalInformation->refresh();
+            $operationalInformation->statuses_id = $previousStatusId;
+            $operationalInformation->save();
+            return redirect(route('operationalInformations.edit', $operationalInformation->personal_informations_id));
+        }
+        $operationalInformation = $this->operationalInformationRepository->update($reqAttribs, $id);
+        Flash::message('Operational Information updated successfully.');
         return redirect(route('operationalInformations.edit', $operationalInformation->personal_informations_id));
     }
 
@@ -158,5 +169,88 @@ class OperationalInformationController extends AppBaseController
         Flash::success('Operational Information deleted successfully.');
 
         return redirect(route('operationalInformations.index'));
+    }
+
+    private function checkStatusChangePossible($newStatusId, $realStatusReport,$personalInformation): bool {
+
+        $nonReadyStatusId = Status::where(['name' => "Non Ready"])->first()->id;
+        $readyStatusId = Status::where(['name' => "Ready"])->first()->id;
+        $onBoardStatusId = Status::where(['name' => "On Board"])->first()->id;
+        $onVacationStatusId = Status::where(['name' => "On Vacation"])->first()->id;
+        $dismissedStatusId = Status::where(['name' => "Dismissed"])->first()->id;
+
+        $realStatus = empty($realStatusReport) ? 'Other' : (collect($realStatusReport)->flatten()->contains(false) ? 'Non Ready' : 'Ready');
+
+        switch ($newStatusId) {
+            case  $nonReadyStatusId:
+                if ($realStatus == 'Ready') {
+                    Flash::error('Can not set mariner status to \'Non Ready\'; The mariner meets all necessary conditions for the \'Ready\' status. Please check
+                    his passports, medical information, courses, licenses & seamanbook in order to change it\'s real availability for sailing.');
+                    return false;
+                }
+                else if ($realStatus == 'Other') {
+                    $personalInformation->operationalInformation->statuses_id = $nonReadyStatusId;
+                    $personalInformation->operationalInformation->save();
+                    $personalInformation = $personalInformation->refresh();
+                    $realStatusReport = $this->statusService->checkPersonalInformationStatus($personalInformation,true);
+                    $realStatus = collect($realStatusReport)->flatten()->contains(false) ? 'Non Ready' : 'Ready';
+                    if ($realStatus == 'Non Ready') {
+                        return true;
+                    }
+                    else {
+                        Flash::error('Can not set mariner status to \'Non Ready\'; The mariner meets all necessary conditions for the \'Ready\' status. Please check
+                        his passports, medical information, courses, licenses & seamanbook in order to change it\'s real availability for sailing.');
+                        return false;
+                    }
+                }
+                return true;
+                break;
+            case  $readyStatusId:
+                if ($realStatus == 'Non Ready') {
+                    Flash::error('Can not set mariner status to \'Ready\'; The mariner does not meet all necessary conditions for that status. Please check
+                    his passports, medical information, courses, licenses & seamanbook');
+                    return false;
+                }
+                else if ($realStatus == 'Other') {
+                    $personalInformation->operationalInformation->statuses_id = $readyStatusId;
+                    $personalInformation->operationalInformation->save();
+                    $personalInformation = $personalInformation->refresh();
+                    $realStatusReport = $this->statusService->checkPersonalInformationStatus($personalInformation,true);
+
+                    $realStatus = collect($realStatusReport)->flatten()->contains(false) ? 'Non Ready' : 'Ready';
+                    if ($realStatus == 'Non Ready') {
+                        Flash::error('Can not set mariner status to \'Non Ready\'; The mariner does not meet all necessary conditions for that status. Please check
+                        his passports, medical information, courses, licenses & seamanbook');
+                        return false;
+                    }
+                }
+                return true;
+                break;
+            case  $onBoardStatusId:
+                if ($realStatus == 'Non Ready') {
+                    Flash::error('Can not set mariner status to \'On Board\'; The mariner does not meet all necessary conditions for \'Ready\' status. Please check
+                    his passports, medical information, courses, licenses & seamanbook');
+                    return false;
+                }
+                else if ($realStatus == 'Other') {
+                    $personalInformation->operationalInformation->statuses_id = $readyStatusId;
+                    $personalInformation->operationalInformation->save();
+                    $personalInformation = $personalInformation->refresh();
+                    $realStatusReport = $this->statusService->checkPersonalInformationStatus($personalInformation,true);
+                    $realStatus = collect($realStatusReport)->flatten()->contains(false) ? 'Non Ready' : 'Ready';
+                    if ($realStatus == 'Non Ready') {
+                        Flash::error('Can not set mariner status to \'On Board\'; The mariner does not meet all necessary conditions for \'Ready\' status. Please check
+                        his passports, medical information, courses, licenses & seamanbook');
+                        return false;
+                    }
+                }
+                return true;
+                break;
+            case  $onVacationStatusId:
+            case  $dismissedStatusId:
+                return true;
+                break;
+        }
+        return true;
     }
 }
