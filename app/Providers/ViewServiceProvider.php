@@ -165,5 +165,10 @@ class ViewServiceProvider extends ServiceProvider
             $levelItems = Level::pluck('name','id')->toArray();
             $view->with(compact('languageItems','languageSkillItems','levelItems'));
         });
+
+        View::composer(['passports.fields'], function ($view) {
+            $countriesItems = Country::pluck('name','id')->toArray();
+            $view->with(compact('countriesItems'));
+        });
     }
 }
