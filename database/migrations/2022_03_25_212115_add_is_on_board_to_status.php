@@ -13,9 +13,32 @@ class AddIsOnBoardToStatus extends Migration
      */
     public function up()
     {
-        Schema::table('statuses', function (Blueprint $table) {
-            $table->boolean('is_on_board')->after('code');
-        });
+
+        // Insert some stuff
+        DB::table('statuses')->insert([
+            array(
+                'name' => 'Non Ready',
+                'code' => 'R'
+            ),
+            array(
+                'name' => 'Ready',
+                'code' => 'OB'
+            ),
+            array(
+                'name' => 'On Board',
+                'code' => 'NR'
+            ),
+            array(
+                'name' => 'On Vacation',
+                'code' => 'D'
+            ),
+            array(
+                'name' => 'Dismissed',
+                'code' => 'OV'
+            )
+        ]
+    );
+
     }
 
     /**

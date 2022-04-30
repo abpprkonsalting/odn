@@ -43,7 +43,7 @@ class PersonalInformation extends Model
     use SoftDeletes;
 
     public $table = 'personal_informations';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -151,7 +151,7 @@ class PersonalInformation extends Model
 
     public function getBirthdayAttribute($value) {
         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
-    } 
+    }
 
     /**
      * Set the birthday
@@ -163,7 +163,7 @@ class PersonalInformation extends Model
     {
         $this->attributes['birthday'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
-    
+
     /**
      * Get the operational information for Person.
      */
@@ -219,7 +219,7 @@ class PersonalInformation extends Model
             $query->whereNull('deleted_at');
         });
     }
-    
+
     public function otherSkills() {
         return $this->hasMany(OtherSkill::class, 'personal_informations_id');
     }
@@ -230,7 +230,7 @@ class PersonalInformation extends Model
         return $this->hasMany(LicenseEndorsement::class, 'personal_informations_id');
     }
     public function company() {
-        return $this->belongsTo(Company::class, 'personal_informations_id');
+        return $this->belongsTo(Company::class, 'companies_id');
     }
-    
+
 }

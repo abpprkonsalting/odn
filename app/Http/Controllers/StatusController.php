@@ -51,11 +51,8 @@ class StatusController extends AppBaseController
      */
     public function store(CreateStatusRequest $request)
     {
-        $req = $this->setOnBoardStatus($request);
-        $status = $this->statusRepository->create($req);
-
+        $status = $this->statusRepository->create($request);
         Flash::success('Status saved successfully.');
-
         return redirect(route('statuses.index'));
     }
 
@@ -116,8 +113,7 @@ class StatusController extends AppBaseController
 
             return redirect(route('statuses.index'));
         }
-        $req = $this->setOnBoardStatus($request);
-        $status = $this->statusRepository->update($req, $id);
+        $status = $this->statusRepository->update($request, $id);
         Flash::success('Status updated successfully.');
 
         return redirect(route('statuses.index'));
@@ -145,11 +141,5 @@ class StatusController extends AppBaseController
         Flash::success('Status deleted successfully.');
 
         return redirect(route('statuses.index'));
-    }
-
-    private function setOnBoardStatus($request) {
-        $req = $request->all();
-        $req['is_on_board'] = $request->has('is_on_board');
-        return $req;
     }
 }

@@ -70,41 +70,52 @@ class StatusService
             $isReady = true;
             $tempArray = [
                 'personalInformation' => $item,
-                'passport' => true,
-                'medical_informations' => true,
-                'courses' => true,
-                'licences' => true,
-                'seamanbook' => true,
+                'passport' => false,
+                'medical_informations' => false,
+                'courses' => false,
+                'licences' => false,
+                'seamanbook' => false,
             ];
-            $status = $item->operationalInformation->status;
+            $item = $item->refresh();
+            $status = $item->operationalInformation?->status;
+            if ($status == null) {
+                $this->statusesArray[$item->id] = $tempArray;
+                return;
+            }
             if ($status == $this->readyStatus || $status == $this->nonReadyStatus) {
 
                 if (!$this->checkValidPassports($item)) {
                     if (!$report) { return; }
                     $isReady = false;
-                    $tempArray['passport'] = false;
+                }
+                else {
+                    $tempArray['passport'] = true;
                 };
                 if (!$this->checkValidMedicalInformation($item)) {
                     if (!$report) { return; }
                     $isReady = false;
-                    $tempArray['medical_informations'] = false;
+                }else {
+                    $tempArray['medical_informations'] = true;
                 };
                 if (!$this->checkValidCourses($item)) {
                     if (!$report) { return; }
                     $isReady = false;
-                    $tempArray['courses'] = false;
+                }else {
+                    $tempArray['courses'] = true;
                 };
                 if (!$this->checkLicenseEndorsements($item)) {
                     if (!$report) { return; }
                     $isReady = false;
-                    $tempArray['licences'] = false;
+                }else {
+                    $tempArray['licences'] = true;
                 };
                 if (!$this->checkSeamanBook($item)) {
                     if (!$report) { return; }
                     $isReady = false;
-                    $tempArray['seamanbook'] = false;
                     $this->statusesArray[$item->id] = $tempArray;
                     return;
+                }else {
+                    $tempArray['seamanbook'] = true;
                 };
 
                 if ($isReady) $this->setPersonalInformationStatus($item, $this->readyStatus);

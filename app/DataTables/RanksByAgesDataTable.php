@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 
+use App\Models\Status;
+
 class RanksByAgesDataTable extends DataTable
 {
     /**
@@ -18,10 +20,10 @@ class RanksByAgesDataTable extends DataTable
      */
     public function dataTable($query)
     {
+        $onBoardStatus = Status::where(['name' => "On Board"])->first();
         $collection = OperationalInformation::with(['personalInformation','status','vessel.company','rank'])->get();
-        $filtered = $collection->filter(function ($value, $key) {
-            $onboard = $value->status->is_on_board;
-            return $onboard;
+        $filtered = $collection->filter(function ($value, $key) use ($onBoardStatus) {
+            return $value->status == $onBoardStatus;
         });
 
         $collection = $filtered->map(function ($item, $key) {

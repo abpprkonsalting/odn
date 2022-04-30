@@ -31,7 +31,8 @@ class NonReadyPersonalDataTable extends DataTable
         $nonReadyStatus = Status::where(['name' => "Non Ready"])->first();
         $collection = collect($this->statusService->checkPersonalInformationStatus(null,true));
         $filtered = $collection->filter(function ($value, $key) use ($nonReadyStatus) {
-            return $value['personalInformation']->operationalInformation->status == $nonReadyStatus;
+            return $value['personalInformation']?->operationalInformation?->status == null ? true :
+                $value['personalInformation']?->operationalInformation?->status == $nonReadyStatus;
         });
 
         $collection = $filtered->map(function ($item, $key) {

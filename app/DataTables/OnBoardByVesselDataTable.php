@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 
+use App\Models\Status;
+
 class OnBoardByVesselDataTable extends DataTable
 {
     /**
@@ -18,10 +20,10 @@ class OnBoardByVesselDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $collection = OperationalInformation::with(['personalInformation','status','vessel.company','rank'])->get();
-        $filtered = $collection->filter(function ($value, $key) {
-            $onboard = $value->status->is_on_board;
-            return $onboard;
+        $onBoardStatus = Status::where(['name' => "On Board"])->first();
+        $collection = OperationalInformation::with(['personalInformation.company','status','vessel.company','rank'])->get();
+        $filtered = $collection->filter(function ($value, $key) use ($onBoardStatus) {
+            return $value->status == $onBoardStatus;
         });
 
         $collection = $filtered->map(function ($item, $key) {
@@ -30,10 +32,14 @@ class OnBoardByVesselDataTable extends DataTable
                 'vessel' => $item->vessel->name,
                 'full_name' => $item->personalInformation->full_name,
                 'avatar' => $item->personalInformation->avatar,
-                'internal_file_number' => $item->personalInformation->internal_file_number,
-                'rank' => $item->rank->name
+                'rank' => $item->rank->name,
+                'company' => $item->personalInformation->company?->company_name
             ];
         });
+        $collection = $collection->sortBy([
+            ['vessel','asc'],
+            ['rank','asc']
+        ]);
         $dataTable = new CollectionDataTable($collection);
 
         return $dataTable->addColumn('avatar', function($data) {
@@ -85,7 +91,8 @@ class OnBoardByVesselDataTable extends DataTable
             'vessel',
             'avatar',
             'full_name',
-            'rank'
+            'rank',
+            'company'
         ];
     }
 

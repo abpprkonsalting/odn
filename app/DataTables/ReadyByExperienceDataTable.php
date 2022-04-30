@@ -52,6 +52,11 @@ class ReadyByExperienceDataTable extends DataTable
                 'experience' =>  $item->sum('experience')
             ]);
         });
+        $collection = $collection->sortBy([
+            ['vessel_type','asc'],
+            ['rank','asc'],
+            ['experience','asc']
+        ]);
         $dataTable = new CollectionDataTable($collection);
 
         return $dataTable->addColumn('avatar', function ($data) {

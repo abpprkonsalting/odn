@@ -97,7 +97,7 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer(['courses.fields', 'family_informations.fields', 'municipalities.fields', 'personal_informations.fields'], function ($view) {
             $provinceItems = Province::pluck('name','id')->toArray();
-            
+
             $view->with('provinceItems', $provinceItems);
         });
 
@@ -135,21 +135,22 @@ class ViewServiceProvider extends ServiceProvider
         });
 
         View::composer(['operational_informations.fields'], function ($view) {
+            $onBoardStatus = Status::where(['name' => "On Board"])->first();
             $rankItems = Rank::pluck('name','id')->toArray();
             $statusesItems = array();
             $statusesItemsAttributes = array();
-            $statuses = Status::all()->each(function ($item) use (&$statusesItems,&$statusesItemsAttributes ) {
+            $statuses = Status::all()->each(function ($item) use (&$statusesItems,&$statusesItemsAttributes,$onBoardStatus ) {
                 $statusesItems[$item->id] = $item->name;
-                $statusesItemsAttributes[$item->id] = ['data-onboard' => $item->is_on_board];
+                $statusesItemsAttributes[$item->id] = ['data-onboard' => $item == $onBoardStatus];
             });
             $vesselItems = Vessel::pluck('name','id')->toArray();
-            
+
             $view->with(compact('rankItems', 'statusesItems', 'vesselItems','statusesItemsAttributes'));
         });
-        
+
         View::composer(['personal_medical_informations.fields'], function ($view) {
             $medicalInformationItems = MedicalInformation::pluck('name','id')->toArray();
-            
+
             $view->with(compact('medicalInformationItems'));
         });
 
