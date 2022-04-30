@@ -219,7 +219,7 @@ class OperationalInformationController extends AppBaseController
 
                     $realStatus = collect($realStatusReport)->flatten()->contains(false) ? 'Non Ready' : 'Ready';
                     if ($realStatus == 'Non Ready') {
-                        Flash::error('Can not set mariner status to \'Non Ready\'; The mariner does not meet all necessary conditions for that status. Please check
+                        Flash::error('Can not set mariner status to \'Ready\'; The mariner does not meet all necessary conditions for that status. Please check
                         his passports, medical information, courses, licenses & seamanbook');
                         return false;
                     }
