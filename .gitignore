@@ -3,7 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
-.env
+#.env
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml
@@ -69,7 +69,7 @@ Thumbs.db
 
 /storage/*.key
 /vendor
-.env
+#.env
 .env.backup
 .phpunit.result.cache
 Homestead.json
@@ -91,7 +91,7 @@ public/hot
 public_html/storage
 public_html/hot
 
-.env
+#s.env
 /.vagrant
 
 /.vscode
