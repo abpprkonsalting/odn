@@ -22,7 +22,7 @@ class Passport extends Model
     use SoftDeletes;
 
     public $table = 'passports';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -35,7 +35,8 @@ class Passport extends Model
         'extension_date',
         'expiry_extension_date',
         'passport_group',
-        'no_passport'
+        'no_passport',
+        'countries_id'
     ];
 
     /**
@@ -51,7 +52,8 @@ class Passport extends Model
         'extension_date' => 'datetime:Y-m-d',
         'expiry_extension_date'=>'datetime:Y-m-d',
         'no_passport' => 'string',
-        'passport_group' => 'string'
+        'passport_group' => 'string',
+        'countries_id' => 'integer'
     ];
 
     /**
@@ -65,12 +67,13 @@ class Passport extends Model
         'expiry_date' => 'required|date|date_format:d-m-Y',
         'extension_date' => 'nullable|date|date_format:d-m-Y',
         'expiry_extension_date' => 'nullable|date|date_format:d-m-Y',
-        'no_passport' => 'required|max:50'
+        'no_passport' => 'required|max:50',
+        'countries_id' => 'required'
     ];
 
     public function getExpeditionDateAttribute($value) {
         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
-    } 
+    }
 
     /**
      * Set the memo date
@@ -92,7 +95,7 @@ class Passport extends Model
             return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
         }
         return $value;
-    } 
+    }
 
     public function setExpiryDateAttribute($value)
     {
@@ -108,7 +111,7 @@ class Passport extends Model
             return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
         }
         return $value;
-    } 
+    }
 
     public function setExtensionDateAttribute($value)
 
@@ -125,7 +128,7 @@ class Passport extends Model
             return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
         }
         return $value;
-    } 
+    }
 
     public function setExpiryExtensionDateAttribute($value)
     {
@@ -139,6 +142,11 @@ class Passport extends Model
     public function personalInformation()
     {
         return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'countries_id');
     }
 
 }

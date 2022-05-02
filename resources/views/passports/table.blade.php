@@ -6,6 +6,7 @@
     <thead>
         <tr>
             <th>No Passport</th>
+            <th>Country</th>
             <th>Expedition Date</th>
             <th>Expiry Date</th>
             <th>Extension Date</th>
@@ -21,26 +22,27 @@
     @include('layouts.datatables_js')
     <script type="text/javascript">
         $(function () {
-          
+
           var table = $('.passport-datatable').DataTable({
               processing: true,
               serverSide: true,
               ajax: "{{ route('passport.getPersonalInformationPassport', ['id' => $personalInformation->id]) }}",
               columns: [
                   {data: 'no_passport', name: 'no_passport'},
-                  {data: 'expedition_date', name: 'expedition_date'}, 
-                  {data: 'expiry_date', name: 'expiry_date'}, 
-                  {data: 'extension_date', name: 'extension_date'}, 
-                  {data: 'expiry_extension_date', name: 'expiry_extension_date'}, 
+                  {data: 'country.name', name: 'country'},
+                  {data: 'expedition_date', name: 'expedition_date'},
+                  {data: 'expiry_date', name: 'expiry_date'},
+                  {data: 'extension_date', name: 'extension_date'},
+                  {data: 'expiry_extension_date', name: 'expiry_extension_date'},
                   {
-                      data: 'action', 
-                      name: 'action', 
-                      orderable: true, 
+                      data: 'action',
+                      name: 'action',
+                      orderable: true,
                       searchable: true
                   },
               ]
           });
-          
+
         });
       </script>
 @endpush
