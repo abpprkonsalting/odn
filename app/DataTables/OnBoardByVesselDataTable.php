@@ -30,10 +30,10 @@ class OnBoardByVesselDataTable extends DataTable
             return [
                 'id' =>  $item->personalInformation->id,
                 'vessel' => $item->vessel->name,
+                'company' => $item->vessel->company?->company_name,
                 'full_name' => $item->personalInformation->full_name,
                 'avatar' => $item->personalInformation->avatar,
-                'rank' => $item->rank->name,
-                'company' => $item->personalInformation->company?->company_name
+                'rank' => $item->rank->name
             ];
         });
         $collection = $collection->sortBy([
@@ -88,11 +88,11 @@ class OnBoardByVesselDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'company',
             'vessel',
-            'avatar',
-            'full_name',
             'rank',
-            'company'
+            'avatar',
+            'full_name'
         ];
     }
 
