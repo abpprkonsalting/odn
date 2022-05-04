@@ -8,6 +8,7 @@ use App\Models\Municipality;
 use App\Models\OperationalInformation;
 use App\Models\PersonalInformation;
 use App\Models\PoliticalIntegration;
+USE App\Models\Status;
 use App\Models\Rank;
 use App\Models\SchoolGrade;
 use App\Models\SkinColor;
@@ -40,7 +41,7 @@ class PersonImport implements OnEachRow, WithHeadingRow, WithChunkReading
                 'full_name' => $row['nombre'],
                 'id_number' => $row['cip'],
                 'serial_number' => $row['cis'],
-                'birthday' => $this->transformDate($row['fec_nac']), //Convertir a fecha
+                'birthday' => $this->transformDate($row['fec_nac'])->format("d-m-Y"), //Convertir a fecha
                 'birthplace' => $row['lugar_nac'],
                 'address' => $row['dir1'],
                 'principal_phone' => $row['telefono_fijo'],
@@ -58,14 +59,15 @@ class PersonImport implements OnEachRow, WithHeadingRow, WithChunkReading
                 'hair_color_id' => $this->getHairColorId($row['pelo']),
                 'marital_status_id' => 1, //Default no selected
                 'school_grade_id' => $this->getSchoolGradeId($row['escolaridad']), 
-                'skin_color_id' => $this->getSkinColorId($row['piel'])
+                'skin_color_id' => $this->getSkinColorId($row['piel']),
+                'company_id' => $row['vincomp']
             ]
         );
 
         $personOperationalInformation = PersonalInformation::with('operationalInformation')->find($person->id);
         if($personOperationalInformation->operationalInformation === null) {
             $operationalInformation = new OperationalInformation();
-            $operationalInformation->disponibility_date = $this->transformDate($row['fec_ing']);
+            $operationalInformation->disponibility_date = $this->transformDate($row['fec_ing'])->format("d-m-Y");
             $operationalInformation->ranks_id = $this->getRankId($row['cargo']);
             $operationalInformation->statuses_id = $this->getStatusId($row['estatus']);
             $operationalInformation->description = $row['notas'];
@@ -179,9 +181,18 @@ class PersonImport implements OnEachRow, WithHeadingRow, WithChunkReading
     public function getStatusId($status) 
     {
         $statuses_id = 1;
-        $statuses_obj = Rank::where(['code' => $status])->first();
+        $statuses_obj = Status::where(['code' => $status])->first();
         if($statuses_obj != null) {
+           if($statuses_obj->code != 'EN' && $statuses_obj->code != 'LPN' ){
+               $statuses_id = Status::where(name == 'Non Ready')->first();
+           }
+           else{
             $statuses_id = $statuses_obj->id;
+           }
+           
+            
+           
+            
         }
 
         return $statuses_id;
