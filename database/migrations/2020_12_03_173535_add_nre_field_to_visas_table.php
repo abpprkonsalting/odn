@@ -14,8 +14,10 @@ class AddNreFieldToVisasTable extends Migration
     public function up()
     {
         Schema::table('visas', function (Blueprint $table) {
-            $table->integer('personal_informations_id')->unsigned();
-            $table->foreign('personal_informations_id')->references('id')->on('personal_informations');
+            $table->integer('passports_id')->unsigned();
+            $table->foreign('passports_id')->references('id')->on('passports');
+            $table->integer('countries_id')->unsigned();
+            $table->foreign('countries_id')->references('id')->on('countries');
         });
     }
 

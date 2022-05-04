@@ -6,6 +6,8 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
+use App\Models\Visa;
+
 /**
  * Class Passport
  * @package App\Models
@@ -147,6 +149,10 @@ class Passport extends Model
     public function country()
     {
         return $this->belongsTo(Country::class, 'countries_id');
+    }
+
+    public function visas() {
+        return $this->hasMany(Visa::class, 'passports_id');
     }
 
 }

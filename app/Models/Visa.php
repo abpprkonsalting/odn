@@ -6,6 +6,9 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
+use App\Models\Passport;
+use App\Models\Country;
+
 /**
  * Class Visa
  * @package App\Models
@@ -20,17 +23,18 @@ class Visa extends Model
     use SoftDeletes;
 
     public $table = 'visas';
-    
+
 
     protected $dates = ['deleted_at'];
 
 
 
     public $fillable = [
-        'personal_informations_id',
+        'passports_id',
         'visa_types_id',
         'issue_date',
-        'expiry_date'
+        'expiry_date',
+        'countries_id'
     ];
 
     /**
@@ -40,10 +44,11 @@ class Visa extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'personal_informations_id' => 'integer',
+        'passports_id' => 'integer',
         'visa_types_id' => 'integer',
         'issue_date' => 'datetime:Y-m-d',
-        'expiry_date' => 'datetime:Y-m-d'
+        'expiry_date' => 'datetime:Y-m-d',
+        'countries_id' => 'integer'
     ];
 
     /**
@@ -52,15 +57,16 @@ class Visa extends Model
      * @var array
      */
     public static $rules = [
-        'personal_informations_id' => 'required',
+        'passports_id' => 'required',
         'visa_types_id' => 'required',
         'issue_date' => 'required|date|date_format:d-m-Y',
-        'expiry_date' => 'required|date|date_format:d-m-Y'
+        'expiry_date' => 'required|date|date_format:d-m-Y',
+        'countries_id' => 'required'
     ];
 
     public function getIssueDateAttribute($value) {
         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
-    } 
+    }
 
      /**
      * Set the memo date
@@ -74,7 +80,7 @@ class Visa extends Model
     }
     public function getExpiryDateAttribute($value) {
         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
-    } 
+    }
      /**
      * Set the memo date
      *
@@ -86,9 +92,18 @@ class Visa extends Model
         $this->attributes['expiry_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
 
+    public function passport()
+    {
+        return $this->belongsTo(Passport::class, 'passports_id');
+    }
+
     public function personalInformation()
     {
-        return $this->belongsTo(PersonalInformation::class, 'personal_informations_id');
+        $passport = $this->passport();
+        if (!empty($passport)) {
+            return $passport->personalInformation();
+        }
+        return false;
     }
 
     public function visaType()
@@ -96,5 +111,9 @@ class Visa extends Model
         return $this->belongsTo(VisaType::class, 'visa_types_id');
     }
 
-    
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'countries_id');
+    }
+
 }

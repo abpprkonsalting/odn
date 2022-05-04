@@ -208,9 +208,7 @@ class PersonalInformation extends Model
     public function passports() {
         return $this->hasMany(Passport::class, 'personal_informations_id');
     }
-    public function visas() {
-        return $this->hasMany(Visa::class, 'personal_informations_id');
-    }
+
     public function seamanBooks() {
         return $this->hasMany(SeamanBook::class, 'personal_informations_id');
     }
