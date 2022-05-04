@@ -18,19 +18,19 @@ class AddIsOnBoardToStatus extends Migration
         DB::table('statuses')->insert([
             array(
                 'name' => 'Non Ready',
-                'code' => 'R'
+                'code' => 'TA'
             ),
             array(
                 'name' => 'Ready',
-                'code' => 'OB'
+                'code' => 'LPN'
             ),
             array(
                 'name' => 'On Board',
-                'code' => 'NR'
+                'code' => 'EN'
             ),
             array(
                 'name' => 'On Vacation',
-                'code' => 'D'
+                'code' => 'VC'
             ),
             array(
                 'name' => 'Dismissed',
