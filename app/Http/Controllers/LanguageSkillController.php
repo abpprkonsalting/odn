@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\LanguageSkillDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreateLanguageSkillRequest;
-use App\Http\Requests\UpdateLanguageSkillDRequest;
+use App\Http\Requests\UpdateLanguageSkillRequest;
 use App\Repositories\LanguageSkillRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
@@ -69,9 +69,9 @@ class LanguageSkillController extends Controller
      */
     public function show($id)
     {
-        $languageSkill = $this->laguageSkillRepository->find($id);
+        $languageSkill = $this->languageSkillRepository->find($id);
 
-        if (empty($languagueSkill)) {
+        if (empty($languageSkill)) {
             Flash::error('Language Skill not found');
 
             return redirect(route('languageSkills.index'));
@@ -88,9 +88,9 @@ class LanguageSkillController extends Controller
      */
     public function edit($id)
     {
-        $languageSkill = $this->laguageSkillRepository->find($id);
+        $languageSkill = $this->languageSkillRepository->find($id);
 
-        if (empty($languagueSkill)) {
+        if (empty($languageSkill)) {
             Flash::error('Language Skill not found');
 
             return redirect(route('languageSkills.index'));
@@ -108,9 +108,9 @@ class LanguageSkillController extends Controller
      */
     public function update(UpdateLanguageSkillRequest $request, $id)
     {
-        $languageSkill = $this->laguageSkillRepository->find($id);
+        $languageSkill = $this->languageSkillRepository->find($id);
 
-        if (empty($languagueSkill)) {
+        if (empty($languageSkill)) {
             Flash::error('Language Skill not found');
 
             return redirect(route('languageSkills.index'));
@@ -131,9 +131,9 @@ class LanguageSkillController extends Controller
      */
     public function destroy($id)
     {
-        $languageSkill = $this->laguageSkillRepository->find($id);
+        $languageSkill = $this->languageSkillRepository->find($id);
 
-        if (empty($languagueSkill)) {
+        if (empty($languageSkill)) {
             Flash::error('Language Skill not found');
 
             return redirect(route('languageSkills.index'));
