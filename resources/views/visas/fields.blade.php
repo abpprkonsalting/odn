@@ -1,15 +1,26 @@
 <!-- Personal Informations Id Field -->
 {!! Form::hidden('personal_informations_id', $personalInformation->id, []) !!}
+
 <!-- Visa Types Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('visa_types_id', 'Visa Types:') !!}
+    {!! Form::label('visa_types_id', 'Visa Type:') !!}
     {!! Form::select('visa_types_id', $visa_typeItems, null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Issue Date Field -->
-
-
+<!-- Passport Id Field -->
 <div class="form-group col-sm-6">
+    {!! Form::label('passports_id', 'Passport:') !!}
+    {!! Form::select('passports_id', $passportItems, null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- Country Id Field -->
+<div class="form-group col-sm-4">
+    {!! Form::label('countries_id', 'Country:') !!}
+    {!! Form::select('countries_id', $countriesItems, null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- Issue Date Field -->
+<div class="form-group col-sm-4">
     {!! Form::label('issue_date', 'Issue Date:') !!}
     <div class="input-group">
         {!! Form::text('issue_date', null, ['class' => 'form-control datepicker', 'id'=>'issue_date', 'autocomplete' => 'off']) !!}
@@ -20,9 +31,7 @@
 </div>
 
 <!-- Expiry Date Field -->
-
-
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-4">
     {!! Form::label('expiry_date', 'Expiry Date:') !!}
     <div class="input-group">
         {!! Form::text('expiry_date', null, ['class' => 'form-control datepicker', 'id'=>'expiry_date', 'autocomplete' => 'off']) !!}

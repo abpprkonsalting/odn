@@ -10,18 +10,20 @@ use App\Http\Requests\UpdateVisaRequest;
 use App\Repositories\VisaRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Passport;
 use Yajra\DataTables\DataTables;
 use App\Repositories\PersonalInformationRepository;
 use Response;
+use Yajra\DataTables\CollectionDataTable;
 
 class VisaController extends AppBaseController
 {
     /** @var  VisaRepository */
     private $visaRepository;
-      /** @var  PersonalInformationRepository */
-      private $personalInformationRepo;
+    /** @var  PersonalInformationRepository */
+    private $personalInformationRepo;
 
-    public function __construct(VisaRepository $visaRepo,PersonalInformationRepository $personalInformationRepo)
+    public function __construct(VisaRepository $visaRepo, PersonalInformationRepository $personalInformationRepo)
     {
         $this->visaRepository = $visaRepo;
         $this->personalInformationRepo = $personalInformationRepo;
@@ -45,17 +47,15 @@ class VisaController extends AppBaseController
      */
     public function create(Request $request)
     {
-        
 
-        if(isset($request->id) && !empty($request->id)) {
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepo->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
+            if (!empty($personalInformation)) {
                 return view('visas.create')->with('personalInformation', $personalInformation);
             }
         }
-
         Flash::error('Personal Information not found');
         return redirect(route('visas.index'));
     }
@@ -70,13 +70,9 @@ class VisaController extends AppBaseController
     public function store(CreateVisaRequest $request)
     {
         $input = $request->all();
-
         $visa = $this->visaRepository->create($input);
-
         Flash::success('Visa saved successfully.');
-
-        
-        return redirect(route('visas.create', [ 'id' => $visa->personal_informations_id ]));
+        return redirect(route('visas.create', ['id' => $visa->personalInformationId()]));
     }
 
     /**
@@ -89,13 +85,10 @@ class VisaController extends AppBaseController
     public function show($id)
     {
         $visa = $this->visaRepository->find($id);
-
         if (empty($visa)) {
             Flash::error('Visa not found');
-
             return redirect(route('visas.index'));
         }
-
         return view('visas.show')->with('visa', $visa);
     }
 
@@ -112,12 +105,11 @@ class VisaController extends AppBaseController
 
         if (empty($visa)) {
             Flash::error('Visa not found');
-
             return redirect(route('visas.index'));
         }
-
-        return view('visas.edit')->with(['visa' => $visa, 'personalInformation' => $visa->personalInformation]);
-       
+        $personalInformationModel = $this->personalInformationRepo->model();
+        $personalInformation = $personalInformationModel::find($visa->personalInformationId());
+        return view('visas.edit')->with(['visa' => $visa, 'personalInformation' => $personalInformation]);
     }
 
     /**
@@ -134,16 +126,11 @@ class VisaController extends AppBaseController
 
         if (empty($visa)) {
             Flash::error('Visa not found');
-
             return redirect(route('visas.index'));
         }
-
         $visa = $this->visaRepository->update($request->all(), $id);
-
         Flash::success('Visa updated successfully.');
-
-        
-        return redirect(route('visas.create', [ 'id' => $visa->personal_informations_id ]));
+        return redirect(route('visas.create', ['id' => $visa->personalInformationId()]));
     }
 
     /**
@@ -159,25 +146,27 @@ class VisaController extends AppBaseController
 
         if (empty($visa)) {
             Flash::error('Visa not found');
-
             return redirect(route('visas.index'));
         }
-
         $this->visaRepository->delete($id);
-
         Flash::success('Visa deleted successfully.');
-
-        
-        return redirect(route('visas.create', [ 'id' => $visa->personal_informations_id ]));
+        return redirect(route('visas.create', ['id' => $visa->personalInformationId()]));
     }
 
     public function getPersonalInformationVisa($id)
     {
+        $passports = Passport::where(['personal_informations_id' => $id])->get();
+        if ($passports->isEmpty()) {
+            $dataTable = new CollectionDataTable(collect([]));
+            return $dataTable->make(true);
+        }
         $visaModel = $this->visaRepository->model();
-        return Datatables::of($visaModel::with(['visaType'])->where(['personal_informations_id' => $id])->get())
+        $passportsIds = $passports->map(function($item,$key) {
+            return $item->id;
+        });
+        return Datatables::of($visaModel::with(['visaType','country'])->whereIn('passports_id', [$passportsIds])->get())
             ->addColumn('action', 'visas.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-    
     }
 }

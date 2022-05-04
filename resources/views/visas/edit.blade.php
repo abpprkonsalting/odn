@@ -1,6 +1,6 @@
 @extends('partials.person_tabs', [
     'activeMenuTemplate' => 'visasInformation',
-    'personalInformationId' => $visa->personalInformation->id  
+    'personalInformationId' => $personalInformation->id
 ])
 
 @section('tabs-section-header')
@@ -13,7 +13,7 @@
 @endsection
 
 @section('person-content')
-                
+
     {!! Form::model($visa, ['route' => ['visas.update', $visa->id], 'method' => 'patch']) !!}
 
         @include('visas.fields')
@@ -24,5 +24,5 @@
         <h3 class="box-title">Visas List</h3>
         @include('visas.table')
     </div>
-    
+
 @endsection
