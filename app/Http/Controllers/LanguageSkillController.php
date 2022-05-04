@@ -11,7 +11,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 
-class LanguageSkillController extends Controller
+class LanguageSkillController extends AppBaseController
 {
     /** @var  LanguageSkillRepository */
     private $languageSkillRepository;
@@ -69,7 +69,7 @@ class LanguageSkillController extends Controller
      */
     public function show($id)
     {
-        $languageSkill = $this->laguageSkillRepository->find($id);
+        $languageSkill = $this->languageSkillRepository->find($id);
 
         if (empty($languagueSkill)) {
             Flash::error('Language Skill not found');
@@ -88,7 +88,7 @@ class LanguageSkillController extends Controller
      */
     public function edit($id)
     {
-        $languageSkill = $this->laguageSkillRepository->find($id);
+        $languageSkill = $this->languageSkillRepository->find($id);
 
         if (empty($languagueSkill)) {
             Flash::error('Language Skill not found');
@@ -108,7 +108,7 @@ class LanguageSkillController extends Controller
      */
     public function update(UpdateLanguageSkillRequest $request, $id)
     {
-        $languageSkill = $this->laguageSkillRepository->find($id);
+        $languageSkill = $this->languageSkillRepository->find($id);
 
         if (empty($languagueSkill)) {
             Flash::error('Language Skill not found');
@@ -131,7 +131,7 @@ class LanguageSkillController extends Controller
      */
     public function destroy($id)
     {
-        $languageSkill = $this->laguageSkillRepository->find($id);
+        $languageSkill = $this->languageSkillRepository->find($id);
 
         if (empty($languagueSkill)) {
             Flash::error('Language Skill not found');
