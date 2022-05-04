@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
 use App\Models\Visa;
+use App\Models\PersonalInformation;
 
 /**
  * Class Passport

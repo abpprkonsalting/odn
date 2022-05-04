@@ -66,6 +66,7 @@ class VisaDataTable extends DataTable
     {
         return [
             'visa_types_id',
+            'countries_id',
             'issue_date',
             'expiry_date'
         ];
