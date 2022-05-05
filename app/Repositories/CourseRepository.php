@@ -19,7 +19,7 @@ class CourseRepository extends BaseRepository
     protected $fieldSearchable = [
         'personal_informations_id',
         'course_numbers_id',
-        'provinces_id',
+        'country_id',
         'issue_date',
         'certificate_number'
     ];

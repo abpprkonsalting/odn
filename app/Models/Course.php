@@ -13,7 +13,7 @@ use Carbon\Carbon;
  *
  * @property integer $personal_informations_id
  * @property integer $course_numbers_id
- * @property integer $provinces_id
+ * @property integer $country_id
  * @property string $issue_date
  * @property string $certificate_number
  */
@@ -22,7 +22,7 @@ class Course extends Model
     use SoftDeletes;
 
     public $table = 'courses';
-    
+
     protected $dates = ['deleted_at'];
 
     protected $dateFormat = 'Y-m-d';
@@ -71,14 +71,14 @@ class Course extends Model
 
     public function getEndDateAttribute($value) {
         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
-    } 
+    }
     /**
      * Set the start date
      *
      * @param  string  $value
      * @return void
      */
-    
+
     public function setStartDateAttribute($value)
     {
         if(!empty($value))
@@ -117,5 +117,5 @@ class Course extends Model
         return $this->belongsTo(CourseNumber::class, 'course_numbers_id');
     }
 
-    
+
 }

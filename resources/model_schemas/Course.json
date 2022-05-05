@@ -36,9 +36,9 @@
         "inView": true
     },
     {
-        "name": "provinces_id",
-        "dbType": "integer:unsigned:foreign,provinces,id",
-        "htmlType": "selectTable:provinces:name,id",
+        "name": "country_id",
+        "dbType": "integer:unsigned:foreign,countries,id",
+        "htmlType": "selectTable:countries:name,id",
         "validations": "required",
         "searchable": true,
         "fillable": true,
