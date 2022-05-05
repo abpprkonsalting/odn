@@ -7,6 +7,7 @@ use App\Models\OperationalInformation;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
+use Carbon\Carbon;
 
 use App\Models\Status;
 
@@ -20,22 +21,23 @@ class ByStatusWithTimeInStatusDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $onBoardStatus = Status::where(['name' => "On Board"])->first();
-        $collection = OperationalInformation::with(['personalInformation','status','vessel.company','rank'])->get();
-        $filtered = $collection->filter(function ($value, $key) use ($onBoardStatus) {
-            return $value->status == $onBoardStatus;
-        });
+        $collection = OperationalInformation::with(['personalInformation','status'])->get();
 
-        $collection = $filtered->map(function ($item, $key) {
+        $collection = $collection->map(function ($item, $key) {
             return [
                 'id' =>  $item->personalInformation->id,
-                'vessel' => $item->vessel->name,
+                'status' => $item->status->name,
+                'time' => $item->updated_at->longRelativeToNowDiffForHumans(3),
                 'full_name' => $item->personalInformation->full_name,
                 'avatar' => $item->personalInformation->avatar,
-                'internal_file_number' => $item->personalInformation->internal_file_number,
                 'rank' => $item->rank->name
             ];
         });
+        $collection = $collection->sortBy([
+            ['status','asc'],
+            ['time','desc'],
+            ['full_name','asc'],
+        ]);
         $dataTable = new CollectionDataTable($collection);
 
         return $dataTable->addColumn('avatar', function($data) {
@@ -84,7 +86,8 @@ class ByStatusWithTimeInStatusDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'vessel',
+            'status',
+            'time',
             'avatar',
             'full_name',
             'rank'
