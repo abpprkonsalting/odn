@@ -3,12 +3,8 @@
 namespace App\DataTables\Reports;
 
 use App\Models\PersonalInformation;
-use App\Models\OperationalInformation;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
-
-use App\Models\Status;
 
 class RanksByAgesDataTable extends DataTable
 {

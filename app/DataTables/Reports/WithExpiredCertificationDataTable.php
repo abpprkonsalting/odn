@@ -3,12 +3,11 @@
 namespace App\DataTables\Reports;
 
 use App\Models\PersonalInformation;
-use App\Models\OperationalInformation;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Course;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
+use Illuminate\Support\Carbon;
 
-use App\Models\Status;
 
 class WithExpiredCertificationDataTable extends DataTable
 {
@@ -20,9 +19,46 @@ class WithExpiredCertificationDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $collection = collect([]);
+        $currentTime = Carbon::now();
+        $deadLine = Carbon::now()->addMonthsWithOverflow(2)->addDays(15);
+        $deadLineFormated = $deadLine->format('Y-m-d');
+        $collection = Course::with(['personalInformation.operationalInformation.rank'])
+                            ->where('end_date','<',$deadLineFormated)
+                            ->get()
+                            ->map(function ($item, $key) use ($currentTime){
+                                $endDate = Carbon::createFromFormat('d-m-Y', $item->end_date);
+                                $toEndDate = $endDate->longRelativeDiffForHumans($currentTime,3);
+                                $beforePosition = strrpos($toEndDate,'before');
+                                if ( $beforePosition !== false ) {
+                                    $toEndDate = "- ".str_replace(' before','',$toEndDate);
+                                }
+                                else {
+                                    $afterPosition = strrpos($toEndDate,'after');
+                                    if ( $afterPosition !== false ) {
+                                        $toEndDate = str_replace(' after','',$toEndDate);
+                                    }
+                                }
+
+                                return [
+                                    'id' =>  $item->personalInformation->id,
+                                    'course_number' => $item->courseNumber->name,
+                                    'time_to_deadLine' => $toEndDate,
+                                    'full_name' => $item->personalInformation->full_name,
+                                    'avatar' => $item->personalInformation->avatar,
+                                    'rank' => $item->personalInformation->operationalInformation->rank->name
+                                ];
+                            })->sortByDesc([
+                                ['course_number', 'asc'],
+                                ['rank', 'asc']
+                            ]);
         $dataTable = new CollectionDataTable($collection);
-        return $dataTable;
+        return $dataTable->addColumn('avatar', function ($data) {
+            $image = "/img/default-image.png";
+            if ($data['avatar'] != null && $data['avatar'] != "") {
+                $image = $data['avatar'];
+            }
+            return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
+        })->rawColumns(['avatar']);
     }
 
     /**
@@ -62,10 +98,11 @@ class WithExpiredCertificationDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'vessel',
+            'course_number',
+            'time_to_deadLine',
+            'rank',
             'avatar',
-            'full_name',
-            'rank'
+            'full_name'
         ];
     }
 
