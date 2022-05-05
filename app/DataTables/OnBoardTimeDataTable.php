@@ -7,6 +7,7 @@ use App\Models\OperationalInformation;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
+use Illuminate\Support\Carbon;
 
 use App\Models\Status;
 
@@ -20,22 +21,24 @@ class OnBoardTimeDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $onBoardStatus = Status::where(['name' => "On Board"])->first();
-        $collection = OperationalInformation::with(['personalInformation','status','vessel.company','rank'])->get();
-        $filtered = $collection->filter(function ($value, $key) use ($onBoardStatus) {
-            return $value->status == $onBoardStatus;
-        });
-
-        $collection = $filtered->map(function ($item, $key) {
+        $onBoardStatusId = Status::where(['name' => "On Board"])->first()->id;
+        $collection = OperationalInformation::with(['personalInformation','status','vessel.company','rank'])->where(['statuses_id' => $onBoardStatusId])->get();
+        $collection = $collection->map(function ($item, $key) {
             return [
                 'id' =>  $item->personalInformation->id,
                 'vessel' => $item->vessel->name,
                 'full_name' => $item->personalInformation->full_name,
                 'avatar' => $item->personalInformation->avatar,
-                'internal_file_number' => $item->personalInformation->internal_file_number,
+                'boarding_date' => Carbon::createFromFormat('d-m-Y', $item->disponibility_date)->format('Y-m-d'),
+                'on_board_time' => $item->updated_at->longRelativeToNowDiffForHumans(3),
                 'rank' => $item->rank->name
             ];
         });
+        $collection = $collection->sortBy([
+            ['vessel','asc'],
+            ['boarding_date','asc'],
+            ['on_board_time','asc'],
+        ]);
         $dataTable = new CollectionDataTable($collection);
 
         return $dataTable->addColumn('avatar', function($data) {
@@ -85,6 +88,8 @@ class OnBoardTimeDataTable extends DataTable
     {
         return [
             'vessel',
+            'boarding_date',
+            'on_board_time',
             'avatar',
             'full_name',
             'rank'
