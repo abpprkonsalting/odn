@@ -142,7 +142,7 @@ class SkillOrKnowledgeController extends AppBaseController
             return redirect(route('skillOrKnowledges.index'));
         }
 
-        $this->skillOrKnowledgeRepository->delete($id);
+        $this->skillOrKnowledgeRepository->find($id)->forcedelete();
 
         Flash::success('Skill Or Knowledge deleted successfully.');
 

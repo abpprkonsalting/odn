@@ -160,7 +160,7 @@ class MemoController extends AppBaseController
             return redirect(route('personalInformation.index'));
         }
 
-        $this->memoRepository->delete($id);
+        $this->memoRepository->find($id)->forcedelete();
 
         Flash::success('Memo deleted successfully.');
 

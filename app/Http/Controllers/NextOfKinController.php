@@ -142,7 +142,7 @@ class NextOfKinController extends AppBaseController
             return redirect(route('nextOfKins.index'));
         }
 
-        $this->nextOfKinRepository->delete($id);
+        $this->nextOfKinRepository->find($id)->forcedelete();
 
         Flash::success('Next Of Kin deleted successfully.');
 

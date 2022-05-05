@@ -142,7 +142,7 @@ class LicenseController extends AppBaseController
             return redirect(route('licenses.index'));
         }
 
-        $this->licenseRepository->delete($id);
+        $this->licenseRepository->find($id)->forcedelete();
 
         Flash::success('License deleted successfully.');
 

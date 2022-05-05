@@ -142,7 +142,7 @@ class FamilyStatusController extends AppBaseController
             return redirect(route('familyStatuses.index'));
         }
 
-        $this->familyStatusRepository->delete($id);
+        $this->familyStatusRepository->find($id)->forcedelete();
 
         Flash::success('Family Status deleted successfully.');
 

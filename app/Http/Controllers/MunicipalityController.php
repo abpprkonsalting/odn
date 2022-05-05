@@ -142,7 +142,7 @@ class MunicipalityController extends AppBaseController
             return redirect(route('municipalities.index'));
         }
 
-        $this->municipalityRepository->delete($id);
+        $this->municipalityRepository->find($id)->forcedelete();
 
         Flash::success('Municipality deleted successfully.');
 

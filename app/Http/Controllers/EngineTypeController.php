@@ -142,7 +142,7 @@ class EngineTypeController extends AppBaseController
             return redirect(route('engineTypes.index'));
         }
 
-        $this->engineTypeRepository->delete($id);
+        $this->engineTypeRepository->find($id)->forcedelete();
 
         Flash::success('Engine Type deleted successfully.');
 

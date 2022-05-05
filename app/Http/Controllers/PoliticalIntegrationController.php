@@ -142,7 +142,7 @@ class PoliticalIntegrationController extends AppBaseController
             return redirect(route('politicalIntegrations.index'));
         }
 
-        $this->politicalIntegrationRepository->delete($id);
+        $this->politicalIntegrationRepository->find($id)->forcedelete();
 
         Flash::success('Political Integration deleted successfully.');
 

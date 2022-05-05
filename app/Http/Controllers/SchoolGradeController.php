@@ -142,7 +142,7 @@ class SchoolGradeController extends AppBaseController
             return redirect(route('schoolGrades.index'));
         }
 
-        $this->schoolGradeRepository->delete($id);
+        $this->schoolGradeRepository->find($id)->forcedelete();
 
         Flash::success('School Grade deleted successfully.');
 

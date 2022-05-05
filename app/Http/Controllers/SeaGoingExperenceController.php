@@ -139,7 +139,7 @@ class SeaGoingExperienceController extends AppBaseController
             return redirect(route('sea_going_experiences.index'));
         }
 
-        $seaGoingExperience = $this->seaGoingExperienceRepository->delete($id);
+        $seaGoingExperience = $this->seaGoingExperienceRepository->find($id)->forcedelete();
 
         Flash::success('SeaGoingExperience Delete successfully.');
 

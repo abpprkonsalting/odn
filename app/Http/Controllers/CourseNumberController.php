@@ -142,7 +142,7 @@ class CourseNumberController extends AppBaseController
             return redirect(route('courseNumbers.index'));
         }
 
-        $this->courseNumberRepository->delete($id);
+        $this->courseNumberRepository->find($id)->forcedelete();
 
         Flash::success('Course Number deleted successfully.');
 

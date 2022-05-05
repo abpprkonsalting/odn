@@ -142,7 +142,7 @@ class HairColorController extends AppBaseController
             return redirect(route('hairColors.index'));
         }
 
-        $this->hairColorRepository->delete($id);
+        $this->hairColorRepository->find($id)->forcedelete();
 
         Flash::success('Hair Color deleted successfully.');
 

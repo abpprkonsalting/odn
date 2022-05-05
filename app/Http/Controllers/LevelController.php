@@ -142,7 +142,7 @@ class LevelController extends AppBaseController
             return redirect(route('levels.index'));
         }
 
-        $this->levelRepository->delete($id);
+        $this->levelRepository->find($id)->forcedelete();
 
         Flash::success('Level deleted successfully.');
 

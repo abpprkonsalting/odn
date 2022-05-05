@@ -142,7 +142,7 @@ class FlagController extends AppBaseController
             return redirect(route('flags.index'));
         }
 
-        $this->flagRepository->delete($id);
+        $this->flagRepository->find($id)->forcedelete();
 
         Flash::success('Flag deleted successfully.');
 

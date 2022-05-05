@@ -142,7 +142,7 @@ class VesselTypeController extends AppBaseController
             return redirect(route('vesselTypes.index'));
         }
 
-        $this->vesselTypeRepository->delete($id);
+        $this->vesselTypeRepository->find($id)->forcedelete();
 
         Flash::success('Vessel Type deleted successfully.');
 

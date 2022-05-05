@@ -142,7 +142,7 @@ class SkinColorController extends AppBaseController
             return redirect(route('skinColors.index'));
         }
 
-        $this->skinColorRepository->delete($id);
+        $this->skinColorRepository->find($id)->forcedelete();
 
         Flash::success('Skin Color deleted successfully.');
 

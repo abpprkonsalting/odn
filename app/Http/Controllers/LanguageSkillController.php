@@ -139,7 +139,7 @@ class LanguageSkillController extends AppBaseController
             return redirect(route('languageSkills.index'));
         }
 
-        $this->languageSkillRepository->delete($id);
+        $this->languageSkillRepository->find($id)->forcedelete();
 
         Flash::success('Language Skill deleted successfully.');
 

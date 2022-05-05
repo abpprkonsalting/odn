@@ -142,7 +142,7 @@ class CountryController extends AppBaseController
             return redirect(route('countries.index'));
         }
 
-        $this->countryRepository->delete($id);
+        $this->countryRepository->find($id)->forcedelete();
 
         Flash::success('Country deleted successfully.');
 

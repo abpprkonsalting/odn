@@ -142,7 +142,7 @@ class RankController extends AppBaseController
             return redirect(route('ranks.index'));
         }
 
-        $this->rankRepository->delete($id);
+        $this->rankRepository->find($id)->forcedelete();
 
         Flash::success('Rank deleted successfully.');
 

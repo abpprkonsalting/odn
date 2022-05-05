@@ -136,7 +136,7 @@ class StatusController extends AppBaseController
             return redirect(route('statuses.index'));
         }
 
-        $this->statusRepository->delete($id);
+        $this->statusRepository->find($id)->forcedelete();
 
         Flash::success('Status deleted successfully.');
 
