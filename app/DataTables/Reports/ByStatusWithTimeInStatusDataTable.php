@@ -1,17 +1,17 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Reports;
 
 use App\Models\PersonalInformation;
 use App\Models\OperationalInformation;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 
 use App\Models\Status;
 
-class OnBoardTimeDataTable extends DataTable
+class ByStatusWithTimeInStatusDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,26 +21,24 @@ class OnBoardTimeDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $onBoardStatusId = Status::where(['name' => "On Board"])->first()->id;
-        $collection = OperationalInformation::with(['personalInformation','status','vessel.company','rank'])->where(['statuses_id' => $onBoardStatusId])->get();
-        $collection = $collection->map(function ($item, $key) {
-            return [
-                'id' =>  $item->personalInformation->id,
-                'vessel' => $item->vessel->name,
-                'full_name' => $item->personalInformation->full_name,
-                'avatar' => $item->personalInformation->avatar,
-                'boarding_date' => Carbon::createFromFormat('d-m-Y', $item->disponibility_date)->format('Y-m-d'),
-                'on_board_time' => $item->updated_at->longRelativeToNowDiffForHumans(3),
-                'rank' => $item->rank->name
-            ];
-        });
-        $collection = $collection->sortBy([
-            ['vessel','asc'],
-            ['boarding_date','asc'],
-            ['on_board_time','asc'],
-        ]);
+        $collection = OperationalInformation::with(['personalInformation','status'])
+                                            ->get()
+                                            ->map(function ($item, $key) {
+                                                return [
+                                                    'id' =>  $item->personalInformation->id,
+                                                    'status' => $item->status->name,
+                                                    'time' => $item->updated_at->longRelativeToNowDiffForHumans(3),
+                                                    'full_name' => $item->personalInformation->full_name,
+                                                    'avatar' => $item->personalInformation->avatar,
+                                                    'rank' => $item->rank->name
+                                                ];
+                                            })
+                                            ->sortBy([
+                                                ['status','asc'],
+                                                ['time','desc'],
+                                                ['full_name','asc'],
+                                            ]);
         $dataTable = new CollectionDataTable($collection);
-
         return $dataTable->addColumn('avatar', function($data) {
             $image = "/img/default-image.png";
             if($data['avatar'] != null && $data['avatar'] != "") {
@@ -87,9 +85,8 @@ class OnBoardTimeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'vessel',
-            'boarding_date',
-            'on_board_time',
+            'status',
+            'time',
             'avatar',
             'full_name',
             'rank'

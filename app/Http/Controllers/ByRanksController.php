@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\ByRanksDataTable;
+use App\DataTables\Reports\ByRanksDataTable;
 use App\Http\Controllers\AppBaseController;
 
 class ByRanksController extends AppBaseController
 {
-
-    public function __construct()
-    {
-    }
 
     public function index(ByRanksDataTable $byRanksDataTable)
     {

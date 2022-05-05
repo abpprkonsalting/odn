@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\NonReadyPersonalDataTable;
+use App\DataTables\Reports\NonReadyPersonalDataTable;
 use App\Http\Controllers\AppBaseController;
 
 class NonReadyPersonalController extends AppBaseController

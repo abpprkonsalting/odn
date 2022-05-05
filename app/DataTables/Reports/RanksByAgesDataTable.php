@@ -1,17 +1,16 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Reports;
 
 use App\Models\PersonalInformation;
 use App\Models\OperationalInformation;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
-use Carbon\Carbon;
 
 use App\Models\Status;
 
-class ByStatusWithTimeInStatusDataTable extends DataTable
+class RanksByAgesDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,32 +20,9 @@ class ByStatusWithTimeInStatusDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $collection = OperationalInformation::with(['personalInformation','status'])->get();
-
-        $collection = $collection->map(function ($item, $key) {
-            return [
-                'id' =>  $item->personalInformation->id,
-                'status' => $item->status->name,
-                'time' => $item->updated_at->longRelativeToNowDiffForHumans(3),
-                'full_name' => $item->personalInformation->full_name,
-                'avatar' => $item->personalInformation->avatar,
-                'rank' => $item->rank->name
-            ];
-        });
-        $collection = $collection->sortBy([
-            ['status','asc'],
-            ['time','desc'],
-            ['full_name','asc'],
-        ]);
+        $collection = collect([]);
         $dataTable = new CollectionDataTable($collection);
-
-        return $dataTable->addColumn('avatar', function($data) {
-            $image = "/img/default-image.png";
-            if($data['avatar'] != null && $data['avatar'] != "") {
-                $image = $data['avatar'];
-            }
-            return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
-        })->rawColumns(['avatar']);
+        return $dataTable;
     }
 
     /**
@@ -86,8 +62,7 @@ class ByStatusWithTimeInStatusDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'status',
-            'time',
+            'vessel',
             'avatar',
             'full_name',
             'rank'

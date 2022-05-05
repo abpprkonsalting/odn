@@ -1,16 +1,13 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Reports;
 
+use App\Models\Course;
 use App\Models\PersonalInformation;
-use App\Models\OperationalInformation;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 
-use App\Models\Status;
-
-class OnBoardByVesselDataTable extends DataTable
+class ByCertificationsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -20,28 +17,21 @@ class OnBoardByVesselDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $onBoardStatus = Status::where(['name' => "On Board"])->first();
-        $collection = OperationalInformation::with(['personalInformation.company','status','vessel.company','rank'])->get();
-        $filtered = $collection->filter(function ($value, $key) use ($onBoardStatus) {
-            return $value->status == $onBoardStatus;
-        });
-
-        $collection = $filtered->map(function ($item, $key) {
-            return [
-                'id' =>  $item->personalInformation->id,
-                'vessel' => $item->vessel->name,
-                'company' => $item->vessel->company?->company_name,
-                'full_name' => $item->personalInformation->full_name,
-                'avatar' => $item->personalInformation->avatar,
-                'rank' => $item->rank->name
-            ];
-        });
-        $collection = $collection->sortBy([
-            ['vessel','asc'],
-            ['rank','asc']
-        ]);
+        $collection = Course::with(['personalInformation.operationalInformation.rank'])
+                            ->get()
+                            ->map(function ($item, $key) {
+                                return [
+                                    'id' =>  $item->personalInformation->id,
+                                    'course_number' => $item->courseNumber->name,
+                                    'full_name' => $item->personalInformation->full_name,
+                                    'avatar' => $item->personalInformation->avatar,
+                                    'rank' => $item->personalInformation->operationalInformation->rank->name
+                                ];
+                            })->sortByDesc([
+                                ['course_number','asc'],
+                                ['rank','asc']
+                            ]);
         $dataTable = new CollectionDataTable($collection);
-
         return $dataTable->addColumn('avatar', function($data) {
             $image = "/img/default-image.png";
             if($data['avatar'] != null && $data['avatar'] != "") {
@@ -88,8 +78,7 @@ class OnBoardByVesselDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'company',
-            'vessel',
+            'course_number',
             'rank',
             'avatar',
             'full_name'

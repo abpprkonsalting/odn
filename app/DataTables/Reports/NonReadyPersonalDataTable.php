@@ -1,17 +1,25 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Reports;
 
-use App\Models\PersonalInformation;
-use App\Models\OperationalInformation;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 
+use App\Models\PersonalInformation;
+use App\Models\OperationalInformation;
 use App\Models\Status;
+use App\Services\StatusService;
 
-class RanksByAgesDataTable extends DataTable
+class NonReadyPersonalDataTable extends DataTable
 {
+    private $statusService;
+
+    public function __construct(StatusService $statusService)
+    {
+        $this->statusService = $statusService;
+    }
+
     /**
      * Build DataTable class.
      *
@@ -20,20 +28,23 @@ class RanksByAgesDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $onBoardStatus = Status::where(['name' => "On Board"])->first();
-        $collection = OperationalInformation::with(['personalInformation','status','vessel.company','rank'])->get();
-        $filtered = $collection->filter(function ($value, $key) use ($onBoardStatus) {
-            return $value->status == $onBoardStatus;
+        $nonReadyStatus = Status::where(['name' => "Non Ready"])->first();
+        $collection = collect($this->statusService->checkPersonalInformationStatus(null,true));
+        $filtered = $collection->filter(function ($value, $key) use ($nonReadyStatus) {
+            return $value['personalInformation']?->operationalInformation?->status == null ? true :
+                $value['personalInformation']?->operationalInformation?->status == $nonReadyStatus;
         });
 
         $collection = $filtered->map(function ($item, $key) {
             return [
-                'id' =>  $item->personalInformation->id,
-                'vessel' => $item->vessel->name,
-                'full_name' => $item->personalInformation->full_name,
-                'avatar' => $item->personalInformation->avatar,
-                'internal_file_number' => $item->personalInformation->internal_file_number,
-                'rank' => $item->rank->name
+                'id' =>  $item["personalInformation"]->id,
+                'passport_valid' => $item['passport'],
+                'medical_informations_valid' => $item['medical_informations'],
+                'courses_valid' => $item['courses'],
+                'licences_valid' => $item['licences'],
+                'seamanbook_valid' => $item['seamanbook'],
+                'avatar' => $item["personalInformation"]->avatar,
+                'full_name' => $item["personalInformation"]->full_name
             ];
         });
         $dataTable = new CollectionDataTable($collection);
@@ -44,7 +55,8 @@ class RanksByAgesDataTable extends DataTable
                 $image = $data['avatar'];
             }
             return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
-        })->rawColumns(['avatar']);
+        })->addColumn('action', 'personal_informations.datatables_edit_action')
+        ->rawColumns(['avatar', 'action']);
     }
 
     /**
@@ -68,6 +80,7 @@ class RanksByAgesDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
+            ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'       => 'Bfrtip',
                 'stateSave' => true,
@@ -84,10 +97,13 @@ class RanksByAgesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'vessel',
             'avatar',
             'full_name',
-            'rank'
+            'passport_valid',
+            'medical_informations_valid',
+            'courses_valid',
+            'licences_valid',
+            'seamanbook_valid'
         ];
     }
 

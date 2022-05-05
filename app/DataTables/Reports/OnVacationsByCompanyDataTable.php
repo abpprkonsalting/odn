@@ -1,15 +1,16 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Reports;
 
-use App\Models\Course;
 use App\Models\PersonalInformation;
 use App\Models\OperationalInformation;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 
-class ByCertificationsDataTable extends DataTable
+use App\Models\Status;
+
+class OnVacationsByCompanyDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -19,23 +20,25 @@ class ByCertificationsDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $collection = Course::with(['personalInformation.operationalInformation.rank'])->get();
-
-        $collection = $collection->map(function ($item, $key) {
-            return [
-                'id' =>  $item->personalInformation->id,
-                'course_number' => $item->courseNumber->name,
-                'full_name' => $item->personalInformation->full_name,
-                'avatar' => $item->personalInformation->avatar,
-                'rank' => $item->personalInformation->operationalInformation->rank->name
-            ];
-        });
-        $collection = $collection->sortByDesc([
-            ['course_number','asc'],
-            ['rank','asc']
-        ]);
+        $onVacationsStatusId = Status::where(['name' => "On Vacation"])->first()->id;
+        $collection = OperationalInformation::with(['personalInformation.company','status','rank'])
+                                            ->where(['statuses_id' => $onVacationsStatusId])
+                                            ->get()
+                                            ->map(function ($item, $key) {
+                                                return [
+                                                    'id' =>  $item->personalInformation->id,
+                                                    'full_name' => $item->personalInformation->full_name,
+                                                    'avatar' => $item->personalInformation->avatar,
+                                                    'company' => $item->personalInformation->company?->company_name,
+                                                    'rank' => $item->rank->name
+                                                ];
+                                            })
+                                            ->sortBy([
+                                                ['company','asc'],
+                                                ['rank','asc'],
+                                                ['full_name','asc'],
+                                            ]);
         $dataTable = new CollectionDataTable($collection);
-
         return $dataTable->addColumn('avatar', function($data) {
             $image = "/img/default-image.png";
             if($data['avatar'] != null && $data['avatar'] != "") {
@@ -82,7 +85,7 @@ class ByCertificationsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'course_number',
+            'company',
             'rank',
             'avatar',
             'full_name'

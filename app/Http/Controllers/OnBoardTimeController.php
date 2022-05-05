@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\OnBoardTimeDataTable;
+use App\DataTables\Reports\OnBoardTimeDataTable;
 use App\Http\Controllers\AppBaseController;
 
 class OnBoardTimeController extends AppBaseController
