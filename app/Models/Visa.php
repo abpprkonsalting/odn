@@ -97,13 +97,13 @@ class Visa extends Model
         return $this->belongsTo(Passport::class, 'passports_id');
     }
 
-    public function personalInformation()
+    public function personalInformationId()
     {
-        $passport = $this->passport();
+        $passport = $this->passport()->first();
         if (!empty($passport)) {
-            return $passport->personalInformation();
+            return $passport->personal_informations_id;
         }
-        return false;
+        return null;
     }
 
     public function visaType()

@@ -34,6 +34,7 @@ use App\Models\VesselType;
 use App\Models\Language;
 use App\Models\LanguageSkill;
 use App\Models\Level;
+use App\Models\Passport;
 use Spatie\Permission\Models\Role;
 use View;
 
@@ -65,7 +66,9 @@ class ViewServiceProvider extends ServiceProvider
         });
         View::composer(['visas.fields'], function ($view) {
             $visa_typeItems = VisaType::pluck('name','id')->toArray();
-            $view->with('visa_typeItems', $visa_typeItems);
+            $passportItems = Passport::where(['personal_informations_id' => $view->personalInformation->id])->pluck('no_passport','id')->toArray();
+            $countriesItems = Country::pluck('name','id')->toArray();
+            $view->with(compact('visa_typeItems', 'passportItems', 'countriesItems'));
         });
 
         View::composer(['license_endorsements.fields'], function ($view) {
