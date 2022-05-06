@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\WithForeignLicenseByTypeDataTable;
+use App\DataTables\Reports\WithForeignLicenseByTypeDataTable;
 use App\Http\Controllers\AppBaseController;
 use Response;
 
@@ -22,4 +22,4 @@ class WithForeignLicenseByTypeController extends AppBaseController
         return $withForeignLicenseByTypeDataTable->render('with_foreign_license_by_type.index');
     }
 
-}   
+}

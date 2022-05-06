@@ -1,14 +1,17 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Reports;
 
-use App\Models\LicenseEndorsement;
 use App\Models\PersonalInformation;
-
+use App\Models\OperationalInformation;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
+use Carbon\Carbon;
 
-class WithForeignLicenseByTypeDataTable extends DataTable
+use App\Models\Status;
+
+class ByStatusWithTimeInStatusDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,30 +21,31 @@ class WithForeignLicenseByTypeDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $collection = LicenseEndorsement::with(['personalInformation','country','licenseEndorsementType'])->get();
-        $filtered = $collection->filter(function ($value, $key) {
-            return $value->country->name != "Cuba";
-        });
-
-        $collection = $filtered->map(function ($item, $key) {
-            return [
-                'id' =>  $item->personalInformation->id,
-                'country' => $item->country->name,
-                'license_type' => $item->licenseEndorsementType->name,
-                'avatar' => $item->personalInformation->avatar,
-                'full_name' => $item->personalInformation->full_name
-            ];
-        });
+        $collection = OperationalInformation::with(['personalInformation','status'])
+                                            ->get()
+                                            ->map(function ($item, $key) {
+                                                return [
+                                                    'id' =>  $item->personalInformation->id,
+                                                    'status' => $item->status->name,
+                                                    'time' => $item->updated_at->longRelativeToNowDiffForHumans(3),
+                                                    'full_name' => $item->personalInformation->full_name,
+                                                    'avatar' => $item->personalInformation->avatar,
+                                                    'rank' => $item->rank->name
+                                                ];
+                                            })
+                                            ->sortBy([
+                                                ['status','asc'],
+                                                ['time','desc'],
+                                                ['full_name','asc'],
+                                            ]);
         $dataTable = new CollectionDataTable($collection);
-
         return $dataTable->addColumn('avatar', function($data) {
             $image = "/img/default-image.png";
             if($data['avatar'] != null && $data['avatar'] != "") {
                 $image = $data['avatar'];
             }
             return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
-        })->addColumn('action', 'personal_informations.datatables_edit_action')
-        ->rawColumns(['avatar', 'action']);
+        })->rawColumns(['avatar']);
     }
 
     /**
@@ -81,10 +85,11 @@ class WithForeignLicenseByTypeDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'status',
+            'time',
             'avatar',
             'full_name',
-            'country',
-            'license_type'
+            'rank'
         ];
     }
 

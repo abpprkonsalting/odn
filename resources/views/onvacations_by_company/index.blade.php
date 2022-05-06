@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Mariners on vacations by company</h1>
+        <h1 class="pull-left">Mariners on vacation by company</h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="text-center">
-        
+
         </div>
     </div>
 @endsection

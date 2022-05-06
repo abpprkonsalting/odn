@@ -1,15 +1,12 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Reports;
 
-use App\Models\Course;
 use App\Models\PersonalInformation;
-use App\Models\OperationalInformation;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 
-class ByCertificationsDataTable extends DataTable
+class RanksByAgesDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -19,30 +16,9 @@ class ByCertificationsDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $collection = Course::with(['personalInformation.operationalInformation.rank'])->get();
-
-        $collection = $collection->map(function ($item, $key) {
-            return [
-                'id' =>  $item->personalInformation->id,
-                'course_number' => $item->courseNumber->name,
-                'full_name' => $item->personalInformation->full_name,
-                'avatar' => $item->personalInformation->avatar,
-                'rank' => $item->personalInformation->operationalInformation->rank->name
-            ];
-        });
-        $collection = $collection->sortByDesc([
-            ['course_number','asc'],
-            ['rank','asc']
-        ]);
+        $collection = collect([]);
         $dataTable = new CollectionDataTable($collection);
-
-        return $dataTable->addColumn('avatar', function($data) {
-            $image = "/img/default-image.png";
-            if($data['avatar'] != null && $data['avatar'] != "") {
-                $image = $data['avatar'];
-            }
-            return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
-        })->rawColumns(['avatar']);
+        return $dataTable;
     }
 
     /**
@@ -82,10 +58,10 @@ class ByCertificationsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'course_number',
-            'rank',
+            'vessel',
             'avatar',
-            'full_name'
+            'full_name',
+            'rank'
         ];
     }
 
