@@ -162,7 +162,7 @@ class ShoreExperiencieController extends AppBaseController
             return redirect(route('shoreExperiencies.index'));
         }
 
-        $this->shoreExperiencieRepository->delete($id);
+        $this->shoreExperiencieRepository->find($id)->forcedelete();
 
         Flash::success('Shore Experiencie deleted successfully.');
 

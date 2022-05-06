@@ -161,7 +161,7 @@ class LicenseEndorsementController extends AppBaseController
             return redirect(route('licenseEndorsements.index'));
         }
 
-        $this->licenseEndorsementRepository->delete($id);
+        $this->licenseEndorsementRepository->find($id)->forcedelete();
 
         Flash::success('License Endorsement deleted successfully.');
 

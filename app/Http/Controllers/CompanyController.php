@@ -156,7 +156,7 @@ class CompanyController extends AppBaseController
             return redirect(route('companies.index'));
         }
 
-        $this->companyRepository->delete($id);
+        $this->companyRepository->find($id)->forcedelete();
 
         Flash::success('Company deleted successfully.');
 

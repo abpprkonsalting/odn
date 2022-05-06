@@ -143,7 +143,7 @@ class PersonalInformationController extends AppBaseController
             return redirect(route('personalInformations.index'));
         }
 
-        $this->personalInformationRepository->delete($id);
+        $this->personalInformationRepository->find($id)->forcedelete();
 
         Flash::success('Personal Information deleted successfully.');
 

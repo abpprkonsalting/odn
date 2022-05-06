@@ -142,7 +142,7 @@ class MedicalInformationController extends AppBaseController
             return redirect(route('medicalInformations.index'));
         }
 
-        $this->medicalInformationRepository->delete($id);
+        $this->medicalInformationRepository->find($id)->forcedelete();
 
         Flash::success('Medical Information deleted successfully.');
 

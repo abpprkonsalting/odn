@@ -161,7 +161,7 @@ class FamilyInformationController extends AppBaseController
             return redirect(route('personalInformation.index'));
         }
 
-        $this->familyInformationRepository->delete($id);
+        $this->familyInformationRepository->find($id)->forcedelete();
 
         Flash::success('Family Information deleted successfully.');
 

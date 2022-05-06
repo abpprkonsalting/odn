@@ -162,7 +162,7 @@ class OtherSkillController extends AppBaseController
             return redirect(route('otherSkills.index'));
         }
 
-        $this->otherSkillRepository->delete($id);
+        $this->otherSkillRepository->find($id)->forcedelete();
 
         Flash::success('Other Skill deleted successfully.');
 

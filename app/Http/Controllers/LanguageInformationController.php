@@ -169,7 +169,7 @@ class LanguageInformationController extends Controller
             return redirect(route('languageInformations.index'));
         }
 
-        $this->languageInformationRepository->delete($id);
+        $this->languageInformationRepository->find($id)->forcedelete();
 
         Flash::success('Language Information deleted successfully.');
 

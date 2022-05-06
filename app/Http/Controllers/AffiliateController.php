@@ -142,7 +142,7 @@ class AffiliateController extends AppBaseController
             return redirect(route('affiliates.index'));
         }
 
-        $this->affiliateRepository->delete($id);
+        $this->affiliateRepository->find($id)->forcedelete();
 
         Flash::success('Affiliate deleted successfully.');
 

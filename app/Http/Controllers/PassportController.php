@@ -159,7 +159,7 @@ class PassportController extends AppBaseController
             return redirect(route('passports.index'));
         }
 
-        $this->passportRepository->delete($id);
+        $this->passportRepository->find($id)->forcedelete();
 
         Flash::success('Passport deleted successfully.');
 

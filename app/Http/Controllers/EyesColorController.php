@@ -142,7 +142,7 @@ class EyesColorController extends AppBaseController
             return redirect(route('eyesColors.index'));
         }
 
-        $this->eyesColorRepository->delete($id);
+        $this->eyesColorRepository->find($id)->forcedelete();
 
         Flash::success('Eyes Color deleted successfully.');
 

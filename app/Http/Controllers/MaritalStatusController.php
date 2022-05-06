@@ -142,7 +142,7 @@ class MaritalStatusController extends AppBaseController
             return redirect(route('maritalStatuses.index'));
         }
 
-        $this->maritalStatusRepository->delete($id);
+        $this->maritalStatusRepository->find($id)->forcedelete();
 
         Flash::success('Marital Status deleted successfully.');
 

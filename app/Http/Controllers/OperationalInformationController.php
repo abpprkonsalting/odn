@@ -164,7 +164,7 @@ class OperationalInformationController extends AppBaseController
             return redirect(route('operationalInformations.index'));
         }
 
-        $this->operationalInformationRepository->delete($id);
+        $this->operationalInformationRepository->find($id)->forcedelete();
 
         Flash::success('Operational Information deleted successfully.');
 

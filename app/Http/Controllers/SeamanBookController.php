@@ -163,7 +163,7 @@ class SeamanBookController extends AppBaseController
             return redirect(route('seamanBooks.index'));
         }
 
-        $this->seamanBookRepository->delete($id);
+        $this->seamanBookRepository->find($id)->forcedelete();
 
         Flash::success('Seaman Book deleted successfully.');
 

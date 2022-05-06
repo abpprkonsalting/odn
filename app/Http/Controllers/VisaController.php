@@ -148,7 +148,7 @@ class VisaController extends AppBaseController
             Flash::error('Visa not found');
             return redirect(route('visas.index'));
         }
-        $this->visaRepository->delete($id);
+        $this->visaRepository->find($id)->forcedelete();
         Flash::success('Visa deleted successfully.');
         return redirect(route('visas.create', ['id' => $visa->personalInformationId()]));
     }

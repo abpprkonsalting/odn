@@ -142,8 +142,7 @@ class LanguagesController extends AppBaseController
             return redirect(route('languages.index'));
         }
 
-        $this->languagesRepository->delete($id);
-
+        $this->languagesRepository->find($id)->forcedelete();
         Flash::success('Language deleted successfully.');
 
         return redirect(route('languages.index'));

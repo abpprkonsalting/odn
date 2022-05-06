@@ -158,7 +158,7 @@ class ProvinceController extends AppBaseController
             return redirect(route('provinces.index'));
         }
 
-        $this->provinceRepository->delete($id);
+        $this->provinceRepository->find($id)->forcedelete();
 
         Flash::success('Province deleted successfully.');
 

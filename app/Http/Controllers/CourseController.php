@@ -157,7 +157,7 @@ class CourseController extends AppBaseController
             return redirect(route('personalInformation.index'));
         }
 
-        $this->courseRepository->delete($id);
+        $this->courseRepository->find($id)->forcedelete();
 
         Flash::success('Course deleted successfully.');
 
