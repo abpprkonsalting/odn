@@ -1,0 +1,13 @@
+.content-header>.breadcrumb {
+    top: 0px;
+}
+
+.datatable-cell-color-red {
+    background-color: red;
+    color: white;
+}
+
+.datatable-cell-color-yellow {
+    background-color: yellow;
+
+}

@@ -43,6 +43,7 @@ class WithExpiredCertificationDataTable extends DataTable
                                     'id' =>  $item->personalInformation->id,
                                     'course_number' => $item->courseNumber->name,
                                     'time_to_deadLine' => $toEndDate,
+                                    'expired' => $beforePosition !== false ? true : false,
                                     'full_name' => $item->personalInformation->full_name,
                                     'avatar' => $item->personalInformation->avatar,
                                     'rank' => $item->personalInformation->operationalInformation->rank->name
@@ -52,13 +53,20 @@ class WithExpiredCertificationDataTable extends DataTable
                                 ['rank', 'asc']
                             ]);
         $dataTable = new CollectionDataTable($collection);
-        return $dataTable->addColumn('avatar', function ($data) {
+        return $dataTable->editColumn('time_to_deadLine', function($data){
+            if($data['expired']){
+                return "<div class='datatable-cell-color-red'>".$data['time_to_deadLine']."</div>";
+            }
+            return "<div class='datatable-cell-color-yellow'>".$data['time_to_deadLine']."</div>";
+        })
+        ->addColumn('avatar', function ($data) {
             $image = "/img/default-image.png";
             if ($data['avatar'] != null && $data['avatar'] != "") {
                 $image = $data['avatar'];
             }
             return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
-        })->rawColumns(['avatar']);
+        })->rawColumns(['avatar','time_to_deadLine']);
+
     }
 
     /**
