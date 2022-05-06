@@ -148,8 +148,22 @@ class VisaController extends AppBaseController
             Flash::error('Visa not found');
             return redirect(route('visas.index'));
         }
-        $this->visaRepository->find($id)->forcedelete();
-        Flash::success('Visa deleted successfully.');
+
+        try{
+            
+            $this->visaRepository->find($id)->forcedelete();
+            Flash::success('Visa deleted successfully.');
+
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Visa Cannot Delete. It has been used for other entity');
+            
+             }
+      
         return redirect(route('visas.create', ['id' => $visa->personalInformationId()]));
     }
 

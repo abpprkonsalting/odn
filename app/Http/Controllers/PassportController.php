@@ -159,9 +159,21 @@ class PassportController extends AppBaseController
             return redirect(route('passports.index'));
         }
 
-        $this->passportRepository->find($id)->forcedelete();
+        try{
+            
+            $this->passportRepository->find($id)->forcedelete();
 
-        Flash::success('Passport deleted successfully.');
+            Flash::success('Passport deleted successfully.');
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Passport Cannot Delete. It has been used for other entity');
+            
+             }
+
+       
 
 
         return redirect(route('passports.create', [ 'id' => $passport->personal_informations_id ]));

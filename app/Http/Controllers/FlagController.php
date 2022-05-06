@@ -142,9 +142,20 @@ class FlagController extends AppBaseController
             return redirect(route('flags.index'));
         }
 
-        $this->flagRepository->find($id)->forcedelete();
+        try{
+            
+           $this->flagRepository->find($id)->forcedelete();
 
-        Flash::success('Flag deleted successfully.');
+           Flash::success('Flag deleted successfully.');
+
+            }
+            catch(\Illuminate\Database\QueryException $ex){
+            
+    
+                Flash::success('Flag  Cannot Delete. It has been used for other entity');
+           
+            }
+
 
         return redirect(route('flags.index'));
     }

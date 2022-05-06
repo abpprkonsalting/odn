@@ -142,9 +142,17 @@ class CountryController extends AppBaseController
             return redirect(route('countries.index'));
         }
 
-        $this->countryRepository->find($id)->forcedelete();
+        try{
 
-        Flash::success('Country deleted successfully.');
+            $this->countryRepository->find($id)->forcedelete();        
+
+            Flash::success('Country deleted successfully.');
+        }
+        catch(\Illuminate\Database\QueryException $ex){
+
+            Flash::success('Visa Type Cannot Delete. It has been used for other entity');
+        }
+
 
         return redirect(route('countries.index'));
     }

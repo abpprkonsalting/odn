@@ -139,9 +139,22 @@ class SeaGoingExperienceController extends AppBaseController
             return redirect(route('sea_going_experiences.index'));
         }
 
-        $seaGoingExperience = $this->seaGoingExperienceRepository->find($id)->forcedelete();
+        try{
+            
+            $seaGoingExperience = $this->seaGoingExperienceRepository->find($id)->forcedelete();
 
-        Flash::success('SeaGoingExperience Delete successfully.');
+            Flash::success('SeaGoingExperience Delete successfully.');
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('SeaGoingExperience Cannot Delete. It has been used for other entity');
+            
+             }
+
+        
 
         return redirect(route('sea_going_experiences.index'));
     }

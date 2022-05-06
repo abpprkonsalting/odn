@@ -136,9 +136,24 @@ class VesselController extends AppBaseController
             return redirect(route('vessels.index'));
         }
 
-        $this->vesselRepository->find($id)->forcedelete();
+        try{
+            
+            $this->vesselRepository->find($id)->forcedelete();
 
-        Flash::success('Vessel deleted successfully.');
+            Flash::success('Vessel deleted successfully.');
+    
+
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Vessel Cannot Delete. It has been used for other entity');
+            
+             }
+
+        
 
         return redirect(route('vessels.index'));
     }

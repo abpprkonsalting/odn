@@ -142,9 +142,17 @@ class EyesColorController extends AppBaseController
             return redirect(route('eyesColors.index'));
         }
 
+        try{
         $this->eyesColorRepository->find($id)->forcedelete();
 
         Flash::success('Eyes Color deleted successfully.');
+        }
+        catch(\Illuminate\Database\QueryException $ex){
+        
+
+            Flash::success('EyesColor Cannot Delete. It has been used for other entity');
+       
+        }
 
         return redirect(route('eyesColors.index'));
     }

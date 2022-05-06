@@ -162,9 +162,23 @@ class ShoreExperiencieController extends AppBaseController
             return redirect(route('shoreExperiencies.index'));
         }
 
-        $this->shoreExperiencieRepository->find($id)->forcedelete();
+        try{
+            
+            $this->shoreExperiencieRepository->find($id)->forcedelete();
 
-        Flash::success('Shore Experiencie deleted successfully.');
+            Flash::success('Shore Experiencie deleted successfully.');
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Shore Experiencie Cannot Delete. It has been used for other entity');
+            
+             }
+
+
+       
 
         
         return redirect(route('shoreExperiencies.create', ['id' => $shoreExperiencie->personal_informations_id]));

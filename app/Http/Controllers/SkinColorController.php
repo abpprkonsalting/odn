@@ -141,11 +141,25 @@ class SkinColorController extends AppBaseController
 
             return redirect(route('skinColors.index'));
         }
+        try{
+            
+            $this->skinColorRepository->find($id)->forcedelete();
 
-        $this->skinColorRepository->find($id)->forcedelete();
+            Flash::success('Skin Color deleted successfully.');
+    
 
-        Flash::success('Skin Color deleted successfully.');
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Skin Color Cannot Delete. It has been used for other entity');
+            
+             }
 
+
+       
         return redirect(route('skinColors.index'));
     }
 }

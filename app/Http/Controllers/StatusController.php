@@ -136,9 +136,25 @@ class StatusController extends AppBaseController
             return redirect(route('statuses.index'));
         }
 
-        $this->statusRepository->find($id)->forcedelete();
+        try{
+            
+            $this->statusRepository->find($id)->forcedelete();
 
-        Flash::success('Status deleted successfully.');
+           Flash::success('Status deleted successfully.');
+    
+
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Status Cannot Delete. It has been used for other entity');
+            
+             }
+
+
+        
 
         return redirect(route('statuses.index'));
     }

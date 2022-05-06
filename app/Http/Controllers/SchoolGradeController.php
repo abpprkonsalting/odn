@@ -142,9 +142,22 @@ class SchoolGradeController extends AppBaseController
             return redirect(route('schoolGrades.index'));
         }
 
-        $this->schoolGradeRepository->find($id)->forcedelete();
+        try{
+            
+            $this->schoolGradeRepository->find($id)->forcedelete();
 
-        Flash::success('School Grade deleted successfully.');
+            Flash::success('School Grade deleted successfully.');
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('School Grade Cannot Delete. It has been used for other entity');
+            
+             }
+
+        
 
         return redirect(route('schoolGrades.index'));
     }

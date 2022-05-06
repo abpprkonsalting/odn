@@ -161,10 +161,20 @@ class FamilyInformationController extends AppBaseController
             return redirect(route('personalInformation.index'));
         }
 
-        $this->familyInformationRepository->find($id)->forcedelete();
+        try{
+            $this->familyInformationRepository->find($id)->forcedelete();
 
-        Flash::success('Family Information deleted successfully.');
+            Flash::success('Family Information deleted successfully.');
 
+            }
+            catch(\Illuminate\Database\QueryException $ex){
+            
+    
+                Flash::success('Family Information  Cannot Delete. It has been used for other entity');
+           
+            }
+    
+        
         
         return redirect(route('familyInformations.create', ['id' => $familyInformation->personal_informations_id]));
     }

@@ -139,9 +139,21 @@ class LanguageSkillController extends AppBaseController
             return redirect(route('languageSkills.index'));
         }
 
-        $this->languageSkillRepository->find($id)->forcedelete();
+        try{
+            
+            $this->languageSkillRepository->find($id)->forcedelete();
 
-        Flash::success('Language Skill deleted successfully.');
+            Flash::success('Language Skill deleted successfully.');
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Language Skill Cannot Delete. It has been used for other entity');
+            
+             }
+
+      
 
         return redirect(route('languageSkills.index'));
     }

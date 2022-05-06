@@ -142,9 +142,21 @@ class LevelController extends AppBaseController
             return redirect(route('levels.index'));
         }
 
-        $this->levelRepository->find($id)->forcedelete();
+        try{
+            
+            $this->levelRepository->find($id)->forcedelete();
 
-        Flash::success('Level deleted successfully.');
+            Flash::success('Level deleted successfully.');
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Level Cannot Delete. It has been used for other entity');
+            
+             }
+
+       
 
         return redirect(route('levels.index'));
     }

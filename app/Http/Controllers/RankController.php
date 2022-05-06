@@ -142,9 +142,23 @@ class RankController extends AppBaseController
             return redirect(route('ranks.index'));
         }
 
-        $this->rankRepository->find($id)->forcedelete();
+        try{
+            
+            $this->rankRepository->find($id)->forcedelete();
 
-        Flash::success('Rank deleted successfully.');
+            Flash::success('Rank deleted successfully.');
+
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Rank Cannot Delete. It has been used for other entity');
+            
+             }
+
+       
 
         return redirect(route('ranks.index'));
     }

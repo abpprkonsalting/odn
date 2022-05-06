@@ -159,10 +159,22 @@ class PersonalMedicalInformationController extends AppBaseController
             return redirect(route('personalInformation.index'));
         }
 
-        $this->personalMedicalInformationRepository->find($id)->forcedelete();
+        try{
+            
+            $this->personalMedicalInformationRepository->find($id)->forcedelete();
 
-        Flash::success('Personal Medical Information deleted successfully.');
+            Flash::success('Personal Medical Information deleted successfully.');
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Personal Medical Information Cannot Delete. It has been used for other entity');
+            
+             }
 
+        
         return redirect(route('personalMedicalInformations.create', ['id' => $personalMedicalInformation->personal_informations_id]));
     }
 

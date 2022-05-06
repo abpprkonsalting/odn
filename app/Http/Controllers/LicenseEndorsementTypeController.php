@@ -142,9 +142,21 @@ class LicenseEndorsementTypeController extends AppBaseController
             return redirect(route('licenseEndorsementTypes.index'));
         }
 
-        $this->licenseEndorsementTypeRepository->find($id)->forcedelete();
+        try{
+            
+            $this->licenseEndorsementTypeRepository->find($id)->forcedelete();
 
-        Flash::success('License Endorsement Type deleted successfully.');
+            Flash::success('License Endorsement Type deleted successfully.');
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('License Endorsement Type Cannot Delete. It has been used for other entity');
+            
+             }
+
+       
 
         return redirect(route('licenseEndorsementTypes.index'));
     }

@@ -142,9 +142,22 @@ class MunicipalityController extends AppBaseController
             return redirect(route('municipalities.index'));
         }
 
-        $this->municipalityRepository->find($id)->forcedelete();
+        try{
+            
+            $this->municipalityRepository->find($id)->forcedelete();
 
-        Flash::success('Municipality deleted successfully.');
+            Flash::success('Municipality deleted successfully.');
+
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Municipality Cannot Delete. It has been used for other entity');
+            
+             }
+
+        
 
         return redirect(route('municipalities.index'));
     }

@@ -163,10 +163,22 @@ class SeamanBookController extends AppBaseController
             return redirect(route('seamanBooks.index'));
         }
 
-        $this->seamanBookRepository->find($id)->forcedelete();
+        try{
+            
+            $this->seamanBookRepository->find($id)->forcedelete();
 
-        Flash::success('Seaman Book deleted successfully.');
+            Flash::success('Seaman Book deleted successfully.');
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Seaman Book Cannot Delete. It has been used for other entity');
+            
+             }
 
+       
         
         return redirect(route('seamanBooks.create', ['id' => $seamanBook->personal_informations_id]));
     }

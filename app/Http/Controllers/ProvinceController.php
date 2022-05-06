@@ -158,10 +158,23 @@ class ProvinceController extends AppBaseController
             return redirect(route('provinces.index'));
         }
 
-        $this->provinceRepository->find($id)->forcedelete();
+        try{
+            
+            $this->provinceRepository->find($id)->forcedelete();
 
-        Flash::success('Province deleted successfully.');
+            Flash::success('Province deleted successfully.');
 
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Province Cannot Delete. It has been used for other entity');
+            
+             }
+
+        
         return redirect(route('provinces.index'));
     }
 }

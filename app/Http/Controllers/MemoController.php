@@ -160,9 +160,22 @@ class MemoController extends AppBaseController
             return redirect(route('personalInformation.index'));
         }
 
-        $this->memoRepository->find($id)->forcedelete();
+        try{
+            
+            $this->memoRepository->find($id)->forcedelete();
 
-        Flash::success('Memo deleted successfully.');
+            Flash::success('Memo deleted successfully.');
+
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Memo Cannot Delete. It has been used for other entity');
+            
+             }
+
+        
 
         return redirect(route('memos.create', [ 'id' => $memo->personal_informations_id ]));
     }

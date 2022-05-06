@@ -164,9 +164,20 @@ class OperationalInformationController extends AppBaseController
             return redirect(route('operationalInformations.index'));
         }
 
-        $this->operationalInformationRepository->find($id)->forcedelete();
+        try{
+            
+            $this->operationalInformationRepository->find($id)->forcedelete();
 
-        Flash::success('Operational Information deleted successfully.');
+            Flash::success('Operational Information deleted successfully.');
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Operational Information Cannot Delete. It has been used for other entity');
+            
+             }
+       
 
         return redirect(route('operationalInformations.index'));
     }

@@ -169,9 +169,20 @@ class LanguageInformationController extends Controller
             return redirect(route('languageInformations.index'));
         }
 
-        $this->languageInformationRepository->find($id)->forcedelete();
+        try{
+            
+            $this->languageInformationRepository->find($id)->forcedelete();
 
-        Flash::success('Language Information deleted successfully.');
+            Flash::success('Language Information deleted successfully.');
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Language Information Cannot Delete. It has been used for other entity');
+            
+             }
+      
 
         return redirect(route('languageInformations.create', ['id' => $languageInformation->personal_informations_id]));
     }

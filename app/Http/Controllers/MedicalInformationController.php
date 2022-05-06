@@ -142,9 +142,21 @@ class MedicalInformationController extends AppBaseController
             return redirect(route('medicalInformations.index'));
         }
 
-        $this->medicalInformationRepository->find($id)->forcedelete();
+        try{
+            
+            $this->medicalInformationRepository->find($id)->forcedelete();
 
-        Flash::success('Medical Information deleted successfully.');
+            Flash::success('Medical Information deleted successfully.');
+
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Medical Information Cannot Delete. It has been used for other entity');
+            
+             }
+       
 
         return redirect(route('medicalInformations.index'));
     }

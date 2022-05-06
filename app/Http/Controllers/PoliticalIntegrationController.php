@@ -142,10 +142,22 @@ class PoliticalIntegrationController extends AppBaseController
             return redirect(route('politicalIntegrations.index'));
         }
 
-        $this->politicalIntegrationRepository->find($id)->forcedelete();
+        try{
+            
+            $this->politicalIntegrationRepository->find($id)->forcedelete();
 
-        Flash::success('Political Integration deleted successfully.');
+            Flash::success('Political Integration deleted successfully.');
+    
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Political Integration Cannot Delete. It has been used for other entity');
+            
+             }
 
+       
         return redirect(route('politicalIntegrations.index'));
     }
 }

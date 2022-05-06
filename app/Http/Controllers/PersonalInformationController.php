@@ -143,9 +143,20 @@ class PersonalInformationController extends AppBaseController
             return redirect(route('personalInformations.index'));
         }
 
-        $this->personalInformationRepository->find($id)->forcedelete();
+        try{
+            
+            $this->personalInformationRepository->find($id)->forcedelete();
 
-        Flash::success('Personal Information deleted successfully.');
+            Flash::success('Personal Information deleted successfully.');
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Personal Information Cannot Delete. It has been used for other entity');
+            
+             }
+       
 
         return redirect(route('personalInformations.index'));
     }

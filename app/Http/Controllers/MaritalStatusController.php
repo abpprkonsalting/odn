@@ -142,10 +142,22 @@ class MaritalStatusController extends AppBaseController
             return redirect(route('maritalStatuses.index'));
         }
 
-        $this->maritalStatusRepository->find($id)->forcedelete();
+        try{
+            
+            $this->maritalStatusRepository->find($id)->forcedelete();
 
-        Flash::success('Marital Status deleted successfully.');
+            Flash::success('Marital Status deleted successfully.');
 
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Marital Status Cannot Delete. It has been used for other entity');
+            
+             }
+
+        
         return redirect(route('maritalStatuses.index'));
     }
 }

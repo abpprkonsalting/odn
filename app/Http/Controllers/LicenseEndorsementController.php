@@ -161,9 +161,20 @@ class LicenseEndorsementController extends AppBaseController
             return redirect(route('licenseEndorsements.index'));
         }
 
-        $this->licenseEndorsementRepository->find($id)->forcedelete();
+        try{
+            
+            $this->licenseEndorsementRepository->find($id)->forcedelete();
 
-        Flash::success('License Endorsement deleted successfully.');
+            Flash::success('License Endorsement deleted successfully.');
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('License Endorsement Cannot Delete. It has been used for other entity');
+            
+             }
+       
 
         
         return redirect(route('licenseEndorsements.create', ['id' => $licenseEndorsement->personal_informations_id]));

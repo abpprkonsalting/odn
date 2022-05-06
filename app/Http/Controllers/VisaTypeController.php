@@ -142,9 +142,14 @@ class VisaTypeController extends AppBaseController
             return redirect(route('visaTypes.index'));
         }
 
-        $this->visaTypeRepository->find($id)->forcedelete();
+        
 
-        Flash::success('Visa Type deleted successfully.');
+            $this->visaTypeRepository->find($id)->forcedelete();
+
+            Flash::success('Visa Type deleted successfully.');
+    
+       
+       
 
         return redirect(route('visaTypes.index'));
     }

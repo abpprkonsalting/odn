@@ -162,9 +162,21 @@ class OtherSkillController extends AppBaseController
             return redirect(route('otherSkills.index'));
         }
 
-        $this->otherSkillRepository->find($id)->forcedelete();
+        try{
+            
+            $this->otherSkillRepository->find($id)->forcedelete();
 
-        Flash::success('Other Skill deleted successfully.');
+            Flash::success('Other Skill deleted successfully.');
+ 
+             }
+         catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::success('Other Skill Information Cannot Delete. It has been used for other entity');
+            
+             }
+
+        
 
        
         return redirect(route('otherSkills.create', ['id' => $otherSkill->personal_informations_id]));
