@@ -33,22 +33,25 @@
             <a href="{{ route('reportByCertifications.index') }}"><i class="fa fa-edit"></i><span>Mariners by certification</span></a>
         </li>
         <li class="{{ Request::is('reportbyRanks*') ? 'active' : '' }}">
-            <a href="{{ route('reportbyRanks.index') }}"><i class="fa fa-edit"></i><span>By Ranks</span></a>
+            <a href="{{ route('reportbyRanks.index') }}"><i class="fa fa-edit"></i><span>Mariners by rank</span></a>
         </li>
         <li class="{{ Request::is('onVacationsByCompany*') ? 'active' : '' }}">
-            <a href="{{ route('onVacationsByCompany.index') }}"><i class="fa fa-edit"></i><span>On Vacations By Company</span></a>
+            <a href="{{ route('onVacationsByCompany.index') }}"><i class="fa fa-edit"></i><span>Mariners on vacation<br> by company</span></a>
         </li>
         <li class="{{ Request::is('byStatusWithTimeInStatus*') ? 'active' : '' }}">
-            <a href="{{ route('byStatusWithTimeInStatus.index') }}"><i class="fa fa-edit"></i><span>By Status With Time In Status</span></a>
+            <a href="{{ route('byStatusWithTimeInStatus.index') }}"><i class="fa fa-edit"></i><span>Mariners by status with<br> time in status</span></a>
         </li>
         <li class="{{ Request::is('onBoardTime*') ? 'active' : '' }}">
-            <a href="{{ route('onBoardTime.index') }}"><i class="fa fa-edit"></i><span>On Board Time</span></a>
+            <a href="{{ route('onBoardTime.index') }}"><i class="fa fa-edit"></i><span>Mariners on board with time</span></a>
         </li>
         <li class="{{ Request::is('withExpiredCertification*') ? 'active' : '' }}">
-            <a href="{{ route('withExpiredCertification.index') }}"><i class="fa fa-edit"></i><span>With Expired Certification</span></a>
+            <a href="{{ route('withExpiredCertification.index') }}"><i class="fa fa-edit"></i><span>Mariners with expired <br>certification</span></a>
         </li>
         <li class="{{ Request::is('ranksByAges*') ? 'active' : '' }}">
-            <a href="{{ route('ranksByAges.index') }}"><i class="fa fa-edit"></i><span>Ranks By Ages</span></a>
+            <a href="{{ route('ranksByAges.index') }}"><i class="fa fa-edit"></i><span>Mariners by rank by ages</span></a>
+        </li>
+        <li class="{{ Request::is('reportDismissed*') ? 'active' : '' }}">
+            <a href="{{ route('reportDismissed.index') }}"><i class="fa fa-edit"></i><span>Mariners dismissed with reason</span></a>
         </li>
 
 
