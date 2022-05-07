@@ -46,7 +46,7 @@ class WithExpiredCertificationDataTable extends DataTable
                                     'expired' => $beforePosition !== false ? true : false,
                                     'full_name' => $item->personalInformation->full_name,
                                     'avatar' => $item->personalInformation->avatar,
-                                    'rank' => $item->personalInformation->operationalInformation->rank->name
+                                    'rank' => $item->personalInformation->operationalInformation?->rank->name
                                 ];
                             })->sortByDesc([
                                 ['course_number', 'asc'],
