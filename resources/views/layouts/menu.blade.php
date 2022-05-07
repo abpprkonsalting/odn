@@ -29,11 +29,11 @@
         <li class="{{ Request::is('withForeignLicenseByType*') ? 'active' : '' }}">
             <a href="{{ route('withForeignLicenseByType.index') }}"><i class="fa fa-edit"></i><span>Mariners with foreign license <br> by license type</span></a>
         </li>
-        <li class="{{ Request::is('byCertifications*') ? 'active' : '' }}">
-            <a href="{{ route('byCertifications.index') }}"><i class="fa fa-edit"></i><span>Mariners by certification</span></a>
+        <li class="{{ Request::is('reportByCertifications*') ? 'active' : '' }}">
+            <a href="{{ route('reportByCertifications.index') }}"><i class="fa fa-edit"></i><span>Mariners by certification</span></a>
         </li>
-        <li class="{{ Request::is('byRanks*') ? 'active' : '' }}">
-            <a href="{{ route('byRanks.index') }}"><i class="fa fa-edit"></i><span>By Ranks</span></a>
+        <li class="{{ Request::is('reportbyRanks*') ? 'active' : '' }}">
+            <a href="{{ route('reportbyRanks.index') }}"><i class="fa fa-edit"></i><span>By Ranks</span></a>
         </li>
         <li class="{{ Request::is('onVacationsByCompany*') ? 'active' : '' }}">
             <a href="{{ route('onVacationsByCompany.index') }}"><i class="fa fa-edit"></i><span>On Vacations By Company</span></a>
