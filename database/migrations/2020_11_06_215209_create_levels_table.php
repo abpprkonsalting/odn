@@ -20,6 +20,19 @@ class CreateLevelsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        // Insert some stuff
+        DB::table('levels')->insert([
+            array(
+                'name' => 'Low'
+            ),
+            array(
+                'name' => 'Midle'
+            ),
+            array(
+                'name' => 'High'
+            )
+        ]);
     }
 
     /**

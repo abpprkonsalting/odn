@@ -51,7 +51,10 @@
             <a href="{{ route('ranksByAges.index') }}"><i class="fa fa-edit"></i><span>Mariners by rank by ages</span></a>
         </li>
         <li class="{{ Request::is('reportDismissed*') ? 'active' : '' }}">
-            <a href="{{ route('reportDismissed.index') }}"><i class="fa fa-edit"></i><span>Mariners dismissed with reason</span></a>
+            <a href="{{ route('reportDismissed.index') }}"><i class="fa fa-edit"></i><span>Mariners dismissed<br> with reason</span></a>
+        </li>
+        <li class="{{ Request::is('reportByLanguageSkills*') ? 'active' : '' }}">
+            <a href="{{ route('reportByLanguageSkills.index') }}"><i class="fa fa-edit"></i><span>Mariners by language<br> skills</span></a>
         </li>
 
 
@@ -62,7 +65,7 @@
     <a href="{{ route('personalInformations.index') }}"><i class="fa fa-users"></i><span>Manage Persons</span></a>
 </li>
 <li class="{{ Request::is('configuration*') ? 'active' : '' }} treeview">
-    <a href="{{ route('levels.index') }}">
+    <a>
         <i class="fa fa-cog"></i>
         <span>Configuration</span>
         <span class="pull-right-container">
@@ -119,10 +122,6 @@
 
                 <li class="{{ Request::is('languageSkills*') ? 'active' : '' }}">
                     <a href="{{ route('languageSkills.index') }}"><i class="fa fa-edit"></i><span>Language Skills</span></a>
-                </li>
-
-                <li class="{{ Request::is('levels*') ? 'active' : '' }}">
-                    <a href="{{ route('levels.index') }}"><i class="fa fa-edit"></i><span>Levels</span></a>
                 </li>
 
                 <li class="{{ Request::is('licenseEndorsementNames*') ? 'active' : '' }}">

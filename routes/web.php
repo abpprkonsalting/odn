@@ -178,6 +178,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('withExpiredCertification', 'WithExpiredCertificationController')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::resource('reportDismissed', 'ReportDismissedController')->middleware('role_or_permission:Admin|personalInformation');
+
+    Route::resource('reportByLanguageSkills', 'ReportByLanguageSkillsController')->middleware('role_or_permission:Admin|personalInformation');
 }
 
 );
