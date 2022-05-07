@@ -27,7 +27,7 @@ class CreateLevelsTable extends Migration
                 'name' => 'Low'
             ),
             array(
-                'name' => 'Midle'
+                'name' => 'Middle'
             ),
             array(
                 'name' => 'High'
