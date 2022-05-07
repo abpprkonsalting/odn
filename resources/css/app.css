@@ -5,25 +5,36 @@
 .datatable-cell-color-red {
     background-color: red;
     color: white;
+    font-weight: 700;
 }
 
 .datatable-cell-color-yellow {
     background-color: yellow;
+    font-weight: 700;
 }
 
 .datatable-cell-color-green {
     background-color: limegreen;
+    font-weight: 700;
 }
 
 .language-skill-level-high {
     background-color: limegreen;
+    font-weight: 700;
 }
 
 .language-skill-level-middle {
     background-color: yellow;
+    font-weight: 700;
 }
 
 .language-skill-level-low {
     background-color: red;
     color: white;
+    font-weight: 700;
+}
+
+table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+    vertical-align: middle;
+    text-align: center;
 }

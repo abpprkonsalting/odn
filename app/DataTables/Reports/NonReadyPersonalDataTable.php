@@ -59,31 +59,31 @@ class NonReadyPersonalDataTable extends DataTable
         ->editColumn('passport_valid', function($data){
             $color = $data['passport_valid'] == false ? "red" : "green";
             $value = $data['passport_valid'] == false ? "NO" : "YES";
-            return "<div style=\"text-align: center;font-weight: 700;\" class=\"datatable-cell-color-"
+            return "<div class=\"datatable-cell-color-"
                     .$color."\">".$value."</div>";
         })
         ->editColumn('medical_informations_valid', function($data){
             $color = $data['medical_informations_valid'] == false ? "red" : "green";
             $value = $data['medical_informations_valid'] == false ? "NO" : "YES";
-            return "<div style=\"text-align: center;font-weight: 700;\" class=\"datatable-cell-color-"
+            return "<div class=\"datatable-cell-color-"
                     .$color."\">".$value."</div>";
         })
         ->editColumn('courses_valid', function($data){
             $color = $data['courses_valid'] == false ? "red" : "green";
             $value = $data['courses_valid'] == false ? "NO" : "YES";
-            return "<div style=\"text-align: center;font-weight: 700;\" class=\"datatable-cell-color-"
+            return "<div class=\"datatable-cell-color-"
                     .$color."\">".$value."</div>";
         })
         ->editColumn('licences_valid', function($data){
             $color = $data['licences_valid'] == false ? "red" : "green";
             $value = $data['licences_valid'] == false ? "NO" : "YES";
-            return "<div style=\"text-align: center;font-weight: 700;\" class=\"datatable-cell-color-"
+            return "<div class=\"datatable-cell-color-"
                     .$color."\">".$value."</div>";
         })
         ->editColumn('seamanbook_valid', function($data){
             $color = $data['seamanbook_valid'] == false ? "red" : "green";
             $value = $data['seamanbook_valid'] == false ? "NO" : "YES";
-            return "<div style=\"text-align: center;font-weight: 700;\" class=\"datatable-cell-color-"
+            return "<div class=\"datatable-cell-color-"
                     .$color."\">".$value."</div>";
         })
         ->rawColumns(
@@ -95,7 +95,8 @@ class NonReadyPersonalDataTable extends DataTable
                 'courses_valid',
                 'licences_valid',
                 'seamanbook_valid'
-            ]);
+            ]
+        );
     }
 
     /**
