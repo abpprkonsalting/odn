@@ -28,12 +28,23 @@ class ByLanguageSkillsDataTable extends DataTable
                                                     'level' => $item->level->name,
                                                     'full_name' => $item->personalInformation->full_name,
                                                     'avatar' => $item->personalInformation->avatar
+                                                ];})
+                                            ->groupBy(function ($item, $key) {
+                                                return $item['id']."-".$item['language'];
+                                            })
+                                            ->map(function($item,$key){
+                                                $first = $item->first();
+                                                $proficiency = [];
+                                                foreach ($item as $value) {
+                                                    $proficiency[$value['skill']] = $value['level'];
+                                                }
+                                                return [
+                                                    'language' => $first["language"],
+                                                    'name' => $first["full_name"],
+                                                    'avatar' => $first['avatar'],
+                                                    'proficiency' => $proficiency
                                                 ];
-                                            })->sortBy([
-                                                ['language','asc'],
-                                                ['skill','asc'],
-                                                ['level','asc']
-                                            ]);
+                                            });
         $dataTable = new CollectionDataTable($collection);
 
         return $dataTable->addColumn('avatar', function($data) {
@@ -42,7 +53,16 @@ class ByLanguageSkillsDataTable extends DataTable
                 $image = $data['avatar'];
             }
             return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
-        })->rawColumns(['avatar']);
+        })->editColumn('proficiency', function($data){
+            $keysColumn = "<div style=\"width: 50%;\">";
+            $valuesColumn = "<div style=\"width: 50%;\">";
+            foreach ($data['proficiency'] as $key => $value) {
+                $keysColumn .= "<div>".$key."</div>";
+                $valuesColumn .= "<div class=\"language-skill-level-".strtolower($value)."\">".$value."</div>";
+            }
+            return "<div style=\"display: flex;\">".$keysColumn."</div>".$valuesColumn."</div></div>";
+        })
+        ->rawColumns(['avatar','proficiency']);
     }
 
     /**
@@ -83,10 +103,9 @@ class ByLanguageSkillsDataTable extends DataTable
     {
         return [
             'language',
-            'skill',
-            'level',
+            'proficiency',
             'avatar',
-            'full_name'
+            'name'
         ];
     }
 

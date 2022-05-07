@@ -9,5 +9,17 @@
 
 .datatable-cell-color-yellow {
     background-color: yellow;
+}
 
+.language-skill-level-high {
+    background-color: limegreen;
+}
+
+.language-skill-level-midle {
+    background-color: yellow;
+}
+
+.language-skill-level-low {
+    background-color: red;
+    color: white;
 }
