@@ -36,9 +36,7 @@ class AddIsOnBoardToStatus extends Migration
                 'name' => 'Dismissed',
                 'code' => 'OV'
             )
-        ]
-    );
-
+        ]);
     }
 
     /**
