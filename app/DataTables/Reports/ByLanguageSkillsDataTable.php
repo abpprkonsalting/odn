@@ -58,7 +58,8 @@ class ByLanguageSkillsDataTable extends DataTable
             $valuesColumn = "<div style=\"width: 50%;\">";
             foreach ($data['proficiency'] as $key => $value) {
                 $keysColumn .= "<div>".$key."</div>";
-                $valuesColumn .= "<div class=\"language-skill-level-".strtolower($value)."\">".$value."</div>";
+                $classEnding = $value == "High" ? "green" : ($value == "Middle" ? "yellow" : "red");
+                $valuesColumn .= "<div class=\"datatable-cell-color-".$classEnding."\">".$value."</div>";
             }
             return "<div style=\"display: flex;\">".$keysColumn."</div>".$valuesColumn."</div></div>";
         })
