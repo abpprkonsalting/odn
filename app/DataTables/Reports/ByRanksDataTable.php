@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Reports;
 
 use App\Models\PersonalInformation;
 use App\Models\OperationalInformation;
@@ -10,7 +10,7 @@ use Yajra\DataTables\CollectionDataTable;
 
 use App\Models\Status;
 
-class RanksByAgesDataTable extends DataTable
+class ByRanksDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -20,31 +20,9 @@ class RanksByAgesDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $onBoardStatus = Status::where(['name' => "On Board"])->first();
-        $collection = OperationalInformation::with(['personalInformation','status','vessel.company','rank'])->get();
-        $filtered = $collection->filter(function ($value, $key) use ($onBoardStatus) {
-            return $value->status == $onBoardStatus;
-        });
-
-        $collection = $filtered->map(function ($item, $key) {
-            return [
-                'id' =>  $item->personalInformation->id,
-                'vessel' => $item->vessel->name,
-                'full_name' => $item->personalInformation->full_name,
-                'avatar' => $item->personalInformation->avatar,
-                'internal_file_number' => $item->personalInformation->internal_file_number,
-                'rank' => $item->rank->name
-            ];
-        });
+        $collection = collect([]);
         $dataTable = new CollectionDataTable($collection);
-
-        return $dataTable->addColumn('avatar', function($data) {
-            $image = "/img/default-image.png";
-            if($data['avatar'] != null && $data['avatar'] != "") {
-                $image = $data['avatar'];
-            }
-            return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
-        })->rawColumns(['avatar']);
+        return $dataTable;
     }
 
     /**

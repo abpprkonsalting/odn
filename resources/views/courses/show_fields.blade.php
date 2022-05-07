@@ -12,7 +12,7 @@
 
 <!-- Provinces Id Field -->
 <div class="form-group">
-    {!! Form::label('provinces_id', 'Provinces Id:') !!}
+    {!! Form::label('country_id', 'Country:') !!}
     <p>{{ $course->provinces_id }}</p>
 </div>
 

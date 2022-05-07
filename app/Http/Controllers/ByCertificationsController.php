@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\ByCertificationsDataTable;
+use App\DataTables\Reports\ByCertificationsDataTable;
 use App\Http\Controllers\AppBaseController;
 
 class ByCertificationsController extends AppBaseController
@@ -13,5 +13,5 @@ class ByCertificationsController extends AppBaseController
         return $byCertificationsDataTable->render('by_certifications.index');
     }
 
-   
+
 }
