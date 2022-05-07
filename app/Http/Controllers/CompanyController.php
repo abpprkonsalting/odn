@@ -148,29 +148,17 @@ class CompanyController extends AppBaseController
      */
     public function destroy($id)
     {
-        $company = $this->companyRepository->find($id);
-
-        if (empty($company)) {
-            Flash::error('Company not found');
-
-            return redirect(route('companies.index'));
-        }
-
-        try{
+        try {
 
             $this->companyRepository->find($id)->forcedelete();
-
             Flash::success('Company deleted successfully.');
 
-        }
-        catch(\Illuminate\Database\QueryException $ex){
-        
+        } catch (\Illuminate\Database\QueryException $ex) {
 
-            Flash::success('CompanyType Cannot Delete. It has been used for other entity');
-       
+            Flash::error('The company can not be deleted. Probably it\'s been used by other entity');
         }
-       
-
-        return redirect(route('companies.index'));
+        finally {
+            return redirect(route('companies.index'));
+        }
     }
 }
