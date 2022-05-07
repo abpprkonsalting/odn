@@ -11,11 +11,15 @@
     background-color: yellow;
 }
 
+.datatable-cell-color-green {
+    background-color: limegreen;
+}
+
 .language-skill-level-high {
     background-color: limegreen;
 }
 
-.language-skill-level-midle {
+.language-skill-level-middle {
     background-color: yellow;
 }
 
