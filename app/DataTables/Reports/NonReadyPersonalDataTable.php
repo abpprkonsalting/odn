@@ -56,7 +56,46 @@ class NonReadyPersonalDataTable extends DataTable
             }
             return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
         })->addColumn('action', 'personal_informations.datatables_edit_action')
-        ->rawColumns(['avatar', 'action']);
+        ->editColumn('passport_valid', function($data){
+            $color = $data['passport_valid'] == false ? "red" : "green";
+            $value = $data['passport_valid'] == false ? "NO" : "YES";
+            return "<div style=\"text-align: center;font-weight: 700;\" class=\"datatable-cell-color-"
+                    .$color."\">".$value."</div>";
+        })
+        ->editColumn('medical_informations_valid', function($data){
+            $color = $data['medical_informations_valid'] == false ? "red" : "green";
+            $value = $data['medical_informations_valid'] == false ? "NO" : "YES";
+            return "<div style=\"text-align: center;font-weight: 700;\" class=\"datatable-cell-color-"
+                    .$color."\">".$value."</div>";
+        })
+        ->editColumn('courses_valid', function($data){
+            $color = $data['courses_valid'] == false ? "red" : "green";
+            $value = $data['courses_valid'] == false ? "NO" : "YES";
+            return "<div style=\"text-align: center;font-weight: 700;\" class=\"datatable-cell-color-"
+                    .$color."\">".$value."</div>";
+        })
+        ->editColumn('licences_valid', function($data){
+            $color = $data['licences_valid'] == false ? "red" : "green";
+            $value = $data['licences_valid'] == false ? "NO" : "YES";
+            return "<div style=\"text-align: center;font-weight: 700;\" class=\"datatable-cell-color-"
+                    .$color."\">".$value."</div>";
+        })
+        ->editColumn('seamanbook_valid', function($data){
+            $color = $data['seamanbook_valid'] == false ? "red" : "green";
+            $value = $data['seamanbook_valid'] == false ? "NO" : "YES";
+            return "<div style=\"text-align: center;font-weight: 700;\" class=\"datatable-cell-color-"
+                    .$color."\">".$value."</div>";
+        })
+        ->rawColumns(
+            [
+                'avatar',
+                'action',
+                'passport_valid',
+                'medical_informations_valid',
+                'courses_valid',
+                'licences_valid',
+                'seamanbook_valid'
+            ]);
     }
 
     /**
