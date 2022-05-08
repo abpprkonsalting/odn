@@ -25,7 +25,7 @@ class ByCertificationsDataTable extends DataTable
                                     'course_number' => $item->courseNumber->name,
                                     'full_name' => $item->personalInformation->full_name,
                                     'avatar' => $item->personalInformation->avatar,
-                                    'rank' => $item->personalInformation->operationalInformation->rank->name
+                                    'rank' => $item->personalInformation->operationalInformation?->rank->name
                                 ];
                             })->sortByDesc([
                                 ['course_number','asc'],

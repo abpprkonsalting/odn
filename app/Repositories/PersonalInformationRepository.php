@@ -2,11 +2,15 @@
 
 namespace App\Repositories;
 
+use Illuminate\Container\Container as Application;
 use App\Models\PersonalInformation;
+use App\Models\Rank;
+use App\Models\Status;
 use App\Repositories\BaseRepository;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
+use App\Repositories\OperationalInformationRepository;
 
 /**
  * Class PersonalInformationRepository
@@ -48,6 +52,13 @@ class PersonalInformationRepository extends BaseRepository
         'avatar'
     ];
 
+    private $operationalInformationRepository;
+
+    public function __construct(Application $app, OperationalInformationRepository $operationalInformationRepository) {
+        parent::__construct($app);
+        $this->operationalInformationRepository = $operationalInformationRepository;
+    }
+
     /**
      * Return searchable fields
      *
@@ -66,8 +77,13 @@ class PersonalInformationRepository extends BaseRepository
         return PersonalInformation::class;
     }
 
-    public function createPersonalInformation(Request $request) 
-    { 
+    public function createPersonalInformation(Request $request)
+    {
+        $minimumRank = Rank::first();
+        if (empty($minimumRank)) {
+            throw new \Exception('Error: Before adding any mariner you should create at least one Rank.');
+        }
+
         $input = $request->all();
         $file = $request->file('avatar');
         if (!empty($file)) {
@@ -81,12 +97,23 @@ class PersonalInformationRepository extends BaseRepository
         } else {
             $input['avatar'] = env('DEFAULT_USER_IMAGE');
         }
-        
-        return $this->create($input);
+
+        $model = $this->create($input);
+
+        $now = Carbon::now()->format('d-m-Y');
+        $operationalInformationData = [
+            'personal_informations_id' => $model->id,
+            'disponibility_date' => $now,
+            'ranks_id' => $minimumRank->id,
+            'statuses_id' => Status::where('name','Non Ready')->first()->id
+        ];
+        $operationalInformation = $this->operationalInformationRepository->create($operationalInformationData);
+
+        return $model;
     }
 
-    public function updatePersonalInformation(Request $request, $id, $personalInformation) 
-    { 
+    public function updatePersonalInformation(Request $request, $id, $personalInformation)
+    {
         $input = $request->all();
         $file = $request->file('avatar');
         if (!empty($file)) {
@@ -105,7 +132,7 @@ class PersonalInformationRepository extends BaseRepository
         } else {
            unset($input['avatar']);
         }
-        
+
         return $this->update($input, $id);
     }
 }

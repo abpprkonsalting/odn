@@ -7,8 +7,11 @@ use App\Http\Requests;
 use App\Http\Requests\CreatePersonalInformationRequest;
 use App\Http\Requests\UpdatePersonalInformationRequest;
 use App\Repositories\PersonalInformationRepository;
+use App\Repositories\OperationalInformationRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\OperationalInformation;
+
 use Response;
 use PDF;
 
@@ -18,8 +21,7 @@ class PersonalInformationController extends AppBaseController
     /** @var  PersonalInformationRepository */
     private $personalInformationRepository;
 
-    public function __construct(PersonalInformationRepository $personalInformationRepo)
-    {
+    public function __construct( PersonalInformationRepository $personalInformationRepo) {
         $this->personalInformationRepository = $personalInformationRepo;
     }
 
@@ -53,11 +55,14 @@ class PersonalInformationController extends AppBaseController
      */
     public function store(CreatePersonalInformationRequest $request)
     {
-        $personalInformation = $this->personalInformationRepository->createPersonalInformation($request);
-
-        Flash::success('Personal Information saved successfully.');
-
-        return redirect(route('personalInformations.edit', $personalInformation->id));
+        try {
+            $personalInformation = $this->personalInformationRepository->createPersonalInformation($request);
+            Flash::success('Personal Information saved successfully.');
+            return redirect(route('personalInformations.edit', $personalInformation->id));
+        } catch (\Exception $ex) {
+            Flash::error($ex->getMessage());
+            return redirect(route('personalInformations.create'));
+        }
     }
 
     /**
@@ -73,7 +78,6 @@ class PersonalInformationController extends AppBaseController
 
         if (empty($personalInformation)) {
             Flash::error('Personal Information not found');
-
             return redirect(route('personalInformations.index'));
         }
 
@@ -90,14 +94,10 @@ class PersonalInformationController extends AppBaseController
     public function edit($id)
     {
         $personalInformation = $this->personalInformationRepository->find($id);
-
-
         if (empty($personalInformation)) {
             Flash::error('Personal Information not found');
-
             return redirect(route('personalInformations.index'));
         }
-
         return view('personal_informations.edit')->with('personalInformation', $personalInformation);
     }
 
@@ -143,20 +143,17 @@ class PersonalInformationController extends AppBaseController
             return redirect(route('personalInformations.index'));
         }
 
-        try{
-            
+        try {
+
             $this->personalInformationRepository->find($id)->forcedelete();
 
             Flash::success('Personal Information deleted successfully.');
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+        } catch (\Illuminate\Database\QueryException $ex) {
+
+
             Flash::success('Personal Information Cannot Delete. It has been used for other entity');
-            
-             }
-       
+        }
+
 
         return redirect(route('personalInformations.index'));
     }
@@ -172,33 +169,34 @@ class PersonalInformationController extends AppBaseController
     {
         $personalInformationModel = $this->personalInformationRepository->model();
         $personalInformation = $personalInformationModel::with(
-                        [
-                            'maritalStatus',
-                            'province', 
-                            'municipality', 
-                            'familyInformations', 
-                            'familyInformations.nextOfKind', 
-                            'familyInformations.familyStatus', 
-                            'familyInformations.province', 
-                            'familyInformations.municipality', 
-                            'passports', 
-                            'visas', 
-                            'visas.visaType', 
-                            'seamanBooks', 
-                            'personalMedicalInformations', 
-                            'personalMedicalInformations.medicalInformation', 
-                            'courses', 
-                            'courses.country', 
-                            'courses.courseNumber', 
-                            'otherSkills', 
-                            'shoreExperiencies', 
-                            'licenseEndorsements', 
-                            'licenseEndorsements.country', 
-                            'licenseEndorsements.licenseEndorsementType', 
-                            'licenseEndorsements.licenseEndorsementName', 
-                            'memos',
-                            'company'
-                        ])->find($id);
+            [
+                'maritalStatus',
+                'province',
+                'municipality',
+                'familyInformations',
+                'familyInformations.nextOfKind',
+                'familyInformations.familyStatus',
+                'familyInformations.province',
+                'familyInformations.municipality',
+                'passports',
+                'visas',
+                'visas.visaType',
+                'seamanBooks',
+                'personalMedicalInformations',
+                'personalMedicalInformations.medicalInformation',
+                'courses',
+                'courses.country',
+                'courses.courseNumber',
+                'otherSkills',
+                'shoreExperiencies',
+                'licenseEndorsements',
+                'licenseEndorsements.country',
+                'licenseEndorsements.licenseEndorsementType',
+                'licenseEndorsements.licenseEndorsementName',
+                'memos',
+                'company'
+            ]
+        )->find($id);
         $pdf = PDF::loadView('personal_informations.pdf', ['personalInformation' => $personalInformation]);
         return $pdf->download("{$personalInformation->id_number}.pdf");
     }

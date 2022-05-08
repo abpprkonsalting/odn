@@ -25,7 +25,7 @@ class ReadyByExperienceDataTable extends DataTable
         $collection = SeaGoingExperience::with(['personalInformation.operationalInformation.status', 'vessel.vesselType', 'rank'])
                                         ->get()
                                         ->filter(function ($value, $key) use ($readyStatus){
-                                            return $value->personalInformation->operationalInformation->status == $readyStatus;
+                                            return $value->personalInformation->operationalInformation?->status == $readyStatus;
                                         })
                                         ->map(function ($item, $key) {
                                             return [
