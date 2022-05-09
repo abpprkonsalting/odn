@@ -155,27 +155,27 @@ Route::middleware(['auth'])->group(function () {
         return "<h1>Migration successfully execute</h1>";
     })->middleware(['role_or_permission:Admin']);
 
-    Route::resource('nonReadyPersonal', 'NonReadyPersonalController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('reportNonReadyPersonal', 'ReportNonReadyPersonalController')->middleware('role_or_permission:Admin|personalInformation');
 
-    Route::resource('onBoardByVessel', 'OnBoardByVesselController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('reportOnBoardByVessel', 'ReportOnBoardByVesselController')->middleware('role_or_permission:Admin|personalInformation');
 
-    Route::resource('readyByExperience', 'ReadyByExperienceController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('reportReadyByExperience', 'ReportReadyByExperienceController')->middleware('role_or_permission:Admin|personalInformation');
 
-    Route::resource('withForeignLicenseByType', 'WithForeignLicenseByTypeController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('reportWithForeignLicenseByType', 'ReportWithForeignLicenseByTypeController')->middleware('role_or_permission:Admin|personalInformation');
 
-    Route::resource('ranksByAges', 'RanksByAgesController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('reportRanksByAges', 'ReportRanksByAgesController')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::resource('reportByCertifications', 'ReportByCertificationsController')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::resource('reportbyRanks', 'ReportByRanksController')->middleware('role_or_permission:Admin|personalInformation');
 
-    Route::resource('onVacationsByCompany', 'OnVacationsByCompanyController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('reportOnVacationsByCompany', 'ReportOnVacationsByCompanyController')->middleware('role_or_permission:Admin|personalInformation');
 
-    Route::resource('byStatusWithTimeInStatus', 'ByStatusWithTimeInStatusController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('reportByStatusWithTimeInStatus', 'ReportByStatusWithTimeInStatusController')->middleware('role_or_permission:Admin|personalInformation');
 
-    Route::resource('onBoardTime', 'OnBoardTimeController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('reportOnBoardTime', 'ReportOnBoardTimeController')->middleware('role_or_permission:Admin|personalInformation');
 
-    Route::resource('withExpiredCertification', 'WithExpiredCertificationController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::resource('reportWithExpiredCertification', 'ReportWithExpiredCertificationController')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::resource('reportDismissed', 'ReportDismissedController')->middleware('role_or_permission:Admin|personalInformation');
 

@@ -134,13 +134,7 @@ class FlagController extends AppBaseController
      */
     public function destroy($id)
     {
-        $flag = $this->flagRepository->find($id);
-
-        if (empty($flag)) {
-            Flash::error('Flag not found');
-
-            return redirect(route('flags.index'));
-        }
+       
 
         try{
             
@@ -152,11 +146,14 @@ class FlagController extends AppBaseController
             catch(\Illuminate\Database\QueryException $ex){
             
     
-                Flash::success('Flag  Cannot Delete. It has been used for other entity');
+                Flash::error('The Flag can not be deleted. Probably it\'s been used by other entity');
            
+            }
+            finally{
+                return redirect(route('flags.index'));
             }
 
 
-        return redirect(route('flags.index'));
+        
     }
 }

@@ -161,14 +161,7 @@ class LanguageInformationController extends Controller
      */
     public function destroy($id)
     {
-        $languageInformation = $this->languageInformationRepository->find($id);
-
-        if (empty($languageInformation)) {
-            Flash::error('Language Information not found');
-
-            return redirect(route('languageInformations.index'));
-        }
-
+        
         try{
             
             $this->languageInformationRepository->find($id)->forcedelete();
@@ -179,12 +172,16 @@ class LanguageInformationController extends Controller
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Language Information Cannot Delete. It has been used for other entity');
+            Flash::error('The Language Information can not be deleted. Probably it\'s been used by other entity');
             
+             }
+         finally{
+            return redirect(route('languageInformations.create', ['id' => $languageInformation->personal_informations_id]));
+
              }
       
 
-        return redirect(route('languageInformations.create', ['id' => $languageInformation->personal_informations_id]));
+        
     }
 
     public function getPersonalInformationLanguage($id)

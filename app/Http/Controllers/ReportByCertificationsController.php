@@ -10,7 +10,7 @@ class ReportByCertificationsController extends AppBaseController
 
     public function index(ByCertificationsDataTable $byCertificationsDataTable)
     {
-        return $byCertificationsDataTable->render('by_certifications.index');
+        return $byCertificationsDataTable->render('report_by_certifications.index');
     }
 
 }

@@ -134,14 +134,7 @@ class EyesColorController extends AppBaseController
      */
     public function destroy($id)
     {
-        $eyesColor = $this->eyesColorRepository->find($id);
-
-        if (empty($eyesColor)) {
-            Flash::error('Eyes Color not found');
-
-            return redirect(route('eyesColors.index'));
-        }
-
+       
         try{
         $this->eyesColorRepository->find($id)->forcedelete();
 
@@ -150,10 +143,14 @@ class EyesColorController extends AppBaseController
         catch(\Illuminate\Database\QueryException $ex){
         
 
-            Flash::success('EyesColor Cannot Delete. It has been used for other entity');
+            Flash::error('The EyesColor can not be deleted. Probably it\'s been used by other entity');
        
         }
+        finally{
 
-        return redirect(route('eyesColors.index'));
+            return redirect(route('eyesColors.index'));
+        }
+
+        
     }
 }

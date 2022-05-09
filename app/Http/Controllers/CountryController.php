@@ -134,13 +134,7 @@ class CountryController extends AppBaseController
      */
     public function destroy($id)
     {
-        $country = $this->countryRepository->find($id);
-
-        if (empty($country)) {
-            Flash::error('Country not found');
-
-            return redirect(route('countries.index'));
-        }
+       
 
         try{
 
@@ -150,10 +144,13 @@ class CountryController extends AppBaseController
         }
         catch(\Illuminate\Database\QueryException $ex){
 
-            Flash::success('Visa Type Cannot Delete. It has been used for other entity');
+            Flash::error('The Country can not be deleted. Probably it\'s been used by other entity');
+        }
+        finally{
+
+            return redirect(route('countries.index'));
         }
 
-
-        return redirect(route('countries.index'));
+        
     }
 }

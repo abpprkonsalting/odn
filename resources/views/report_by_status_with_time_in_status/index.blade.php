@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Mariners by Ranks</h1>
+        <h1 class="pull-left">Seafarers by status with time in status</h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -12,11 +12,11 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                @include('by_ranks.table')
+                @include('report_by_status_with_time_in_status.table')
             </div>
         </div>
         <div class="text-center">
-        
+
         </div>
     </div>
 @endsection

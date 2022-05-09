@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Mariners with expired certification</h1>
+        <h1 class="pull-left">Seafarers by ranks and ages</h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -12,7 +12,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                @include('with_expired_certification.table')
+                @include('report_ranks_by_ages.table')
             </div>
         </div>
         <div class="text-center">

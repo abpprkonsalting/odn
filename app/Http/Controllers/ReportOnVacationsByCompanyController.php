@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\DataTables\Reports\OnVacationsByCompanyDataTable;
 use App\Http\Controllers\AppBaseController;
 
-class OnVacationsByCompanyController extends AppBaseController
+class ReportOnVacationsByCompanyController extends AppBaseController
 {
 
     public function index(OnVacationsByCompanyDataTable $onVacationsByCompanyDataTable)
     {
-        return $onVacationsByCompanyDataTable->render('onvacations_by_company.index');
+        return $onVacationsByCompanyDataTable->render('report_onvacations_by_company.index');
     }
 }

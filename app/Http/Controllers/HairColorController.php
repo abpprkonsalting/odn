@@ -134,14 +134,7 @@ class HairColorController extends AppBaseController
      */
     public function destroy($id)
     {
-        $hairColor = $this->hairColorRepository->find($id);
-
-        if (empty($hairColor)) {
-            Flash::error('Hair Color not found');
-
-            return redirect(route('hairColors.index'));
-        }
-
+      
         try{
             
             $this->hairColorRepository->find($id)->forcedelete();
@@ -152,12 +145,15 @@ class HairColorController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Hair Color  Cannot Delete. It has been used for other entity');
+            Flash::error('The Hair Color can not be deleted. Probably it\'s been used by other entity');
             
+             }
+             finally{
+                return redirect(route('hairColors.index'));
              }
 
         
 
-        return redirect(route('hairColors.index'));
+        
     }
 }

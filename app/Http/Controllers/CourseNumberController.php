@@ -134,13 +134,7 @@ class CourseNumberController extends AppBaseController
      */
     public function destroy($id)
     {
-        $courseNumber = $this->courseNumberRepository->find($id);
-
-        if (empty($courseNumber)) {
-            Flash::error('Course Number not found');
-
-            return redirect(route('courseNumbers.index'));
-        }
+        
 
        try{
         $this->courseNumberRepository->find($id)->forcedelete();
@@ -150,10 +144,14 @@ class CourseNumberController extends AppBaseController
         catch(\Illuminate\Database\QueryException $ex){
         
 
-            Flash::success('Course Number Cannot Delete. It has been used for other entity');
+            Flash::error('Course Number can not be deleted. Probably it\'s been used by other entity');
        
         }
+        finally{
 
-        return redirect(route('courseNumbers.index'));
+            return redirect(route('courseNumbers.index'));
+        }
+
+       
     }
 }
