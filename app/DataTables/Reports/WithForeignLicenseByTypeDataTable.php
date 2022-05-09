@@ -20,29 +20,36 @@ class WithForeignLicenseByTypeDataTable extends DataTable
     public function dataTable($query)
     {
 
-        $cubaCountryId = Country::where(['name' => "Cuba"])->first()->id;
-        $collection = LicenseEndorsement::with(['personalInformation','country','licenseEndorsementType'])
-                                        ->whereNotIn('countries_id',[$cubaCountryId])
-                                        ->get()
-                                        ->map(function ($item, $key) {
-                                            return [
-                                                'id' =>  $item->personalInformation->id,
-                                                'country' => $item->country->name,
-                                                'license_type' => $item->licenseEndorsementType->name,
-                                                'avatar' => $item->personalInformation->avatar,
-                                                'full_name' => $item->personalInformation->full_name
-                                            ];
-                                        });
+        $cubaCountry = Country::where(['name' => "Cuba"])->first();
+        if (!empty($cubaCountry)) {
+            $cubaCountryId = $cubaCountry->id;
+            $collection = LicenseEndorsement::with(['personalInformation', 'country', 'licenseEndorsementType'])
+                ->whereNotIn('countries_id', [$cubaCountryId])
+                ->get()
+                ->map(function ($item, $key) {
+                    return [
+                        'id' =>  $item->personalInformation->id,
+                        'country' => $item->country->name,
+                        'license_type' => $item->licenseEndorsementType->name,
+                        'expiration' => $item->expiry_date,
+                        'avatar' => $item->personalInformation->avatar,
+                        'full_name' => $item->personalInformation->full_name
+                    ];
+                });
 
+            $dataTable = new CollectionDataTable($collection);
+            return $dataTable->addColumn('avatar', function ($data) {
+                $image = "/img/default-image.png";
+                if ($data['avatar'] != null && $data['avatar'] != "") {
+                    $image = $data['avatar'];
+                }
+                return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
+            })->addColumn('action', 'personal_informations.datatables_edit_action')
+                ->rawColumns(['avatar', 'action']);
+        }
+        $collection = collect([]);
         $dataTable = new CollectionDataTable($collection);
-        return $dataTable->addColumn('avatar', function($data) {
-            $image = "/img/default-image.png";
-            if($data['avatar'] != null && $data['avatar'] != "") {
-                $image = $data['avatar'];
-            }
-            return "<img class='thumbnail' src='" . $image . "' width='100px' height='auto'/>";
-        })->addColumn('action', 'personal_informations.datatables_edit_action')
-        ->rawColumns(['avatar', 'action']);
+        return $dataTable;
     }
 
     /**
@@ -85,7 +92,8 @@ class WithForeignLicenseByTypeDataTable extends DataTable
             'avatar',
             'full_name',
             'country',
-            'license_type'
+            'license_type',
+            'expiration'
         ];
     }
 
