@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use App\Models\Status;
 
 class ReadyByExperienceDataTable extends DataTable
@@ -42,13 +43,15 @@ class ReadyByExperienceDataTable extends DataTable
                                         })
                                         ->map(function ($item, $key) {
                                             $first = $item->first();
+                                            $experience = new CarbonInterval(0,0,0,$item->sum('experience'));
+                                            $experienceForHumans = $experience->forHumans();
                                             return collect([
                                                 'id' =>     $first["id"],
                                                 'rank' =>    $first["rank"],
                                                 'vessel_type' =>  $first["vessel_type"],
                                                 'full_name' =>   $first["full_name"],
                                                 'avatar' =>   $first["avatar"],
-                                                'experience' =>  $item->sum('experience')
+                                                'experience' =>  $experienceForHumans
                                             ]);
                                         })
                                         ->sortBy([
