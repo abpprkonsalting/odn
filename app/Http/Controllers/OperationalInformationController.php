@@ -8,11 +8,13 @@ use App\Http\Requests\CreateOperationalInformationRequest;
 use App\Http\Requests\UpdateOperationalInformationRequest;
 use App\Repositories\OperationalInformationRepository;
 use App\Repositories\PersonalInformationRepository;
+use App\Repositories\SeaGoingExperienceRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 use App\Models\Status;
 use App\Services\StatusService;
+use Illuminate\Support\Carbon;
 
 class OperationalInformationController extends AppBaseController
 {
@@ -20,16 +22,20 @@ class OperationalInformationController extends AppBaseController
     private $operationalInformationRepository;
     /** @var  PersonalInformationRepository */
     private $personalInformationRepository;
+    /** @var  SeaGoingExperienceRepository */
+    private $seaGoingExperienceRepository;
 
     private $statusService;
 
     public function __construct(OperationalInformationRepository $operationalInformationRepo,
                                 PersonalInformationRepository $personalInformationRepo,
-                                StatusService $statusService)
+                                StatusService $statusService,
+                                SeaGoingExperienceRepository $seaGoingExperienceRepository)
     {
         $this->operationalInformationRepository = $operationalInformationRepo;
         $this->personalInformationRepository = $personalInformationRepo;
         $this->statusService = $statusService;
+        $this->seaGoingExperienceRepository = $seaGoingExperienceRepository;
     }
 
     /**
@@ -126,11 +132,10 @@ class OperationalInformationController extends AppBaseController
 
         if (empty($operationalInformation)) {
             Flash::error('Operational Information not found');
-
             return redirect(route('operationalInformations.index'));
         }
         $previousStatusId = $operationalInformation->statuses_id;
-        $personalInformation = $this->personalInformationRepository->find($id);
+        $personalInformation = $operationalInformation->personalInformation()->first();
         $realStatusReport = $this->statusService->checkPersonalInformationStatus($personalInformation,true);
 
         $reqAttribs = $request->all();
@@ -142,6 +147,7 @@ class OperationalInformationController extends AppBaseController
             $operationalInformation->save();
             return redirect(route('operationalInformations.edit', $operationalInformation->personal_informations_id));
         }
+        $this->createSeaGoingExperience($operationalInformation,$reqAttribs);
         $operationalInformation = $this->operationalInformationRepository->update($reqAttribs, $id);
         Flash::message('Operational Information updated successfully.');
         return redirect(route('operationalInformations.edit', $operationalInformation->personal_informations_id));
@@ -165,19 +171,19 @@ class OperationalInformationController extends AppBaseController
         }
 
         try{
-            
+
             $this->operationalInformationRepository->find($id)->forcedelete();
 
             Flash::success('Operational Information deleted successfully.');
- 
+
              }
          catch(\Illuminate\Database\QueryException $ex){
-             
-     
+
+
             Flash::success('Operational Information Cannot Delete. It has been used for other entity');
-            
+
              }
-       
+
 
         return redirect(route('operationalInformations.index'));
     }
@@ -263,5 +269,23 @@ class OperationalInformationController extends AppBaseController
                 break;
         }
         return true;
+    }
+
+    private function createSeaGoingExperience($operationalInformation,$reqAttribs) {
+
+        $onBoardStatusId = Status::where(['name' => "On Board"])->first()->id;
+        $previousStatusId = $operationalInformation->status()->first()->id;
+
+        if ($reqAttribs['statuses_id'] != $previousStatusId && $previousStatusId == $onBoardStatusId) {
+            $newSeaGoingExperience = [];
+            $newSeaGoingExperience['personal_information_id'] = $operationalInformation->personal_informations_id;
+            $newSeaGoingExperience['rank_id'] = $operationalInformation->ranks_id;
+            $newSeaGoingExperience['vessel_id'] = $operationalInformation->vessel_id;
+            $newSeaGoingExperience['start_date'] = Carbon::createFromFormat('d-m-Y', $operationalInformation->disponibility_date)->format('Y-m-d');
+            $newSeaGoingExperience['end_date'] = Carbon::createFromFormat('d-m-Y', $reqAttribs['disponibility_date'])->subRealDay()->format('Y-m-d');
+            $newSeaGoingExperience['status_id'] = $operationalInformation->statuses_id;
+            $seaGoingExperience = $this->seaGoingExperienceRepository->create($newSeaGoingExperience);
+            Flash::success('Sea going experience created successfully.');
+        }
     }
 }

@@ -56,22 +56,23 @@ class OperationalInformationObsever
      */
     public function updating(OperationalInformation $operationalInformation)
     {
-        $onBoardStatus = Status::where(['name' => "On Board"])->first();
-        $status = $operationalInformation->status()->first();
-        $operationalInformationId = $operationalInformation->id;
-        $previousOI = $this->operationalInformationRepository->find($operationalInformationId);
-        $previousStatus = $previousOI->status()->first();
-        if ($status != $previousStatus && $previousStatus == $onBoardStatus) {
-            $newSeaGoingExperience = [];
-            $newSeaGoingExperience['personal_information_id'] = $previousOI->personal_informations_id;
-            $newSeaGoingExperience['rank_id'] = $previousOI->ranks_id;
-            $newSeaGoingExperience['vessel_id'] = $previousOI->vessel_id;
-            $newSeaGoingExperience['start_date'] = Carbon::createFromFormat('d-m-Y', $previousOI->disponibility_date)->format('Y-m-d');
-            $newSeaGoingExperience['end_date'] = Carbon::createFromFormat('d-m-Y', $operationalInformation->disponibility_date)->subRealDay()->format('Y-m-d');
-            $newSeaGoingExperience['status_id'] = $previousOI->statuses_id;
-            $seaGoingExperience = $this->seaGoingExperienceRepository->create($newSeaGoingExperience);
-            Flash::success('Sea going experience created successfully.');
-        }
+        // $onBoardStatus = Status::where(['name' => "On Board"])->first();
+        // $status = $operationalInformation->status()->first();
+        // $operationalInformationId = $operationalInformation->id;
+        // $disponibility_date = $operationalInformation->disponibility_date;
+        // $previousOI = $this->operationalInformationRepository->find($operationalInformationId);
+        // $previousStatus = $previousOI->status()->first();
+        // if ($status != $previousStatus && $previousStatus == $onBoardStatus) {
+        //     $newSeaGoingExperience = [];
+        //     $newSeaGoingExperience['personal_information_id'] = $previousOI->personal_informations_id;
+        //     $newSeaGoingExperience['rank_id'] = $previousOI->ranks_id;
+        //     $newSeaGoingExperience['vessel_id'] = $previousOI->vessel_id;
+        //     $newSeaGoingExperience['start_date'] = Carbon::createFromFormat('d-m-Y', $previousOI->disponibility_date)->format('Y-m-d');
+        //     $newSeaGoingExperience['end_date'] = Carbon::createFromFormat('d-m-Y', $disponibility_date)->subRealDay()->format('Y-m-d');
+        //     $newSeaGoingExperience['status_id'] = $previousOI->statuses_id;
+        //     $seaGoingExperience = $this->seaGoingExperienceRepository->create($newSeaGoingExperience);
+        //     Flash::success('Sea going experience created successfully.');
+        // }
     }
 
     /**
