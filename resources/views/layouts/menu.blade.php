@@ -23,7 +23,7 @@
         </li>
 
         <li class="{{ Request::is('reportReadyByExperience*') ? 'active' : '' }}">
-            <a href="{{ route('reportReadyByExperience.index') }}"><i class="fa fa-edit"></i><span>Seafarers ready by experience</span></a>
+            <a href="{{ route('reportReadyByExperience.index') }}"><i class="fa fa-edit"></i><span>Seafarers ready by <br>experience in vessel type</span></a>
         </li>
 
         <li class="{{ Request::is('reportWithForeignLicenseByType*') ? 'active' : '' }}">
@@ -60,7 +60,7 @@
             <a href="{{ route('reportSeafarersVisas.index') }}"><i class="fa fa-edit"></i><span>Seafarers Visas</span></a>
         </li>
         <li class="{{ Request::is('reportSeafarersByEngineType*') ? 'active' : '' }}">
-            <a href="{{ route('reportSeafarersByEngineType.index') }}"><i class="fa fa-edit"></i><span>Seafarers by engine type</span></a>
+            <a href="{{ route('reportSeafarersByEngineType.index') }}"><i class="fa fa-edit"></i><span>Seafarers by experience <br> in engine type</span></a>
         </li>
 
     </ul>
