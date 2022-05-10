@@ -142,12 +142,7 @@ class VisaController extends AppBaseController
      */
     public function destroy($id)
     {
-        $visa = $this->visaRepository->find($id);
-
-        if (empty($visa)) {
-            Flash::error('Visa not found');
-            return redirect(route('visas.index'));
-        }
+        
 
         try{
             
@@ -160,11 +155,15 @@ class VisaController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Visa Cannot Delete. It has been used for other entity');
+            Flash::error('The Visa can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('visas.create', ['id' => $visa->personalInformationId()]));
+
+        }     
       
-        return redirect(route('visas.create', ['id' => $visa->personalInformationId()]));
+        
     }
 
     public function getPersonalInformationVisa($id)

@@ -134,13 +134,7 @@ class RankController extends AppBaseController
      */
     public function destroy($id)
     {
-        $rank = $this->rankRepository->find($id);
-
-        if (empty($rank)) {
-            Flash::error('Rank not found');
-
-            return redirect(route('ranks.index'));
-        }
+      
 
         try{
             
@@ -154,12 +148,15 @@ class RankController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Rank Cannot Delete. It has been used for other entity');
+            Flash::error('The Rank can not be deleted. Probably it\'s been used by other entity');
             
              }
+         finally{
+            return redirect(route('ranks.index'));
+         }    
 
        
 
-        return redirect(route('ranks.index'));
+        
     }
 }

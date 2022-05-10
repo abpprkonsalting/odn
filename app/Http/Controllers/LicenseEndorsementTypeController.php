@@ -134,13 +134,7 @@ class LicenseEndorsementTypeController extends AppBaseController
      */
     public function destroy($id)
     {
-        $licenseEndorsementType = $this->licenseEndorsementTypeRepository->find($id);
-
-        if (empty($licenseEndorsementType)) {
-            Flash::error('License Endorsement Type not found');
-
-            return redirect(route('licenseEndorsementTypes.index'));
-        }
+        
 
         try{
             
@@ -152,12 +146,14 @@ class LicenseEndorsementTypeController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('License Endorsement Type Cannot Delete. It has been used for other entity');
+            Flash::error('The License Endorsement Type can not be deleted. Probably it\'s been used by other entity');
             
              }
-
+        finally{
+            return redirect(route('licenseEndorsementTypes.index'));
+        }
        
 
-        return redirect(route('licenseEndorsementTypes.index'));
+        
     }
 }

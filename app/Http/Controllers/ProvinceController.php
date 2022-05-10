@@ -150,13 +150,7 @@ class ProvinceController extends AppBaseController
      */
     public function destroy($id)
     {
-        $province = $this->provinceRepository->find($id);
-
-        if (empty($province)) {
-            Flash::error('Province not found');
-
-            return redirect(route('provinces.index'));
-        }
+       
 
         try{
             
@@ -170,11 +164,14 @@ class ProvinceController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Province Cannot Delete. It has been used for other entity');
+            Flash::error('The Province can not be deleted. Probably it\'s been used by other entity');
             
              }
+         finally{
+            return redirect(route('provinces.index'));
+         }    
 
         
-        return redirect(route('provinces.index'));
+        
     }
 }

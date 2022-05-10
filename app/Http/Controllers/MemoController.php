@@ -152,14 +152,7 @@ class MemoController extends AppBaseController
      */
     public function destroy($id)
     {
-        $memo = $this->memoRepository->find($id);
-
-        if (empty($memo)) {
-            Flash::error('Memo not found');
-
-            return redirect(route('personalInformation.index'));
-        }
-
+       
         try{
             
             $this->memoRepository->find($id)->forcedelete();
@@ -171,13 +164,17 @@ class MemoController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Memo Cannot Delete. It has been used for other entity');
+            Flash::error('The Memo can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('memos.create', [ 'id' => $memo->personal_informations_id ])); 
+
+        }     
 
         
 
-        return redirect(route('memos.create', [ 'id' => $memo->personal_informations_id ]));
+        
     }
 
     /**

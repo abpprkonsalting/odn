@@ -134,13 +134,7 @@ class LevelController extends AppBaseController
      */
     public function destroy($id)
     {
-        $level = $this->levelRepository->find($id);
-
-        if (empty($level)) {
-            Flash::error('Level not found');
-
-            return redirect(route('levels.index'));
-        }
+        
 
         try{
             
@@ -152,12 +146,16 @@ class LevelController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Level Cannot Delete. It has been used for other entity');
+            Flash::error('The Level can not be deleted. Probably it\'s been used by other entity');
             
              }
+         finally{
+            return redirect(route('levels.index')); 
+
+         }    
 
        
 
-        return redirect(route('levels.index'));
+        
     }
 }

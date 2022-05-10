@@ -155,13 +155,7 @@ class SeamanBookController extends AppBaseController
      */
     public function destroy($id)
     {
-        $seamanBook = $this->seamanBookRepository->find($id);
-
-        if (empty($seamanBook)) {
-            Flash::error('Seaman Book not found');
-
-            return redirect(route('seamanBooks.index'));
-        }
+        
 
         try{
             
@@ -174,13 +168,16 @@ class SeamanBookController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Seaman Book Cannot Delete. It has been used for other entity');
+            Flash::error('The Seaman Book can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('seamanBooks.create', ['id' => $seamanBook->personal_informations_id]));
+
+        }     
 
        
         
-        return redirect(route('seamanBooks.create', ['id' => $seamanBook->personal_informations_id]));
     }
 
       /**

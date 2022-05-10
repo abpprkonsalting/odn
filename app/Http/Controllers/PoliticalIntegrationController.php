@@ -134,13 +134,7 @@ class PoliticalIntegrationController extends AppBaseController
      */
     public function destroy($id)
     {
-        $politicalIntegration = $this->politicalIntegrationRepository->find($id);
-
-        if (empty($politicalIntegration)) {
-            Flash::error('Political Integration not found');
-
-            return redirect(route('politicalIntegrations.index'));
-        }
+        
 
         try{
             
@@ -153,11 +147,14 @@ class PoliticalIntegrationController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Political Integration Cannot Delete. It has been used for other entity');
+            Flash::error('The Political Integration can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('politicalIntegrations.index'));
+        }     
 
        
-        return redirect(route('politicalIntegrations.index'));
+        
     }
 }

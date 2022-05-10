@@ -134,13 +134,7 @@ class NextOfKinController extends AppBaseController
      */
     public function destroy($id)
     {
-        $nextOfKin = $this->nextOfKinRepository->find($id);
-
-        if (empty($nextOfKin)) {
-            Flash::error('Next Of Kin not found');
-
-            return redirect(route('nextOfKins.index'));
-        }
+       
 
         try{
             
@@ -153,11 +147,16 @@ class NextOfKinController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Next Of Kin Cannot Delete. It has been used for other entity');
+            Flash::error('The Next Of Kin can not be deleted. Probably it\'s been used by other entity');
             
              }
 
+         finally{
+            return redirect(route('nextOfKins.index'));
+
+         }    
+
        
-        return redirect(route('nextOfKins.index'));
+        
     }
 }

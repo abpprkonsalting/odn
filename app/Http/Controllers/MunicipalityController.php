@@ -134,13 +134,7 @@ class MunicipalityController extends AppBaseController
      */
     public function destroy($id)
     {
-        $municipality = $this->municipalityRepository->find($id);
-
-        if (empty($municipality)) {
-            Flash::error('Municipality not found');
-
-            return redirect(route('municipalities.index'));
-        }
+      
 
         try{
             
@@ -153,12 +147,16 @@ class MunicipalityController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Municipality Cannot Delete. It has been used for other entity');
+            Flash::error('The Municipality can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('municipalities.index'));
+
+        }     
 
         
 
-        return redirect(route('municipalities.index'));
+        
     }
 }

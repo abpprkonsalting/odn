@@ -134,14 +134,7 @@ class VesselTypeController extends AppBaseController
      */
     public function destroy($id)
     {
-        $vesselType = $this->vesselTypeRepository->find($id);
-
-        if (empty($vesselType)) {
-            Flash::error('Vessel Type not found');
-
-            return redirect(route('vesselTypes.index'));
-        }
-
+       
         try{
             
             $this->vesselTypeRepository->find($id)->forcedelete();
@@ -155,12 +148,16 @@ class VesselTypeController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Vessel Type Cannot Delete. It has been used for other entity');
+            Flash::error('The Vessel Type can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('vesselTypes.index'));
+
+        }     
 
        
 
-        return redirect(route('vesselTypes.index'));
+       
     }
 }

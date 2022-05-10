@@ -128,13 +128,7 @@ class StatusController extends AppBaseController
      */
     public function destroy($id)
     {
-        $status = $this->statusRepository->find($id);
-
-        if (empty($status)) {
-            Flash::error('Status not found');
-
-            return redirect(route('statuses.index'));
-        }
+        
 
         try{
             
@@ -149,13 +143,17 @@ class StatusController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Status Cannot Delete. It has been used for other entity');
+            Flash::error('The Status can not be deleted. Probably it\'s been used by other entity');
             
              }
+         finally{
+            return redirect(route('statuses.index'));
+
+         }    
 
 
         
 
-        return redirect(route('statuses.index'));
+        
     }
 }

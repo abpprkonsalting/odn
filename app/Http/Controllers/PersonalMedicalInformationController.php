@@ -150,14 +150,7 @@ class PersonalMedicalInformationController extends AppBaseController
      */
     public function destroy($id)
     {
-        $personalMedicalInformation = $this->personalMedicalInformationRepository->find($id);
-        
-
-        if (empty($personalMedicalInformation)) {
-            Flash::error('Personal Medical Information not found');
-
-            return redirect(route('personalInformation.index'));
-        }
+       
 
         try{
             
@@ -170,12 +163,15 @@ class PersonalMedicalInformationController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Personal Medical Information Cannot Delete. It has been used for other entity');
+            Flash::error('The Personal Medical Information can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('personalMedicalInformations.create', ['id' => $personalMedicalInformation->personal_informations_id]));
+        }     
 
         
-        return redirect(route('personalMedicalInformations.create', ['id' => $personalMedicalInformation->personal_informations_id]));
+        
     }
 
     

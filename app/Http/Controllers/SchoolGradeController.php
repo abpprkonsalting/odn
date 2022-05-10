@@ -134,13 +134,7 @@ class SchoolGradeController extends AppBaseController
      */
     public function destroy($id)
     {
-        $schoolGrade = $this->schoolGradeRepository->find($id);
-
-        if (empty($schoolGrade)) {
-            Flash::error('School Grade not found');
-
-            return redirect(route('schoolGrades.index'));
-        }
+       
 
         try{
             
@@ -153,12 +147,16 @@ class SchoolGradeController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('School Grade Cannot Delete. It has been used for other entity');
+            Flash::error('The School Grade can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('schoolGrades.index'));
+        }
+
+        }     
 
         
 
-        return redirect(route('schoolGrades.index'));
-    }
+      
 }
