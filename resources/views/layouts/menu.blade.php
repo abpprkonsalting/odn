@@ -59,6 +59,9 @@
         <li class="{{ Request::is('reportSeafarersVisas*') ? 'active' : '' }}">
             <a href="{{ route('reportSeafarersVisas.index') }}"><i class="fa fa-edit"></i><span>Seafarers Visas</span></a>
         </li>
+        <li class="{{ Request::is('reportSeafarersByEngineType*') ? 'active' : '' }}">
+            <a href="{{ route('reportSeafarersByEngineType.index') }}"><i class="fa fa-edit"></i><span>Seafarers by engine type</span></a>
+        </li>
 
     </ul>
 </li>
