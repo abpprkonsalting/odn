@@ -43,8 +43,8 @@ class ReadyByExperienceDataTable extends DataTable
                                         })
                                         ->map(function ($item, $key) {
                                             $first = $item->first();
-                                            $experience = new CarbonInterval(0,0,0,$item->sum('experience'));
-                                            $experienceForHumans = $experience->forHumans();
+                                            $carbon = Carbon::now()->addDay($item->sum('experience'));
+                                            $experienceForHumans = Carbon::now()->longAbsoluteDiffForHumans($carbon, 3);
                                             return collect([
                                                 'id' =>     $first["id"],
                                                 'rank' =>    $first["rank"],
