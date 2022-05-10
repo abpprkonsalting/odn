@@ -19,7 +19,7 @@
         </li>
 
         <li class="{{ Request::is('reportOnBoardByVessel*') ? 'active' : '' }}">
-            <a href="{{ route('reportOnBoardByVessel.index') }}"><i class="fa fa-edit"></i><span>Seafarers on board by vessel</span></a>
+            <a href="{{ route('reportOnBoardByVessel.index') }}"><i class="fa fa-edit"></i><span>Seafarers on board</span></a>
         </li>
 
         <li class="{{ Request::is('reportReadyByExperience*') ? 'active' : '' }}">
