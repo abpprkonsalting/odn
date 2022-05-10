@@ -131,13 +131,7 @@ class SeaGoingExperienceController extends AppBaseController
      */
     public function destroy($id)
     {
-        $seaGoingExperience = $this->seaGoingExperienceRepository->find($id);
-
-        if (empty($seaGoingExperience)) {
-            Flash::error('SeaGoingExperience not found');
-
-            return redirect(route('sea_going_experiences.index'));
-        }
+        
 
         try{
             
@@ -150,12 +144,15 @@ class SeaGoingExperienceController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('SeaGoingExperience Cannot Delete. It has been used for other entity');
+            Flash::error('The SeaGoingExperience can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('sea_going_experiences.index')); 
+        }     
 
         
 
-        return redirect(route('sea_going_experiences.index'));
+        
     }
 }

@@ -162,13 +162,7 @@ class OperationalInformationController extends AppBaseController
      */
     public function destroy($id)
     {
-        $operationalInformation = $this->operationalInformationRepository->find($id);
-
-        if (empty($operationalInformation)) {
-            Flash::error('Operational Information not found');
-
-            return redirect(route('operationalInformations.index'));
-        }
+        
 
         try{
 
@@ -180,12 +174,15 @@ class OperationalInformationController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
 
 
-            Flash::success('Operational Information Cannot Delete. It has been used for other entity');
+            Flash::error('The Operational Information can not be deleted. Probably it\'s been used by other entity');
 
              }
+        finally{
+            return redirect(route('operationalInformations.index')); 
+        }     
 
 
-        return redirect(route('operationalInformations.index'));
+        
     }
 
     private function checkStatusChangePossible($newStatusId, $realStatusReport,$personalInformation): bool {

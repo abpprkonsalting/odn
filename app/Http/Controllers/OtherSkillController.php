@@ -154,13 +154,7 @@ class OtherSkillController extends AppBaseController
      */
     public function destroy($id)
     {
-        $otherSkill = $this->otherSkillRepository->find($id);
-
-        if (empty($otherSkill)) {
-            Flash::error('Other Skill not found');
-
-            return redirect(route('otherSkills.index'));
-        }
+        
 
         try{
             
@@ -172,9 +166,14 @@ class OtherSkillController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Other Skill Information Cannot Delete. It has been used for other entity');
+            Flash::error('The Other Skill Information can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally {
+            return redirect(route('otherSkills.create', ['id' => $otherSkill->personal_informations_id]));
+
+
+        }    
 
         
 

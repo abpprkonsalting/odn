@@ -153,13 +153,7 @@ class LicenseEndorsementController extends AppBaseController
      */
     public function destroy($id)
     {
-        $licenseEndorsement = $this->licenseEndorsementRepository->find($id);
-
-        if (empty($licenseEndorsement)) {
-            Flash::error('License Endorsement not found');
-
-            return redirect(route('licenseEndorsements.index'));
-        }
+        
 
         try{
             
@@ -171,13 +165,17 @@ class LicenseEndorsementController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('License Endorsement Cannot Delete. It has been used for other entity');
+            Flash::error('The License Endorsement can not be deleted. Probably it\'s been used by other entity');
             
              }
+         finally{
+            return redirect(route('licenseEndorsements.create', ['id' => $licenseEndorsement->personal_informations_id]));
+            
+         }    
        
 
         
-        return redirect(route('licenseEndorsements.create', ['id' => $licenseEndorsement->personal_informations_id]));
+       
     }
     public function getPersonalInformationLicense($id)
     {

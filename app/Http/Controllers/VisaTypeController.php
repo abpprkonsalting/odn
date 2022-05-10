@@ -134,23 +134,26 @@ class VisaTypeController extends AppBaseController
      */
     public function destroy($id)
     {
-        $visaType = $this->visaTypeRepository->find($id);
-
-        if (empty($visaType)) {
-            Flash::error('Visa Type not found');
-
-            return redirect(route('visaTypes.index'));
-        }
-
-        
-
+        try{
             $this->visaTypeRepository->find($id)->forcedelete();
 
             Flash::success('Visa Type deleted successfully.');
+        }
+        catch(\Illuminate\Database\QueryException $ex){
+             
+     
+            Flash::error('The Visa Type can not be deleted. Probably it\'s been used by other entity');
+            
+             }
+        finally{
+            return redirect(route('visaTypes.index'));
+
+        }     
+            
     
        
        
 
-        return redirect(route('visaTypes.index'));
+        
     }
 }

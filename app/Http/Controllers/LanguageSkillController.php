@@ -131,14 +131,7 @@ class LanguageSkillController extends AppBaseController
      */
     public function destroy($id)
     {
-        $languageSkill = $this->languageSkillRepository->find($id);
-
-        if (empty($languageSkill)) {
-            Flash::error('Language Skill not found');
-
-            return redirect(route('languageSkills.index'));
-        }
-
+        
         try{
             
             $this->languageSkillRepository->find($id)->forcedelete();
@@ -149,12 +142,16 @@ class LanguageSkillController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Language Skill Cannot Delete. It has been used for other entity');
+            Flash::error('The Language Skill can not be deleted. Probably it\'s been used by other entity');
             
              }
+         finally{
+            return redirect(route('languageSkills.index'));
+
+         }    
 
       
 
-        return redirect(route('languageSkills.index'));
+        
     }
 }

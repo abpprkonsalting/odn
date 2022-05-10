@@ -134,14 +134,7 @@ class MaritalStatusController extends AppBaseController
      */
     public function destroy($id)
     {
-        $maritalStatus = $this->maritalStatusRepository->find($id);
-
-        if (empty($maritalStatus)) {
-            Flash::error('Marital Status not found');
-
-            return redirect(route('maritalStatuses.index'));
-        }
-
+        
         try{
             
             $this->maritalStatusRepository->find($id)->forcedelete();
@@ -153,11 +146,15 @@ class MaritalStatusController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Marital Status Cannot Delete. It has been used for other entity');
+            Flash::error('The Marital Status can not be deleted. Probably it\'s been used by other entity');
             
              }
+         finally{
+
+            return redirect(route('maritalStatuses.index'));
+         }    
 
         
-        return redirect(route('maritalStatuses.index'));
+        
     }
 }

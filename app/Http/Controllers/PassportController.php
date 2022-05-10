@@ -151,13 +151,7 @@ class PassportController extends AppBaseController
      */
     public function destroy($id)
     {
-        $passport = $this->passportRepository->find($id);
-
-        if (empty($passport)) {
-            Flash::error('Passport not found');
-
-            return redirect(route('passports.index'));
-        }
+        
 
         try{
             
@@ -169,14 +163,18 @@ class PassportController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Passport Cannot Delete. It has been used for other entity');
+            Flash::error('Passport can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('passports.create', [ 'id' => $passport->personal_informations_id ]));
+
+
+        }     
 
        
 
 
-        return redirect(route('passports.create', [ 'id' => $passport->personal_informations_id ]));
     }
 
     /**

@@ -134,13 +134,7 @@ class SkinColorController extends AppBaseController
      */
     public function destroy($id)
     {
-        $skinColor = $this->skinColorRepository->find($id);
-
-        if (empty($skinColor)) {
-            Flash::error('Skin Color not found');
-
-            return redirect(route('skinColors.index'));
-        }
+       
         try{
             
             $this->skinColorRepository->find($id)->forcedelete();
@@ -154,12 +148,16 @@ class SkinColorController extends AppBaseController
          catch(\Illuminate\Database\QueryException $ex){
              
      
-            Flash::success('Skin Color Cannot Delete. It has been used for other entity');
+            Flash::error('The Skin Color can not be deleted. Probably it\'s been used by other entity');
             
              }
+        finally{
+            return redirect(route('skinColors.index'));
+
+        }     
 
 
        
-        return redirect(route('skinColors.index'));
+        
     }
 }

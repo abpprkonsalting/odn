@@ -135,13 +135,6 @@ class PersonalInformationController extends AppBaseController
      */
     public function destroy($id)
     {
-        $personalInformation = $this->personalInformationRepository->find($id);
-
-        if (empty($personalInformation)) {
-            Flash::error('Personal Information not found');
-
-            return redirect(route('personalInformations.index'));
-        }
 
         try {
 
@@ -151,11 +144,14 @@ class PersonalInformationController extends AppBaseController
         } catch (\Illuminate\Database\QueryException $ex) {
 
 
-            Flash::success('Personal Information Cannot Delete. It has been used for other entity');
+            Flash::error('The Personal Information can not be deleted. Probably it\'s been used by other entity');
+        }
+        finally{
+            return redirect(route('personalInformations.index'));
         }
 
 
-        return redirect(route('personalInformations.index'));
+        
     }
 
     public function getAjaxPersonalInformationById($id)
