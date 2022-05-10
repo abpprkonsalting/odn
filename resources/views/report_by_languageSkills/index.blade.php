@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Mariners by language skills</h1>
+        <h1 class="pull-left">Seafarers by language skills</h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -12,7 +12,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                @include('onboard_time.table')
+                @include('report_by_languageSkills.table')
             </div>
         </div>
         <div class="text-center">

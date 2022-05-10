@@ -10,7 +10,7 @@ class ReportByRanksController extends AppBaseController
 
     public function index(ByRanksDataTable $byRanksDataTable)
     {
-        return $byRanksDataTable->render('by_ranks.index');
+        return $byRanksDataTable->render('report_by_ranks.index');
     }
 
 }

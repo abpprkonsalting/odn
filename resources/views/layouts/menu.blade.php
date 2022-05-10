@@ -14,20 +14,20 @@
     </a>
     <ul class="treeview-menu">
 
-        <li class="{{ Request::is('nonReadyPersonal*') ? 'active' : '' }}">
-            <a href="{{ route('nonReadyPersonal.index') }}"><i class="fa fa-edit"></i><span>Seafarers non ready <br>in process</span></a>
+        <li class="{{ Request::is('reportNonReadyPersonal*') ? 'active' : '' }}">
+            <a href="{{ route('reportNonReadyPersonal.index') }}"><i class="fa fa-edit"></i><span>Seafarers non ready <br>in process</span></a>
         </li>
 
-        <li class="{{ Request::is('onBoardByVessel*') ? 'active' : '' }}">
-            <a href="{{ route('onBoardByVessel.index') }}"><i class="fa fa-edit"></i><span>Seafarers on board by vessel</span></a>
+        <li class="{{ Request::is('reportOnBoardByVessel*') ? 'active' : '' }}">
+            <a href="{{ route('reportOnBoardByVessel.index') }}"><i class="fa fa-edit"></i><span>Seafarers on board by vessel</span></a>
         </li>
 
-        <li class="{{ Request::is('readyByExperience*') ? 'active' : '' }}">
-            <a href="{{ route('readyByExperience.index') }}"><i class="fa fa-edit"></i><span>Seafarers ready by experience</span></a>
+        <li class="{{ Request::is('reportReadyByExperience*') ? 'active' : '' }}">
+            <a href="{{ route('reportReadyByExperience.index') }}"><i class="fa fa-edit"></i><span>Seafarers ready by experience</span></a>
         </li>
 
-        <li class="{{ Request::is('withForeignLicenseByType*') ? 'active' : '' }}">
-            <a href="{{ route('withForeignLicenseByType.index') }}"><i class="fa fa-edit"></i><span>Seafarers with foreign license <br> by license type</span></a>
+        <li class="{{ Request::is('reportWithForeignLicenseByType*') ? 'active' : '' }}">
+            <a href="{{ route('reportWithForeignLicenseByType.index') }}"><i class="fa fa-edit"></i><span>Seafarers with foreign license <br> by license type</span></a>
         </li>
         <li class="{{ Request::is('reportByCertifications*') ? 'active' : '' }}">
             <a href="{{ route('reportByCertifications.index') }}"><i class="fa fa-edit"></i><span>Seafarers by certification</span></a>
@@ -35,20 +35,20 @@
         <li class="{{ Request::is('reportbyRanks*') ? 'active' : '' }}">
             <a href="{{ route('reportbyRanks.index') }}"><i class="fa fa-edit"></i><span>Seafarers by rank</span></a>
         </li>
-        <li class="{{ Request::is('onVacationsByCompany*') ? 'active' : '' }}">
-            <a href="{{ route('onVacationsByCompany.index') }}"><i class="fa fa-edit"></i><span>Seafarers on vacation<br> by company</span></a>
+        <li class="{{ Request::is('reportOnVacationsByCompany*') ? 'active' : '' }}">
+            <a href="{{ route('reportOnVacationsByCompany.index') }}"><i class="fa fa-edit"></i><span>Seafarers on vacation<br> by company</span></a>
         </li>
-        <li class="{{ Request::is('byStatusWithTimeInStatus*') ? 'active' : '' }}">
-            <a href="{{ route('byStatusWithTimeInStatus.index') }}"><i class="fa fa-edit"></i><span>Seafarers by status with<br> time in status</span></a>
+        <li class="{{ Request::is('reportByStatusWithTimeInStatus*') ? 'active' : '' }}">
+            <a href="{{ route('reportByStatusWithTimeInStatus.index') }}"><i class="fa fa-edit"></i><span>Seafarers by status with<br> time in status</span></a>
         </li>
-        <li class="{{ Request::is('onBoardTime*') ? 'active' : '' }}">
-            <a href="{{ route('onBoardTime.index') }}"><i class="fa fa-edit"></i><span>Seafarers on board with time</span></a>
+        <li class="{{ Request::is('reportOnBoardTime*') ? 'active' : '' }}">
+            <a href="{{ route('reportOnBoardTime.index') }}"><i class="fa fa-edit"></i><span>Seafarers on board with time</span></a>
         </li>
-        <li class="{{ Request::is('withExpiredCertification*') ? 'active' : '' }}">
-            <a href="{{ route('withExpiredCertification.index') }}"><i class="fa fa-edit"></i><span>Seafarers with expired <br>certification</span></a>
+        <li class="{{ Request::is('reportWithExpiredCertification*') ? 'active' : '' }}">
+            <a href="{{ route('reportWithExpiredCertification.index') }}"><i class="fa fa-edit"></i><span>Seafarers with expired <br>certification</span></a>
         </li>
-        <li class="{{ Request::is('ranksByAges*') ? 'active' : '' }}">
-            <a href="{{ route('ranksByAges.index') }}"><i class="fa fa-edit"></i><span>Seafarers by rank by ages</span></a>
+        <li class="{{ Request::is('reportRanksByAges*') ? 'active' : '' }}">
+            <a href="{{ route('reportRanksByAges.index') }}"><i class="fa fa-edit"></i><span>Seafarers by rank by ages</span></a>
         </li>
         <li class="{{ Request::is('reportDismissed*') ? 'active' : '' }}">
             <a href="{{ route('reportDismissed.index') }}"><i class="fa fa-edit"></i><span>Seafarers dismissed<br> with reason</span></a>

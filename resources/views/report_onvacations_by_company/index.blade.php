@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Mariners ready by experience in vessel types</h1>
+        <h1 class="pull-left">Seafarers on vacation by company</h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -12,11 +12,11 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                @include('ready_by_experience.table')
+                @include('report_onvacations_by_company.table')
             </div>
         </div>
         <div class="text-center">
-        
+
         </div>
     </div>
 @endsection

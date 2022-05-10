@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Mariners on vacation by company</h1>
+        <h1 class="pull-left">Seafarers non ready in process</h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -12,11 +12,11 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                @include('onvacations_by_company.table')
+                @include('report_non_ready_personal.table')
             </div>
         </div>
         <div class="text-center">
-
+        
         </div>
     </div>
 @endsection

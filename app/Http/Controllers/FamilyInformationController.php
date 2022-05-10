@@ -153,13 +153,7 @@ class FamilyInformationController extends AppBaseController
      */
     public function destroy($id)
     {
-        $familyInformation = $this->familyInformationRepository->find($id);
-
-        if (empty($familyInformation)) {
-            Flash::error('Family Information not found');
-
-            return redirect(route('personalInformation.index'));
-        }
+        
 
         try{
             $this->familyInformationRepository->find($id)->forcedelete();
@@ -170,13 +164,17 @@ class FamilyInformationController extends AppBaseController
             catch(\Illuminate\Database\QueryException $ex){
             
     
-                Flash::success('Family Information  Cannot Delete. It has been used for other entity');
+                Flash::error('The Family Information  can not be deleted. Probably it\'s been used by other entity');
            
+            }
+            finally{
+                      
+                return redirect(route('familyInformations.create', ['id' => $familyInformation->personal_informations_id]));
+
             }
     
         
         
-        return redirect(route('familyInformations.create', ['id' => $familyInformation->personal_informations_id]));
     }
       /**
      * Return JSON with listing of the Family Information belong to PersonalInformation.

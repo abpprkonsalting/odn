@@ -134,13 +134,7 @@ class EngineTypeController extends AppBaseController
      */
     public function destroy($id)
     {
-        $engineType = $this->engineTypeRepository->find($id);
-
-        if (empty($engineType)) {
-            Flash::error('Engine Type not found');
-
-            return redirect(route('engineTypes.index'));
-        }
+        
 
         try{
         $this->engineTypeRepository->find($id)->forcedelete();
@@ -150,10 +144,14 @@ class EngineTypeController extends AppBaseController
         catch(\Illuminate\Database\QueryException $ex){
         
 
-            Flash::success('Engine Type  Cannot Delete. It has been used for other entity');
+            Flash::error('Engine Type  can not be deleted. Probably it\'s been used by other entity');
        
         }
+        finally{
+            return redirect(route('engineTypes.index'));
 
-        return redirect(route('engineTypes.index'));
+        }
+
+        
     }
 }

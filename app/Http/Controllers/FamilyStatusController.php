@@ -134,14 +134,7 @@ class FamilyStatusController extends AppBaseController
      */
     public function destroy($id)
     {
-        $familyStatus = $this->familyStatusRepository->find($id);
-
-        if (empty($familyStatus)) {
-            Flash::error('Family Status not found');
-
-            return redirect(route('familyStatuses.index'));
-        }
-
+        
         try{
             $this->familyStatusRepository->find($id)->forcedelete();
 
@@ -151,12 +144,16 @@ class FamilyStatusController extends AppBaseController
             catch(\Illuminate\Database\QueryException $ex){
             
     
-                Flash::success('Family Status  Cannot Delete. It has been used for other entity');
+                Flash::error('The Family Status can not be deleted. Probably it\'s been used by other entity');
            
+            }
+            finally{
+
+                return redirect(route('familyStatuses.index'));     
             }
         
        
 
-        return redirect(route('familyStatuses.index'));
+        
     }
 }

@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\DataTables\Reports\ReadyByExperienceDataTable;
 use App\Http\Controllers\AppBaseController;
 
-class ReadyByExperienceController extends AppBaseController
+class ReportReadyByExperienceController extends AppBaseController
 {
 
     public function index(ReadyByExperienceDataTable $readyByExperienceDataTable)
     {
-        return $readyByExperienceDataTable->render('ready_by_experience.index');
+        return $readyByExperienceDataTable->render('report_ready_by_experience.index');
     }
 }

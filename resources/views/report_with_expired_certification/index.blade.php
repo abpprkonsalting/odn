@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Mariners on board with time</h1>
+        <h1 class="pull-left">Seafarers with expired certification</h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -12,7 +12,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                @include('onboard_time.table')
+                @include('report_with_expired_certification.table')
             </div>
         </div>
         <div class="text-center">
