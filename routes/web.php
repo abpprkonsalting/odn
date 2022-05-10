@@ -180,6 +180,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('reportDismissed', 'ReportDismissedController')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::resource('reportByLanguageSkills', 'ReportByLanguageSkillsController')->middleware('role_or_permission:Admin|personalInformation');
+
+    Route::resource('reportSeafarersVisas', 'ReportSeafarersVisasController')->middleware('role_or_permission:Admin|personalInformation');
 }
 
 );

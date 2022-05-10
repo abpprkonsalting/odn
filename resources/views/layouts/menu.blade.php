@@ -56,8 +56,9 @@
         <li class="{{ Request::is('reportByLanguageSkills*') ? 'active' : '' }}">
             <a href="{{ route('reportByLanguageSkills.index') }}"><i class="fa fa-edit"></i><span>Seafarers by language<br> skills</span></a>
         </li>
-
-
+        <li class="{{ Request::is('reportSeafarersVisas*') ? 'active' : '' }}">
+            <a href="{{ route('reportSeafarersVisas.index') }}"><i class="fa fa-edit"></i><span>Seafarers Visas</span></a>
+        </li>
 
     </ul>
 </li>
