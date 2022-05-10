@@ -25,7 +25,9 @@ class ByCertificationsDataTable extends DataTable
                                     'course_number' => $item->courseNumber->name,
                                     'full_name' => $item->personalInformation->full_name,
                                     'avatar' => $item->personalInformation->avatar,
-                                    'rank' => $item->personalInformation->operationalInformation?->rank->name
+                                    'rank' => $item->personalInformation->operationalInformation?->rank->name,
+                                    'course_date' => $item->start_date,
+                                    'caducity_date' => $item->end_date
                                 ];
                             })->sortByDesc([
                                 ['course_number','asc'],
@@ -79,6 +81,8 @@ class ByCertificationsDataTable extends DataTable
     {
         return [
             'course_number',
+            'course_date',
+            'caducity_date',
             'rank',
             'avatar',
             'full_name'

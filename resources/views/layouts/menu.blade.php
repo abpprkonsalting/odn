@@ -27,10 +27,10 @@
         </li>
 
         <li class="{{ Request::is('reportWithForeignLicenseByType*') ? 'active' : '' }}">
-            <a href="{{ route('reportWithForeignLicenseByType.index') }}"><i class="fa fa-edit"></i><span>Seafarers with foreign license <br> by license type</span></a>
+            <a href="{{ route('reportWithForeignLicenseByType.index') }}"><i class="fa fa-edit"></i><span>Seafarers Foreign Licenses</span></a>
         </li>
         <li class="{{ Request::is('reportByCertifications*') ? 'active' : '' }}">
-            <a href="{{ route('reportByCertifications.index') }}"><i class="fa fa-edit"></i><span>Seafarers by certification</span></a>
+            <a href="{{ route('reportByCertifications.index') }}"><i class="fa fa-edit"></i><span>Seafarers Certification by rank</span></a>
         </li>
         <li class="{{ Request::is('reportbyRanks*') ? 'active' : '' }}">
             <a href="{{ route('reportbyRanks.index') }}"><i class="fa fa-edit"></i><span>Seafarers by rank</span></a>
@@ -42,7 +42,7 @@
             <a href="{{ route('reportByStatusWithTimeInStatus.index') }}"><i class="fa fa-edit"></i><span>Seafarers by status with<br> time in status</span></a>
         </li>
         <li class="{{ Request::is('reportOnBoardTime*') ? 'active' : '' }}">
-            <a href="{{ route('reportOnBoardTime.index') }}"><i class="fa fa-edit"></i><span>Seafarers on board with time</span></a>
+            <a href="{{ route('reportOnBoardTime.index') }}"><i class="fa fa-edit"></i><span>Seafarers period on board</span></a>
         </li>
         <li class="{{ Request::is('reportWithExpiredCertification*') ? 'active' : '' }}">
             <a href="{{ route('reportWithExpiredCertification.index') }}"><i class="fa fa-edit"></i><span>Seafarers with expired <br>certification</span></a>

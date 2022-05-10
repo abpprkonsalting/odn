@@ -30,6 +30,7 @@ class DismissedDataTable extends DataTable
                                                     'company' => $item->personalInformation->company?->company_name,
                                                     'avatar' => $item->personalInformation->avatar,
                                                     'full_name' => $item->personalInformation->full_name,
+                                                    'dismissed_date' => $item->disponibility_date,
                                                     'reason' => $item->description
                                                 ];
                                             })->sortBy([
@@ -87,6 +88,7 @@ class DismissedDataTable extends DataTable
             'company',
             'avatar',
             'full_name',
+            'dismissed_date',
             'reason'
         ];
     }

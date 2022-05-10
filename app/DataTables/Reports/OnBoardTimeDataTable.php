@@ -32,7 +32,7 @@ class OnBoardTimeDataTable extends DataTable
                                                     'full_name' => $item->personalInformation->full_name,
                                                     'avatar' => $item->personalInformation->avatar,
                                                     'boarding_date' => Carbon::createFromFormat('d-m-Y', $item->disponibility_date)->format('Y-m-d'),
-                                                    'on_board_time' => $item->updated_at->longRelativeToNowDiffForHumans(3),
+                                                    'period_on_board' => Carbon::createFromFormat('d-m-Y', $item->disponibility_date)->longRelativeToNowDiffForHumans(3),
                                                     'rank' => $item->rank->name
                                                 ];
                                             })
@@ -90,7 +90,7 @@ class OnBoardTimeDataTable extends DataTable
         return [
             'vessel',
             'boarding_date',
-            'on_board_time',
+            'period_on_board',
             'avatar',
             'full_name',
             'rank'

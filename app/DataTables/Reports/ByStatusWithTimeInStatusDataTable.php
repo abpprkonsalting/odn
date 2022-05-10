@@ -27,7 +27,7 @@ class ByStatusWithTimeInStatusDataTable extends DataTable
                                                 return [
                                                     'id' =>  $item->personalInformation->id,
                                                     'status' => $item->status->name,
-                                                    'time' => $item->updated_at->longRelativeToNowDiffForHumans(3),
+                                                    'time' => Carbon::createFromFormat('d-m-Y', $item->disponibility_date)->longRelativeToNowDiffForHumans(3),
                                                     'full_name' => $item->personalInformation->full_name,
                                                     'avatar' => $item->personalInformation->avatar,
                                                     'rank' => $item->rank->name
