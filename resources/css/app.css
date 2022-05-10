@@ -38,3 +38,7 @@ table.table-bordered.dataTable thead th, table.table-bordered.dataTable tbody td
     vertical-align: middle;
     text-align: center;
 }
+
+table.table-bordered.dataTable tbody td .thumbnail{
+    margin: 0 auto;
+}

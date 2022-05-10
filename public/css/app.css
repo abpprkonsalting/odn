@@ -39,3 +39,7 @@ table.table-bordered.dataTable thead th, table.table-bordered.dataTable tbody td
     text-align: center;
 }
 
+table.table-bordered.dataTable tbody td .thumbnail{
+    margin: 0 auto;
+}
+
