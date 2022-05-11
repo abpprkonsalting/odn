@@ -172,16 +172,10 @@ class PersonalInformation extends Model
         return $this->hasOne(OperationalInformation::class, 'personal_informations_id');
     }
 
-    /**
-     * Get the Memos information for Person.
-     */
     public function memos() {
         return $this->hasMany(Memo::class, 'personal_informations_id');
     }
 
-    /**
-     * Get the Memos information for Person.
-     */
     public function courses() {
         return $this->hasMany(Course::class, 'personal_informations_id')->whereHas('courseNumber', function($query) {
             $query->whereNull('deleted_at');
