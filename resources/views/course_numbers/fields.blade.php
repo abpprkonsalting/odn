@@ -9,6 +9,11 @@
     {!! Form::label('sort', 'Sort:') !!}
     {!! Form::number('sort', null, ['class' => 'form-control','max' => 1000]) !!}
 </div>
+<!-- Company Id Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('ranks_id', 'Rank:') !!}
+    {!! Form::select('ranks_id', $ranksItems, null, ['class' => 'form-control']) !!}
+</div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

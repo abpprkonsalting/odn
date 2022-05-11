@@ -173,5 +173,9 @@ class ViewServiceProvider extends ServiceProvider
             $countriesItems = Country::pluck('name','id')->toArray();
             $view->with(compact('countriesItems'));
         });
+        View::composer(['course_numbers.fields'], function ($view) {
+            $ranksItems = Rank::pluck('name','id')->toArray();
+            $view->with(compact('ranksItems'));
+        });
     }
 }

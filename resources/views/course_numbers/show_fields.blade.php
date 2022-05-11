@@ -9,6 +9,12 @@
     <p>{{ $courseNumber->code }}</p>
 </div>
 
+<!-- Rank Field -->
+<div class="form-group">
+    {!! Form::label('rank', 'Rank:') !!}
+    <p>{{ $courseNumber->rank->name }}</p>
+</div>
+
 
 <!-- Created At Field -->
 <div class="form-group">

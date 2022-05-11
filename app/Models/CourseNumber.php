@@ -17,7 +17,7 @@ class CourseNumber extends Model
     use SoftDeletes;
 
     public $table = 'course_numbers';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -27,10 +27,11 @@ class CourseNumber extends Model
         'name',
         'sort',
         'code',
+        'ranks_id'
     ];
 
     protected $attributes = [
-        'sort' => 0, 
+        'sort' => 0,
     ];
 
     /**
@@ -42,7 +43,8 @@ class CourseNumber extends Model
         'id' => 'integer',
         'name' => 'string',
         'code' => 'string',
-        'sort'=>'integer'
+        'sort'=>'integer',
+        'ranks_id' => 'integer'
     ];
 
     /**
@@ -55,5 +57,11 @@ class CourseNumber extends Model
         'sort' => 'nullable'
     ];
 
-    
+    public function courses() {
+        return $this->hasMany(Course::class, 'ranks_id');
+    }
+
+    public function rank() {
+        return $this->belongsTo(Rank::class, 'ranks_id');
+    }
 }
