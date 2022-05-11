@@ -43,4 +43,7 @@
     <li class="{{ isset($activeMenuTemplate) && $activeMenuTemplate == 'shoreExperiencies' ? 'active' : null  }}">
         <a href="{{ isset($personalInformationId) && !empty($personalInformationId) ? route('shoreExperiencies.create', ['id' => $personalInformationId]) : null }}">Shore Experiencies</a>
     </li>
+    <li class="{{ isset($activeMenuTemplate) && $activeMenuTemplate == 'seaGoingExperiencies' ? 'active' : null  }}">
+        <a href="{{ isset($personalInformationId) && !empty($personalInformationId) ? route('seaGoingExperiencies.create', ['id' => $personalInformationId]) : null }}">Sea Going Experiencies</a>
+    </li>
 </ul>
