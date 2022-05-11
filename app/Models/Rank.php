@@ -17,7 +17,7 @@ class Rank extends Model
     use SoftDeletes;
 
     public $table = 'ranks';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -26,6 +26,7 @@ class Rank extends Model
     public $fillable = [
         'name',
         'code',
+        'order'
     ];
 
     /**
@@ -36,7 +37,8 @@ class Rank extends Model
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
-        'code' => 'string'
+        'code' => 'string',
+        'order' => 'integer'
     ];
 
     /**
@@ -48,5 +50,5 @@ class Rank extends Model
         'name' => 'required|max:250|unique:ranks'
     ];
 
-    
+
 }

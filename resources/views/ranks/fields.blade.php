@@ -4,7 +4,8 @@
     {!! Form::text('name', null, ['class' => 'form-control','maxlength' => 250]) !!}
     {!! Form::label('code', 'Code:') !!}
     {!! Form::text('code', null, ['class' => 'form-control','maxlength' => 250]) !!}
-
+    {!! Form::label('order', 'Order:') !!}
+    {!! Form::text('order', null, ['class' => 'form-control','maxlength' => 250]) !!}
 </div>
 
 <!-- Submit Field -->

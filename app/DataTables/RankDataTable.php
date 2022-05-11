@@ -65,7 +65,8 @@ class RankDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name'
+            'name',
+            'order'
         ];
     }
 

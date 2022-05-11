@@ -3,10 +3,15 @@
     {!! Form::label('name', 'Name:') !!}
     <p>{{ $rank->name }}</p>
 </div>
-<!-- Name Field -->
+<!-- Code Field -->
 <div class="form-group">
     {!! Form::label('code', 'Code:') !!}
     <p>{{ $rank->code }}</p>
+</div>
+<!-- Order Field -->
+<div class="form-group">
+    {!! Form::label('order', 'Order:') !!}
+    <p>{{ $rank->order }}</p>
 </div>
 
 <!-- Created At Field -->
