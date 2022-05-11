@@ -42,7 +42,7 @@
 
 <!-- Vessel Type Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('vessel_type_id', 'Vessel Type Id:') !!}
+    {!! Form::label('vessel_type_id', 'Vessel Type:') !!}
     {!! Form::select('vessel_type_id', $vesselTypeItems, null, ['class' => 'form-control']) !!}
 </div>
 

@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\SeaGoingExperiencie;
+use App\Models\SeaGoingExperience;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class SeaGoingExperiencieDataTable extends DataTable
+class SeaGoingExperienceDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -24,10 +24,10 @@ class SeaGoingExperiencieDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\SeaGoingExperiencie $model
+     * @param \App\Models\SeaGoingExperience $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(SeaGoingExperiencie $model)
+    public function query(SeaGoingExperience $model)
     {
         return $model->newQuery()->with('rank','vessel','status');
     }
@@ -69,8 +69,7 @@ class SeaGoingExperiencieDataTable extends DataTable
             'vessel.name',
             'status.name',
             'start_date',
-            'end_date',
-            'contract_time'
+            'end_date'
         ];
     }
 

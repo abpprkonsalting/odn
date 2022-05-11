@@ -129,14 +129,11 @@ class CourseController extends AppBaseController
 
         if (empty($course)) {
             Flash::error('Course not found');
-
             return redirect(route('personalInformation.index'));
         }
 
         $course = $this->courseRepository->update($request->all(), $id);
-
         Flash::success('Course updated successfully.');
-
         return redirect(route('courses.create', [ 'id' => $course->personal_informations_id ]));
     }
 
@@ -149,18 +146,18 @@ class CourseController extends AppBaseController
      */
     public function destroy($id)
     {
-        
-       
+
+
         try{
         $this->courseRepository->find($id)->forcedelete();
 
         Flash::success('Course deleted successfully.');
         }
         catch(\Illuminate\Database\QueryException $ex){
-        
+
 
             Flash::error('The course can not be deleted. Probably it\'s been used by other entity');
-       
+
         }
         finally{
 
@@ -185,6 +182,6 @@ class CourseController extends AppBaseController
             ->addColumn('action', 'courses.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-    
+
     }
 }

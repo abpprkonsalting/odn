@@ -61,34 +61,51 @@ class SeaGoingExperience extends Model
         'start_date' => 'required|date|date_format:d-m-Y',
         'end_date' => 'required|date|date_format:d-m-Y',
         'contract_time' => 'nullable|max:10'
-       
+
     ];
+
+    public function getStartDateAttribute($value) {
+        if (!empty($value)) {
+            return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
+        }
+        return $value;
+    }
+
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
+
+    public function getEndDateAttribute($value) {
+        if (!empty($value)) {
+            return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
+        }
+        return $value;
+    }
+
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
 
     public function personalInformation()
     {
         return $this->belongsTo(PersonalInformation::class, 'personal_information_id');
     }
-    /*
-     get personal informations for seaGoingExeprience
-    */
 
     public function rank()
     {
         return $this->belongsTo(Rank::class, 'rank_id');
     }
 
-    /*
-     get rank for seaGoingExeprience
-    */
-
-
     public function vessel()
     {
         return $this->belongsTo(Vessel::class, 'vessel_id');
     }
 
-    /*
-     get vessel for seaGoingExeprience
-    */
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
 
 }

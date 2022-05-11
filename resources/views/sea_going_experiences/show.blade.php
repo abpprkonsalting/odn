@@ -11,7 +11,7 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('sea_going_experiencies.show_fields')
-                    <a href="{{ route('seaGoingExperiencies.index') }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('seaGoingExperiences.index') }}" class="btn btn-default">Back</a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 @extends('partials.person_tabs', [
-    'activeMenuTemplate' => 'seaGoingExperiencies',
-    'personalInformationId' => $personalInformation->id  
+    'activeMenuTemplate' => 'seaGoingExperiences',
+    'personalInformationId' => $personalInformation->id
 ])
 
 @section('tabs-section-header')
@@ -13,16 +13,16 @@
 @endsection
 
 @section('person-content')
-                
-    {!! Form::open(['route' => 'seaGoingExperiencies.store']) !!}
 
-        @include('sea_going_experiencies.fields')
+    {!! Form::open(['route' => 'seaGoingExperiences.store']) !!}
+
+        @include('sea_going_experiences.fields')
 
     {!! Form::close() !!}
 
     <div class="col-sm-12">
         <h3 class="box-title">Sea going Experiencies List</h3>
-        @include('sea_going_experiencies.table')
+        @include('sea_going_experiences.table')
     </div>
-    
+
 @endsection

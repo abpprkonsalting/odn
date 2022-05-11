@@ -48,7 +48,7 @@
 
 <!-- Vessel Type Id Field -->
 <div class="form-group">
-    {!! Form::label('vessel_type_id', 'Vessel Type Id:') !!}
+    {!! Form::label('vessel_type_id', 'Vessel Type:') !!}
     <p>{{ $vessel->vessel_type_id }}</p>
 </div>
 

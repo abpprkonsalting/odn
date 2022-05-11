@@ -177,5 +177,11 @@ class ViewServiceProvider extends ServiceProvider
             $ranksItems = Rank::pluck('name','id')->toArray();
             $view->with(compact('ranksItems'));
         });
+        View::composer(['sea_going_experiences.fields'], function ($view) {
+            $ranksItems = Rank::pluck('name','id')->toArray();
+            $vesselItems = Vessel::pluck('name','id')->toArray();
+            $statusesItems = [3 =>'ON BOARD'];
+            $view->with(compact('ranksItems','vesselItems','statusesItems'));
+        });
     }
 }

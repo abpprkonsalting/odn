@@ -24,7 +24,7 @@ class LicenseEndorsement extends Model
     use SoftDeletes;
 
     public $table = 'license_endorsements';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -74,39 +74,27 @@ class LicenseEndorsement extends Model
     public function getIssueDateAttribute($value) {
         if (!empty($value)) {
             return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
-        } 
+        }
         return $value;
     }
 
-    /**
-     * Set the memo date
-     *
-     * @param  string  $value
-     * @return void
-     */
     public function setIssueDateAttribute($value)
     {
         $this->attributes['issue_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
-    
+
     public function getExpiryDateAttribute($value) {
         if (!empty($value)) {
             return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
-        } 
+        }
         return $value;
     }
 
-    /**
-     * Set the memo date
-     *
-     * @param  string  $value
-     * @return void
-     */
     public function setExpiryDateAttribute($value)
     {
         $this->attributes['expiry_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
-    
+
 
     public function personalInformation()
     {
@@ -128,5 +116,5 @@ class LicenseEndorsement extends Model
         return $this->belongsTo(LicenseEndorsementName::class, 'license_endorsement_names_id');
     }
 
-    
+
 }

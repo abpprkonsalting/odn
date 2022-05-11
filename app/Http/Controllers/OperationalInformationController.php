@@ -162,7 +162,7 @@ class OperationalInformationController extends AppBaseController
      */
     public function destroy($id)
     {
-        
+
 
         try{
 
@@ -178,11 +178,11 @@ class OperationalInformationController extends AppBaseController
 
              }
         finally{
-            return redirect(route('operationalInformations.index')); 
-        }     
+            return redirect(route('operationalInformations.index'));
+        }
 
 
-        
+
     }
 
     private function checkStatusChangePossible($newStatusId, $realStatusReport,$personalInformation): bool {
@@ -278,8 +278,8 @@ class OperationalInformationController extends AppBaseController
             $newSeaGoingExperience['personal_information_id'] = $operationalInformation->personal_informations_id;
             $newSeaGoingExperience['rank_id'] = $operationalInformation->ranks_id;
             $newSeaGoingExperience['vessel_id'] = $operationalInformation->vessel_id;
-            $newSeaGoingExperience['start_date'] = Carbon::createFromFormat('d-m-Y', $operationalInformation->disponibility_date)->format('Y-m-d');
-            $newSeaGoingExperience['end_date'] = Carbon::createFromFormat('d-m-Y', $reqAttribs['disponibility_date'])->subRealDay()->format('Y-m-d');
+            $newSeaGoingExperience['start_date'] = Carbon::createFromFormat('d-m-Y', $operationalInformation->disponibility_date)->format('d-m-Y');
+            $newSeaGoingExperience['end_date'] = Carbon::createFromFormat('d-m-Y', $reqAttribs['disponibility_date'])->subRealDay()->format('d-m-Y');
             $newSeaGoingExperience['status_id'] = $operationalInformation->statuses_id;
             $seaGoingExperience = $this->seaGoingExperienceRepository->create($newSeaGoingExperience);
             Flash::success('Sea going experience created successfully.');

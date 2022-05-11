@@ -1,12 +1,12 @@
 <!-- Personal Informations Id Field -->
-{!! Form::hidden('personal_informations_id', $personalInformation->id, []) !!}
+{!! Form::hidden('personal_information_id', $personalInformation->id, []) !!}
 
 <!-- Rank Field -->
 
 <div class="form-group col-sm-6">
     {!! Form::label('rank_id', 'Rank:') !!}
     <div class="input-group">
-        {!! Form::select('rank_id', $rankItems, null, ['class' => 'form-control']) !!}
+        {!! Form::select('rank_id', $ranksItems, null, ['class' => 'form-control']) !!}
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
         </div>
@@ -29,7 +29,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('status_id', 'Status:') !!}
     <div class="input-group">
-        {!! Form::select('status_id', $statusItems, null, ['class' => 'form-control']) !!}
+        {!! Form::select('status_id', $statusesItems, null, ['class' => 'form-control']) !!}
         <div class="input-group-addon">
             <i class="fa fa-calendar"></i>
         </div>

@@ -149,13 +149,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('languageInformation/getPersonalInformationLanguage/{id}', 'LanguageInformationController@getPersonalInformationLanguage')->name("languageInformation.getPersonalInformationLanguage");
 
     Route::resource('languageInformations', 'LanguageInformationController')->middleware('role_or_permission:Admin|personalInformation');
-    
-    Route::get('seaGoingExperiencies/getSeaGoingExperience/{id}', 'SeaGoingExperienceController@getSeaGoingExperience')->name("seaGoingExperience.getSeaGoingExperience");
 
-    Route::resource('seaGoingExperiencies', 'SeaGoingExperienceController')->middleware('role_or_permission:Admin|personalInformation');
+    Route::get('seaGoingExperiences/getPersonalInformationSeaGoingExperience/{id}', 'SeaGoingExperienceController@getPersonalInformationSeaGoingExperience')->name("seaGoingExperience.getPersonalInformationSeaGoingExperience");
 
-    
-    
+    Route::resource('seaGoingExperiences', 'SeaGoingExperienceController')->middleware('role_or_permission:Admin|personalInformation');
+
+
+
     Route::get('/migrate', function() {
         $exitCode = Artisan::call('migrate');
         return "<h1>Migration successfully execute</h1>";
