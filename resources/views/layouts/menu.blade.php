@@ -32,8 +32,8 @@
         <li class="{{ Request::is('reportByCertifications*') ? 'active' : '' }}">
             <a href="{{ route('reportByCertifications.index') }}"><i class="fa fa-edit"></i><span>Seafarers Certification by rank</span></a>
         </li>
-        <li class="{{ Request::is('reportbyRanks*') ? 'active' : '' }}">
-            <a href="{{ route('reportbyRanks.index') }}"><i class="fa fa-edit"></i><span>Seafarers by rank</span></a>
+        <li class="{{ Request::is('reportSeafarersByRank*') ? 'active' : '' }}">
+            <a href="{{ route('reportSeafarersByRank.index') }}"><i class="fa fa-edit"></i><span>Seafarers by rank and age</span></a>
         </li>
         <li class="{{ Request::is('reportOnVacationsByCompany*') ? 'active' : '' }}">
             <a href="{{ route('reportOnVacationsByCompany.index') }}"><i class="fa fa-edit"></i><span>Seafarers on vacation<br> by company</span></a>
@@ -46,9 +46,6 @@
         </li>
         <li class="{{ Request::is('reportWithExpiredCertification*') ? 'active' : '' }}">
             <a href="{{ route('reportWithExpiredCertification.index') }}"><i class="fa fa-edit"></i><span>Seafarers with expired <br>certification</span></a>
-        </li>
-        <li class="{{ Request::is('reportRanksByAges*') ? 'active' : '' }}">
-            <a href="{{ route('reportRanksByAges.index') }}"><i class="fa fa-edit"></i><span>Seafarers by rank by ages</span></a>
         </li>
         <li class="{{ Request::is('reportDismissed*') ? 'active' : '' }}">
             <a href="{{ route('reportDismissed.index') }}"><i class="fa fa-edit"></i><span>Seafarers dismissed<br> with reason</span></a>

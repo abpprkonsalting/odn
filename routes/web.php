@@ -184,6 +184,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('reportSeafarersVisas', 'ReportSeafarersVisasController')->middleware('role_or_permission:Admin|personalInformation');
 
     Route::resource('reportSeafarersByEngineType', 'ReportSeafarersByEngineTypeController')->middleware('role_or_permission:Admin|personalInformation');
+
+    Route::resource('reportSeafarersByRank', 'ReportSeafarersByRankController')->middleware('role_or_permission:Admin|personalInformation');
 }
 
 );
