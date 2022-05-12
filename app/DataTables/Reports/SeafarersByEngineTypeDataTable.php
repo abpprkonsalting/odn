@@ -20,12 +20,14 @@ class SeafarersByEngineTypeDataTable extends DataTable
     {
         $collection = SeaGoingExperience::get()
             ->map(function ($item, $key) {
+                $endDate = Carbon::createFromFormat('d-m-Y', $item->end_date);
+                $startDate = Carbon::createFromFormat('d-m-Y', $item->start_date);
                 return [
                     'id' => $item->personal_information_id,
                     'engine_type' => $item->vessel->engineType->name,
                     'full_name' => $item->personalInformation->full_name,
                     'avatar' => $item->personalInformation->avatar,
-                    'experience' => $item->end_date->diffInDays($item->start_date)
+                    'experience' => $endDate->diffInDays($startDate)
                 ];
             })
             ->groupBy(function ($item, $key) {
