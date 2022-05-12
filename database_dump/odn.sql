@@ -70,7 +70,7 @@ CREATE TABLE `companies` (
   CONSTRAINT `companies_company_mission_id_foreign` FOREIGN KEY (`company_mission_id`) REFERENCES `company_mission` (`id`),
   CONSTRAINT `companies_company_type_id_foreign` FOREIGN KEY (`company_type_id`) REFERENCES `company_type` (`id`),
   CONSTRAINT `companies_flags_id_foreign` FOREIGN KEY (`flags_id`) REFERENCES `flags` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `companies` (
 
 LOCK TABLES `companies` WRITE;
 /*!40000 ALTER TABLE `companies` DISABLE KEYS */;
-INSERT INTO `companies` VALUES (1,'Caribe',1,'2022-04-18 00:45:10','2022-04-18 00:45:10',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1);
+INSERT INTO `companies` VALUES (1,'Caribe',1,'2022-04-18 00:45:10','2022-04-18 00:45:10',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,1),(2,'Heminway S.A.',1,'2022-05-11 23:03:27','2022-05-11 23:03:27',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,4),(3,'Marina de guerra',1,'2022-05-11 23:03:56','2022-05-11 23:03:56',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,3),(4,'London Cruisers',1,'2022-05-11 23:05:21','2022-05-11 23:05:21',NULL,NULL,NULL,NULL,NULL,NULL,NULL,2,2);
 /*!40000 ALTER TABLE `companies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +153,7 @@ CREATE TABLE `countries` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,6 +162,7 @@ CREATE TABLE `countries` (
 
 LOCK TABLES `countries` WRITE;
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
+INSERT INTO `countries` VALUES (1,'Cuba','2022-05-11 20:15:05','2022-05-11 20:15:05',NULL,'Cu'),(2,'Francia','2022-05-11 20:15:13','2022-05-11 20:15:13',NULL,'Fr'),(3,'Germany','2022-05-11 20:15:27','2022-05-11 20:15:27',NULL,'De');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,8 +181,11 @@ CREATE TABLE `course_numbers` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `sort` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `ranks_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `course_numbers_ranks_id_foreign` (`ranks_id`),
+  CONSTRAINT `course_numbers_ranks_id_foreign` FOREIGN KEY (`ranks_id`) REFERENCES `ranks` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,6 +194,7 @@ CREATE TABLE `course_numbers` (
 
 LOCK TABLES `course_numbers` WRITE;
 /*!40000 ALTER TABLE `course_numbers` DISABLE KEYS */;
+INSERT INTO `course_numbers` VALUES (1,'Curso de cocinero','CC','2022-05-11 20:07:13','2022-05-11 20:07:13',NULL,1,2),(2,'Curso de capitan','CCp','2022-05-11 20:07:40','2022-05-11 20:07:40',NULL,1,5),(3,'Curso de marinero','CM','2022-05-11 22:47:20','2022-05-11 22:47:20',NULL,1,1),(4,'Curso de primer oficial','CPO','2022-05-11 22:47:48','2022-05-11 22:47:48',NULL,1,4);
 /*!40000 ALTER TABLE `course_numbers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,7 +223,7 @@ CREATE TABLE `courses` (
   CONSTRAINT `courses_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`),
   CONSTRAINT `courses_course_numbers_id_foreign` FOREIGN KEY (`course_numbers_id`) REFERENCES `course_numbers` (`id`),
   CONSTRAINT `courses_personal_informations_id_foreign` FOREIGN KEY (`personal_informations_id`) REFERENCES `personal_informations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,6 +232,7 @@ CREATE TABLE `courses` (
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
+INSERT INTO `courses` VALUES (1,1,1,1,'2022-05-01','2023-05-01','BE-3332','2022-05-11 04:00:00','2022-05-11 04:00:00',NULL),(2,1,2,1,'2022-05-01','2023-09-24','BDD-42','2022-05-11 04:00:00','2022-05-11 04:00:00',NULL),(3,2,1,1,'2022-05-01','2023-01-01','CC-002','2022-05-11 04:00:00','2022-05-11 04:00:00',NULL),(4,4,2,1,'2010-05-01','2029-05-01','C0002','2022-05-11 04:00:00','2022-05-11 04:00:00',NULL);
 /*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +250,7 @@ CREATE TABLE `engine_types` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,6 +259,7 @@ CREATE TABLE `engine_types` (
 
 LOCK TABLES `engine_types` WRITE;
 /*!40000 ALTER TABLE `engine_types` DISABLE KEYS */;
+INSERT INTO `engine_types` VALUES (1,'Diessel','2022-05-11 23:02:00','2022-05-11 23:02:00',NULL),(2,'Eléctrico','2022-05-11 23:02:13','2022-05-11 23:02:13',NULL),(3,'Atómico','2022-05-11 23:02:21','2022-05-11 23:02:21',NULL),(4,'Vela','2022-05-11 23:02:35','2022-05-11 23:02:35',NULL);
 /*!40000 ALTER TABLE `engine_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -397,7 +404,7 @@ CREATE TABLE `flags` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,7 +413,7 @@ CREATE TABLE `flags` (
 
 LOCK TABLES `flags` WRITE;
 /*!40000 ALTER TABLE `flags` DISABLE KEYS */;
-INSERT INTO `flags` VALUES (1,'Cubana','2022-04-18 00:44:52','2022-04-18 00:44:52',NULL);
+INSERT INTO `flags` VALUES (1,'Cubana','2022-04-18 00:44:52','2022-04-18 00:44:52',NULL),(2,'Francesa','2022-05-11 23:08:59','2022-05-11 23:08:59',NULL),(3,'Rusa','2022-05-11 23:09:05','2022-05-11 23:09:05',NULL),(4,'Holandesa','2022-05-11 23:09:11','2022-05-11 23:09:11',NULL);
 /*!40000 ALTER TABLE `flags` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,7 +469,7 @@ CREATE TABLE `language_informations` (
   CONSTRAINT `language_informations_languages_id_foreign` FOREIGN KEY (`languages_id`) REFERENCES `languages` (`id`),
   CONSTRAINT `language_informations_levels_id_foreign` FOREIGN KEY (`levels_id`) REFERENCES `levels` (`id`),
   CONSTRAINT `language_informations_personal_informations_id_foreign` FOREIGN KEY (`personal_informations_id`) REFERENCES `personal_informations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -471,6 +478,7 @@ CREATE TABLE `language_informations` (
 
 LOCK TABLES `language_informations` WRITE;
 /*!40000 ALTER TABLE `language_informations` DISABLE KEYS */;
+INSERT INTO `language_informations` VALUES (1,4,1,1,1,'2022-05-12 01:52:55','2022-05-12 01:52:55',NULL);
 /*!40000 ALTER TABLE `language_informations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -488,7 +496,7 @@ CREATE TABLE `language_skills` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -497,6 +505,7 @@ CREATE TABLE `language_skills` (
 
 LOCK TABLES `language_skills` WRITE;
 /*!40000 ALTER TABLE `language_skills` DISABLE KEYS */;
+INSERT INTO `language_skills` VALUES (1,'Read','2022-05-12 01:52:38','2022-05-12 01:52:38',NULL);
 /*!40000 ALTER TABLE `language_skills` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -514,7 +523,7 @@ CREATE TABLE `languages` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -523,6 +532,7 @@ CREATE TABLE `languages` (
 
 LOCK TABLES `languages` WRITE;
 /*!40000 ALTER TABLE `languages` DISABLE KEYS */;
+INSERT INTO `languages` VALUES (1,'English','2022-05-12 01:51:55','2022-05-12 01:51:55',NULL);
 /*!40000 ALTER TABLE `languages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -570,7 +580,7 @@ CREATE TABLE `license_endorsement_names` (
   PRIMARY KEY (`id`),
   KEY `license_endorsement_names_license_endorsement_types_id_foreign` (`license_endorsement_types_id`),
   CONSTRAINT `license_endorsement_names_license_endorsement_types_id_foreign` FOREIGN KEY (`license_endorsement_types_id`) REFERENCES `license_endorsement_types` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -579,6 +589,7 @@ CREATE TABLE `license_endorsement_names` (
 
 LOCK TABLES `license_endorsement_names` WRITE;
 /*!40000 ALTER TABLE `license_endorsement_names` DISABLE KEYS */;
+INSERT INTO `license_endorsement_names` VALUES (1,'Nombre 1',1,'2022-05-11 20:18:43','2022-05-11 20:18:43',NULL),(2,'Nombre 2',2,'2022-05-11 20:18:51','2022-05-11 20:18:51',NULL);
 /*!40000 ALTER TABLE `license_endorsement_names` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -596,7 +607,7 @@ CREATE TABLE `license_endorsement_types` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -605,6 +616,7 @@ CREATE TABLE `license_endorsement_types` (
 
 LOCK TABLES `license_endorsement_types` WRITE;
 /*!40000 ALTER TABLE `license_endorsement_types` DISABLE KEYS */;
+INSERT INTO `license_endorsement_types` VALUES (1,'Tipo 1','2022-05-11 20:18:22','2022-05-11 20:18:22',NULL),(2,'Tipo 2','2022-05-11 20:18:28','2022-05-11 20:18:28',NULL);
 /*!40000 ALTER TABLE `license_endorsement_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -636,7 +648,7 @@ CREATE TABLE `license_endorsements` (
   CONSTRAINT `license_endorsements_license_endorsement_names_id_foreign` FOREIGN KEY (`license_endorsement_names_id`) REFERENCES `license_endorsement_names` (`id`),
   CONSTRAINT `license_endorsements_license_endorsement_types_id_foreign` FOREIGN KEY (`license_endorsement_types_id`) REFERENCES `license_endorsement_types` (`id`),
   CONSTRAINT `license_endorsements_personal_informations_id_foreign` FOREIGN KEY (`personal_informations_id`) REFERENCES `personal_informations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -645,6 +657,7 @@ CREATE TABLE `license_endorsements` (
 
 LOCK TABLES `license_endorsements` WRITE;
 /*!40000 ALTER TABLE `license_endorsements` DISABLE KEYS */;
+INSERT INTO `license_endorsements` VALUES (1,1,'2022-05-01','2023-05-01',1,1,1,1,'2022-05-11 20:19:36','2022-05-11 20:19:36',NULL),(2,1,'2022-05-01','2022-05-01',2,1,1,1,'2022-05-11 22:50:34','2022-05-11 22:50:34',NULL),(3,3,'2022-05-01','2024-05-01',4,1,1,1,'2022-05-11 22:58:59','2022-05-11 22:58:59',NULL);
 /*!40000 ALTER TABLE `license_endorsements` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -715,7 +728,7 @@ CREATE TABLE `medical_informations` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -724,6 +737,7 @@ CREATE TABLE `medical_informations` (
 
 LOCK TABLES `medical_informations` WRITE;
 /*!40000 ALTER TABLE `medical_informations` DISABLE KEYS */;
+INSERT INTO `medical_informations` VALUES (1,'Certificado covid','2022-05-11 20:16:50','2022-05-11 20:16:50',NULL);
 /*!40000 ALTER TABLE `medical_informations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -769,7 +783,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -778,7 +792,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2020_11_06_173104_create_provinces_table',1),(6,'2020_11_06_175950_create_municipalities_table',1),(7,'2020_11_06_180703_create_eyes_colors_table',1),(8,'2020_11_06_203046_create_hair_colors_table',1),(9,'2020_11_06_204437_create_marital_statuses_table',1),(10,'2020_11_06_205042_create_school_grades_table',1),(11,'2020_11_06_205655_create_political_integrations_table',1),(12,'2020_11_06_210158_create_ranks_table',1),(13,'2020_11_06_210350_create_statuses_table',1),(14,'2020_11_06_211030_create_course_numbers_table',1),(15,'2020_11_06_211308_create_medical_informations_table',1),(16,'2020_11_06_211624_create_licenses_table',1),(17,'2020_11_06_212138_create_next_of_kins_table',1),(18,'2020_11_06_212716_create_engine_types_table',1),(19,'2020_11_06_213517_create_flags_table',1),(20,'2020_11_06_214058_create_affiliates_table',1),(21,'2020_11_06_215018_create_languages_table',1),(22,'2020_11_06_215209_create_levels_table',1),(23,'2020_11_09_005656_create_permission_tables',1),(24,'2020_11_11_223416_create_personal_informations_table',1),(25,'2020_11_15_151004_create_operational_informations_table',1),(26,'2020_11_15_183944_create_memos_table',1),(27,'2020_11_15_191440_create_courses_table',1),(28,'2020_11_15_194400_create_personal_medical_informations_table',1),(29,'2020_11_15_202237_create_passports_table',1),(30,'2020_11_15_211727_create_family_informations_table',1),(31,'2020_11_15_214146_create_other_skills_table',1),(32,'2020_11_15_223209_create_companies_table',1),(33,'2020_11_17_235043_create_skin_colors_table',1),(34,'2020_11_18_000224_add_skin_color_to_personal_information',1),(35,'2020_12_02_135946_create_license_endorsement_types_table',1),(36,'2020_12_02_143900_create_countries_table',1),(37,'2020_12_02_150102_create_license_endorsement_names_table',1),(38,'2020_12_02_153711_create_license_endorsements_table',1),(39,'2020_12_03_165310_create_visa_types_table',1),(40,'2020_12_03_170425_create_visas_table',1),(41,'2020_12_03_173535_add_nre_field_to_visas_table',1),(42,'2020_12_04_150340_create_shore_experiencies_table',1),(43,'2020_12_04_180604_create_seaman_books_table',1),(44,'2020_12_06_131133_create_family_statuses_table',1),(45,'2020_12_06_132622_fix_family_information_table',1),(46,'2020_12_08_043547_change_external_number_to_nullable',1),(47,'2021_02_23_193725_change_operationnal_information_nullable_fields',1),(48,'2021_02_23_204436_change_coure_number_field_lenght',1),(49,'2021_02_24_164820_create_sort_field',1),(50,'2021_09_05_040958_add_code_to_status',1),(51,'2021_09_05_045752_add_code_to_rank',1),(52,'2021_09_05_051129_add_code_to_province_and_municipality',1),(53,'2021_09_05_061014_add_code_to_school_grade',1),(54,'2021_09_05_122836_add_code_to_political_integrations',1),(55,'2021_09_05_144629_change_serial_number_lenght',1),(56,'2021_09_11_105347_add_code_to_course_number',1),(57,'2021_09_11_162952_add_code_to_country',1),(58,'2021_09_11_173320_update_course_table_to_import',1),(59,'2021_09_17_132911_add_group_to_passport',1),(60,'2021_10_21_131838_create_skill_or_knowledges_table',1),(61,'2021_10_21_134939_add_column_code_to_skill_or_knowledges',1),(62,'2021_10_22_043603_update_other_skill_table',1),(63,'2021_10_22_141224_update_other_skill_date_to_nullable_table',1),(64,'2021_10_22_145125_add_title_to_other_skill_table',1),(65,'2021_10_26_115839_fix_company_table',1),(66,'2021_10_28_165747_create_vessels_table',1),(67,'2021_10_29_121052_create_vessel_types_table',1),(68,'2021_10_29_134202_add_foreign_key_to_vessel',1),(69,'2021_10_30_003808_add_dates_to_vessels_table',1),(70,'2022_03_11_164214_create_sea_going_experiences_table',1),(71,'2022_03_25_212115_add_is_on_board_to_status',1),(72,'2022_03_27_153028_modify_operational_information',1),(73,'2022_04_05_151543_change_engine_and_machine_field',1),(74,'2022_04_08_152626_create_language_skills_table',1),(75,'2022_04_08_153117_create_language_informations_table',1),(76,'2022_04_17_173901_add_company_to_personal_information',1),(77,'2022_04_30_164758_add_country_to_passport',1);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2020_11_06_173104_create_provinces_table',1),(6,'2020_11_06_175950_create_municipalities_table',1),(7,'2020_11_06_180703_create_eyes_colors_table',1),(8,'2020_11_06_203046_create_hair_colors_table',1),(9,'2020_11_06_204437_create_marital_statuses_table',1),(10,'2020_11_06_205042_create_school_grades_table',1),(11,'2020_11_06_205655_create_political_integrations_table',1),(12,'2020_11_06_210158_create_ranks_table',1),(13,'2020_11_06_210350_create_statuses_table',1),(14,'2020_11_06_211030_create_course_numbers_table',1),(15,'2020_11_06_211308_create_medical_informations_table',1),(16,'2020_11_06_211624_create_licenses_table',1),(17,'2020_11_06_212138_create_next_of_kins_table',1),(18,'2020_11_06_212716_create_engine_types_table',1),(19,'2020_11_06_213517_create_flags_table',1),(20,'2020_11_06_214058_create_affiliates_table',1),(21,'2020_11_06_215018_create_languages_table',1),(22,'2020_11_06_215209_create_levels_table',1),(23,'2020_11_09_005656_create_permission_tables',1),(24,'2020_11_11_223416_create_personal_informations_table',1),(25,'2020_11_15_151004_create_operational_informations_table',1),(26,'2020_11_15_183944_create_memos_table',1),(27,'2020_11_15_191440_create_courses_table',1),(28,'2020_11_15_194400_create_personal_medical_informations_table',1),(29,'2020_11_15_202237_create_passports_table',1),(30,'2020_11_15_211727_create_family_informations_table',1),(31,'2020_11_15_214146_create_other_skills_table',1),(32,'2020_11_15_223209_create_companies_table',1),(33,'2020_11_17_235043_create_skin_colors_table',1),(34,'2020_11_18_000224_add_skin_color_to_personal_information',1),(35,'2020_12_02_135946_create_license_endorsement_types_table',1),(36,'2020_12_02_143900_create_countries_table',1),(37,'2020_12_02_150102_create_license_endorsement_names_table',1),(38,'2020_12_02_153711_create_license_endorsements_table',1),(39,'2020_12_03_165310_create_visa_types_table',1),(40,'2020_12_03_170425_create_visas_table',1),(41,'2020_12_03_173535_add_nre_field_to_visas_table',1),(42,'2020_12_04_150340_create_shore_experiencies_table',1),(43,'2020_12_04_180604_create_seaman_books_table',1),(44,'2020_12_06_131133_create_family_statuses_table',1),(45,'2020_12_06_132622_fix_family_information_table',1),(46,'2020_12_08_043547_change_external_number_to_nullable',1),(47,'2021_02_23_193725_change_operationnal_information_nullable_fields',1),(48,'2021_02_23_204436_change_coure_number_field_lenght',1),(49,'2021_02_24_164820_create_sort_field',1),(50,'2021_09_05_040958_add_code_to_status',1),(51,'2021_09_05_045752_add_code_to_rank',1),(52,'2021_09_05_051129_add_code_to_province_and_municipality',1),(53,'2021_09_05_061014_add_code_to_school_grade',1),(54,'2021_09_05_122836_add_code_to_political_integrations',1),(55,'2021_09_05_144629_change_serial_number_lenght',1),(56,'2021_09_11_105347_add_code_to_course_number',1),(57,'2021_09_11_162952_add_code_to_country',1),(58,'2021_09_11_173320_update_course_table_to_import',1),(59,'2021_09_17_132911_add_group_to_passport',1),(60,'2021_10_21_131838_create_skill_or_knowledges_table',1),(61,'2021_10_21_134939_add_column_code_to_skill_or_knowledges',1),(62,'2021_10_22_043603_update_other_skill_table',1),(63,'2021_10_22_141224_update_other_skill_date_to_nullable_table',1),(64,'2021_10_22_145125_add_title_to_other_skill_table',1),(65,'2021_10_26_115839_fix_company_table',1),(66,'2021_10_28_165747_create_vessels_table',1),(67,'2021_10_29_121052_create_vessel_types_table',1),(68,'2021_10_29_134202_add_foreign_key_to_vessel',1),(69,'2021_10_30_003808_add_dates_to_vessels_table',1),(70,'2022_03_11_164214_create_sea_going_experiences_table',1),(71,'2022_03_25_212115_add_is_on_board_to_status',1),(72,'2022_03_27_153028_modify_operational_information',1),(73,'2022_04_05_151543_change_engine_and_machine_field',1),(74,'2022_04_08_152626_create_language_skills_table',1),(75,'2022_04_08_153117_create_language_informations_table',1),(76,'2022_04_17_173901_add_company_to_personal_information',1),(77,'2022_04_30_164758_add_country_to_passport',1),(78,'2022_05_10_212144_add_order_to_rank',1),(79,'2022_05_11_141312_add_rank_to_course_numbers',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -921,7 +935,7 @@ CREATE TABLE `operational_informations` (
   CONSTRAINT `operational_informations_ranks_id_foreign` FOREIGN KEY (`ranks_id`) REFERENCES `ranks` (`id`),
   CONSTRAINT `operational_informations_statuses_id_foreign` FOREIGN KEY (`statuses_id`) REFERENCES `statuses` (`id`),
   CONSTRAINT `operational_informations_vessel_id_foreign` FOREIGN KEY (`vessel_id`) REFERENCES `vessels` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -930,7 +944,7 @@ CREATE TABLE `operational_informations` (
 
 LOCK TABLES `operational_informations` WRITE;
 /*!40000 ALTER TABLE `operational_informations` DISABLE KEYS */;
-INSERT INTO `operational_informations` VALUES (1,3,'2022-05-08',1,1,NULL,'2022-05-08 04:00:00','2022-05-08 04:00:00',NULL,NULL),(2,4,'2022-05-08',1,1,NULL,'2022-05-08 04:00:00','2022-05-08 04:00:00',NULL,NULL);
+INSERT INTO `operational_informations` VALUES (1,1,'2022-05-11',1,2,NULL,'2022-05-11 04:00:00','2022-05-11 04:00:00',NULL,NULL),(2,2,'2022-05-11',1,1,NULL,'2022-05-11 04:00:00','2022-05-11 04:00:00',NULL,NULL),(3,3,'2022-05-11',1,1,NULL,'2022-05-11 04:00:00','2022-05-11 04:00:00',NULL,NULL),(4,4,'2022-08-31',1,2,NULL,'2022-05-11 04:00:00','2022-05-11 04:00:00',NULL,3),(5,5,'2022-05-11',1,1,NULL,'2022-05-11 04:00:00','2022-05-11 04:00:00',NULL,NULL);
 /*!40000 ALTER TABLE `operational_informations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -994,7 +1008,7 @@ CREATE TABLE `passports` (
   KEY `passports_countries_id_foreign` (`countries_id`),
   CONSTRAINT `passports_countries_id_foreign` FOREIGN KEY (`countries_id`) REFERENCES `countries` (`id`),
   CONSTRAINT `passports_personal_informations_id_foreign` FOREIGN KEY (`personal_informations_id`) REFERENCES `personal_informations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1003,6 +1017,7 @@ CREATE TABLE `passports` (
 
 LOCK TABLES `passports` WRITE;
 /*!40000 ALTER TABLE `passports` DISABLE KEYS */;
+INSERT INTO `passports` VALUES (1,1,'2022-05-01','2023-05-01',NULL,NULL,'A1817',NULL,'2022-05-11 20:17:29','2022-05-11 20:17:29',NULL,1),(2,2,'2022-05-01','2024-05-01',NULL,NULL,'ALE222',NULL,'2022-05-11 22:49:54','2022-05-11 22:49:54',NULL,1),(3,4,'2020-05-01','2022-05-01','2022-05-31','2024-05-01','B4444',NULL,'2022-05-11 22:58:23','2022-05-11 22:58:23',NULL,1);
 /*!40000 ALTER TABLE `passports` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1147,7 +1162,7 @@ CREATE TABLE `personal_informations` (
   CONSTRAINT `personal_informations_province_id_foreign` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`),
   CONSTRAINT `personal_informations_school_grade_id_foreign` FOREIGN KEY (`school_grade_id`) REFERENCES `school_grades` (`id`),
   CONSTRAINT `personal_informations_skin_color_id_foreign` FOREIGN KEY (`skin_color_id`) REFERENCES `skin_colors` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1156,7 +1171,7 @@ CREATE TABLE `personal_informations` (
 
 LOCK TABLES `personal_informations` WRITE;
 /*!40000 ALTER TABLE `personal_informations` DISABLE KEYS */;
-INSERT INTO `personal_informations` VALUES (3,'0002','0002','Pepe','0002','0002','2022-05-01',NULL,NULL,NULL,NULL,NULL,NULL,'Male',120,120,NULL,NULL,1,1,1,1,1,1,1,'/img/default-image.png','2022-05-08 04:00:00','2022-05-08 04:00:00',NULL,1,NULL),(4,'0001','0001','Armando','0001','0001','2022-05-01',NULL,NULL,NULL,NULL,NULL,NULL,'Male',190,200,NULL,NULL,1,1,1,1,1,1,1,'/img/default-image.png','2022-05-08 04:00:00','2022-05-08 04:00:00',NULL,1,NULL);
+INSERT INTO `personal_informations` VALUES (1,'0001','0001','Armando Baños','0001','0001','1972-08-13','Habana',NULL,NULL,NULL,NULL,NULL,'Male',180,120,NULL,NULL,1,1,1,1,1,1,1,'/img/default-image.png','2022-05-11 04:00:00','2022-05-11 04:00:00',NULL,1,NULL),(2,'0002','0002','Ale','0002','0002','2004-02-03','Haana',NULL,NULL,NULL,NULL,NULL,'Male',120,120,NULL,NULL,1,1,1,1,1,1,1,'/img/default-image.png','2022-05-11 04:00:00','2022-05-11 04:00:00',NULL,1,NULL),(3,'0003','0003','Adrian','0003','0003','2009-01-15','Habana',NULL,NULL,NULL,NULL,NULL,'Male',190,120,NULL,NULL,1,1,1,1,1,1,1,'/img/default-image.png','2022-05-11 04:00:00','2022-05-11 04:00:00',NULL,1,NULL),(4,'00004','00004','Joseito Fernandez','00004','00004','1910-05-10','Santiago de Cuba',NULL,NULL,NULL,NULL,NULL,'Male',192,120,NULL,NULL,1,1,1,1,1,1,1,'/img/default-image.png','2022-05-11 04:00:00','2022-05-11 04:00:00',NULL,1,NULL),(5,'00056','00056','Cristinito Pérez','00056','00056','1962-07-12','Habana',NULL,NULL,NULL,NULL,NULL,'Male',190,120,NULL,NULL,1,1,1,1,1,1,1,'/img/default-image.png','2022-05-11 04:00:00','2022-05-11 04:00:00',NULL,1,NULL);
 /*!40000 ALTER TABLE `personal_informations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1181,7 +1196,7 @@ CREATE TABLE `personal_medical_informations` (
   KEY `personal_medical_informations_medical_informations_id_foreign` (`medical_informations_id`),
   CONSTRAINT `personal_medical_informations_medical_informations_id_foreign` FOREIGN KEY (`medical_informations_id`) REFERENCES `medical_informations` (`id`),
   CONSTRAINT `personal_medical_informations_personal_informations_id_foreign` FOREIGN KEY (`personal_informations_id`) REFERENCES `personal_informations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1190,6 +1205,7 @@ CREATE TABLE `personal_medical_informations` (
 
 LOCK TABLES `personal_medical_informations` WRITE;
 /*!40000 ALTER TABLE `personal_medical_informations` DISABLE KEYS */;
+INSERT INTO `personal_medical_informations` VALUES (1,1,1,'2022-05-01','2023-05-01','2022-05-11 20:17:09','2022-05-11 20:17:09',NULL),(2,2,1,'2022-05-01','2023-05-31','2022-05-11 22:49:25','2022-05-11 22:49:25',NULL),(3,4,1,'2022-05-01','2024-05-01','2022-05-11 22:57:32','2022-05-11 22:57:32',NULL);
 /*!40000 ALTER TABLE `personal_medical_informations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1260,13 +1276,14 @@ DROP TABLE IF EXISTS `ranks`;
 CREATE TABLE `ranks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order` int(10) unsigned NOT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ranks_code_unique` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1275,7 +1292,7 @@ CREATE TABLE `ranks` (
 
 LOCK TABLES `ranks` WRITE;
 /*!40000 ALTER TABLE `ranks` DISABLE KEYS */;
-INSERT INTO `ranks` VALUES (1,'Marino','M','2022-05-08 19:06:24','2022-05-08 19:06:24',NULL);
+INSERT INTO `ranks` VALUES (1,'Marino',2,'M','2022-05-11 20:03:35','2022-05-11 20:04:06',NULL),(2,'Cocinero',1,'C','2022-05-11 20:03:47','2022-05-11 20:03:47',NULL),(3,'Dependiente',1,'D','2022-05-11 20:03:58','2022-05-11 20:03:58',NULL),(4,'Primer Oficial',3,'PO','2022-05-11 20:05:37','2022-05-11 20:05:37',NULL),(5,'Capitan',4,'CP','2022-05-11 20:05:50','2022-05-11 20:05:50',NULL),(6,'Oficial de cubierta',3,'OC','2022-05-11 20:06:10','2022-05-11 20:06:21',NULL),(7,'Almirante',5,'A','2022-05-11 20:06:40','2022-05-11 20:06:40',NULL);
 /*!40000 ALTER TABLE `ranks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1389,7 +1406,7 @@ CREATE TABLE `sea_going_experiences` (
   CONSTRAINT `sea_going_experiences_rank_id_foreign` FOREIGN KEY (`rank_id`) REFERENCES `ranks` (`id`),
   CONSTRAINT `sea_going_experiences_status_id_foreign` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`),
   CONSTRAINT `sea_going_experiences_vessel_id_foreign` FOREIGN KEY (`vessel_id`) REFERENCES `vessels` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1420,7 +1437,7 @@ CREATE TABLE `seaman_books` (
   PRIMARY KEY (`id`),
   KEY `seaman_books_personal_informations_id_foreign` (`personal_informations_id`),
   CONSTRAINT `seaman_books_personal_informations_id_foreign` FOREIGN KEY (`personal_informations_id`) REFERENCES `personal_informations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1429,6 +1446,7 @@ CREATE TABLE `seaman_books` (
 
 LOCK TABLES `seaman_books` WRITE;
 /*!40000 ALTER TABLE `seaman_books` DISABLE KEYS */;
+INSERT INTO `seaman_books` VALUES (1,'1','2022-05-01','2023-05-01',1,'2022-05-11 20:19:50','2022-05-11 20:19:50',NULL),(2,'2','2022-05-01','2023-05-01',2,'2022-05-11 22:50:52','2022-05-11 22:50:52',NULL),(3,'3','2022-05-01','2024-05-01',4,'2022-05-11 22:59:16','2022-05-11 22:59:16',NULL);
 /*!40000 ALTER TABLE `seaman_books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1591,7 +1609,7 @@ CREATE TABLE `vessel_types` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1600,6 +1618,7 @@ CREATE TABLE `vessel_types` (
 
 LOCK TABLES `vessel_types` WRITE;
 /*!40000 ALTER TABLE `vessel_types` DISABLE KEYS */;
+INSERT INTO `vessel_types` VALUES (1,'Pesquero','2022-05-11 23:00:50','2022-05-11 23:00:50',NULL),(2,'Mercante','2022-05-11 23:01:16','2022-05-11 23:01:16',NULL),(3,'Guerra','2022-05-11 23:01:23','2022-05-11 23:01:23',NULL),(4,'Turismo','2022-05-11 23:01:43','2022-05-11 23:01:43',NULL);
 /*!40000 ALTER TABLE `vessel_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1637,7 +1656,7 @@ CREATE TABLE `vessels` (
   CONSTRAINT `vessels_engine_type_id_foreign` FOREIGN KEY (`engine_type_id`) REFERENCES `engine_types` (`id`),
   CONSTRAINT `vessels_flags_id_foreign` FOREIGN KEY (`flags_id`) REFERENCES `flags` (`id`),
   CONSTRAINT `vessels_vessel_type_id_foreign` FOREIGN KEY (`vessel_type_id`) REFERENCES `vessel_types` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1646,6 +1665,7 @@ CREATE TABLE `vessels` (
 
 LOCK TABLES `vessels` WRITE;
 /*!40000 ALTER TABLE `vessels` DISABLE KEYS */;
+INSERT INTO `vessels` VALUES (1,'Pilar','PL',100,100,0,'100',1,1,NULL,NULL,'2022-05-11 23:06:12','2022-05-11 23:06:12',NULL,2,1,100),(2,'Playa Girón','PL',1000,1000,0,'1000',2,1,NULL,NULL,'2022-05-11 23:10:28','2022-05-11 23:10:28',NULL,1,1,1000),(3,'Ruccky Thunder','PC',1000,1000,0,'1000',3,3,NULL,NULL,'2022-05-11 23:11:33','2022-05-11 23:11:33',NULL,3,3,1000),(4,'Harlem','Har',2000,21000,0,'1000',4,4,NULL,NULL,'2022-05-11 23:17:15','2022-05-11 23:17:15',NULL,4,4,1000);
 /*!40000 ALTER TABLE `vessels` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1720,4 +1740,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-08 12:06:15
+-- Dump completed on 2022-05-12  8:53:30
