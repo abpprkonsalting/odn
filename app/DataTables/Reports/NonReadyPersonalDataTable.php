@@ -44,7 +44,8 @@ class NonReadyPersonalDataTable extends DataTable
                 'licences_valid' => $item['licences'],
                 'seamanbook_valid' => $item['seamanbook'],
                 'avatar' => $item["personalInformation"]->avatar,
-                'full_name' => $item["personalInformation"]->full_name
+                'full_name' => $item["personalInformation"]->full_name,
+                'internal_file_number' => $item["personalInformation"]->internal_file_number
             ];
         });
         $dataTable = new CollectionDataTable($collection);
@@ -139,6 +140,7 @@ class NonReadyPersonalDataTable extends DataTable
         return [
             'avatar',
             'full_name',
+            'internal_file_number',
             'passport_valid',
             'medical_informations_valid',
             'courses_valid',

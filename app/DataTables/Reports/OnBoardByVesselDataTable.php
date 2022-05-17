@@ -31,7 +31,8 @@ class OnBoardByVesselDataTable extends DataTable
                                                     'company' => $item->vessel->company?->company_name,
                                                     'full_name' => $item->personalInformation->full_name,
                                                     'avatar' => $item->personalInformation->avatar,
-                                                    'rank' => $item->rank->name
+                                                    'rank' => $item->rank->name,
+                                                    'internal_file_number' => $item->personalInformation->internal_file_number
                                                 ];
                                             })->sortBy([
                                                 ['vessel','asc'],
@@ -89,7 +90,8 @@ class OnBoardByVesselDataTable extends DataTable
             'vessel',
             'rank',
             'avatar',
-            'full_name'
+            'full_name',
+            'internal_file_number'
         ];
     }
 

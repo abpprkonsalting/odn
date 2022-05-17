@@ -47,7 +47,8 @@ class SeafarersByRankDataTable extends DataTable
                                     'rankOrder' => $highestRankCourseNumber->courseNumber->rank->order,
                                     'full_name' =>   $highestRankCourseNumber->personalInformation->full_name,
                                     'avatar' => $highestRankCourseNumber->personalInformation->avatar,
-                                    'age' => $age
+                                    'age' => $age,
+                                    'internal_file_number' => $highestRankCourseNumber->personalInformation->internal_file_number
                                 ]);
                             })
                             ->sortBy([
@@ -104,6 +105,7 @@ class SeafarersByRankDataTable extends DataTable
         return [
             'avatar',
             'full_name',
+            'internal_file_number',
             'rank',
             'age'
         ];

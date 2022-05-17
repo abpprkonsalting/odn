@@ -46,7 +46,8 @@ class WithExpiredCertificationDataTable extends DataTable
                                     'expired' => $beforePosition !== false ? true : false,
                                     'full_name' => $item->personalInformation->full_name,
                                     'avatar' => $item->personalInformation->avatar,
-                                    'rank' => $item->personalInformation->operationalInformation?->rank->name
+                                    'rank' => $item->personalInformation->operationalInformation?->rank->name,
+                                    'internal_file_number' => $item->personalInformation->internal_file_number
                                 ];
                             })->sortByDesc([
                                 ['course_number', 'asc'],
@@ -110,7 +111,8 @@ class WithExpiredCertificationDataTable extends DataTable
             'time_to_deadLine',
             'rank',
             'avatar',
-            'full_name'
+            'full_name',
+            'internal_file_number'
         ];
     }
 

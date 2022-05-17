@@ -27,7 +27,8 @@ class ByCertificationsDataTable extends DataTable
                                     'avatar' => $item->personalInformation->avatar,
                                     'rank' => $item->personalInformation->operationalInformation?->rank->name,
                                     'course_date' => $item->start_date,
-                                    'caducity_date' => $item->end_date
+                                    'caducity_date' => $item->end_date,
+                                    'internal_file_number' => $item->personalInformation->internal_file_number
                                 ];
                             })->sortByDesc([
                                 ['course_number','asc'],
@@ -85,7 +86,8 @@ class ByCertificationsDataTable extends DataTable
             'caducity_date',
             'rank',
             'avatar',
-            'full_name'
+            'full_name',
+            'internal_file_number'
         ];
     }
 

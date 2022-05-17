@@ -30,7 +30,8 @@ class ByStatusWithTimeInStatusDataTable extends DataTable
                                                     'time' => Carbon::createFromFormat('d-m-Y', $item->disponibility_date)->longRelativeToNowDiffForHumans(3),
                                                     'full_name' => $item->personalInformation->full_name,
                                                     'avatar' => $item->personalInformation->avatar,
-                                                    'rank' => $item->rank->name
+                                                    'rank' => $item->rank->name,
+                                                    'internal_file_number' => $item->personalInformation->internal_file_number
                                                 ];
                                             })
                                             ->sortBy([
@@ -89,6 +90,7 @@ class ByStatusWithTimeInStatusDataTable extends DataTable
             'time',
             'avatar',
             'full_name',
+            'internal_file_number',
             'rank'
         ];
     }

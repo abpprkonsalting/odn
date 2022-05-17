@@ -10,7 +10,7 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\CollectionDataTable;
 use Illuminate\Support\Carbon;
 
-class ReportSeafarersVisasDataTable extends DataTable
+class SeafarersVisasDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -41,7 +41,8 @@ class ReportSeafarersVisasDataTable extends DataTable
                         'avatar' => $item->personalInformation->avatar,
                         'full_name' => $item->personalInformation->full_name,
                         'destination' => $item->country->name,
-                        'expiry' => $item->expiry_extension_date != null ? $item->expiry_extension_date : $item->expiry_date
+                        'expiry' => $item->expiry_extension_date != null ? $item->expiry_extension_date : $item->expiry_date,
+                        'internal_file_number' => $item->personalInformation->internal_file_number
                     ];
                 });
             $collection_2 = Visa::whereNotIn('countries_id', [$cubaCountryId])
@@ -54,7 +55,8 @@ class ReportSeafarersVisasDataTable extends DataTable
                         'avatar' => $item->passport->personalInformation->avatar,
                         'full_name' => $item->passport->personalInformation->full_name,
                         'destination' => $item->country->name,
-                        'expiry' => $item->expiry_date
+                        'expiry' => $item->expiry_date,
+                        'internal_file_number' => $item->passport->personalInformation->internal_file_number
                     ];
                 });
             $collection = $collection->concat($collection_2)
@@ -118,7 +120,8 @@ class ReportSeafarersVisasDataTable extends DataTable
             'passport_nationality',
             'expiry',
             'avatar',
-            'full_name'
+            'full_name',
+            'internal_file_number'
         ];
     }
 

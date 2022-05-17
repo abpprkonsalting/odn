@@ -33,7 +33,8 @@ class WithForeignLicenseByTypeDataTable extends DataTable
                         'license_type' => $item->licenseEndorsementType->name,
                         'expiration' => $item->expiry_date,
                         'avatar' => $item->personalInformation->avatar,
-                        'full_name' => $item->personalInformation->full_name
+                        'full_name' => $item->personalInformation->full_name,
+                        'internal_file_number' => $item->personalInformation->internal_file_number
                     ];
                 });
 
@@ -91,6 +92,7 @@ class WithForeignLicenseByTypeDataTable extends DataTable
         return [
             'avatar',
             'full_name',
+            'internal_file_number',
             'country',
             'license_type',
             'expiration'

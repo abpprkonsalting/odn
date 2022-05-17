@@ -37,7 +37,8 @@ class ReadyByExperienceDataTable extends DataTable
                                                 'vessel_type' => $item->vessel->vesselType->title,
                                                 'full_name' => $item->personalInformation->full_name,
                                                 'avatar' => $item->personalInformation->avatar,
-                                                'experience' => $endDateCarbon->diffInDays($startDateCarbon)
+                                                'experience' => $endDateCarbon->diffInDays($startDateCarbon),
+                                                'internal_file_number' => $item->personalInformation->internal_file_number
                                             ];
                                         })
                                         ->groupBy(function ($item, $key) {
@@ -53,7 +54,8 @@ class ReadyByExperienceDataTable extends DataTable
                                                 'vessel_type' =>  $first["vessel_type"],
                                                 'full_name' =>   $first["full_name"],
                                                 'avatar' =>   $first["avatar"],
-                                                'experience' =>  $experienceForHumans
+                                                'experience' =>  $experienceForHumans,
+                                                'internal_file_number' =>$first["internal_file_number"]
                                             ]);
                                         })
                                         ->sortBy([
@@ -112,7 +114,8 @@ class ReadyByExperienceDataTable extends DataTable
             'rank',
             'experience',
             'avatar',
-            'full_name'
+            'full_name',
+            'internal_file_number'
         ];
     }
 

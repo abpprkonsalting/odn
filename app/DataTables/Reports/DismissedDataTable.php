@@ -31,7 +31,8 @@ class DismissedDataTable extends DataTable
                                                     'avatar' => $item->personalInformation->avatar,
                                                     'full_name' => $item->personalInformation->full_name,
                                                     'dismissed_date' => $item->disponibility_date,
-                                                    'reason' => $item->description
+                                                    'reason' => $item->description,
+                                                    'internal_file_number' => $item->personalInformation->internal_file_number
                                                 ];
                                             })->sortBy([
                                                 ['company','asc'],
@@ -88,6 +89,7 @@ class DismissedDataTable extends DataTable
             'company',
             'avatar',
             'full_name',
+            'internal_file_number',
             'dismissed_date',
             'reason'
         ];

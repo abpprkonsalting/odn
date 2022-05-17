@@ -27,7 +27,8 @@ class SeafarersByEngineTypeDataTable extends DataTable
                     'engine_type' => $item->vessel->engineType->name,
                     'full_name' => $item->personalInformation->full_name,
                     'avatar' => $item->personalInformation->avatar,
-                    'experience' => $endDate->diffInDays($startDate)
+                    'experience' => $endDate->diffInDays($startDate),
+                    'internal_file_number' => $item->personalInformation->internal_file_number
                 ];
             })
             ->groupBy(function ($item, $key) {
@@ -41,6 +42,7 @@ class SeafarersByEngineTypeDataTable extends DataTable
                     'id' =>     $first["id"],
                     'engine_type' =>  $first["engine_type"],
                     'full_name' =>   $first["full_name"],
+                    'internal_file_number' =>   $first["internal_file_number"],
                     'avatar' =>   $first["avatar"],
                     'experience' =>  $experienceForHumans
                 ]);
@@ -99,7 +101,8 @@ class SeafarersByEngineTypeDataTable extends DataTable
             'engine_type',
             'experience',
             'avatar',
-            'full_name'
+            'full_name',
+            'internal_file_number'
         ];
     }
 

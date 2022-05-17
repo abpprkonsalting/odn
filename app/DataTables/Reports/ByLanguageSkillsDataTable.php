@@ -27,7 +27,8 @@ class ByLanguageSkillsDataTable extends DataTable
                                                     'skill' => $item->languageSkill->name,
                                                     'level' => $item->level->name,
                                                     'full_name' => $item->personalInformation->full_name,
-                                                    'avatar' => $item->personalInformation->avatar
+                                                    'avatar' => $item->personalInformation->avatar,
+                                                    'internal_file_number' => $item->personalInformation->internal_file_number
                                                 ];})
                                             ->groupBy(function ($item, $key) {
                                                 return $item['id']."-".$item['language'];
@@ -42,7 +43,8 @@ class ByLanguageSkillsDataTable extends DataTable
                                                     'language' => $first["language"],
                                                     'name' => $first["full_name"],
                                                     'avatar' => $first['avatar'],
-                                                    'proficiency' => $proficiency
+                                                    'proficiency' => $proficiency,
+                                                    'internal_file_number' => $first['internal_file_number'],
                                                 ];
                                             });
         $dataTable = new CollectionDataTable($collection);
@@ -106,7 +108,8 @@ class ByLanguageSkillsDataTable extends DataTable
             'language',
             'proficiency',
             'avatar',
-            'name'
+            'name',
+            'internal_file_number'
         ];
     }
 

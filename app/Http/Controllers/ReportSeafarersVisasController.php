@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\Reports\ReportSeafarersVisasDataTable;
+use App\DataTables\Reports\SeafarersVisasDataTable;
 use App\Http\Controllers\AppBaseController;
 use Response;
 
@@ -14,12 +14,12 @@ class ReportSeafarersVisasController extends AppBaseController
 
     /**
      *
-     * @param ReportSeafarersVisasDataTable $reportSeafarersVisasDataTable
+     * @param SeafarersVisasDataTable $SeafarersVisasDataTable
      * @return mixed
      */
-    public function index(ReportSeafarersVisasDataTable $reportSeafarersVisasDataTable)
+    public function index(SeafarersVisasDataTable $SeafarersVisasDataTable)
     {
-        return $reportSeafarersVisasDataTable->render('report_seafarers_visas.index');
+        return $SeafarersVisasDataTable->render('report_seafarers_visas.index');
     }
 
 }

@@ -30,7 +30,8 @@ class OnVacationsByCompanyDataTable extends DataTable
                                                     'full_name' => $item->personalInformation->full_name,
                                                     'avatar' => $item->personalInformation->avatar,
                                                     'company' => $item->personalInformation->company?->company_name,
-                                                    'rank' => $item->rank->name
+                                                    'rank' => $item->rank->name,
+                                                    'internal_file_number' => $item->personalInformation->internal_file_number
                                                 ];
                                             })
                                             ->sortBy([
@@ -88,7 +89,8 @@ class OnVacationsByCompanyDataTable extends DataTable
             'company',
             'rank',
             'avatar',
-            'full_name'
+            'full_name',
+            'internal_file_number'
         ];
     }
 

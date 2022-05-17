@@ -33,7 +33,8 @@ class OnBoardTimeDataTable extends DataTable
                                                     'avatar' => $item->personalInformation->avatar,
                                                     'boarding_date' => Carbon::createFromFormat('d-m-Y', $item->disponibility_date)->format('Y-m-d'),
                                                     'period_on_board' => Carbon::createFromFormat('d-m-Y', $item->disponibility_date)->longRelativeToNowDiffForHumans(3),
-                                                    'rank' => $item->rank->name
+                                                    'rank' => $item->rank->name,
+                                                    'internal_file_number' => $item->personalInformation->internal_file_number
                                                 ];
                                             })
                                             ->sortBy([
@@ -93,6 +94,7 @@ class OnBoardTimeDataTable extends DataTable
             'period_on_board',
             'avatar',
             'full_name',
+            'internal_file_number',
             'rank'
         ];
     }
