@@ -29,13 +29,15 @@ class ReadyByExperienceDataTable extends DataTable
                                             return $value->personalInformation->operationalInformation?->status == $readyStatus;
                                         })
                                         ->map(function ($item, $key) {
+                                            $startDateCarbon = Carbon::createFromFormat('d-m-Y',$item->start_date);
+                                            $endDateCarbon = Carbon::createFromFormat('d-m-Y',$item->end_date);
                                             return [
                                                 'id' => $item->personal_information_id,
                                                 'rank' =>  $item->rank->name,
                                                 'vessel_type' => $item->vessel->vesselType->title,
                                                 'full_name' => $item->personalInformation->full_name,
                                                 'avatar' => $item->personalInformation->avatar,
-                                                'experience' => $item->end_date->diffInDays($item->start_date)
+                                                'experience' => $endDateCarbon->diffInDays($startDateCarbon)
                                             ];
                                         })
                                         ->groupBy(function ($item, $key) {
