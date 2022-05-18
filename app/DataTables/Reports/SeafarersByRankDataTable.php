@@ -21,41 +21,30 @@ class SeafarersByRankDataTable extends DataTable
     public function dataTable($query)
     {
         $currentTime = Carbon::now();
-        $collection = Course::get()
-                            ->groupBy('personal_informations_id')
-                            ->map(function ($item, $key) use ($currentTime){
-                                $highestRankCourseNumber = $item->reduce(function($carry,$i){
-                                    if ($carry == null) {
-                                        return $i;
-                                    }
-                                    $carryRank = $carry->courseNumber->rank->order;
-                                    $currentRank = $i->courseNumber->rank->order;
-                                    if ($currentRank > $carryRank) {
-                                        $carry->courseNumber = $i->courseNumber;
-                                    }
-                                    return $carry;
-                                });
-                                $birthday = Carbon::createFromFormat('d-m-Y', $highestRankCourseNumber->personalInformation->birthday);
-                                $age = $currentTime->longRelativeDiffForHumans($birthday);
-                                $afterPosition = strrpos($age,'after');
-                                    if ( $afterPosition !== false ) {
-                                        $age = str_replace(' after','',$age);
-                                    }
-                                return collect([
-                                    'id' =>     $highestRankCourseNumber->personalInformation->id,
-                                    'rank' =>    $highestRankCourseNumber->courseNumber->rank->name,
-                                    'rankOrder' => $highestRankCourseNumber->courseNumber->rank->order,
-                                    'full_name' =>   $highestRankCourseNumber->personalInformation->full_name,
-                                    'avatar' => $highestRankCourseNumber->personalInformation->avatar,
-                                    'age' => $age,
-                                    'internal_file_number' => $highestRankCourseNumber->personalInformation->internal_file_number
-                                ]);
-                            })
-                            ->sortBy([
-                                ['rankOrder','desc'],
-                                ['age','desc'],
-                                ['full_name','asc']
-                            ]);
+        $collection = PersonalInformation::get()
+            ->map(function ($item, $key) use ($currentTime) {
+                $highestRankCourseNumber = $item->highestRankCourseNumber();
+                $birthday = Carbon::createFromFormat('d-m-Y', $item->birthday);
+                $age = $currentTime->longRelativeDiffForHumans($birthday);
+                $afterPosition = strrpos($age, 'after');
+                if ($afterPosition !== false) {
+                    $age = str_replace(' after', '', $age);
+                }
+                return collect([
+                    'id' =>     $item->id,
+                    'rank' =>    $highestRankCourseNumber?->courseNumber->rank->name,
+                    'rankOrder' => $highestRankCourseNumber?->courseNumber->rank->order,
+                    'full_name' =>   $item->full_name,
+                    'avatar' => $item->avatar,
+                    'age' => $age,
+                    'internal_file_number' => $item->internal_file_number
+                ]);
+            })
+            ->sortBy([
+                ['rankOrder', 'desc'],
+                ['age', 'desc'],
+                ['full_name', 'asc']
+            ]);
         $dataTable = new CollectionDataTable($collection);
         return $dataTable->addColumn('avatar', function ($data) {
             $image = "/img/default-image.png";

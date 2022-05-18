@@ -149,7 +149,8 @@ class PersonalInformation extends Model
         'companies_id' => 'nullable'
     ];
 
-    public function getBirthdayAttribute($value) {
+    public function getBirthdayAttribute($value)
+    {
         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
     }
 
@@ -172,14 +173,33 @@ class PersonalInformation extends Model
         return $this->hasOne(OperationalInformation::class, 'personal_informations_id');
     }
 
-    public function memos() {
+    public function memos()
+    {
         return $this->hasMany(Memo::class, 'personal_informations_id');
     }
 
-    public function courses() {
-        return $this->hasMany(Course::class, 'personal_informations_id')->whereHas('courseNumber', function($query) {
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'personal_informations_id')->whereHas('courseNumber', function ($query) {
             $query->whereNull('deleted_at');
         });
+    }
+
+    public function highestRankCourseNumber()
+    {
+        $courses = $this->courses()->get();
+        $highestRankCourseNumber = $courses->reduce(function ($carry, $i) {
+            if ($carry == null) {
+                return $i;
+            }
+            $carryRank = $carry->courseNumber->rank->order;
+            $currentRank = $i->courseNumber->rank->order;
+            if ($currentRank > $carryRank) {
+                $carry->courseNumber = $i->courseNumber;
+            }
+            return $carry;
+        });
+        return $highestRankCourseNumber;
     }
 
     public function maritalStatus()
@@ -196,33 +216,40 @@ class PersonalInformation extends Model
         return $this->belongsTo(Municipality::class, 'municipality_id');
     }
 
-    public function familyInformations() {
+    public function familyInformations()
+    {
         return $this->hasMany(FamilyInformation::class, 'personal_informations_id');
     }
-    public function passports() {
+    public function passports()
+    {
         return $this->hasMany(Passport::class, 'personal_informations_id');
     }
 
-    public function seamanBooks() {
+    public function seamanBooks()
+    {
         return $this->hasMany(SeamanBook::class, 'personal_informations_id');
     }
-    public function personalMedicalInformations() {
-        return $this->hasMany(PersonalMedicalInformation::class, 'personal_informations_id')->whereHas('medicalInformation', function($query) {
+    public function personalMedicalInformations()
+    {
+        return $this->hasMany(PersonalMedicalInformation::class, 'personal_informations_id')->whereHas('medicalInformation', function ($query) {
             $query->whereNull('deleted_at');
         });
     }
 
-    public function otherSkills() {
+    public function otherSkills()
+    {
         return $this->hasMany(OtherSkill::class, 'personal_informations_id');
     }
-    public function shoreExperiencies() {
+    public function shoreExperiencies()
+    {
         return $this->hasMany(ShoreExperiencie::class, 'personal_informations_id');
     }
-    public function licenseEndorsements() {
+    public function licenseEndorsements()
+    {
         return $this->hasMany(LicenseEndorsement::class, 'personal_informations_id');
     }
-    public function company() {
+    public function company()
+    {
         return $this->belongsTo(Company::class, 'companies_id');
     }
-
 }
