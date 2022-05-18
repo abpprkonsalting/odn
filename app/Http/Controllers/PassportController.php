@@ -45,11 +45,11 @@ class PassportController extends AppBaseController
      */
     public function create(Request $request)
     {
-        if(isset($request->id) && !empty($request->id)) {
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepo->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
+            if (!empty($personalInformation)) {
                 return view('passports.create')->with('personalInformation', $personalInformation);
             }
         }
@@ -73,7 +73,7 @@ class PassportController extends AppBaseController
 
         Flash::success('Passport saved successfully.');
 
-        return redirect(route('passports.create', [ 'id' => $passport->personal_informations_id ]));
+        return redirect(route('passports.create', ['id' => $passport->personal_informations_id]));
     }
 
     /**
@@ -139,7 +139,7 @@ class PassportController extends AppBaseController
 
         Flash::success('Passport updated successfully.');
 
-        return redirect(route('passports.create', [ 'id' => $passport->personal_informations_id ]));
+        return redirect(route('passports.create', ['id' => $passport->personal_informations_id]));
     }
 
     /**
@@ -151,30 +151,16 @@ class PassportController extends AppBaseController
      */
     public function destroy($id)
     {
-        
-
-        try{
-            
-            $this->passportRepository->find($id)->forcedelete();
-
+        try {
+            $passport = $this->passportRepository->find($id);
+            $personalInformationId = $passport->personal_informations_id;
+            $passport->forcedelete();
             Flash::success('Passport deleted successfully.');
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+        } catch (\Illuminate\Database\QueryException $ex) {
             Flash::error('Passport can not be deleted. Probably it\'s been used by other entity');
-            
-             }
-        finally{
-            return redirect(route('passports.create', [ 'id' => $passport->personal_informations_id ]));
-
-
-        }     
-
-       
-
-
+        } finally {
+            return redirect(route('passports.create', ['id' => $personalInformationId]));
+        }
     }
 
     /**
@@ -190,6 +176,5 @@ class PassportController extends AppBaseController
             ->addColumn('action', 'passports.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-
     }
 }

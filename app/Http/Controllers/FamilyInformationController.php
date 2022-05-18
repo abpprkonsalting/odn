@@ -18,8 +18,8 @@ class FamilyInformationController extends AppBaseController
 {
     /** @var  FamilyInformationRepository */
     private $familyInformationRepository;
-     /** @var  PersonalInformationRepository */
-     private $personalInformationRepo;
+    /** @var  PersonalInformationRepository */
+    private $personalInformationRepo;
 
 
     public function __construct(FamilyInformationRepository $familyInformationRepo, PersonalInformationRepository $personalInformationRepo)
@@ -46,11 +46,11 @@ class FamilyInformationController extends AppBaseController
      */
     public function create(Request $request)
     {
-        if(isset($request->id) && !empty($request->id)) {
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepo->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
+            if (!empty($personalInformation)) {
                 return view('family_informations.create')->with('personalInformation', $personalInformation);
             }
         }
@@ -115,7 +115,6 @@ class FamilyInformationController extends AppBaseController
         }
 
         return view('family_informations.edit')->with(['familyInformation' => $familyInformation, 'personalInformation' => $familyInformation->personalInformation]);
-        
     }
 
     /**
@@ -140,7 +139,7 @@ class FamilyInformationController extends AppBaseController
 
         Flash::success('Family Information updated successfully.');
 
-       
+
         return redirect(route('familyInformations.create', ['id' => $familyInformation->personal_informations_id]));
     }
 
@@ -153,30 +152,18 @@ class FamilyInformationController extends AppBaseController
      */
     public function destroy($id)
     {
-        
-
-        try{
-            $this->familyInformationRepository->find($id)->forcedelete();
-
+        try {
+            $familyInformation = $this->familyInformationRepository->find($id);
+            $personalInformationId = $familyInformation->personal_informations_id;
+            $familyInformation->forcedelete();
             Flash::success('Family Information deleted successfully.');
-
-            }
-            catch(\Illuminate\Database\QueryException $ex){
-            
-    
-                Flash::error('The Family Information  can not be deleted. Probably it\'s been used by other entity');
-           
-            }
-            finally{
-                      
-                return redirect(route('familyInformations.create', ['id' => $familyInformation->personal_informations_id]));
-
-            }
-    
-        
-        
+        } catch (\Illuminate\Database\QueryException $ex) {
+            Flash::error('The Family Information  can not be deleted. Probably it\'s been used by other entity');
+        } finally {
+            return redirect(route('familyInformations.create', ['id' => $personalInformationId]));
+        }
     }
-      /**
+    /**
      * Return JSON with listing of the Family Information belong to PersonalInformation.
      *
      * @param integer $personal_informations_id
@@ -189,6 +176,5 @@ class FamilyInformationController extends AppBaseController
             ->addColumn('action', 'family_informations.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-    
     }
 }

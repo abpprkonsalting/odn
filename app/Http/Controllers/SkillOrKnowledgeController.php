@@ -134,27 +134,18 @@ class SkillOrKnowledgeController extends AppBaseController
      */
     public function destroy($id)
     {
-        
-        try{
-            
+
+        try {
+
             $this->skillOrKnowledgeRepository->find($id)->forcedelete();
 
-        Flash::success('Skill Or Knowledge deleted successfully.');
+            Flash::success('Skill Or Knowledge deleted successfully.');
+        } catch (\Illuminate\Database\QueryException $ex) {
 
-    
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+
             Flash::error('The Skill Or Knowledge can not be deleted. Probably it\'s been used by other entity');
-            
-             }
-         finally{
+        } finally {
             return redirect(route('skillOrKnowledges.index'));
-         }    
-
-       
-        
+        }
     }
 }

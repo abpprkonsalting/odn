@@ -28,14 +28,14 @@ class LanguageInformationController extends Controller
         $this->personalInformationRepo = $personalInformationRepo;
     }
 
-     /**
+    /**
      * Display a listing of the Course.
      *
      * @param LanguageInformationDataTable $courseDataTable
      * @return Response
      */
 
-    public function index(LanguageInformationDataTable $languageInformationDataTable )
+    public function index(LanguageInformationDataTable $languageInformationDataTable)
     {
         return $languageInformationDataTable->render('language_informations.index');
     }
@@ -47,11 +47,11 @@ class LanguageInformationController extends Controller
      */
     public function create(Request $request)
     {
-        if(isset($request->id) && !empty($request->id)) {
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepo->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
+            if (!empty($personalInformation)) {
                 return view('language_informations.create')->with('personalInformation', $personalInformation);
             }
         }
@@ -60,7 +60,7 @@ class LanguageInformationController extends Controller
         return redirect(route('personalInformations.index'));
     }
 
-     /**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  @param CreateLanguageInformationRequest $request
@@ -77,24 +77,23 @@ class LanguageInformationController extends Controller
         // ])->first();
 
         $languageInformationModel = $this->languageInformationRepository->model();
-        $languageInformation = $languageInformationModel::with(['language', 'languageSkill','level'])
-                                ->where([
-                                    'personal_informations_id' => $input['personal_informations_id'],
-                                    'languages_id'=> $input['languages_id'],
-                                    'language_skills_id'=> $input['language_skills_id'],
-                                ])->first();
+        $languageInformation = $languageInformationModel::with(['language', 'languageSkill', 'level'])
+            ->where([
+                'personal_informations_id' => $input['personal_informations_id'],
+                'languages_id' => $input['languages_id'],
+                'language_skills_id' => $input['language_skills_id'],
+            ])->first();
 
         if (empty($languageInformation)) {
             $languageInformation = $this->languageInformationRepository->create($input);
-        }
-        else {
+        } else {
             $languageInformation = $this->languageInformationRepository->update($input, $languageInformation->id);
         }
         Flash::success('Language Information saved successfully.');
         return redirect(route('languageInformations.create', ['id' => $languageInformation->personal_informations_id]));
     }
 
-      /**
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -129,11 +128,13 @@ class LanguageInformationController extends Controller
             return redirect(route('languageInformations.index'));
         }
 
-        return view('language_informations.edit')->with(['languageInformation' => $languageInformation,
-                                                        'personalInformation' => $languageInformation->personalInformation]);
+        return view('language_informations.edit')->with([
+            'languageInformation' => $languageInformation,
+            'personalInformation' => $languageInformation->personalInformation
+        ]);
     }
 
-   /**
+    /**
      * Update the specified resource in storage.
      *
      * @param  UpdateLanguageInformationRequest $request
@@ -161,36 +162,24 @@ class LanguageInformationController extends Controller
      */
     public function destroy($id)
     {
-        
-        try{
-            
-            $this->languageInformationRepository->find($id)->forcedelete();
-
+        try {
+            $languageInformation = $this->languageInformationRepository->find($id);
+            $personalInformationId = $languageInformation->personal_informations_id;
+            $languageInformation->forcedelete();
             Flash::success('Language Information deleted successfully.');
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+        } catch (\Illuminate\Database\QueryException $ex) {
             Flash::error('The Language Information can not be deleted. Probably it\'s been used by other entity');
-            
-             }
-         finally{
-            return redirect(route('languageInformations.create', ['id' => $languageInformation->personal_informations_id]));
-
-             }
-      
-
-        
+        } finally {
+            return redirect(route('languageInformations.create', ['id' => $personalInformationId]));
+        }
     }
 
     public function getPersonalInformationLanguage($id)
     {
         $languageInformationModel = $this->languageInformationRepository->model();
-        return Datatables::of($languageInformationModel::with(['language', 'languageSkill','level'])->where(['personal_informations_id' => $id])->get())
+        return Datatables::of($languageInformationModel::with(['language', 'languageSkill', 'level'])->where(['personal_informations_id' => $id])->get())
             ->addColumn('action', 'language_informations.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-    
     }
 }

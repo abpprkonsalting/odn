@@ -19,10 +19,10 @@ class ShoreExperiencieController extends AppBaseController
 {
     /** @var  ShoreExperiencieRepository */
     private $shoreExperiencieRepository;
-     /** @var  PersonalInformationRepository */
-     private $personalInformationRepo;
+    /** @var  PersonalInformationRepository */
+    private $personalInformationRepo;
 
-    public function __construct(ShoreExperiencieRepository $shoreExperiencieRepo,PersonalInformationRepository $personalInformationRepo)
+    public function __construct(ShoreExperiencieRepository $shoreExperiencieRepo, PersonalInformationRepository $personalInformationRepo)
     {
         $this->shoreExperiencieRepository = $shoreExperiencieRepo;
         $this->personalInformationRepo = $personalInformationRepo;
@@ -46,12 +46,12 @@ class ShoreExperiencieController extends AppBaseController
      */
     public function create(Request $request)
     {
-        
-        if(isset($request->id) && !empty($request->id)) {
+
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepo->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
+            if (!empty($personalInformation)) {
                 return view('shore_experiencies.create')->with('personalInformation', $personalInformation);
             }
         }
@@ -75,8 +75,8 @@ class ShoreExperiencieController extends AppBaseController
 
         Flash::success('Shore Experiencie saved successfully.');
 
-      
-        return redirect(route('shoreExperiencies.create', [ 'id' => $shoreExperiencie->personal_informations_id ]));
+
+        return redirect(route('shoreExperiencies.create', ['id' => $shoreExperiencie->personal_informations_id]));
     }
 
     /**
@@ -116,7 +116,6 @@ class ShoreExperiencieController extends AppBaseController
             return redirect(route('shoreExperiencies.index'));
         }
         return view('shore_experiencies.edit')->with(['shoreExperiencie' => $shoreExperiencie, 'personalInformation' => $shoreExperiencie->personalInformation]);
-       
     }
 
     /**
@@ -141,8 +140,8 @@ class ShoreExperiencieController extends AppBaseController
 
         Flash::success('Shore Experiencie updated successfully.');
 
-       
-        return redirect(route('shoreExperiencies.create', [ 'id' => $shoreExperiencie->personal_informations_id ]));
+
+        return redirect(route('shoreExperiencies.create', ['id' => $shoreExperiencie->personal_informations_id]));
     }
 
     /**
@@ -154,35 +153,20 @@ class ShoreExperiencieController extends AppBaseController
      */
     public function destroy($id)
     {
-       
-
-        try{
-            
-            $this->shoreExperiencieRepository->find($id)->forcedelete();
-
+        try {
+            $shoreExperience = $this->shoreExperiencieRepository->find($id);
+            $personalInformationId = $shoreExperience->personal_information_id;
+            $shoreExperience->forcedelete();
             Flash::success('Shore Experiencie deleted successfully.');
-    
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+        } catch (\Illuminate\Database\QueryException $ex) {
             Flash::error('The Shore Experiencie can not be deleted. Probably it\'s been used by other entity');
-            
-             }
-         finally{
-            return redirect(route('shoreExperiencies.create', ['id' => $shoreExperiencie->personal_informations_id]));
-
-         }    
-
-
-       
-
-        
+        } finally {
+            return redirect(route('shoreExperiencies.create', ['id' => $personalInformationId]));
+        }
     }
 
 
-     /**
+    /**
      * Return JSON with listing of the Shore Experiencies belong to PersonalInformation.
      *
      * @param integer $personal_informations_id
@@ -195,6 +179,5 @@ class ShoreExperiencieController extends AppBaseController
             ->addColumn('action', 'shore_experiencies.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-    
     }
 }

@@ -18,8 +18,8 @@ class LicenseEndorsementController extends AppBaseController
 {
     /** @var  LicenseEndorsementRepository */
     private $licenseEndorsementRepository;
-       /** @var  PersonalInformationRepository */
-       private $personalInformationRepo;
+    /** @var  PersonalInformationRepository */
+    private $personalInformationRepo;
 
     public function __construct(LicenseEndorsementRepository $licenseEndorsementRepo, PersonalInformationRepository $personalInformationRepo)
     {
@@ -45,13 +45,13 @@ class LicenseEndorsementController extends AppBaseController
      */
     public function create(Request $request)
     {
-    
 
-        if(isset($request->id) && !empty($request->id)) {
+
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepo->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
+            if (!empty($personalInformation)) {
                 return view('license_endorsements.create')->with('personalInformation', $personalInformation);
             }
         }
@@ -115,7 +115,6 @@ class LicenseEndorsementController extends AppBaseController
             return redirect(route('licenseEndorsements.index'));
         }
         return view('license_endorsements.edit')->with(['licenseEndorsement' => $licenseEndorsement, 'personalInformation' => $licenseEndorsement->personalInformation]);
-       
     }
 
     /**
@@ -140,7 +139,7 @@ class LicenseEndorsementController extends AppBaseController
 
         Flash::success('License Endorsement updated successfully.');
 
- 
+
         return redirect(route('licenseEndorsements.create', ['id' => $licenseEndorsement->personal_informations_id]));
     }
 
@@ -153,37 +152,23 @@ class LicenseEndorsementController extends AppBaseController
      */
     public function destroy($id)
     {
-        
-
-        try{
-            
-            $this->licenseEndorsementRepository->find($id)->forcedelete();
-
+        try {
+            $licenseEndorsement = $this->licenseEndorsementRepository->find($id);
+            $personalInformationId = $licenseEndorsement->personal_informations_id;
+            $licenseEndorsement->forcedelete();
             Flash::success('License Endorsement deleted successfully.');
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+        } catch (\Illuminate\Database\QueryException $ex) {
             Flash::error('The License Endorsement can not be deleted. Probably it\'s been used by other entity');
-            
-             }
-         finally{
-            return redirect(route('licenseEndorsements.create', ['id' => $licenseEndorsement->personal_informations_id]));
-            
-         }    
-       
-
-        
-       
+        } finally {
+            return redirect(route('licenseEndorsements.create', ['id' => $personalInformationId]));
+        }
     }
     public function getPersonalInformationLicense($id)
     {
         $licenseEndorsementModel = $this->licenseEndorsementRepository->model();
-        return Datatables::of($licenseEndorsementModel::with(['country', 'licenseEndorsementType','licenseEndorsementName'])->where(['personal_informations_id' => $id])->get())
+        return Datatables::of($licenseEndorsementModel::with(['country', 'licenseEndorsementType', 'licenseEndorsementName'])->where(['personal_informations_id' => $id])->get())
             ->addColumn('action', 'license_endorsements.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-    
     }
 }

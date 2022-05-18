@@ -45,11 +45,11 @@ class PersonalMedicalInformationController extends AppBaseController
      */
     public function create(Request $request)
     {
-        if(isset($request->id) && !empty($request->id)) {
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepo->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
+            if (!empty($personalInformation)) {
                 return view('personal_medical_informations.create')->with('personalInformation', $personalInformation);
             }
         }
@@ -73,7 +73,7 @@ class PersonalMedicalInformationController extends AppBaseController
 
         Flash::success('Personal Medical Information saved successfully.');
 
-        return redirect(route('personalMedicalInformations.create', [ 'id' => $personalMedicalInformation->personal_informations_id ]));
+        return redirect(route('personalMedicalInformations.create', ['id' => $personalMedicalInformation->personal_informations_id]));
     }
 
     /**
@@ -150,32 +150,20 @@ class PersonalMedicalInformationController extends AppBaseController
      */
     public function destroy($id)
     {
-       
-
-        try{
-            
-            $this->personalMedicalInformationRepository->find($id)->forcedelete();
-
+        try {
+            $personalMedicalInformation = $this->personalMedicalInformationRepository->find($id);
+            $personalInformationId = $personalMedicalInformation->personal_informations_id;
+            $personalMedicalInformation->forcedelete();
             Flash::success('Personal Medical Information deleted successfully.');
-    
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+        } catch (\Illuminate\Database\QueryException $ex) {
             Flash::error('The Personal Medical Information can not be deleted. Probably it\'s been used by other entity');
-            
-             }
-        finally{
-            return redirect(route('personalMedicalInformations.create', ['id' => $personalMedicalInformation->personal_informations_id]));
-        }     
-
-        
-        
+        } finally {
+            return redirect(route('personalMedicalInformations.create', ['id' => $personalInformationId]));
+        }
     }
 
-    
-     /**
+
+    /**
      * Return JSON with listing of the Medical Personal Information belong to PersonalInformation.
      *
      * @param integer $personal_informations_id
@@ -184,12 +172,11 @@ class PersonalMedicalInformationController extends AppBaseController
     public function getPersonalInformationMedical($id)
     {
         $personalMedicalInformationModel = $this->personalMedicalInformationRepository->model();
-        return Datatables::of($personalMedicalInformationModel::with(['medicalInformation'])->whereHas('medicalInformation', function($q) {
+        return Datatables::of($personalMedicalInformationModel::with(['medicalInformation'])->whereHas('medicalInformation', function ($q) {
             $q->whereNull('deleted_at');
         })->where(['personal_informations_id' => $id])->get())
             ->addColumn('action', 'personal_medical_informations.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-    
     }
 }

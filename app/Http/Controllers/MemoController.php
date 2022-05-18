@@ -46,18 +46,17 @@ class MemoController extends AppBaseController
      */
     public function create(Request $request)
     {
-        if(isset($request->id) && !empty($request->id)) {
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepo->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
+            if (!empty($personalInformation)) {
                 return view('memos.create')->with('personalInformation', $personalInformation);
             }
         }
 
         Flash::error('Personal Information not found');
         return redirect(route('personalInformations.index'));
-        
     }
 
     /**
@@ -75,7 +74,7 @@ class MemoController extends AppBaseController
 
         Flash::success('Memo saved successfully.');
 
-        return redirect(route('memos.create', [ 'id' => $memo->personal_informations_id ]));
+        return redirect(route('memos.create', ['id' => $memo->personal_informations_id]));
     }
 
     /**
@@ -140,7 +139,7 @@ class MemoController extends AppBaseController
 
         Flash::success('Memo updated successfully.');
 
-        return redirect(route('memos.create', [ 'id' => $memo->personal_informations_id ]));
+        return redirect(route('memos.create', ['id' => $memo->personal_informations_id]));
     }
 
     /**
@@ -152,29 +151,17 @@ class MemoController extends AppBaseController
      */
     public function destroy($id)
     {
-       
-        try{
-            
-            $this->memoRepository->find($id)->forcedelete();
 
+        try {
+            $memo = $this->memoRepository->find($id);
+            $personalInformationId = $memo->personal_informations_id;
+            $memo->forcedelete();
             Flash::success('Memo deleted successfully.');
-
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+        } catch (\Illuminate\Database\QueryException $ex) {
             Flash::error('The Memo can not be deleted. Probably it\'s been used by other entity');
-            
-             }
-        finally{
-            return redirect(route('memos.create', [ 'id' => $memo->personal_informations_id ])); 
-
-        }     
-
-        
-
-        
+        } finally {
+            return redirect(route('memos.create', ['id' => $personalInformationId]));
+        }
     }
 
     /**
@@ -190,6 +177,5 @@ class MemoController extends AppBaseController
             ->addColumn('action', 'memos.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-    
     }
 }

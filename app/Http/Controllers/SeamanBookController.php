@@ -19,8 +19,8 @@ class SeamanBookController extends AppBaseController
 {
     /** @var  SeamanBookRepository */
     private $seamanBookRepository;
-     /** @var  PersonalInformationRepository */
-     private $personalInformationRepo;
+    /** @var  PersonalInformationRepository */
+    private $personalInformationRepo;
 
     public function __construct(SeamanBookRepository $seamanBookRepo, PersonalInformationRepository $personalInformationRepo)
     {
@@ -46,12 +46,12 @@ class SeamanBookController extends AppBaseController
      */
     public function create(Request $request)
     {
-        
-        if(isset($request->id) && !empty($request->id)) {
+
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepo->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
+            if (!empty($personalInformation)) {
                 return view('seaman_books.create')->with('personalInformation', $personalInformation);
             }
         }
@@ -75,8 +75,8 @@ class SeamanBookController extends AppBaseController
 
         Flash::success('Seaman Book saved successfully.');
 
-        
-        return redirect(route('seamanBooks.create', [ 'id' => $seamanBook->personal_informations_id ]));
+
+        return redirect(route('seamanBooks.create', ['id' => $seamanBook->personal_informations_id]));
     }
 
     /**
@@ -116,7 +116,7 @@ class SeamanBookController extends AppBaseController
             return redirect(route('seamanBooks.index'));
         }
 
-        
+
         return view('seaman_books.edit')->with(['seamanBook' => $seamanBook, 'personalInformation' => $seamanBook->personalInformation]);
     }
 
@@ -142,8 +142,8 @@ class SeamanBookController extends AppBaseController
 
         Flash::success('Seaman Book updated successfully.');
 
-        
-        return redirect(route('seamanBooks.create', [ 'id' => $seamanBook->personal_informations_id ]));
+
+        return redirect(route('seamanBooks.create', ['id' => $seamanBook->personal_informations_id]));
     }
 
     /**
@@ -155,32 +155,19 @@ class SeamanBookController extends AppBaseController
      */
     public function destroy($id)
     {
-        
-
-        try{
-            
-            $this->seamanBookRepository->find($id)->forcedelete();
-
+        try {
+            $seamanBook = $this->seamanBookRepository->find($id);
+            $personalInformationId = $seamanBook->personal_information_id;
+            $seamanBook->forcedelete();
             Flash::success('Seaman Book deleted successfully.');
-    
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+        } catch (\Illuminate\Database\QueryException $ex) {
             Flash::error('The Seaman Book can not be deleted. Probably it\'s been used by other entity');
-            
-             }
-        finally{
-            return redirect(route('seamanBooks.create', ['id' => $seamanBook->personal_informations_id]));
-
-        }     
-
-       
-        
+        } finally {
+            return redirect(route('seamanBooks.create', ['id' => $personalInformationId]));
+        }
     }
 
-      /**
+    /**
      * Return JSON with listing of the Seaman Book belong to PersonalInformation.
      *
      * @param integer $personal_informations_id
@@ -193,6 +180,5 @@ class SeamanBookController extends AppBaseController
             ->addColumn('action', 'seaman_books.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-    
     }
 }

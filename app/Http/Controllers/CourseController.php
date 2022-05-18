@@ -44,11 +44,11 @@ class CourseController extends AppBaseController
      */
     public function create(Request $request)
     {
-        if(isset($request->id) && !empty($request->id)) {
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepo->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
+            if (!empty($personalInformation)) {
                 return view('courses.create')->with('personalInformation', $personalInformation);
             }
         }
@@ -72,7 +72,7 @@ class CourseController extends AppBaseController
 
         Flash::success('Course saved successfully.');
 
-        return redirect(route('courses.create', [ 'id' => $course->personal_informations_id ]));
+        return redirect(route('courses.create', ['id' => $course->personal_informations_id]));
     }
 
     /**
@@ -134,7 +134,7 @@ class CourseController extends AppBaseController
 
         $course = $this->courseRepository->update($request->all(), $id);
         Flash::success('Course updated successfully.');
-        return redirect(route('courses.create', [ 'id' => $course->personal_informations_id ]));
+        return redirect(route('courses.create', ['id' => $course->personal_informations_id]));
     }
 
     /**
@@ -146,28 +146,20 @@ class CourseController extends AppBaseController
      */
     public function destroy($id)
     {
-
-
-        try{
-        $this->courseRepository->find($id)->forcedelete();
-
-        Flash::success('Course deleted successfully.');
-        }
-        catch(\Illuminate\Database\QueryException $ex){
-
-
+        try {
+            $course = $this->courseRepository->find($id);
+            $personalInformationId = $course->personal_informations_id;
+            $course->forcedelete();
+            Flash::success('Course deleted successfully.');
+        } catch (\Illuminate\Database\QueryException $ex) {
             Flash::error('The course can not be deleted. Probably it\'s been used by other entity');
+        } finally {
 
+            return redirect(route('courses.create', ['id' => $personalInformationId]));
         }
-        finally{
-
-            return redirect(route('courses.create', [ 'id' => $course->personal_informations_id ]));
-
-        }
-
     }
 
-     /**
+    /**
      * Return JSON with listing of the Courses belong to PersonalInformation.
      *
      * @param integer $personal_informations_id
@@ -176,12 +168,11 @@ class CourseController extends AppBaseController
     public function getPersonalInformationCourse($id)
     {
         $courseModel = $this->courseRepository->model();
-        return Datatables::of($courseModel::with(['country', 'courseNumber'])->whereHas('courseNumber', function($q) {
+        return Datatables::of($courseModel::with(['country', 'courseNumber'])->whereHas('courseNumber', function ($q) {
             $q->whereNull('deleted_at');
         })->where(['personal_informations_id' => $id])->get())
             ->addColumn('action', 'courses.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-
     }
 }

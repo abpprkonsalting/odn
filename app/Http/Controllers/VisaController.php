@@ -142,28 +142,16 @@ class VisaController extends AppBaseController
      */
     public function destroy($id)
     {
-        
-
-        try{
-            
-            $this->visaRepository->find($id)->forcedelete();
+        try {
+            $visa = $this->visaRepository->find($id);
+            $personalInformationId = $visa->personalInformationId();
+            $visa->forcedelete();
             Flash::success('Visa deleted successfully.');
-
-    
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+        } catch (\Illuminate\Database\QueryException $ex) {
             Flash::error('The Visa can not be deleted. Probably it\'s been used by other entity');
-            
-             }
-        finally{
-            return redirect(route('visas.create', ['id' => $visa->personalInformationId()]));
-
-        }     
-      
-        
+        } finally {
+            return redirect(route('visas.create', ['id' => $personalInformationId]));
+        }
     }
 
     public function getPersonalInformationVisa($id)
@@ -174,10 +162,10 @@ class VisaController extends AppBaseController
             return $dataTable->make(true);
         }
         $visaModel = $this->visaRepository->model();
-        $passportsIds = $passports->map(function($item,$key) {
+        $passportsIds = $passports->map(function ($item, $key) {
             return $item->id;
         });
-        return Datatables::of($visaModel::with(['visaType','country'])->whereIn('passports_id', [$passportsIds])->get())
+        return Datatables::of($visaModel::with(['visaType', 'country'])->whereIn('passports_id', [$passportsIds])->get())
             ->addColumn('action', 'visas.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);

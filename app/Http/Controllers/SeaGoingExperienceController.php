@@ -140,10 +140,9 @@ class SeaGoingExperienceController extends Controller
      */
     public function destroy($id)
     {
-
-        $seaGoingExperience = $this->seaGoingExperienceRepository->find($id);
-        $personalInformationId = $seaGoingExperience->personal_information_id;
         try {
+            $seaGoingExperience = $this->seaGoingExperienceRepository->find($id);
+            $personalInformationId = $seaGoingExperience->personal_information_id;
             $seaGoingExperience->forcedelete();
             Flash::success('SeaGoing Experience deleted successfully.');
 

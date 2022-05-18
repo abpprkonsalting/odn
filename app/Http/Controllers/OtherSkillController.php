@@ -45,12 +45,12 @@ class OtherSkillController extends AppBaseController
      */
     public function create(Request $request)
     {
-        if(isset($request->id) && !empty($request->id)) {
+        if (isset($request->id) && !empty($request->id)) {
             $personalInformationModel = $this->personalInformationRepository->model();
             $personalInformation = $personalInformationModel::find($request->id);
 
-            if(!empty($personalInformation)) {
-               
+            if (!empty($personalInformation)) {
+
                 return view('other_skills.create')->with('personalInformation', $personalInformation);
             }
         }
@@ -74,7 +74,7 @@ class OtherSkillController extends AppBaseController
 
         Flash::success('Other Skill saved successfully.');
 
-        
+
         return redirect(route('otherSkills.create', ['id' => $otherSkill->personal_informations_id]));
     }
 
@@ -115,7 +115,7 @@ class OtherSkillController extends AppBaseController
             return redirect(route('otherSkills.index'));
         }
 
-        
+
         return view('other_skills.edit')->with(['otherSkill' => $otherSkill, 'personalInformation' => $otherSkill->personalInformation]);
     }
 
@@ -141,7 +141,7 @@ class OtherSkillController extends AppBaseController
 
         Flash::success('Other Skill updated successfully.');
 
-        
+
         return redirect(route('otherSkills.create', ['id' => $otherSkill->personal_informations_id]));
     }
 
@@ -154,31 +154,16 @@ class OtherSkillController extends AppBaseController
      */
     public function destroy($id)
     {
-        
-
-        try{
-            
-            $this->otherSkillRepository->find($id)->forcedelete();
-
+        try {
+            $otherSkill = $this->otherSkillRepository->find($id);
+            $personalInformationId = $otherSkill->personal_informations_id;
+            $otherSkill->forcedelete();
             Flash::success('Other Skill deleted successfully.');
- 
-             }
-         catch(\Illuminate\Database\QueryException $ex){
-             
-     
+        } catch (\Illuminate\Database\QueryException $ex) {
             Flash::error('The Other Skill Information can not be deleted. Probably it\'s been used by other entity');
-            
-             }
-        finally {
-            return redirect(route('otherSkills.create', ['id' => $otherSkill->personal_informations_id]));
-
-
-        }    
-
-        
-
-       
-        return redirect(route('otherSkills.create', ['id' => $otherSkill->personal_informations_id]));
+        } finally {
+            return redirect(route('otherSkills.create', ['id' => $personalInformationId]));
+        }
     }
     public function getPersonalInformationSkill($id)
     {
@@ -187,6 +172,5 @@ class OtherSkillController extends AppBaseController
             ->addColumn('action', 'other_skills.datatables_actions')
             ->rawColumns(['action'])
             ->make(true);
-    
     }
 }
