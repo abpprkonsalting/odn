@@ -19,8 +19,6 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
 {
     private $currentTime;
     private $deadLine;
-    private $expiredRows = [];
-    private $startRow = 2;
 
     /**
      * @return \Illuminate\Support\Collection
@@ -63,7 +61,7 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
     private function nonValidPassports()
     {
         $passports = Passport::get();
-        $passports = $passports->filter(function ($passport, $key) {
+        $passports = $passports->filter(function ($passport) {
             if ($passport->expiry_extension_date != null) {
                 $expiryExtensionDate = Carbon::createFromFormat('d-m-Y', $passport->expiry_extension_date);
                 if ($expiryExtensionDate->lt($this->deadLine)) {
@@ -78,11 +76,10 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
             return false;
         });
         $passports = collect($passports->values());
-        $passports = $passports->map(function ($item, $key) {
+        return $passports->map(function ($item) {
             $passportEndDate = $item->expiry_extension_date != null ? $item->expiry_extension_date : $item->expiry_date;
             $endDate = Carbon::createFromFormat('d-m-Y', $passportEndDate);
             $toEndDate = $this->timeToEndDate($endDate, $this->currentTime);
-            if ($toEndDate['expired']) array_push($this->expiredRows, $key + $this->startRow);
             return [
                 'internal_file_number' => $item->personalInformation->internal_file_number,
                 'rank' => $item->personalInformation->highestRankCourseNumber()?->courseNumber->rank->name,
@@ -90,18 +87,16 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
                 'document_type' => 'passport',
                 'document_identification' => $item->no_passport,
                 'expiry_date' => $item->expiry_extension_date != null ? $item->expiry_extension_date : $item->expiry_date,
-                'days_to_expire' => $toEndDate['timeToEndDate'],
+                'days_to_expire' => $toEndDate,
                 'company' => $item->personalInformation->company?->company_name
             ];
         });
-        $this->startRow += $passports->count();
-        return $passports;
     }
 
     private function nonValidMedicalInformations(): \Illuminate\Support\Collection
     {
         $personalMedicalInformations = PersonalMedicalInformation::get();
-        $personalMedicalInformations = $personalMedicalInformations->filter(function ($item, $key) {
+        $personalMedicalInformations = $personalMedicalInformations->filter(function ($item) {
             if ($item->expiry_date != null) {
                 $expiryDate = Carbon::createFromFormat('d-m-Y', $item->expiry_date);
                 if ($expiryDate->lt($this->deadLine)) {
@@ -112,10 +107,9 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
             return false;
         });
         $personalMedicalInformations = collect($personalMedicalInformations->values());
-        $personalMedicalInformations = $personalMedicalInformations->map(function ($item, $key) {
+        return $personalMedicalInformations->map(function ($item) {
             $endDate = Carbon::createFromFormat('d-m-Y', $item->expiry_date);
             $toEndDate = $this->timeToEndDate($endDate, $this->currentTime);
-            if ($toEndDate['expired']) array_push($this->expiredRows, $key + $this->startRow);
             return [
                 'internal_file_number' => $item->personalInformation->internal_file_number,
                 'rank' => $item->personalInformation->highestRankCourseNumber()?->courseNumber->rank->name,
@@ -123,18 +117,16 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
                 'document_type' => 'medical information',
                 'document_identification' => $item->medicalInformation->name,
                 'expiry_date' => $item->expiry_date,
-                'days_to_expire' => $toEndDate['timeToEndDate'],
+                'days_to_expire' => $toEndDate,
                 'company' => $item->personalInformation->company?->company_name
             ];
         });
-        $this->startRow += $personalMedicalInformations->count();
-        return $personalMedicalInformations;
     }
 
     private function nonValidCourses(): \Illuminate\Support\Collection
     {
         $courses = Course::get();
-        $courses = $courses->filter(function ($item, $key) {
+        $courses = $courses->filter(function ($item) {
             if ($item->end_date != null) {
                 $expiryDate = Carbon::createFromFormat('d-m-Y', $item->end_date);
                 if ($expiryDate->lt($this->deadLine)) {
@@ -145,10 +137,9 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
             return false;
         });
         $courses = collect($courses->values());
-        $courses = $courses->map(function ($item, $key) {
+        return $courses->map(function ($item) {
             $endDate = Carbon::createFromFormat('d-m-Y', $item->end_date);
             $toEndDate = $this->timeToEndDate($endDate, $this->currentTime);
-            if ($toEndDate['expired']) array_push($this->expiredRows, $key + $this->startRow);
             return [
                 'internal_file_number' => $item->personalInformation->internal_file_number,
                 'rank' => $item->personalInformation->highestRankCourseNumber()?->courseNumber->rank->name,
@@ -156,18 +147,16 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
                 'document_type' => 'course',
                 'document_identification' => $item->courseNumber->name,
                 'expiry_date' => $item->end_date,
-                'days_to_expire' => $toEndDate['timeToEndDate'],
+                'days_to_expire' => $toEndDate,
                 'company' => $item->personalInformation->company?->company_name
             ];
         });
-        $this->startRow += $courses->count();
-        return $courses;
     }
 
     private function nonValidLicenseEndorsements(): \Illuminate\Support\Collection
     {
         $licenseEndorsements = LicenseEndorsement::get();
-        $licenseEndorsements = $licenseEndorsements->filter(function ($item, $key) {
+        $licenseEndorsements = $licenseEndorsements->filter(function ($item) {
             if ($item->expiry_date != null) {
                 $expiryDate = Carbon::createFromFormat('d-m-Y', $item->expiry_date);
                 if ($expiryDate->lt($this->deadLine)) {
@@ -178,10 +167,9 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
             return false;
         });
         $licenseEndorsements = collect($licenseEndorsements->values());
-        $licenseEndorsements = $licenseEndorsements->map(function ($item, $key) {
+        return $licenseEndorsements->map(function ($item) {
             $endDate = Carbon::createFromFormat('d-m-Y', $item->expiry_date);
             $toEndDate = $this->timeToEndDate($endDate, $this->currentTime);
-            if ($toEndDate['expired']) array_push($this->expiredRows, $key + $this->startRow);
             return [
                 'internal_file_number' => $item->personalInformation->internal_file_number,
                 'rank' => $item->personalInformation->highestRankCourseNumber()?->courseNumber->rank->name,
@@ -189,18 +177,16 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
                 'document_type' => 'License',
                 'document_identification' => $item->licenseEndorsementName->name,
                 'expiry_date' => $item->expiry_date,
-                'days_to_expire' => $toEndDate['timeToEndDate'],
+                'days_to_expire' => $toEndDate,
                 'company' => $item->personalInformation->company?->company_name
             ];
         });
-        $this->startRow += $licenseEndorsements->count();
-        return $licenseEndorsements;
     }
 
     private function nonValidSeamanBooks(): \Illuminate\Support\Collection
     {
         $seamanBooks = SeamanBook::get();
-        $seamanBooks = $seamanBooks->filter(function ($item, $key) {
+        $seamanBooks = $seamanBooks->filter(function ($item) {
             if ($item->expiry_date != null) {
                 $expiryDate = Carbon::createFromFormat('d-m-Y', $item->expiry_date);
                 if ($expiryDate->lt($this->deadLine)) {
@@ -211,10 +197,9 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
             return false;
         });
         $seamanBooks = collect($seamanBooks->values());
-        $seamanBooks = $seamanBooks->map(function ($item, $key) {
+        return $seamanBooks->map(function ($item) {
             $endDate = Carbon::createFromFormat('d-m-Y', $item->expiry_date);
             $toEndDate = $this->timeToEndDate($endDate, $this->currentTime);
-            if ($toEndDate['expired']) array_push($this->expiredRows, $key + $this->startRow);
             return [
                 'internal_file_number' => $item->personalInformation->internal_file_number,
                 'rank' => $item->personalInformation->highestRankCourseNumber()?->courseNumber->rank->name,
@@ -222,12 +207,10 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
                 'document_type' => 'SeamanBook',
                 'document_identification' => $item->number,
                 'expiry_date' => $item->expiry_date,
-                'days_to_expire' => $toEndDate['timeToEndDate'],
+                'days_to_expire' => $toEndDate,
                 'company' => $item->personalInformation->company?->company_name
             ];
         });
-        $this->startRow += $seamanBooks->count();
-        return $seamanBooks;
     }
 
     private function timeToEndDate($endDate, $currentTime)
@@ -236,18 +219,12 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
         $beforePosition = strrpos($toEndDate, 'before');
         if ($beforePosition !== false) {
             $toEndDate = "- " . str_replace(' before', '', $toEndDate);
-            return [
-                'expired' => true,
-                'timeToEndDate' => $toEndDate
-            ];
+            return $toEndDate;
         } else {
             $afterPosition = strrpos($toEndDate, 'after');
             if ($afterPosition !== false) {
                 $toEndDate = str_replace(' after', '', $toEndDate);
-                return [
-                    'expired' => false,
-                    'timeToEndDate' => $toEndDate
-                ];
+                return $toEndDate;
             }
         }
     }
@@ -271,14 +248,6 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
             ->setFillType('solid')
             ->getStartColor()
             ->setRGB('CCCCCC');
-        // if (!empty($this->expiredRows)) {
-        //     foreach ($this->expiredRows as $key => $value) {
-        //         $cell = 'F' . $value;
-        //         $this->setRedCell($sheet, $cell);
-        //         $cell = 'G' . $value;
-        //         $this->setRedCell($sheet, $cell);
-        //     }
-        // }
         $conditional = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
         $conditional->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT);
         $conditional->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT);
@@ -293,18 +262,5 @@ class MailReportExport implements FromCollection, WithStyles, ShouldAutoSize
         $conditionalStyles = $sheet->getStyle('G')->getConditionalStyles();
         $conditionalStyles[] = $conditional;
         $sheet->getStyle('G')->setConditionalStyles($conditionalStyles);
-    }
-
-    private function setRedCell(Worksheet $sheet, $cell)
-    {
-        $sheet->getStyle($cell)
-            ->getFill()
-            ->setFillType('solid')
-            ->getStartColor()
-            ->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
-        $sheet->getStyle($cell)
-            ->getFont()
-            ->getColor()
-            ->setRGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
     }
 }
