@@ -96,6 +96,11 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'to' => [
+        'address' => env('MAIL_TO_ADDRESS', 'hello@example.com'),
+        'name' => env('MAIL_TO_NAME', 'Example'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings
@@ -114,5 +119,11 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+
+    'schedule' => [
+        'frecuency' => env('MAIL_SEND_FRECUENCY','weekly'),
+        'weekday' => env('MAIL_SEND_DAY',1),
+        'hour' => env('MAIL_SEND_HOUR','8:00')
+    ]
 
 ];
